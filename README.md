@@ -1,1 +1,1 @@
-# Team-PalPalHae-Dealight-Team-PalPalHae-Dealight-Front
+# Team-PalPalHae-Dealight-FE
