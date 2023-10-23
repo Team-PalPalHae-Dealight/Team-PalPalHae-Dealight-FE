@@ -1,1 +1,0 @@
-# Team-PalPalHae-Dealight-FE
