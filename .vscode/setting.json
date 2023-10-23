@@ -1,12 +1,11 @@
 {
-  "material-icon-theme.files.associations": {
+  "material-icon-theme.folders.associations": {
     "_components": "Components",
     "_constants": "Constant",
     "_hooks": "Hook",
-    "_service": "Api",
+    "_services": "Api",
     "_types": "Typescript",
     "_config": "Config",
-    "_storybooks": "Storybook",
-    "_styles": "Style"
+    "_storybooks": "Storybook"
   }
 }
