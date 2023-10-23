@@ -1,0 +1,12 @@
+{
+  "material-icon-theme.files.associations": {
+    "_components": "Components",
+    "_constants": "Constant",
+    "_hooks": "Hook",
+    "_service": "Api",
+    "_types": "Typescript",
+    "_config": "Config",
+    "_storybooks": "Storybook",
+    "_styles": "Style"
+  }
+}
