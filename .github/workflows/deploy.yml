@@ -2,7 +2,7 @@ name: Build and Publish storybook to GitHub Pages
 
 on:
   push:
-    branches: ["5-스토리북-관련-작업"]
+    branches: ["develop"]
 
 permissions:
   contents: read
