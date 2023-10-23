@@ -1,0 +1,20 @@
+name: Build and Publish storybook to GitHub Pages
+run-name: ${{ github.actor }}의 스토리북 배포
+
+on:
+  push:
+    branches:
+      - "5-스토리북-관련-작업"
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: bitovi/github-actions-storybook-to-github-pages@v1.0.0
+        with:
+          path: dist/storybook
