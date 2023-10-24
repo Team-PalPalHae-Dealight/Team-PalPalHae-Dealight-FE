@@ -1,5 +1,10 @@
-name: Storybook Deployment
-run-name: ${{ github.actor }}의 Pull Request 스토리북 배포
+name: Pull Request Deployment
+
+env:
+  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+run-name: ${{ github.actor }}의 Pull Request
 on:
   pull_request:
     branches:
@@ -19,7 +24,7 @@ jobs:
         id: cache
         uses: actions/cache@v3
         with:
-          path: "**/node_modules"
+          path: '**/node_modules'
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}-storybook
 
       - name: depedency install
@@ -36,4 +41,28 @@ jobs:
       - name: comment PR
         uses: thollander/actions-comment-pull-request@v1
         with:
-          message: "🚀storybook: ${{ steps.chromatic.outputs.storybookUrl }}"
+          message: '🚀storybook: ${{ steps.chromatic.outputs.storybookUrl }}'
+
+  Deploy-Preview:
+    runs-on: ubuntu-latest
+    environment:
+      name: Deploy-Preview
+      url: ${{ steps.deploy.outputs.url }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: npm
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
+      - name: Pull Vercel Environment Information
+        run: vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
+      - name: Build Project Artifacts
+        run: vercel build --token=${{ secrets.VERCEL_TOKEN }}
+      - id: deploy
+        run: echo "url=$(vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }})" >> "$GITHUB_OUTPUT"
+      - name: comment PR
+        uses: thollander/actions-comment-pull-request@v1
+        with:
+          message: '🚀preview: ${{ steps.deploy.outputs.url }}'
