@@ -37,7 +37,7 @@ const Footer = () => {
           />
         }
         labelName={'마이페이지'}
-        to={'/mypage'}
+        to={'/myPage'}
       />
     </div>
   );
