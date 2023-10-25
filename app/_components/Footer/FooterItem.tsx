@@ -1,9 +1,9 @@
 'use client';
 import { useRouter } from 'next/navigation';
-import { ReactElement } from 'react';
+import { ReactNode } from 'react';
 
 type FooterItemPropType = {
-  iconPath: ReactElement;
+  iconPath: ReactNode;
   labelName: string;
   to: string;
 };
