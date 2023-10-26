@@ -1,35 +1,28 @@
-'use client';
-import { useRouter } from 'next/navigation';
-import { ReactNode } from 'react';
+import Link from 'next/link';
+import Order from './assets/order.svg';
+import Home from './assets/home.svg';
+import MyPage from './assets/mypage.svg';
 
 type FooterItemPropType = {
-  iconPath: ReactNode;
+  icon: string;
   labelName: string;
   to: string;
 };
 
-const FooterItem = ({ iconPath, labelName, to }: FooterItemPropType) => {
-  const router = useRouter();
-
+const FooterItem = ({ icon, labelName, to }: FooterItemPropType) => {
   return (
-    <div
-      className="group flex cursor-pointer flex-col items-center justify-center"
-      onClick={() => router.push(to)}
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        strokeWidth="1.5"
-        stroke="#7D7D7D"
-        className="h-6 w-full group-hover:stroke-[#FFE429]"
-      >
-        {iconPath}
-      </svg>
-      <label className="cursor-pointer group-hover:text-[#FFE429]">
-        {labelName}
-      </label>
-    </div>
+    <Link href={to}>
+      <div className="flex flex-col items-center justify-center text-[#7D7D7D] hover:text-[#FFE429]">
+        {icon === 'Order' ? (
+          <Order className="h-6 w-6" />
+        ) : icon === 'Home' ? (
+          <Home className="h-6 w-6" />
+        ) : icon === 'MyPage' ? (
+          <MyPage className="h-6 w-6" />
+        ) : null}
+        <label>{labelName}</label>
+      </div>
+    </Link>
   );
 };
 
