@@ -15,9 +15,6 @@ const config: StorybookConfig = {
   docs: {
     autodocs: 'tag',
   },
-  staticDirs:
-    process.env.NODE_ENV === 'production'
-      ? [{ from: '../public', to: '/public' }]
-      : ['../public'],
+  staticDirs: ['../public', '../app/_assets'],
 };
 export default config;
