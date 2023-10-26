@@ -1,32 +1,31 @@
-const PAGE_ROUTE = {
-  CUSTOMER: {
-    HOME: {
-      CART: (id: string) => `custumer/home/cart/${id}`,
-      ORDER_RESULT: (id: string) => `custumer/home/order-result/${id}`,
-      LOGIN: 'custumer/home/login',
-      MY_PAGE: (id: string) => `custumer/home/my-page/${id}`,
-      ORDER_DETAIL: (id: string) => `custumer/home/order-detail/${id}`,
-      ORDER_LIST: (id: string) => `custumer/home/order-list/${id}`,
-      PRODUCT_DETAIL: (id: string) => `custumer/home/product-detail/${id}`,
-      REVIEW: (id: string) => `custumer/home/review/${id}`,
-      SEARCH: (id: string) => `custumer/home/search/${id}`,
-      SIGNUP: 'custumer/home/signup',
-      STORE_DETAIL: (id: string) => `custumer/home/store-detail/${id}`,
-    },
+const pageRoute = {
+  custumer: {
+    cart: (id: string) => `custumer/cart/${id}`,
+    home: () => `custumer/home`,
+    login: () => 'custumer/login',
+    mypage: (id: string) => `custumer/my-page/${id}`,
+    orderDetail: (id: string) => `custumer/order-detail/${id}`,
+    orderList: (id: string) => `custumer/order-list/${id}`,
+    orderProduct: (id: string) => `custumer/order-product/${id}`,
+    orderResult: (id: string) => `custumer/ order-result/${id}`,
+    review: (id: string) => `custumer/review/${id}`,
+    reviewWrite: (id: string) => `custumer/review-write/${id}`,
+    search: (id: string) => `custumer/search/${id}`,
+    signUp: () => 'custumer/sign-up',
+    storeDetail: (id: string) => `custumer/store-detail/${id}`,
   },
-  STORE: {
-    HOME: {
-      REGISTER_PRODUCT: 'store/home/register-product',
-      EDIT_PRODUCT: (id: string) => `store/home/edit-product/${id}`,
-      MY_PAGE: (id: string) => `store/home/my-page/${id}`,
-      ORDER_DETAIL: (id: string) => `store/home/order-detail/${id}`,
-      ORDER_LIST: (id: string) => `store/home/order-list/${id}`,
-      PREVIEW: (id: string) => `store/home/preview/${id}`,
-      PRODUCT_DETAIL: (id: string) => `store/home/product-detail/${id}`,
-    },
-    LOGIN: 'store/login',
-    SIGNUP: 'store/signup',
+  store: {
+    editProduct: (id: string) => `store/edit-product/${id}`,
+    home: () => `store/home`,
+    login: () => `store/login`,
+    myPage: (id: string) => `store/my-page/${id}`,
+    orderDetail: (id: string) => `store/order-detail/${id}`,
+    orderList: (id: string) => `store/order-list/${id}`,
+    productDetail: (id: string) => `store/product-detail/${id}`,
+    registerProduct: () => 'store/register-product',
+    signUp: () => 'store/sign-up',
+    storeManage: (id: string) => `store/store-manage/${id}`,
   },
 };
 
-export default PAGE_ROUTE;
+export default pageRoute;
