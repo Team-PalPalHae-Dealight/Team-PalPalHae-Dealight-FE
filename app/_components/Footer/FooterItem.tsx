@@ -20,7 +20,7 @@ const FooterItem = ({ icon, labelName, to }: FooterItemPropType) => {
         ) : icon === 'MyPage' ? (
           <MyPage className="h-6 w-6" />
         ) : null}
-        <label>{labelName}</label>
+        <label className="cursor-pointer">{labelName}</label>
       </div>
     </Link>
   );
