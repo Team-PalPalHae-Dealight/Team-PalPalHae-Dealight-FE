@@ -15,14 +15,14 @@ const PrimaryButton = ({
   onClick,
 }: PrimaryButtonPropType) => {
   const { width, height } = {
-    width: size === 'large' ? '80' : '44',
-    height: size === 'large' ? '12' : '10',
+    width: size === 'large' ? 'w-80' : 'w-44',
+    height: size === 'large' ? 'h-12' : 'h-10',
   };
 
   return (
     <Link href={to}>
       <button
-        className={`h-${height} w-${width} rounded-md bg-[#FFE429] text-[black]`}
+        className={`${width} ${height} rounded-md bg-[#FFE429] text-[black]`}
         onClick={onClick}
         style={{ boxShadow: '0px 0px 4px 0px rgb(0, 0, 0, 0.1)' }}
       >
