@@ -24,7 +24,7 @@ export const Large: Story = {
 
 export const Small: Story = {
   render: () => (
-    <div className="fixed left-4 top-4">
+    <div className="fixed left-5 top-5">
       <PrimaryButton
         size="small"
         to="/"
