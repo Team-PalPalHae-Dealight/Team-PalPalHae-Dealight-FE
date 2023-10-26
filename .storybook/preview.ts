@@ -13,6 +13,19 @@ const preview: Preview = {
     nextjs: {
       appDirectory: true,
     },
+    layout: 'fullscreen',
+    viewport: {
+      viewports: {
+        mobile: {
+          name: 'iPhone 12 Pro',
+          styles: {
+            width: '390px',
+            height: '844px',
+          },
+          type: 'mobile',
+        },
+      },
+    },
   },
 };
 

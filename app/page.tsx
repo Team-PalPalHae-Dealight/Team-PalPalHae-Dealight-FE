@@ -1,12 +1,13 @@
-import Footer from './_components/Footer/Footer';
+/**
+ * @todo 주요 색상(노란색) 추후에 primary로 변경 예정
+ */
+
+import StartLink from './_components/main-temp/_components/StartLink';
 
 export default function Home() {
-  return (
-    <>
-      <main className="flex min-h-screen flex-col items-center justify-between p-24">
-        배포 테스트
-      </main>
-      <Footer />
-    </>
-  );
+	return (
+		<main>
+			<StartLink />
+		</main>
+	);
 }
