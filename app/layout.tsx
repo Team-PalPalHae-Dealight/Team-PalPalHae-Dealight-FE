@@ -15,6 +15,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${pretendardRegular.className}`}>{children}</body>
-    </html>
+    </html
   )
 }
