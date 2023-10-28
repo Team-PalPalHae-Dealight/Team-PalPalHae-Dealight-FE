@@ -13,7 +13,6 @@ export const Large: Story = {
   render: () => (
     <div className="fixed left-5 top-5">
       <PrimaryButton
-        to="/"
         size="large"
         onClick={() => console.log('clicked')}
         buttonText="버튼"
@@ -27,7 +26,6 @@ export const Small: Story = {
     <div className="fixed left-5 top-5">
       <PrimaryButton
         size="small"
-        to="/"
         buttonText="버튼"
         onClick={() => console.log('clicked')}
       />

@@ -1,34 +1,29 @@
-import Link from 'next/link';
 import React from 'react';
 
-type PrimaryButtonPropType = {
-  to: string;
-  size: string;
+type PrimaryButtonPropsType = {
+  size: 'large' | 'small';
   buttonText: string;
   onClick: React.MouseEventHandler<HTMLButtonElement>;
 };
 
 const PrimaryButton = ({
-  to,
   size,
   buttonText,
   onClick,
-}: PrimaryButtonPropType) => {
-  const { width, height } = {
-    width: size === 'large' ? 'w-80' : 'w-44',
-    height: size === 'large' ? 'h-12' : 'h-10',
+}: PrimaryButtonPropsType) => {
+  const primaryButtonSizes = {
+    large: 'w-80 h-12',
+    small: 'w-44 h-10',
   };
 
   return (
-    <Link href={to}>
-      <button
-        className={`${width} ${height} rounded-md bg-[#FFE429] text-[black]`}
-        onClick={onClick}
-        style={{ boxShadow: '0px 0px 4px 0px rgb(0, 0, 0, 0.1)' }}
-      >
-        {buttonText}
-      </button>
-    </Link>
+    <button
+      className={`${primaryButtonSizes[size]} rounded-md bg-[#FFE429] text-[black]`}
+      onClick={onClick}
+      style={{ boxShadow: '0px 0px 4px 0px rgb(0, 0, 0, 0.1)' }}
+    >
+      {buttonText}
+    </button>
   );
 };
 
