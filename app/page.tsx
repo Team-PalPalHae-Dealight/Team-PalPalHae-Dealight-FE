@@ -5,9 +5,9 @@
 import StartLink from './_components/main-temp/_components/StartLink';
 
 export default function Home() {
-	return (
-		<main>
-			<StartLink />
-		</main>
-	);
+  return (
+    <main>
+      <StartLink />
+    </main>
+  );
 }
