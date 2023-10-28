@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build -o build/storybook"
+    "build-storybook": "storybook build -o build/storybook",
+    "prepare": "husky install"
   },
   "dependencies": {
     "next": "13.5.6",
