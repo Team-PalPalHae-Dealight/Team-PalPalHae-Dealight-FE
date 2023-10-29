@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import pretendardRegular from './_constants/font';
+import { MSWComponent } from '@/public/mocks/MSWComponent';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -14,7 +15,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${pretendardRegular.className}`}>{children}</body>
+      <body className={`${pretendardRegular.className}`}>
+        <MSWComponent>{children}</MSWComponent>
+      </body>
     </html>
   );
 }

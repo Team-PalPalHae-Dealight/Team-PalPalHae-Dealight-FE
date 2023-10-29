@@ -1,0 +1,23 @@
+{
+  "Storybook Snippet": {
+    "prefix": "offStory",
+    "body": [
+      "import type { Meta, StoryObj } from '@storybook/react';",
+      "import ${1:${TM_FILENAME/(.*).stories.[t|j]sx/${1}/}} from './${1:${TM_FILENAME/(.*).stories.[t|j]sx/${1}/}}';"
+      "",    
+      "const meta: Meta<typeof ${1:${TM_FILENAME/(.*).stories.[t|j]sx/${1}/}}> = {",
+      "  title: 'Components/${1:${TM_FILENAME/(.*).stories.[t|j]sx/${1}/}}',",
+      "  component: ${1:${TM_FILENAME/(.*).stories.[t|j]sx/${1}/}},",
+      "};",
+      "",
+      "export default meta;",
+      "type Story = StoryObj<typeof ${1:${TM_FILENAME/(.*).stories.[t|j]sx/${1}/}}>;",
+      "",
+      "export const Primary: Story = {",
+      "  render: () => <${1:${TM_FILENAME/(.*).stories.[t|j]sx/${1}/}} />,",
+      "};",
+      "",
+    ],
+    "description": "기본 스토리북 스니펫"
+  }
+}
