@@ -12,7 +12,7 @@ type FooterItemPropType = {
 const FooterItem = ({ icon, labelName, to }: FooterItemPropType) => {
   return (
     <Link href={to}>
-      <div className="flex flex-col items-center justify-center text-[#7D7D7D] hover:text-[#FFE429]">
+      <div className="flex flex-col items-center justify-center text-dark-gray">
         {icon === 'Order' ? (
           <Order className="h-6 w-6" />
         ) : icon === 'Home' ? (
