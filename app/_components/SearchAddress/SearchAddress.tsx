@@ -1,25 +1,12 @@
-import React from 'react';
-import DaumPostcode from 'react-daum-postcode';
+import DaumPostcode, { Address } from 'react-daum-postcode';
 
-// eslint-disable-next-line
-const Postcode = (props: any) => {
-  // eslint-disable-next-line
-  const handleComplete = (data: any) => {
-    let fullAddress = data.address;
-    let extraAddress = '';
+type propsType = {
+  getAddress: (address: string) => void;
+};
 
-    if (data.addressType === 'R') {
-      if (data.bname !== '') {
-        extraAddress += data.bname;
-      }
-      if (data.buildingName !== '') {
-        extraAddress +=
-          extraAddress !== '' ? `, ${data.buildingName}` : data.buildingName;
-      }
-      fullAddress += extraAddress !== '' ? ` (${extraAddress})` : '';
-    }
-
-    props.setAdress(fullAddress);
+const SearchAddress = ({ getAddress }: propsType) => {
+  const handleComplete = (data: Address) => {
+    getAddress(data.address);
 
     /**
      * @todo 위도 경도 구하는 작업 연결
@@ -28,12 +15,12 @@ const Postcode = (props: any) => {
 
   return (
     <DaumPostcode
-      className="fixed left-0 top-0 h-screen w-full"
+      className="fixed left-0 top-0"
+      style={{ width: '100vw', height: '100vh' }}
       autoClose
       onComplete={handleComplete}
-      {...props}
     />
   );
 };
 
-export default Postcode;
+export default SearchAddress;
