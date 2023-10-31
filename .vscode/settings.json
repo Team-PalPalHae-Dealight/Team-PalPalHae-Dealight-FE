@@ -1,11 +1,12 @@
 {
-	"material-icon-theme.folders.associations": {
-		"_components": "Components",
-		"_constants": "Constant",
-		"_hooks": "Hook",
-		"_services": "Api",
-		"_types": "Typescript",
-		"_config": "Config",
-		"_storybooks": "Storybook"
-	}
+  "material-icon-theme.folders.associations": {
+    "_components": "Components",
+    "_constants": "Constant",
+    "_hooks": "Hook",
+    "_services": "Api",
+    "_types": "Typescript",
+    "_config": "Config",
+    "_storybooks": "Storybook"
+  },
+  "tailwindCSS.classAttributes": ["class", "className", "ngClass", ".*Styles*"]
 }
