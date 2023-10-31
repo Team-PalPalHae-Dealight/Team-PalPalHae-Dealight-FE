@@ -11,14 +11,14 @@ const PrimaryButton = ({
   buttonText,
   onClick,
 }: PrimaryButtonPropsType) => {
-  const primaryButtonSizes = {
+  const primaryButtonSizesStyles = {
     large: 'w-80 h-12',
     small: 'w-44 h-10',
   };
 
   return (
     <button
-      className={`${primaryButtonSizes[size]} rounded-md bg-yellow text-base text-black`}
+      className={`${primaryButtonSizesStyles[size]} rounded-md bg-yellow text-base text-black`}
       onClick={onClick}
       style={{ boxShadow: '0px 0px 4px 0px rgb(0, 0, 0, 0.1)' }}
     >
