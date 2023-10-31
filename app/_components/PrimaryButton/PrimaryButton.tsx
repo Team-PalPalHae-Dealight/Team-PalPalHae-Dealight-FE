@@ -18,7 +18,7 @@ const PrimaryButton = ({
 
   return (
     <button
-      className={`${primaryButtonSizes[size]} rounded-md bg-yellow text-black`}
+      className={`${primaryButtonSizes[size]} rounded-md bg-yellow text-base text-black`}
       onClick={onClick}
       style={{ boxShadow: '0px 0px 4px 0px rgb(0, 0, 0, 0.1)' }}
     >
