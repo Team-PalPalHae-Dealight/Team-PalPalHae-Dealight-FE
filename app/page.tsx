@@ -1,7 +1,7 @@
-import StartLink from './_components/main-temp/_components/StartLink';
+import StartLink from './_components/main-temp/StartLink';
 import Banner from './_assets/images/banner.png';
 import Image from 'next/image';
-import ServiceIntro from './_components/main-temp/_components/ServiceIntro';
+import ServiceIntro from './_components/main-temp/ServiceIntro';
 
 export default function Home() {
   return (
