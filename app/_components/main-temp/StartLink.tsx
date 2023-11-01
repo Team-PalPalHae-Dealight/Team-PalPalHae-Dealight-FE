@@ -6,10 +6,6 @@ import ShopMain from '../../_assets/images/shop-main.png';
 import UserMain from '../../_assets/images/user-main.png';
 import pageRoute from '@/app/_constants/route';
 
-/**
- * @todo 라우팅 관련 네이밍 정해지면 href 변경
- */
-
 const StartLink = () => {
   return (
     <div className="mt-2.5 flex w-full gap-2">
