@@ -2,7 +2,7 @@ import { useCallback, useEffect } from 'react';
 
 type UseGetCurrentMarkerPropsType = {
   currentPosition: { lat: number; lng: number; title: string };
-  map: object;
+  map: React.ReactNode;
   onClickCurrentPosition?: () => void;
 };
 

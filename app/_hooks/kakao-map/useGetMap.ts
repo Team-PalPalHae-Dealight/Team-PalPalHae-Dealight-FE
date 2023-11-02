@@ -7,7 +7,7 @@ const useGetMap = ({
   lng = 126.9786567,
   positionCount,
 }: UseGetMapPropsType) => {
-  const [map, setMap] = useState<object>();
+  const [map, setMap] = useState<React.ReactNode>();
 
   useEffect(() => {
     window.kakao.maps.load(() => {
@@ -21,7 +21,7 @@ const useGetMap = ({
     });
   }, [lat, lng, positionCount]);
 
-  return map as object;
+  return map;
 };
 
 export default useGetMap;

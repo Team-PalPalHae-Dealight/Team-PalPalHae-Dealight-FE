@@ -5,7 +5,7 @@ const IMAGE_MARKER_URL =
 
 type UseGetMarkerPropsType = {
   positions: { lat: number; lng: number; title: string }[];
-  map: object;
+  map: React.ReactNode;
   onClickPosition?: () => void;
 };
 
