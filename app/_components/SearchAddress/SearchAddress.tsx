@@ -7,10 +7,6 @@ type propsType = {
 const SearchAddress = ({ getAddress }: propsType) => {
   const handleComplete = (data: Address) => {
     getAddress(data.address);
-
-    /**
-     * @todo 위도 경도 구하는 작업 연결
-     */
   };
 
   return (
