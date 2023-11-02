@@ -14,9 +14,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={`${pretendardRegular.className}`}>
-        <MSWComponent>{children}</MSWComponent>
+    <html lang="ko">
+      <body className={`${pretendardRegular.className} bg-gray`}>
+        <div className="mx-auto min-h-screen max-w-[375px]">
+          <MSWComponent>{children}</MSWComponent>
+        </div>
       </body>
     </html>
   );
