@@ -5,7 +5,7 @@ type propsType = {
   getAddress: (address: string) => void;
 } & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
-const AddressButton = ({ getAddress, children }: propsType) => {
+const AddressButton = ({ getAddress, children, className }: propsType) => {
   const [open, setOpen] = useState(false);
 
   const setData = (address: string) => {
@@ -15,7 +15,9 @@ const AddressButton = ({ getAddress, children }: propsType) => {
 
   return (
     <>
-      <button onClick={() => setOpen(prev => !prev)}>{children}</button>
+      <button className={className} onClick={() => setOpen(prev => !prev)}>
+        {children}
+      </button>
       {open && (
         <div>
           <SearchAddress getAddress={setData} />
