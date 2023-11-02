@@ -26,8 +26,8 @@ const useGetMarker = ({ positions, map }: UseGetMarkerPropsType) => {
         position: mapPosition,
         image: markerImage,
       });
+
       marker.setMap(map);
-      console.log(marker);
     });
   }, [map, positions]);
 };
