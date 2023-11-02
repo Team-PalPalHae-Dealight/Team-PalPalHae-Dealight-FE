@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 
 const IMAGE_MARKER_URL =
   'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png';
@@ -6,9 +6,20 @@ const IMAGE_MARKER_URL =
 type UseGetMarkerPropsType = {
   positions: { lat: number; lng: number; title: string }[];
   map: object;
+  onClickPosition?: () => void;
 };
 
-const useGetMarker = ({ positions, map }: UseGetMarkerPropsType) => {
+const useGetMarker = ({
+  positions,
+  map,
+  onClickPosition,
+}: UseGetMarkerPropsType) => {
+  const onClick = useCallback(() => {
+    if (onClickPosition) {
+      onClickPosition();
+    }
+  }, [onClickPosition]);
+
   useEffect(() => {
     if (map === undefined) return;
 
@@ -25,11 +36,18 @@ const useGetMarker = ({ positions, map }: UseGetMarkerPropsType) => {
         title,
         position: mapPosition,
         image: markerImage,
+        clickable: true,
       });
 
       marker.setMap(map);
+
+      window.kakao.maps.event.addListener(marker, 'click', onClick);
+
+      return () => {
+        window.kakao.maps.event.removeListener(marker, 'click', onClick);
+      };
     });
-  }, [map, positions]);
+  }, [map, positions, onClick]);
 };
 
 export default useGetMarker;

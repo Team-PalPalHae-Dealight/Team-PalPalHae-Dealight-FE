@@ -2,27 +2,37 @@
 
 import useGetMarker from '@/app/_hooks/kakao-map/useGetMarker';
 import useGetMap from '@/app/_hooks/kakao-map/useGetMap';
+import useGetCurrentMarker from '@/app/_hooks/kakao-map/useGetCurrentMarker';
 
 type KakaoMapPropsType = {
   width?: string;
   height?: string;
-  lat?: number;
-  lng?: number;
+  currentPosition?: { lat: number; lng: number; title: string };
   positions?: { lat: number; lng: number; title: string }[];
+  onClickCurrentPosition?: () => void;
+  onClickPosition?: () => void;
 };
 
 const KakaoMap = ({
   width = '100%',
   height = '140px',
-  lat = 33.450701,
-  lng = 126.570667,
-  positions = [
-    { lat: 33.450705, lng: 126.56956, title: '카카오' },
-    { lat: 33.450936, lng: 126.569477, title: '생태연못' },
-  ],
+  currentPosition = {
+    lat: 33.450701,
+    lng: 126.570667,
+    title: '현재 장소',
+  },
+  positions = [],
+  onClickCurrentPosition,
+  onClickPosition,
 }: KakaoMapPropsType) => {
-  const map = useGetMap({ lat, lng, positionCount: positions.length });
-  useGetMarker({ positions, map });
+  const map = useGetMap({
+    lat: currentPosition.lat,
+    lng: currentPosition.lng,
+    positionCount: positions.length,
+  });
+
+  useGetCurrentMarker({ currentPosition, map, onClickCurrentPosition });
+  useGetMarker({ positions, map, onClickPosition });
 
   return (
     <div className="w-full">
