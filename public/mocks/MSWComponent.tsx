@@ -12,11 +12,9 @@ export const MSWComponent = ({ children }: PropsWithChildren) => {
       if (isMockingMode) {
         const initMocks = await import('./index').then(res => res.initMocks);
         await initMocks();
-
         setMSWReady(true);
       }
     };
-
     if (!mswReady) {
       init();
     }
