@@ -1,27 +1,20 @@
-// import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
-// const useCoordinate = async (address: string) => {
-//   const [coordinate, setCoordinate] = useState([0, 0]);
+const useCoordinate = (address: string) => {
+  const [coords, setCoords] = useState([0, 0]);
 
-//   const url = `https://dapi.kakao.com/v2/local/search/address.json?query=${address}`;
+  useEffect(() => {
+    window.kakao.maps.load(() => {
+      const geocoder = new window.kakao.maps.services.Geocoder();
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      geocoder.addressSearch(address, function (result: any, status: any) {
+        if (status === window.kakao.maps.services.Status.OK) {
+          setCoords([Number(result[0].x), Number(result[0].y)]);
+        }
+      });
+    });
+  }, [address]);
+  return coords;
+};
 
-//   const mapInfo = await fetch(url, {
-//     method: 'GET',
-//     headers: {
-//       Authorization: `${process.env.KAKAO_MAP_KEY}`,
-//     },
-//   });
-
-//   //const latitude = mapInfo.data.documents[0].address.y;
-//   //const longitude = mapInfo.data.documents[0].address.x;
-
-//   console.log(mapInfo);
-//   //console.log(latitude);
-//   //console.log(longitude);
-
-//   //setCoordinate([longitude, latitude]);
-
-//   return coordinate;
-// };
-
-// export default useCoordinate;
+export default useCoordinate;
