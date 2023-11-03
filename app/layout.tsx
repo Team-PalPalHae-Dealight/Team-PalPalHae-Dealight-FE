@@ -2,6 +2,14 @@ import type { Metadata } from 'next';
 import './globals.css';
 import pretendardRegular from './_constants/font';
 import { MSWComponent } from '@/public/mocks/MSWComponent';
+import Script from 'next/script';
+
+declare global {
+  interface Window {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    kakao: any;
+  }
+}
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -15,6 +23,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko">
+      <Script
+        type="text/javascript"
+        src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.KAKAO_MAP_KEY}&autoload=false&libraries=services`}
+      />
       <body className={`${pretendardRegular.className} bg-gray`}>
         <div className="mx-auto min-h-screen max-w-[375px]">
           <MSWComponent>{children}</MSWComponent>
