@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-before-interactive-script-outside-document */
 import type { Metadata } from 'next';
 import './globals.css';
 import pretendardRegular from './_constants/font';
@@ -23,10 +24,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko">
-      <Script
-        type="text/javascript"
-        src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.KAKAO_MAP_KEY}&autoload=false&libraries=services`}
-      />
+      <head>
+        <Script
+          type="text/javascript"
+          src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_MAP_KEY}&autoload=false&libraries=services`}
+          strategy="beforeInteractive"
+        />
+      </head>
+
       <body className={`${pretendardRegular.className} bg-gray`}>
         <div className="mx-auto min-h-screen max-w-[375px]">
           <MSWComponent>{children}</MSWComponent>

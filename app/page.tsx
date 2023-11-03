@@ -7,6 +7,7 @@ export default function Home() {
   return (
     <main className="flex flex-col items-center px-5 pt-2.5">
       <Image src={Banner} priority alt="banner" />
+
       <StartLink />
       <ServiceIntro />
     </main>
