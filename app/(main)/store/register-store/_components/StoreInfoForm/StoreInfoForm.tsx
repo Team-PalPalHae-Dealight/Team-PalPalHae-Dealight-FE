@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import PrimaryButton from '@/app/_components/PrimaryButton/PrimaryButton';
 import ErrorText from '@/app/_components/ErrorText/ErrorText';
@@ -11,6 +11,7 @@ import {
   validationStorePhone,
 } from '../../_constants/validation';
 import pageRoute from '@/app/_constants/route';
+import AddressButton from '@/app/_components/AddressButton/AddressButton';
 
 const StoreInfoForm = () => {
   const [storeInfo, setStoreInfo] = useState({
@@ -30,10 +31,24 @@ const StoreInfoForm = () => {
       currentTarget: { name, value },
     } = event;
     setStoreInfo({ ...storeInfo, [name]: value });
-    console.log(storeInfo);
   };
 
+  // const handleAddressButton = (address: string) => {
+  //   console.log(address);
+  // };
+
   const handleButton = () => {
+    validationStoreName(storeInfo.storeName)
+      ? setError({ ...error, storeName: true })
+      : setError({ ...error, storeName: false });
+    console.log(validationStoreName(storeInfo.storeName));
+    console.log(error);
+    validationStorePhone(storeInfo.storePhone)
+      ? setError({ ...error, ['storePhone']: true })
+      : setError({ ...error, ['storePhone']: false });
+    validationStoreAddress(storeInfo.storeAddress)
+      ? setError({ ...error, ['storeAddress']: true })
+      : setError({ ...error, ['storeAddress']: false });
     if (!error.storeName && !error.storePhone && !error.storeAddress) {
       localStorage.setItem('dealight-storeName', storeInfo.storeName);
       localStorage.setItem('dealight-storePhone', storeInfo.storePhone);
@@ -41,23 +56,6 @@ const StoreInfoForm = () => {
       router.push(pageRoute.store.registerStoreTime());
     }
   };
-
-  const isMounted = useRef(false);
-  useEffect(() => {
-    if (isMounted.current) {
-      validationStoreName(storeInfo.storeName)
-        ? setError({ ...error, ['storeName']: true })
-        : setError({ ...error, ['storeName']: false });
-      validationStorePhone(storeInfo.storePhone)
-        ? setError({ ...error, ['storePhone']: true })
-        : setError({ ...error, ['storePhone']: false });
-      validationStoreAddress(storeInfo.storeAddress)
-        ? setError({ ...error, ['storeAddress']: true })
-        : setError({ ...error, ['storeAddress']: false });
-    } else {
-      isMounted.current = true;
-    }
-  }, [storeInfo, error]);
 
   return (
     <>
@@ -90,7 +88,17 @@ const StoreInfoForm = () => {
         {error.storePhone && <ErrorText>{ERROR_MESSAGE.STORE_PHONE}</ErrorText>}
         <label className="mt-5 text-xs font-semibold">업체 주소</label>
         <div className="flex gap-x-2">
-          <div className="h-12 w-full rounded bg-white outline-none"></div>
+          <div className="h-12 w-full basis-3/4 rounded bg-white outline-none">
+            {storeInfo.storeAddress}
+          </div>
+          <>
+            <AddressButton
+              className="h-12 w-full basis-1/4 rounded bg-yellow"
+              getAddress={address => console.log(address)}
+            >
+              주소찾기
+            </AddressButton>
+          </>
         </div>
 
         {error.storeAddress && (

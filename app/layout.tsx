@@ -25,7 +25,7 @@ export default function RootLayout({
     <html lang="ko">
       <Script
         type="text/javascript"
-        src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.KAKAO_MAP_KEY}&autoload=false&libraries=services`}
+        src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_MAP_KEY}&autoload=false&libraries=services`}
       />
       <body className={`${pretendardRegular.className} bg-gray`}>
         <div className="mx-auto min-h-screen max-w-[375px]">
