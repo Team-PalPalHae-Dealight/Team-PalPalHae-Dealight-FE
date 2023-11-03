@@ -1,11 +1,15 @@
 import { useState } from 'react';
 import SearchAddress from '../SearchAddress/SearchAddress';
 
-type propsType = {
+type AddressButtonPropsType = {
   getAddress: (address: string) => void;
 } & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
-const AddressButton = ({ getAddress, children, className }: propsType) => {
+const AddressButton = ({
+  getAddress,
+  children,
+  className,
+}: AddressButtonPropsType) => {
   const [open, setOpen] = useState(false);
 
   const setData = (address: string) => {
