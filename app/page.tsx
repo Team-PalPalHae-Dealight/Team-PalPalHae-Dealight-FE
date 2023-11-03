@@ -71,6 +71,7 @@ export default function Home() {
   return (
     <main className="flex flex-col items-center px-5 pt-2.5">
       <Image src={Banner} priority alt="banner" />
+
       <StartLink />
       <ServiceIntro />
       <button onClick={onClickPost}>POST api 연결 테스트 버튼</button>
