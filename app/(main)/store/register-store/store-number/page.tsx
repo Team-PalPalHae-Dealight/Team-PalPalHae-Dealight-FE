@@ -1,6 +1,6 @@
 import StoreNumForm from '../_components/StoreNumForm/StoreNumForm';
 
-const RegisterStore = () => {
+const StoreNumber = () => {
   return (
     <main className="flex flex-col items-center px-5">
       <StoreNumForm />
@@ -8,4 +8,4 @@ const RegisterStore = () => {
   );
 };
 
-export default RegisterStore;
+export default StoreNumber;
