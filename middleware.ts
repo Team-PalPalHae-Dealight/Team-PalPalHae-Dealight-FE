@@ -1,54 +1,31 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
+
 const middleware = async (request: NextRequest) => {
+  const BASEURL = 'http://localhost:3001';
+
+  // const authHeader = request.headers.get('Authorization');
+  const accessToken = 1;
   try {
-    const accessToken = 1;
-    const refreshToken = 2;
-    switch (request.url.includes('/customer')) {
-      case request.url.includes('/cart'):
-        break;
-      case request.url.includes('/home'):
-        break;
-      case request.url.includes('/login'):
-        break;
-      case request.url.includes('/my-page'):
-        break;
-      case request.url.includes('/order-detail'):
-        break;
-      case request.url.includes('/order-list'):
-        break;
-      case request.url.includes('/order-product'):
-        break;
-      case request.url.includes('/order-result'):
-        break;
-      case request.url.includes('/review'):
-        break;
-      case request.url.includes('/review-write'):
-        break;
-      case request.url.includes('/search'):
-        break;
-      case request.url.includes('/sign-up'):
-        break;
-      case request.url.includes('/store-detail'):
-        break;
-    }
-    if (request.url.includes('/store')) {
-      if (refreshToken !== null && request.url.includes('/login'))
-        //로그인 하고 로그인 페이지 접근시
-        return NextResponse.redirect(new URL(request.url));
-      if (accessToken === null && refreshToken === null) {
-        return NextResponse.redirect(
-          new URL('http://localhost:3000/store/login')
-        );
-      } else if (accessToken === null && refreshToken !== null) {
-        //refresh token 전송
-        //받은 토큰 로컬 스토리지에 저장
-        //저장한 토큰 헤더에 담아서 전송
-      } else if (accessToken !== null && refreshToken !== null) {
-        //헤더에 토큰 담아서 전송
+    if (request.url.includes('/customer')) {
+      if (request.nextUrl.pathname === '/customer/login') {
+        if (accessToken === null) {
+          return NextResponse.next();
+        } else if (accessToken !== null) {
+          return NextResponse.redirect(new URL(BASEURL + '/customer/sign-up'));
+        }
+      }
+      if (request.url.includes('/sign-up') && accessToken !== null) {
+        return NextResponse.redirect(new URL(BASEURL + '/customer/home'));
+      }
+      if (!request.url.includes('/home') || !request.url.includes('/search')) {
+        if (accessToken === null) {
+          return NextResponse.redirect(new URL(BASEURL + '/customer/login'));
+        }
       }
     }
   } catch (error) {
+    //refresh token 처리?
     console.error(error);
   }
 };
