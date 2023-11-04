@@ -52,6 +52,7 @@ const StoreNumForm = () => {
                 className={`h-12 w-full rounded ${
                   formik.errors.storeNumber ? 'border-red' : 'border-yellow'
                 } bg-white pl-3 outline-none focus:border-2`}
+                placeholder="1007999997"
               />
               <ErrorMessage
                 name="storeNumber"
