@@ -1,5 +1,6 @@
-import pageRoute from '@/app/_constants/route';
 import Link from 'next/link';
+
+/** @todo link 업체 등록 페이지로 이동하는 route link로 바꾸기 */
 
 const RegisterModal = () => {
   return (
@@ -24,7 +25,7 @@ const RegisterModal = () => {
             가능합니다.
           </p>
         </div>
-        <Link href={pageRoute.store.login()}>
+        <Link href="/">
           <button className="h-20 w-full bg-yellow text-center text-lg font-semibold">
             업체 등록하기
           </button>
