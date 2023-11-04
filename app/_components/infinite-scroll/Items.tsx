@@ -1,10 +1,10 @@
 'use client';
 
-import { Item } from '@/app/_components/infinite-scroll/fetchData';
+import { ResponseItemType } from '@/app/_components/infinite-scroll/fetchData';
 import Link from 'next/link';
 
 export type ItemTypes = {
-  items: Item[] | null;
+  items: ResponseItemType[] | null;
 };
 
 const Items = ({ items }: ItemTypes) => {
@@ -16,7 +16,7 @@ const Items = ({ items }: ItemTypes) => {
           return (
             <Link key={item.id} href={'/asd'}>
               <div className="m-2 h-14 border-2 border-black">
-                <span>{item.title}</span>
+                <div>{item.id}</div>
               </div>
             </Link>
           );
