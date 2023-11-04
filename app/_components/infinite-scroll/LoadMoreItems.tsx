@@ -6,7 +6,7 @@ import { useInView } from 'react-intersection-observer';
 import Items from './Items';
 import Spinner from '../spinner/Spinner';
 
-const LoadMore = () => {
+const LoadMoreItems = () => {
   const [items, setItems] = useState<Item[]>([]);
   const [page, setPage] = useState(5);
   const [isLoading, setIsLoading] = useState(false);
@@ -27,7 +27,7 @@ const LoadMore = () => {
     if (newProducts.length === 0) setIsEnded(true);
 
     setItems((prevProducts: Item[]) => [...prevProducts, ...newProducts]);
-    setPage(page + 5);
+    setPage(prevPage => prevPage + 5);
     setIsLoading(false);
   }, [page]);
 
@@ -44,14 +44,10 @@ const LoadMore = () => {
         className="col-span-1 flex items-center justify-center p-4 sm:col-span-2 md:col-span-3"
         ref={ref}
       >
-        {isLoading && !isEnded ? (
-          <Spinner />
-        ) : (
-          <div>더 이상 상품이 존재하지 않습니다.</div>
-        )}
+        {isLoading && !isEnded ? <Spinner /> : <></>}
       </div>
     </>
   );
 };
 
-export default LoadMore;
+export default LoadMoreItems;
