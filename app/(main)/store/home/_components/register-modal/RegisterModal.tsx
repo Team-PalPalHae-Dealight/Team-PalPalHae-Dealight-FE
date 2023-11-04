@@ -1,4 +1,4 @@
-import pageRoute from '@/app/_constants/route';
+import pageRoute from '../../../../../_constants/route';
 import Link from 'next/link';
 
 /** @todo link 업체 등록 페이지로 이동하는 route link로 바꾸기 */
