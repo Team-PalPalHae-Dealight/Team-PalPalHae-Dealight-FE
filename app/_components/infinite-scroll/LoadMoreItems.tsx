@@ -39,13 +39,14 @@ const LoadMoreItems = ({ fetchData }: InfiniteListPropType) => {
     if (inView && !isEnded && !isLoading) {
       loadMoreItems();
     }
-
-    const scrollY = Number(sessionStorage.getItem('scrollY'));
-
-    if (scrollY) {
-      window.scrollTo({ left: 0, top: scrollY, behavior: 'smooth' });
-    }
   }, [inView, isEnded, loadMoreItems, isLoading]);
+
+  const scrollY = Number(sessionStorage.getItem('scrollY'));
+
+  if (scrollY) {
+    window.scrollTo({ left: 0, top: scrollY, behavior: 'smooth' });
+    if (scrollY === window.scrollY) sessionStorage.clear();
+  }
 
   return (
     <>
