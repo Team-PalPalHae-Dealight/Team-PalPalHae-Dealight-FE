@@ -4,9 +4,11 @@ import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { array, object, string } from 'yup';
 import { ERROR_MESSAGE } from '../../_constants/errorMessage';
 import PrimaryButton from '@/app/_components/PrimaryButton/PrimaryButton';
-import pageRoute from '@/app/_constants/route';
-import { useRouter } from 'next/navigation';
+//import pageRoute from '@/app/_constants/route';
+//import { useRouter } from 'next/navigation';
 import { timeList } from '../../_constants/time';
+import Notification from '@/app/_assets/images/notification.png';
+import Image from 'next/image';
 
 type initialValuesType = {
   storeOpenTime: string;
@@ -15,7 +17,7 @@ type initialValuesType = {
 };
 
 const StoreTimeForm = () => {
-  const router = useRouter();
+  //const router = useRouter();
 
   const initialValues = {
     storeOpenTime: '',
@@ -33,8 +35,12 @@ const StoreTimeForm = () => {
   const submitForm = (values: initialValuesType) => {
     localStorage.setItem('dealight-storeOpenTime', values.storeOpenTime);
     localStorage.setItem('dealight-storeCloseTime', values.storeCloseTime);
-    //localStorage.setItem('dealight-storeDayOff', values.storeDayOff);
-    router.push(pageRoute.store.home());
+    localStorage.setItem(
+      'dealight-storeDayOff',
+      JSON.stringify(values.storeDayOff)
+    ); // get으로 가져올 때에는 JSON.parse
+    /** @todo api res 값에 따라 라우팅 분기 처리 */
+    // router.push(pageRoute.store.home());
   };
 
   return (
@@ -98,15 +104,25 @@ const StoreTimeForm = () => {
                 </div>
               </div>
               <div className="mt-5 w-full">
-                <div className="mb-5 mt-5 text-xs font-semibold text-black">
+                <div className="mb-2 mt-5 text-xs font-semibold text-black">
                   휴무일
+                </div>
+                <div className="flex w-full">
+                  <Image
+                    className="h-3 w-3"
+                    src={Notification}
+                    alt="notification"
+                  />
+                  <p className="mb-2 text-xs text-dark-gray">
+                    (복수선택가능) 휴무일 설정은 매주를 기준으로 합니다.
+                  </p>
                 </div>
                 <div
                   role="group"
                   aria-labelledby="checkbox-group"
-                  className="grid w-full grid-flow-row grid-cols-4"
+                  className="grid w-full grid-flow-row grid-cols-4 gap-2.5"
                 >
-                  <div className="h-12 w-full">
+                  <div className="h-12 w-full bg-white">
                     <Field
                       type="checkbox"
                       name="storeDayOff"
@@ -116,12 +132,12 @@ const StoreTimeForm = () => {
                     />
                     <label
                       htmlFor="연중무휴"
-                      className="w-full bg-white py-6 peer-checked/연중무휴:bg-cyan"
+                      className="block h-12 w-full text-center text-xs leading-12 text-black peer-checked/연중무휴:bg-cyan/50"
                     >
                       연중무휴
                     </label>
                   </div>
-                  <div className="h-12 w-full">
+                  <div className="h-12 w-full bg-white">
                     <Field
                       type="checkbox"
                       name="storeDayOff"
@@ -131,12 +147,12 @@ const StoreTimeForm = () => {
                     />
                     <label
                       htmlFor="월요일"
-                      className="w-full bg-white py-6 peer-checked/월요일:bg-cyan"
+                      className="block h-12 w-full text-center text-xs leading-12 text-black peer-checked/월요일:bg-cyan/50"
                     >
                       월요일
                     </label>
                   </div>
-                  <div className="h-12 w-full">
+                  <div className="h-12 w-full bg-white">
                     <Field
                       type="checkbox"
                       name="storeDayOff"
@@ -146,12 +162,12 @@ const StoreTimeForm = () => {
                     />
                     <label
                       htmlFor="화요일"
-                      className="w-full bg-white py-6 peer-checked/화요일:bg-cyan"
+                      className="block h-12 w-full text-center text-xs leading-12 text-black peer-checked/화요일:bg-cyan/50"
                     >
                       화요일
                     </label>
                   </div>
-                  <div className="h-12 w-full">
+                  <div className="h-12 w-full bg-white">
                     <Field
                       type="checkbox"
                       name="storeDayOff"
@@ -161,12 +177,12 @@ const StoreTimeForm = () => {
                     />
                     <label
                       htmlFor="수요일"
-                      className="w-full bg-white py-6 peer-checked/수요일:bg-cyan"
+                      className="block h-12 w-full text-center text-xs leading-12 text-black peer-checked/수요일:bg-cyan/50"
                     >
                       수요일
                     </label>
                   </div>
-                  <div className="h-12 w-full">
+                  <div className="h-12 w-full bg-white">
                     <Field
                       type="checkbox"
                       name="storeDayOff"
@@ -176,12 +192,12 @@ const StoreTimeForm = () => {
                     />
                     <label
                       htmlFor="목요일"
-                      className="w-full bg-white py-6 peer-checked/목요일:bg-cyan"
+                      className="block h-12 w-full text-center text-xs leading-12 text-black peer-checked/목요일:bg-cyan/50"
                     >
                       목요일
                     </label>
                   </div>
-                  <div className="h-12 w-full">
+                  <div className="h-12 w-full bg-white">
                     <Field
                       type="checkbox"
                       name="storeDayOff"
@@ -191,12 +207,12 @@ const StoreTimeForm = () => {
                     />
                     <label
                       htmlFor="금요일"
-                      className="w-full bg-white py-6 peer-checked/금요일:bg-cyan"
+                      className="block h-12 w-full text-center text-xs leading-12 text-black peer-checked/금요일:bg-cyan/50"
                     >
                       금요일
                     </label>
                   </div>
-                  <div className="h-12 w-full">
+                  <div className="h-12 w-full bg-white">
                     <Field
                       type="checkbox"
                       name="storeDayOff"
@@ -206,12 +222,12 @@ const StoreTimeForm = () => {
                     />
                     <label
                       htmlFor="토요일"
-                      className="w-full bg-white py-6 peer-checked/토요일:bg-cyan"
+                      className="block h-12 w-full text-center text-xs leading-12 text-black peer-checked/토요일:bg-cyan/50"
                     >
                       토요일
                     </label>
                   </div>
-                  <div className="h-12 w-full">
+                  <div className="h-12 w-full bg-white">
                     <Field
                       type="checkbox"
                       name="storeDayOff"
@@ -221,7 +237,7 @@ const StoreTimeForm = () => {
                     />
                     <label
                       htmlFor="일요일"
-                      className="w-full bg-white py-6 peer-checked/일요일:bg-cyan"
+                      className="block h-12 w-full text-center text-xs leading-12 text-black peer-checked/일요일:bg-cyan/50"
                     >
                       일요일
                     </label>
