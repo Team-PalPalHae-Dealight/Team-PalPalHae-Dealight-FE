@@ -3,11 +3,11 @@
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { array, object, string } from 'yup';
 import { ERROR_MESSAGE } from '../../_constants/errorMessage';
-import PrimaryButton from '@/app/_components/PrimaryButton/PrimaryButton';
+import PrimaryButton from '../../../../../_components/PrimaryButton/PrimaryButton';
 //import pageRoute from '@/app/_constants/route';
 //import { useRouter } from 'next/navigation';
 import { timeList } from '../../_constants/time';
-import Notification from '@/app/_assets/images/notification.png';
+import Notification from '../../../../../_assets/images/notification.png';
 import Image from 'next/image';
 
 type initialValuesType = {

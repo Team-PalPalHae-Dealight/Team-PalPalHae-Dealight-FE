@@ -3,10 +3,10 @@
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { object, string } from 'yup';
 import { ERROR_MESSAGE } from '../../_constants/errorMessage';
-import PrimaryButton from '@/app/_components/PrimaryButton/PrimaryButton';
-import pageRoute from '@/app/_constants/route';
+import PrimaryButton from '../../../../../_components/PrimaryButton/PrimaryButton';
+import pageRoute from '../../../../../_constants/route';
 import { useRouter } from 'next/navigation';
-import AddressButton from '@/app/_components/AddressButton/AddressButton';
+import AddressButton from '../../../../../_components/AddressButton/AddressButton';
 import { useState } from 'react';
 
 type initialValuesType = {
