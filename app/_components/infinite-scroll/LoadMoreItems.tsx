@@ -1,6 +1,6 @@
 'use client';
 
-import { ResponseItemType } from '@/app/_components/infinite-scroll/fetchData';
+import { ResponseItemTypes } from '@/app/_components/infinite-scroll/fetchData';
 import { useEffect, useState, useCallback } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { InfiniteListPropType } from './InfiniteScrollList';
@@ -8,7 +8,7 @@ import Items from './Items';
 import Spinner from '../spinner/Spinner';
 
 const LoadMoreItems = ({ fetchData }: InfiniteListPropType) => {
-  const [items, setItems] = useState<ResponseItemType[]>([]);
+  const [items, setItems] = useState<ResponseItemTypes[]>([]);
   const [page, setPage] = useState(5);
   const [isLoading, setIsLoading] = useState(false);
   const [isEnded, setIsEnded] = useState(false);
@@ -27,7 +27,7 @@ const LoadMoreItems = ({ fetchData }: InfiniteListPropType) => {
 
     if (newProducts.length === 0) setIsEnded(true);
 
-    setItems((prevProducts: ResponseItemType[]) => [
+    setItems((prevProducts: ResponseItemTypes[]) => [
       ...prevProducts,
       ...newProducts,
     ]);

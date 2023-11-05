@@ -1,4 +1,4 @@
-export type ResponseItemType = {
+export type ResponseItemTypes = {
   userId: number;
   id: number;
   title: string;
@@ -12,7 +12,7 @@ const fetchData = async (page: number) => {
     const res = await fetch(url);
     const data = await res.json();
 
-    return data as ResponseItemType[];
+    return data as ResponseItemTypes[];
   } catch (error) {
     console.error('Error: ', error);
     return null;

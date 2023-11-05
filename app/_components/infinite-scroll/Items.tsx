@@ -1,10 +1,10 @@
 'use client';
 
-import { ResponseItemType } from '@/app/_components/infinite-scroll/fetchData';
+import { ResponseItemTypes } from '@/app/_components/infinite-scroll/fetchData';
 import Link from 'next/link';
 
 export type ItemTypes = {
-  items: ResponseItemType[] | null;
+  items: ResponseItemTypes[] | null;
 };
 
 const Items = ({ items }: ItemTypes) => {

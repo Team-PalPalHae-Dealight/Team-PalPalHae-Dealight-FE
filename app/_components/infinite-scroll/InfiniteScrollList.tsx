@@ -1,18 +1,18 @@
 import Items from './Items';
 import LoadMoreItems from './LoadMoreItems';
 import { useEffect, useState } from 'react';
-import { ResponseItemType } from './fetchData';
+import { ResponseItemTypes } from './fetchData';
 
 export type InfiniteListPropType = {
-  fetchData: (page: number) => Promise<ResponseItemType[] | null>;
+  fetchData: (page: number) => Promise<ResponseItemTypes[] | null>;
 };
 
 const InfiniteScrollList = ({ fetchData }: InfiniteListPropType) => {
-  const [items, setItems] = useState<ResponseItemType[]>([]);
+  const [items, setItems] = useState<ResponseItemTypes[]>([]);
 
   useEffect(() => {
     fetchData(0).then(res => {
-      if (res !== null) setItems(res);
+      if (res) setItems(res);
     });
   }, [fetchData]);
 
