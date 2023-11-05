@@ -7,7 +7,7 @@ import PrimaryButton from '../../../../../_components/PrimaryButton/PrimaryButto
 import pageRoute from '../../../../../_constants/route';
 import { useRouter } from 'next/navigation';
 import AddressButton from '../../../../../_components/AddressButton/AddressButton';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 type initialValuesType = {
   storeName: string;
@@ -16,8 +16,10 @@ type initialValuesType = {
 
 const StoreInfoForm = () => {
   const router = useRouter();
+  const [address, setAddress] = useState('');
   const [addressError, setAddressError] = useState(true);
   const [click, setClick] = useState(false);
+  const [next, setNext] = useState(false);
 
   const initialValues = {
     storeName: '',
@@ -34,23 +36,27 @@ const StoreInfoForm = () => {
   });
 
   const submitForm = (values: initialValuesType) => {
-    if (typeof window !== 'undefined') {
-      const address = localStorage.getItem('dealight-storeAddress');
-      if (address) setAddressError(false);
-      if (!addressError) {
-        localStorage.setItem('dealight-storeName', values.storeName);
-        localStorage.setItem('dealight-storePhone', values.storePhone);
-        router.push(pageRoute.store.registerStoreTime());
-      }
+    const address = localStorage.getItem('dealight-storeAddress');
+    if (address) setAddressError(false);
+    if (!addressError && values.storeName && values.storePhone && next) {
+      localStorage.setItem('dealight-storeName', values.storeName);
+      localStorage.setItem('dealight-storePhone', values.storePhone);
+      router.push(pageRoute.store.registerStoreTime());
     }
-
     setClick(true);
   };
 
   const handleAddressButton = (address: string) => {
     localStorage.setItem('dealight-storeAddress', address);
+    setAddress(address);
     setAddressError(false);
+    setNext(false);
   };
+
+  useEffect(() => {
+    const storeAddress = localStorage.getItem('dealight-storeAddress') ?? '';
+    setAddress(storeAddress);
+  }, [address]);
 
   return (
     <div className="flex w-full flex-col items-center">
@@ -109,9 +115,10 @@ const StoreInfoForm = () => {
                   <div
                     className={`base-2/5 h-12 w-full rounded bg-white py-3 pl-3 text-base text-black outline-none`}
                   >
-                    {localStorage.getItem('dealight-storeAddress')}
+                    {address}
                   </div>
                   <AddressButton
+                    type="button"
                     getAddress={handleAddressButton}
                     className="base-3/5 h-12 min-w-fit rounded bg-yellow px-1 text-sm"
                   >
@@ -129,7 +136,9 @@ const StoreInfoForm = () => {
                 <div className="h-2.5 w-2.5 rounded-full bg-yellow"></div>
                 <div className="h-2.5 w-2.5 rounded-full bg-dark-gray"></div>
               </div>
-              <PrimaryButton type="submit">다음</PrimaryButton>
+              <PrimaryButton type="submit" onClick={() => setNext(true)}>
+                다음
+              </PrimaryButton>
             </Form>
           );
         }}
