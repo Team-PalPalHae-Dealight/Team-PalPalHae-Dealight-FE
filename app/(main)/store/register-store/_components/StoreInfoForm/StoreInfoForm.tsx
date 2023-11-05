@@ -34,13 +34,16 @@ const StoreInfoForm = () => {
   });
 
   const submitForm = (values: initialValuesType) => {
-    const address = localStorage.getItem('dealight-storeAddress');
-    if (address) setAddressError(false);
-    if (!addressError) {
-      localStorage.setItem('dealight-storeName', values.storeName);
-      localStorage.setItem('dealight-storePhone', values.storePhone);
-      router.push(pageRoute.store.registerStoreTime());
+    if (typeof window !== 'undefined') {
+      const address = localStorage.getItem('dealight-storeAddress');
+      if (address) setAddressError(false);
+      if (!addressError) {
+        localStorage.setItem('dealight-storeName', values.storeName);
+        localStorage.setItem('dealight-storePhone', values.storePhone);
+        router.push(pageRoute.store.registerStoreTime());
+      }
     }
+
     setClick(true);
   };
 
