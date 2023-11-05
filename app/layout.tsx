@@ -4,6 +4,7 @@ import './globals.css';
 import pretendardRegular from './_constants/font';
 import { MSWComponent } from '@/public/mocks/MSWComponent';
 import Script from 'next/script';
+import { AuthProvider } from './_hooks/auth/auth';
 
 declare global {
   interface Window {
@@ -34,7 +35,9 @@ export default function RootLayout({
 
       <body className={`${pretendardRegular.className} bg-gray`}>
         <div className="mx-auto min-h-screen max-w-[375px]">
-          <MSWComponent>{children}</MSWComponent>
+          <AuthProvider>
+            <MSWComponent>{children}</MSWComponent>
+          </AuthProvider>
         </div>
       </body>
     </html>
