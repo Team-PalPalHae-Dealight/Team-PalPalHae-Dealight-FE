@@ -1,8 +1,6 @@
 import pageRoute from '../../../../../_constants/route';
 import Link from 'next/link';
 
-/** @todo link 업체 등록 페이지로 이동하는 route link로 바꾸기 */
-
 const RegisterModal = () => {
   return (
     <div className="fixed flex min-h-screen w-full max-w-[375px] items-center bg-dark-gray/75">
