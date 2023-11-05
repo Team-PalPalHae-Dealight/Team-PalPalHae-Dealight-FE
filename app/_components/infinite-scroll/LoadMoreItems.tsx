@@ -45,7 +45,7 @@ const LoadMoreItems = ({ fetchData }: InfiniteListPropType) => {
 
   if (scrollY) {
     window.scrollTo({ left: 0, top: scrollY, behavior: 'smooth' });
-    if (scrollY === window.scrollY) sessionStorage.clear();
+    if (scrollY === window.scrollY) sessionStorage.removeItem('scrollY');
   }
 
   return (
