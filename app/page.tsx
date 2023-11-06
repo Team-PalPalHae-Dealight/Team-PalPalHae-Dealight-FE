@@ -1,72 +1,23 @@
-'use client';
-
 import StartLink from './_components/main-temp/StartLink';
 import Banner from './_assets/images/banner.png';
 import Image from 'next/image';
 import ServiceIntro from './_components/main-temp/ServiceIntro';
+import {
+  HydrationBoundary,
+  QueryClient,
+  dehydrate,
+} from '@tanstack/react-query';
+import { getTodos, todoKeys } from './_hooks/query/tempTodo';
+import QueryTest from './_components/main-temp/QueryTest';
+import ApiTest from './_components/main-temp/ApiTest';
 
-async function postApi() {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/items?memberId=1`,
-    {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json;charset=UTF-8' },
-      body: JSON.stringify({
-        name: '떡볶이',
-        stock: 1,
-        discountPrice: 233,
-        originalPrice: 2,
-        description: null,
-        information: '안내',
-      }),
-    }
-  );
+export default async function Home() {
+  const queryClient = new QueryClient();
 
-  const data = await response.json();
-
-  if (!response.ok) {
-    if (data.message) {
-      throw new Error(data.message);
-    }
-
-    throw new Error('알 수 없는 에러');
-  }
-
-  console.log(data);
-  return data;
-}
-
-async function getApi() {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/stores/profiles/1/1`,
-    {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json;charset=UTF-8' },
-    }
-  );
-  const data = await response.json();
-
-  if (!response.ok) {
-    if (data.message) {
-      throw new Error(data.message);
-    }
-
-    throw new Error('알 수 없는 에러');
-  }
-
-  return data;
-}
-
-export default function Home() {
-  const onClickPost = () => {
-    postApi();
-  };
-
-  const onClickGet = () => {
-    getApi()
-      .then(res => console.log(res))
-      .catch(err => console.log(err));
-  };
+  await queryClient.prefetchQuery({
+    queryKey: [todoKeys.all],
+    queryFn: getTodos,
+  });
 
   return (
     <main className="flex flex-col items-center px-5 pt-2.5">
@@ -74,8 +25,11 @@ export default function Home() {
 
       <StartLink />
       <ServiceIntro />
-      <button onClick={onClickPost}>POST api 연결 테스트 버튼</button>
-      <button onClick={onClickGet}>GET api 연결 테스트 버튼</button>
+
+      <ApiTest />
+      <HydrationBoundary state={dehydrate(queryClient)}>
+        <QueryTest />
+      </HydrationBoundary>
     </main>
   );
 }
