@@ -1,6 +1,6 @@
 import { HttpResponse, http } from 'msw';
 
-export const tempHandlers = [
+export const tempHandler = [
   http.get('/mocks/api', () => {
     console.log('Captured a "GET /mocks/api" request');
 
