@@ -10,7 +10,7 @@ const page = () => {
   return (
     <>
       <main className="mx-5 mt-9 rounded-t-lg bg-gray pb-3 pl-5 pr-5 pt-5">
-        <div className="flex items-center justify-between">
+        <div className="my-3 flex items-center justify-between">
           <label className="text-xl	font-semibold">주문 내역</label>
           {/* 드랍 다운 ui로 변경 예정 */}
           <select

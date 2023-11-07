@@ -17,7 +17,10 @@ const OrderListCard = ({ items }: OrderListCardPropType) => {
         items.map(item => {
           return (
             <Link key={item.id} href={'/asd'} onClick={onClickCardLink}>
-              <div className=" my-3 rounded-md bg-white p-2">
+              <div
+                className=" mb-3 rounded-md bg-white p-2"
+                style={{ boxShadow: '0px 0px 4px 0px rgb(0, 0, 0, 0.1)' }}
+              >
                 <div className="flex text-xs text-dark-gray">
                   <div>2023.10.20.</div>
                   <div>17:32</div>
