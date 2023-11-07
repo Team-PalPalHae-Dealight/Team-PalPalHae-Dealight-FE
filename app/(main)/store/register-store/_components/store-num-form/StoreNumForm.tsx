@@ -41,7 +41,7 @@ const StoreNumForm = () => {
       >
         {formik => {
           return (
-            <Form>
+            <Form className="w-full">
               <label className="text-xs font-semibold" htmlFor="storeNumber">
                 사업자 등록번호
               </label>
