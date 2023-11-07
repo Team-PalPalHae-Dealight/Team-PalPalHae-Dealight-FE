@@ -1,8 +1,14 @@
-import { HttpResponse, http } from 'msw';
+import { HttpResponse, delay, http } from 'msw';
 import { ITEMS } from './mock';
+import { ItemType } from '@/app/_types/api/item';
 
 export const itemHandler = [
-  http.get('/mocks/api/items/stores', ({ request }) => {
+  /**
+   * @description member-id는 삭제될 예정
+   */
+  http.get('/mocks/api/items/stores', async ({ request }) => {
+    await delay(1000);
+
     const url = new URL(request.url);
 
     const memberId = url.searchParams.get('member-id');
@@ -13,6 +19,57 @@ export const itemHandler = [
       return new HttpResponse(null, { status: 404 });
     }
 
-    return HttpResponse.json(ITEMS);
+    const results = ITEMS.slice(0, page * size);
+
+    return HttpResponse.json(results);
+  }),
+
+  http.get('/mocks/api/items/:itemId', async ({ params }) => {
+    await delay(1000);
+
+    const { itemId } = params;
+
+    if (!itemId) {
+      return new HttpResponse(null, { status: 404 });
+    }
+
+    const results = ITEMS[Number(itemId)];
+
+    return HttpResponse.json(results);
+  }),
+
+  http.post('/mocks/api/items', async ({ request }) => {
+    await delay(1000);
+
+    const newPost = (await request.json()) as Omit<
+      ItemType,
+      'itemId' | 'storeId'
+    >;
+
+    const results = { itemId: ITEMS.length, storeId: 1, ...newPost };
+
+    return HttpResponse.json(results);
+  }),
+
+  http.patch('/mocks/api/items/:itemId', async ({ params }) => {
+    await delay(1000);
+
+    const { itemId } = params;
+
+    const results = {
+      ...ITEMS[Number(itemId)],
+      name: '치즈 떡볶이',
+    };
+
+    return HttpResponse.json(results);
+  }),
+
+  http.delete('/mocks/api/items/:itemId', async ({ params }) => {
+    await delay(1000);
+
+    const { itemId } = params;
+    console.log(itemId);
+
+    return new HttpResponse(null, { status: 204 });
   }),
 ];
