@@ -5,7 +5,7 @@ export type ResponseItemTypes = {
   body: string;
 };
 
-const fetchData = async (page: number) => {
+const fetchOrderList = async (page: number) => {
   const url = `https://jsonplaceholder.typicode.com/posts/?_start=${page}&_limit=5`;
 
   try {
@@ -19,4 +19,4 @@ const fetchData = async (page: number) => {
   }
 };
 
-export default fetchData;
+export default fetchOrderList;
