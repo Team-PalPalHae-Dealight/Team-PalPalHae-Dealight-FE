@@ -5,6 +5,8 @@ import Banner from './_assets/images/banner.png';
 import Image from 'next/image';
 import ServiceIntro from './_components/main-temp/ServiceIntro';
 import { MswTestButton } from './_components/main-temp/MswTestButton';
+import Link from 'next/link';
+import pageRoute from './_constants/route';
 
 async function postApi() {
   const response = await fetch(
@@ -76,6 +78,13 @@ export default function Home() {
       <StartLink />
       <ServiceIntro />
       <MswTestButton />
+
+      <div className="flex flex-col border border-indigo-400 p-2">
+        <h2>상품과 관련된 테스트를 진행합니다.</h2>
+        <Link href={pageRoute.store.productDetail('1')}>
+          특정(1번) 상품 페이지
+        </Link>
+      </div>
 
       <button onClick={onClickPost}>POST api 연결 테스트 버튼</button>
       <button onClick={onClickGet}>GET api 연결 테스트 버튼</button>

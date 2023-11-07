@@ -109,7 +109,7 @@ export function MswTestButton() {
   };
 
   return (
-    <>
+    <div className="flex flex-col border border-teal-400 p-2">
       <button onClick={() => getTemp()}>msw temp data 호출 버튼</button>
       <button
         onClick={() => getQueryParameter({ memberId: 1, size: 5, page: 1 })}
@@ -126,6 +126,6 @@ export function MswTestButton() {
 
       <button onClick={() => patchTemp()}>Patch</button>
       <button onClick={() => deleteTemp()}>Delete</button>
-    </>
+    </div>
   );
 }

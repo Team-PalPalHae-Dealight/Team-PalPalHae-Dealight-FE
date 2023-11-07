@@ -33,7 +33,7 @@ export const itemHandler = [
       return new HttpResponse(null, { status: 404 });
     }
 
-    const results = ITEMS[Number(itemId)];
+    const results = ITEMS[Number(itemId) - 1];
 
     return HttpResponse.json(results);
   }),
