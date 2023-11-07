@@ -49,10 +49,12 @@ const LoadMoreItems = ({ fetchData, children }: InfiniteListPropType) => {
 
   return (
     <>
-      {React.cloneElement(
-        children as React.ReactElement<{ items: ResponseItemTypes[] }>,
-        { items }
-      )}
+      {children && React.isValidElement(children)
+        ? React.cloneElement(
+            children as React.ReactElement<{ items: ResponseItemTypes[] }>,
+            { items }
+          )
+        : null}
       <div
         className="col-span-1 flex items-center justify-center sm:col-span-2 md:col-span-3"
         ref={ref}
