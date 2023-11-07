@@ -3,7 +3,7 @@
 import Footer from '@/app/_components/Footer/Footer';
 import InfiniteScrollList from '@/app/_components/infinite-scroll/InfiniteScrollList';
 import OrderListCard from '@/app/(main)/store/order-list/[id]/OrderListCard';
-import fetchData from './fetchData';
+import fetchOrderList from './fetchOrderList';
 import React from 'react';
 
 const page = () => {
@@ -24,7 +24,7 @@ const page = () => {
             <option value="주문취소">주문취소</option>
           </select>
         </div>
-        <InfiniteScrollList fetchData={fetchData}>
+        <InfiniteScrollList fetchData={fetchOrderList}>
           <OrderListCard />
         </InfiniteScrollList>
       </main>
