@@ -4,6 +4,7 @@ import StartLink from './_components/main-temp/StartLink';
 import Banner from './_assets/images/banner.png';
 import Image from 'next/image';
 import ServiceIntro from './_components/main-temp/ServiceIntro';
+import { MswTestButton } from './_components/main-temp/MswTestButton';
 
 async function postApi() {
   const response = await fetch(
@@ -74,6 +75,8 @@ export default function Home() {
 
       <StartLink />
       <ServiceIntro />
+      <MswTestButton />
+
       <button onClick={onClickPost}>POST api 연결 테스트 버튼</button>
       <button onClick={onClickGet}>GET api 연결 테스트 버튼</button>
     </main>
