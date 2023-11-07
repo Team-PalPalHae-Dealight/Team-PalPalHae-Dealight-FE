@@ -38,7 +38,7 @@ const getQueryParameter = async ({
   memberId,
   size,
   page,
-}: GetQueryParamsType): Promise<ItemType> => {
+}: GetQueryParamsType): Promise<ItemType[]> => {
   const data = await fetch(
     `http://localhost:3000/mocks/api/items/stores?member-id=${memberId}&size=${size}&page=${page}`,
     {
@@ -52,7 +52,11 @@ const getQueryParameter = async ({
   return data;
 };
 
-const getPathParameter = async ({ itemId }: { itemId: number }) => {
+const getPathParameter = async ({
+  itemId,
+}: {
+  itemId: number;
+}): Promise<ItemType> => {
   const data = await fetch(`http://localhost:3000/mocks/api/items/${itemId}`, {
     method: 'GET',
     headers: { 'Content-Type': 'application/json;charset=UTF-8' },
@@ -110,10 +114,10 @@ export function MswTestButton() {
       <button
         onClick={() => getQueryParameter({ memberId: 1, size: 5, page: 1 })}
       >
-        Query Params Test
+        Query Parameters Test
       </button>
       <button onClick={() => getPathParameter({ itemId: 1 })}>
-        Path Params Test
+        Path Parameters Test
       </button>
 
       <button onClick={() => postRequestBody(postReqeustBodyData)}>
