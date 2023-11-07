@@ -6,7 +6,8 @@
     "_services": "Api",
     "_types": "Typescript",
     "_config": "Config",
-    "_storybooks": "Storybook"
+    "_storybooks": "Storybook",
+    "_utils": "Utils"
   },
   "tailwindCSS.classAttributes": ["class", "className", "ngClass", ".*Styles*"]
 }
