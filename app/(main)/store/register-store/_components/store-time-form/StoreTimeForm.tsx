@@ -1,14 +1,18 @@
 'use client';
 
 import { ErrorMessage, Field, Form, Formik } from 'formik';
-import { array, object, string } from 'yup';
-import { ERROR_MESSAGE } from '../../_constants/errorMessage';
+import { object } from 'yup';
 import PrimaryButton from '../../../../../_components/PrimaryButton/PrimaryButton';
 //import pageRoute from '@/app/_constants/route';
 //import { useRouter } from 'next/navigation';
-import { timeList } from '../../_constants/time';
+import { TIME_LIST } from '../../_constants/time';
 import Notification from '../../../../../_assets/images/notification.png';
 import Image from 'next/image';
+import {
+  isValidStoreCloseTime,
+  isValidStoreDayOff,
+  isValidStoreOpenTime,
+} from '../../_utils/validate';
 
 type initialValuesType = {
   storeOpenTime: string;
@@ -24,12 +28,11 @@ const StoreTimeForm = () => {
     storeCloseTime: '',
     storeDayOff: [],
   };
+
   const schema = object().shape({
-    storeOpenTime: string().required(ERROR_MESSAGE.STORE_REQUIRED),
-    storeCloseTime: string().required(ERROR_MESSAGE.STORE_REQUIRED),
-    storeDayOff: array()
-      .required(ERROR_MESSAGE.STORE_REQUIRED)
-      .min(1, ERROR_MESSAGE.STORE_ARRAY_MIN),
+    storeOpenTime: isValidStoreOpenTime(),
+    storeCloseTime: isValidStoreCloseTime(),
+    storeDayOff: isValidStoreDayOff(),
   });
 
   const submitForm = (values: initialValuesType) => {
@@ -59,13 +62,13 @@ const StoreTimeForm = () => {
                   <Field
                     as="select"
                     name="storeOpenTime"
-                    className={`h-12 w-full rounded text-base text-black ${
+                    className={`h-12 w-full cursor-pointer rounded text-base text-black ${
                       formik.errors.storeOpenTime
                         ? 'border-red'
                         : 'border-yellow'
                     } bg-white pl-3 outline-none focus:border-2`}
                   >
-                    {timeList.map(time => (
+                    {TIME_LIST.map(time => (
                       <option key={time} value={time}>
                         {time}
                       </option>
@@ -84,13 +87,13 @@ const StoreTimeForm = () => {
                   <Field
                     as="select"
                     name="storeCloseTime"
-                    className={`h-12 w-full rounded text-base text-black ${
+                    className={`h-12 w-full cursor-pointer rounded text-base text-black ${
                       formik.errors.storeCloseTime
                         ? 'border-red'
                         : 'border-yellow'
                     } bg-white pl-3 outline-none focus:border-2`}
                   >
-                    {timeList.map(time => (
+                    {TIME_LIST.map(time => (
                       <option key={time} value={time}>
                         {time}
                       </option>
@@ -132,7 +135,7 @@ const StoreTimeForm = () => {
                     />
                     <label
                       htmlFor="연중무휴"
-                      className="block h-12 w-full text-center text-xs leading-12 text-black peer-checked/연중무휴:bg-cyan/50"
+                      className="block h-12 w-full cursor-pointer text-center text-xs leading-12 text-black peer-checked/연중무휴:bg-cyan/50"
                     >
                       연중무휴
                     </label>
@@ -147,7 +150,7 @@ const StoreTimeForm = () => {
                     />
                     <label
                       htmlFor="월요일"
-                      className="block h-12 w-full text-center text-xs leading-12 text-black peer-checked/월요일:bg-cyan/50"
+                      className="block h-12 w-full cursor-pointer text-center text-xs leading-12 text-black peer-checked/월요일:bg-cyan/50"
                     >
                       월요일
                     </label>
@@ -162,7 +165,7 @@ const StoreTimeForm = () => {
                     />
                     <label
                       htmlFor="화요일"
-                      className="block h-12 w-full text-center text-xs leading-12 text-black peer-checked/화요일:bg-cyan/50"
+                      className="block h-12 w-full cursor-pointer text-center text-xs leading-12 text-black peer-checked/화요일:bg-cyan/50"
                     >
                       화요일
                     </label>
@@ -177,7 +180,7 @@ const StoreTimeForm = () => {
                     />
                     <label
                       htmlFor="수요일"
-                      className="block h-12 w-full text-center text-xs leading-12 text-black peer-checked/수요일:bg-cyan/50"
+                      className="block h-12 w-full cursor-pointer text-center text-xs leading-12 text-black peer-checked/수요일:bg-cyan/50"
                     >
                       수요일
                     </label>
@@ -192,7 +195,7 @@ const StoreTimeForm = () => {
                     />
                     <label
                       htmlFor="목요일"
-                      className="block h-12 w-full text-center text-xs leading-12 text-black peer-checked/목요일:bg-cyan/50"
+                      className="block h-12 w-full cursor-pointer text-center text-xs leading-12 text-black peer-checked/목요일:bg-cyan/50"
                     >
                       목요일
                     </label>
@@ -207,7 +210,7 @@ const StoreTimeForm = () => {
                     />
                     <label
                       htmlFor="금요일"
-                      className="block h-12 w-full text-center text-xs leading-12 text-black peer-checked/금요일:bg-cyan/50"
+                      className="block h-12 w-full cursor-pointer text-center text-xs leading-12 text-black peer-checked/금요일:bg-cyan/50"
                     >
                       금요일
                     </label>
@@ -222,7 +225,7 @@ const StoreTimeForm = () => {
                     />
                     <label
                       htmlFor="토요일"
-                      className="block h-12 w-full text-center text-xs leading-12 text-black peer-checked/토요일:bg-cyan/50"
+                      className="block h-12 w-full cursor-pointer text-center text-xs leading-12 text-black peer-checked/토요일:bg-cyan/50"
                     >
                       토요일
                     </label>
@@ -237,7 +240,7 @@ const StoreTimeForm = () => {
                     />
                     <label
                       htmlFor="일요일"
-                      className="block h-12 w-full text-center text-xs leading-12 text-black peer-checked/일요일:bg-cyan/50"
+                      className="block h-12 w-full cursor-pointer text-center text-xs leading-12 text-black peer-checked/일요일:bg-cyan/50"
                     >
                       일요일
                     </label>
@@ -254,7 +257,9 @@ const StoreTimeForm = () => {
                 <div className="h-2.5 w-2.5 rounded-full bg-dark-gray"></div>
                 <div className="h-2.5 w-2.5 rounded-full bg-yellow"></div>
               </div>
-              <PrimaryButton type="submit">등록하기</PrimaryButton>
+              <PrimaryButton type="submit" onClick={() => {}}>
+                등록하기
+              </PrimaryButton>
             </Form>
           );
         }}

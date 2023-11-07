@@ -1,4 +1,4 @@
-import StoreInfoForm from '../_components/StoreInfoForm/StoreInfoForm';
+import StoreInfoForm from '../_components/store-info-form/StoreInfoForm';
 
 const StoreInfo = () => {
   return (

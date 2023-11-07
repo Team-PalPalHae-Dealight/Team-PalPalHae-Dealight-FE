@@ -1,11 +1,11 @@
 import { twMerge } from 'tailwind-merge';
 
 type PrimaryButtonPropsType = {
-  onClick?: () => void;
+  onClick: () => void;
 } & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
 const PrimaryButton = ({
-  onClick = () => null,
+  onClick,
   children,
   className,
   ...props

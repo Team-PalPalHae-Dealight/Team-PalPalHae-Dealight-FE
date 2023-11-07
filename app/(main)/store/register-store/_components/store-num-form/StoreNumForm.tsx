@@ -1,11 +1,11 @@
 'use client';
 
 import { ErrorMessage, Field, Form, Formik } from 'formik';
-import { object, string } from 'yup';
-import { ERROR_MESSAGE } from '../../_constants/errorMessage';
+import { object } from 'yup';
 import PrimaryButton from '../../../../../_components/PrimaryButton/PrimaryButton';
 import pageRoute from '../../../../../_constants/route';
 import { useRouter } from 'next/navigation';
+import { isValidStoreNumber } from '../../_utils/validate';
 
 type initialValuesType = {
   storeNumber: string;
@@ -17,15 +17,14 @@ const StoreNumForm = () => {
   const initialValues = {
     storeNumber: '',
   };
+
   const schema = object().shape({
-    storeNumber: string()
-      .required(ERROR_MESSAGE.STORE_REQUIRED)
-      .matches(/^[0-9]+$/, ERROR_MESSAGE.STORE_NUMBER)
-      .length(10, ERROR_MESSAGE.STORE_LENGTH),
+    storeNumber: isValidStoreNumber(),
   });
 
   const submitForm = (values: initialValuesType) => {
     localStorage.setItem('dealight-storeNumber', values.storeNumber);
+
     router.push(pageRoute.store.registerStoreInfo());
   };
 
@@ -51,7 +50,7 @@ const StoreNumForm = () => {
                 name="storeNumber"
                 className={`h-12 w-full rounded ${
                   formik.errors.storeNumber ? 'border-red' : 'border-yellow'
-                } bg-white pl-3 outline-none focus:border-2`}
+                } cursor-pointer bg-white pl-3 outline-none focus:border-2`}
                 placeholder="1007999997"
               />
               <ErrorMessage
@@ -64,7 +63,9 @@ const StoreNumForm = () => {
                 <div className="h-2.5 w-2.5 rounded-full bg-dark-gray"></div>
                 <div className="h-2.5 w-2.5 rounded-full bg-dark-gray"></div>
               </div>
-              <PrimaryButton type="submit">다음</PrimaryButton>
+              <PrimaryButton type="submit" onClick={() => {}}>
+                다음
+              </PrimaryButton>
             </Form>
           );
         }}

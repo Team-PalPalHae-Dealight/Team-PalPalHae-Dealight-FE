@@ -1,13 +1,14 @@
 'use client';
 
 import { ErrorMessage, Field, Form, Formik } from 'formik';
-import { object, string } from 'yup';
+import { object } from 'yup';
 import { ERROR_MESSAGE } from '../../_constants/errorMessage';
 import PrimaryButton from '../../../../../_components/PrimaryButton/PrimaryButton';
 import pageRoute from '../../../../../_constants/route';
 import { useRouter } from 'next/navigation';
 import AddressButton from '../../../../../_components/AddressButton/AddressButton';
 import { useState, useEffect } from 'react';
+import { isValidStoreName, isValidStorePhone } from '../../_utils/validate';
 
 type initialValuesType = {
   storeName: string;
@@ -16,6 +17,7 @@ type initialValuesType = {
 
 const StoreInfoForm = () => {
   const router = useRouter();
+
   const [address, setAddress] = useState('');
   const [addressError, setAddressError] = useState(true);
   const [click, setClick] = useState(false);
@@ -25,29 +27,30 @@ const StoreInfoForm = () => {
     storeName: '',
     storePhone: '',
   };
+
   const schema = object().shape({
-    storeName: string()
-      .required(ERROR_MESSAGE.STORE_REQUIRED)
-      .min(2, ERROR_MESSAGE.STORE_MIN),
-    storePhone: string()
-      .required(ERROR_MESSAGE.STORE_REQUIRED)
-      .matches(/^[0-9]+$/, ERROR_MESSAGE.STORE_NUMBER)
-      .length(10, ERROR_MESSAGE.STORE_LENGTH),
+    storeName: isValidStoreName(),
+    storePhone: isValidStorePhone(),
   });
 
   const submitForm = (values: initialValuesType) => {
     const address = localStorage.getItem('dealight-storeAddress');
+
     if (address) setAddressError(false);
+
     if (!addressError && values.storeName && values.storePhone && next) {
       localStorage.setItem('dealight-storeName', values.storeName);
       localStorage.setItem('dealight-storePhone', values.storePhone);
+
       router.push(pageRoute.store.registerStoreTime());
     }
+
     setClick(true);
   };
 
   const handleAddressButton = (address: string) => {
     localStorage.setItem('dealight-storeAddress', address);
+
     setAddress(address);
     setAddressError(false);
     setNext(false);
@@ -56,7 +59,7 @@ const StoreInfoForm = () => {
   useEffect(() => {
     const storeAddress = localStorage.getItem('dealight-storeAddress') ?? '';
     setAddress(storeAddress);
-  }, [address]);
+  }, []);
 
   return (
     <div className="flex w-full flex-col items-center">
@@ -77,7 +80,7 @@ const StoreInfoForm = () => {
                   name="storeName"
                   className={`h-12 w-full rounded text-base text-black ${
                     formik.errors.storeName ? 'border-red' : 'border-yellow'
-                  } bg-white pl-3 outline-none focus:border-2`}
+                  } cursor-pointer bg-white pl-3 outline-none focus:border-2`}
                   placeholder="세븐일레븐"
                 />
                 <ErrorMessage
@@ -98,7 +101,7 @@ const StoreInfoForm = () => {
                   name="storePhone"
                   className={`h-12 w-full rounded text-base text-black ${
                     formik.errors.storePhone ? 'border-red' : 'border-yellow'
-                  } bg-white pl-3 outline-none focus:border-2`}
+                  } cursor-pointer bg-white pl-3 outline-none focus:border-2`}
                   placeholder="0311234567"
                 />
                 <ErrorMessage
