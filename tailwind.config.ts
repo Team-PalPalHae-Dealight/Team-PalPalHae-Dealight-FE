@@ -18,6 +18,9 @@ const config: Config = {
         gray: '#F6F6F6',
         'light-gray': '#F9F9F9',
       },
+      lineHeight: {
+        '12': '3rem',
+      },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':

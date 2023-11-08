@@ -1,5 +1,9 @@
-const getStorage = (key: string): string | null => {
-  const value = localStorage.getItem(key);
+export const getStorage = (key: string) => {
+  const value = JSON.parse(localStorage.getItem(key) || '{}');
   return value;
 };
-export default getStorage;
+
+//eslint-disable-next-line
+export const setStorage = (key: string, value: any) => {
+  localStorage.setItem(key, JSON.stringify(value));
+};
