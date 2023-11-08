@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 const RegisterModal = () => {
   return (
-    <div className="fixed flex min-h-screen w-full max-w-[375px] items-center bg-dark-gray/75">
+    <div className="fixed flex h-full min-h-screen w-full items-center bg-dark-gray/75">
       <div className="mx-5 h-96 w-full bg-white">
         <div className="mx-5 flex flex-col items-center">
           <div className="mb-7 mt-10 w-full text-center text-lg font-semibold text-black">

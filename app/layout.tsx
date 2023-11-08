@@ -4,6 +4,7 @@ import './globals.css';
 import pretendardRegular from './_constants/font';
 import { MSWComponent } from '@/public/mocks/MSWComponent';
 import Script from 'next/script';
+import QueryProvider from './_providers/QueryProvider';
 
 declare global {
   interface Window {
@@ -31,12 +32,13 @@ export default function RootLayout({
           strategy="beforeInteractive"
         />
       </head>
-
-      <body className={`${pretendardRegular.className} bg-gray`}>
-        <div className="mx-auto min-h-screen max-w-[375px]">
-          <MSWComponent>{children}</MSWComponent>
-        </div>
-      </body>
+      <QueryProvider>
+        <body className={`${pretendardRegular.className} bg-gray`}>
+          <div className="mx-auto min-h-screen max-w-[375px]">
+            <MSWComponent>{children}</MSWComponent>
+          </div>
+        </body>
+      </QueryProvider>
     </html>
   );
 }
