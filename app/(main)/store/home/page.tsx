@@ -2,7 +2,7 @@ import LocalStorage from '@/app/_utils/localstorage';
 import RegisterModal from './_components/register-modal/RegisterModal';
 
 export default function Page() {
-  const isStore = LocalStorage.getItem('dealight-store-id');
+  const isStore = LocalStorage.getItem('dealight-storeId');
 
   return (
     <>

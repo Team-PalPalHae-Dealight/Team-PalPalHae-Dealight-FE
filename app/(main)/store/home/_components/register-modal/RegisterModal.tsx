@@ -4,8 +4,8 @@ import Link from 'next/link';
 const RegisterModal = () => {
   return (
     <div className="fixed flex h-full min-h-screen w-full items-center bg-dark-gray/75">
-      <div className="mx-5 h-96 w-full bg-white">
-        <div className="mx-5 flex flex-col items-center">
+      <div className="mx-5 flex h-96 w-full flex-col justify-center bg-white">
+        <div className="mx-5 flex flex-1 flex-col items-center">
           <div className="mb-7 mt-10 w-full text-center text-lg font-semibold text-black">
             고객님의 편리한
             <br />
@@ -25,7 +25,7 @@ const RegisterModal = () => {
           </p>
         </div>
         <Link href={pageRoute.store.registerStoreNumber()}>
-          <button className="h-20 w-full bg-yellow text-center text-lg font-semibold">
+          <button className="sticky bottom-0 h-20 w-full bg-yellow text-center text-lg font-semibold">
             업체 등록하기
           </button>
         </Link>

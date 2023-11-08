@@ -9,7 +9,7 @@ class LocalStorage {
 
   static getItem(key: string) {
     if (typeof window !== 'undefined') {
-      return JSON.parse(localStorage.getItem(key) || '{}');
+      return localStorage.getItem(key) || '{}';
     }
     return null;
   }
