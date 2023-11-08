@@ -3,8 +3,6 @@
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { object } from 'yup';
 import PrimaryButton from '../../../../../_components/PrimaryButton/PrimaryButton';
-//import pageRoute from '@/app/_constants/route';
-//import { useRouter } from 'next/navigation';
 import { TIME_LIST } from '../../_constants/time';
 import Notification from '../../../../../_assets/images/notification.png';
 import Image from 'next/image';
