@@ -1,9 +1,9 @@
 class LocalStorage {
   constructor() {}
   //eslint-disable-next-line
-  static setItem(key: string, value: string) {
+  static setItem(key: string, value: any) {
     if (typeof window !== 'undefined') {
-      localStorage.setItem(key, value);
+      localStorage.setItem(key, JSON.stringify(value));
     }
   }
 
