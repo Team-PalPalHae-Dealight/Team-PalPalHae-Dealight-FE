@@ -4,7 +4,7 @@ import { ResponseItemTypes } from './fetchData';
 
 export type InfiniteListPropType = {
   fetchData: (page: number) => Promise<ResponseItemTypes[] | null>;
-  children?: ReactElement | undefined;
+  children: ReactElement | undefined;
 };
 
 const InfiniteScrollList = ({ fetchData, children }: InfiniteListPropType) => {

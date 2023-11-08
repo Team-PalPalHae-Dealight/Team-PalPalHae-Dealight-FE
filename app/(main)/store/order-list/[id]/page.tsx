@@ -4,7 +4,6 @@ import Footer from '@/app/_components/Footer/Footer';
 import InfiniteScrollList from '@/app/_components/infinite-scroll/InfiniteScrollList';
 import OrderListCard from '@/app/(main)/store/order-list/[id]/OrderListCard';
 import fetchOrderList from './fetchOrderList';
-import React from 'react';
 
 const page = () => {
   return (
