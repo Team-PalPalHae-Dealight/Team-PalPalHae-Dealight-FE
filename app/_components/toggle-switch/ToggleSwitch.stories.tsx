@@ -10,5 +10,5 @@ export default meta;
 type Story = StoryObj<typeof ToggleSwitch>;
 
 export const Primary: Story = {
-  render: () => <ToggleSwitch handleClick={toggle => console.log(toggle)} />,
+  render: () => <ToggleSwitch getToggleValue={toggle => console.log(toggle)} />,
 };

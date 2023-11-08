@@ -3,15 +3,15 @@
 import { useState } from 'react';
 
 type ToggleSwitchPropsType = {
-  handleClick: (toggle: boolean) => void;
+  getToggleValue: (toggle: boolean) => void;
 };
 
-const ToggleSwitch = ({ handleClick }: ToggleSwitchPropsType) => {
+const ToggleSwitch = ({ getToggleValue }: ToggleSwitchPropsType) => {
   const [isOn, setIsOn] = useState(false);
 
   const handleToggleSwitch = () => {
     setIsOn(prev => !prev);
-    handleClick(isOn);
+    getToggleValue(isOn);
   };
 
   return (
