@@ -1,9 +1,24 @@
-export const getStorage = (key: string) => {
-  const value = JSON.parse(localStorage.getItem(key) || '{}');
-  return value;
-};
+class LocalStorage {
+  constructor() {}
+  //eslint-disable-next-line
+  static setItem(key: string, value: string) {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem(key, value);
+    }
+  }
 
-//eslint-disable-next-line
-export const setStorage = (key: string, value: any) => {
-  localStorage.setItem(key, JSON.stringify(value));
-};
+  static getItem(key: string) {
+    if (typeof window !== 'undefined') {
+      return JSON.parse(localStorage.getItem(key) || '{}');
+    }
+    return null;
+  }
+
+  static removeItem(key: string) {
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem(key);
+    }
+  }
+}
+
+export default LocalStorage;

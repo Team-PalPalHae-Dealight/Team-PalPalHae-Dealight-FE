@@ -15,7 +15,7 @@ const pageRoute = {
     storeDetail: (id: string) => `/customer/store-detail/${id}`,
   },
   store: {
-    editProduct: (id: string) => `store/edit-product/${id}`,
+    editProduct: (id: string) => `/store/edit-product/${id}`,
     home: () => `/store/home`,
     login: () => `/store/login`,
     myPage: (id: string) => `/store/my-page/${id}`,

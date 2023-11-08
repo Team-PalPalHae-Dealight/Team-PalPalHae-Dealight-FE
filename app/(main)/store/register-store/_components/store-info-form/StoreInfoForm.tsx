@@ -4,7 +4,7 @@ import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { object } from 'yup';
 import { ERROR_MESSAGE } from '../../_constants/errorMessage';
 import PrimaryButton from '../../../../../_components/PrimaryButton/PrimaryButton';
-import pageRoute from '../../../../../_constants/route';
+import pageRoute from '../../../../../_constants/path';
 import { useRouter } from 'next/navigation';
 import AddressButton from '../../../../../_components/AddressButton/AddressButton';
 import { useState, useEffect } from 'react';

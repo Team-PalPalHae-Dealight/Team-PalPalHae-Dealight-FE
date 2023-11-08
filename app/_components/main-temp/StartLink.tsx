@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import ShopMain from '../../_assets/images/shop-main.png';
 import UserMain from '../../_assets/images/user-main.png';
-import pageRoute from '../../_constants/route';
+import pageRoute from '../../_constants/path';
 
 const StartLink = () => {
   return (
