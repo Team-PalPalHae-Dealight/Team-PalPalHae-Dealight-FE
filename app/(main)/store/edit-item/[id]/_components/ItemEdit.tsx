@@ -29,7 +29,7 @@ const ItemEdit = ({ itemId }: ItemEditPropsType) => {
       <div>
         <input type="text" value={item?.name} onChange={() => {}} />
         <div>
-          <label htmlFor="stock"> 재고:</label>{' '}
+          <label htmlFor="stock"> 재고:</label>
           <input
             type="text"
             id="stock"
@@ -79,9 +79,8 @@ const ItemEdit = ({ itemId }: ItemEditPropsType) => {
             onChange={() => {}}
           ></textarea>
         </div>
-
-        <button onClick={onClickEdit}>수정하기</button>
       </div>
+      <button onClick={onClickEdit}>수정하기</button>
     </div>
   );
 };

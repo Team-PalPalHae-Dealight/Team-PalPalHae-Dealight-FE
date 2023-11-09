@@ -12,6 +12,7 @@ import {
 import { getTodos, todoKeys } from './_hooks/query/tempTodo';
 import QueryTest from './_components/main-temp/QueryTest';
 import ApiTest from './_components/main-temp/ApiTest';
+import pageRoute from './_constants/path';
 
 export default async function Home() {
   const queryClient = new QueryClient();
@@ -31,7 +32,10 @@ export default async function Home() {
 
       <div className="flex flex-col border border-indigo-400 p-2">
         <h2>상품과 관련된 테스트를 진행합니다.</h2>
-        <Link href={'/store/item-detail/1'}>특정(1번) 상품 페이지</Link>
+        <Link href={pageRoute.store.itemDetail('1')}>
+          특정(1번) 상품 페이지로 가기
+        </Link>
+        <Link href={pageRoute.store.registerItem()}>상품 등록하러 가기</Link>
       </div>
 
       <ApiTest />
