@@ -57,6 +57,18 @@ export const patchItem = async ({
   return data;
 };
 
+export const deleteItem = async ({ itemId }: GetItemPropsType) => {
+  const response = await fetch(
+    `http://localhost:3000/mocks/api/items/${itemId}`,
+    {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json;charset=UTF-8' },
+    }
+  );
+
+  return response.status;
+};
+
 export const useGetItem = ({ itemId }: GetItemPropsType) => {
   return useQuery({
     queryKey: [itemKeys.item(itemId)],
@@ -66,4 +78,8 @@ export const useGetItem = ({ itemId }: GetItemPropsType) => {
 
 export const usePatchItem = () => {
   return useMutation({ mutationFn: patchItem });
+};
+
+export const useDeleteItem = () => {
+  return useMutation({ mutationFn: deleteItem });
 };

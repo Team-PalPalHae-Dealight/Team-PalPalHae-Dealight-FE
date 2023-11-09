@@ -1,9 +1,13 @@
+'use client';
+
 import Link from 'next/link';
 import Item from './_components/Item';
 import pageRoute from '@/app/_constants/path';
+import { useDeleteItem } from '@/app/_hooks/query/item';
 
 const ItemDetail = ({ params }: { params: { id: string } }) => {
   const { id: itemId } = params;
+  const { mutate: deleteItem } = useDeleteItem();
 
   return (
     <main>
@@ -12,7 +16,7 @@ const ItemDetail = ({ params }: { params: { id: string } }) => {
       <Item itemId={itemId} />
 
       <Link href={pageRoute.store.itemDetailEdit(itemId)}>수정하기</Link>
-      <button>삭제하기</button>
+      <button onClick={() => deleteItem({ itemId })}>삭제하기</button>
     </main>
   );
 };
