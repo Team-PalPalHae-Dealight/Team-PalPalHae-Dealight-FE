@@ -3,7 +3,7 @@
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { object } from 'yup';
 import PrimaryButton from '../../../../../_components/PrimaryButton/PrimaryButton';
-import pageRoute from '../../../../../_constants/route';
+import pageRoute from '../../../../../_constants/path';
 import { useRouter } from 'next/navigation';
 import { isValidStoreNumber } from '../../_utils/validate';
 

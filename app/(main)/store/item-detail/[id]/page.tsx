@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Item from './_components/Item';
-import pageRoute from '@/app/_constants/route';
+import pageRoute from '@/app/_constants/path';
 
 const ItemDetail = ({ params }: { params: { id: string } }) => {
   const { id: itemId } = params;

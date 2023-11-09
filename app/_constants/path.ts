@@ -22,6 +22,7 @@ const pageRoute = {
     orderDetail: (id: string) => `/store/order-detail/${id}`,
     orderList: (id: string) => `/store/order-list/${id}`,
     itemDetail: (id: string) => `/store/item-detail/${id}`,
+    itemDetailEdit: (id: string) => `/store/item-detail/${id}/edit`,
     registerItem: () => '/store/register-item',
     signUp: () => '/store/sign-up',
     storeManage: (id: string) => `/store/store-manage/${id}`,

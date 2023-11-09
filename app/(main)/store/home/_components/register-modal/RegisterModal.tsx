@@ -1,4 +1,4 @@
-import pageRoute from '../../../../../_constants/route';
+import pageRoute from '../../../../../_constants/path';
 import Link from 'next/link';
 
 const RegisterModal = () => {
