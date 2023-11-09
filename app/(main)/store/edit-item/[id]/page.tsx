@@ -1,4 +1,4 @@
 export default function Page({ params }: { params: { slug: string } }) {
   console.log(params);
-  return <h1>product-edit</h1>;
+  return <h1>item-edit</h1>;
 }
