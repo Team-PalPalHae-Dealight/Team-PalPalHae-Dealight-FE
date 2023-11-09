@@ -11,6 +11,7 @@ import {
   isValidStoreDayOff,
   isValidStoreOpenTime,
 } from '../../_utils/validate';
+import LocalStorage from '../../../../../../app/_utils/localstorage';
 
 type initialValuesType = {
   storeOpenTime: string;
@@ -34,12 +35,9 @@ const StoreTimeForm = () => {
   });
 
   const submitForm = (values: initialValuesType) => {
-    localStorage.setItem('dealight-storeOpenTime', values.storeOpenTime);
-    localStorage.setItem('dealight-storeCloseTime', values.storeCloseTime);
-    localStorage.setItem(
-      'dealight-storeDayOff',
-      JSON.stringify(values.storeDayOff)
-    ); // get으로 가져올 때에는 JSON.parse
+    LocalStorage.setItem('dealight-storeOpenTime', values.storeOpenTime);
+    LocalStorage.setItem('dealight-storeCloseTime', values.storeCloseTime);
+    LocalStorage.setItem('dealight-storeDayOff', values.storeDayOff);
     /** @todo api res 값에 따라 라우팅 분기 처리 */
     // router.push(pageRoute.store.home());
   };
