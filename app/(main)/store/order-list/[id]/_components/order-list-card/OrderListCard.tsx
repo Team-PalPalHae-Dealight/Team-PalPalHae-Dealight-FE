@@ -25,13 +25,13 @@ const OrderListCard = ({ items }: OrderListCardPropType) => {
                   <div>2023.10.20.</div>
                   <div>17:32</div>
                 </div>
-                <div className="flex items-center gap-1 ">
+                <div className="flex items-center gap-1 text-black">
                   <div className="text-sm">달콤한 도너츠 외 3개</div>
                   <div className=" text-xs">11000 원</div>
                 </div>
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between text-black">
                   <div className="text-xs">도착예정 시간: 17시 32분</div>
-                  <div className="text-sm text-blue-700">주문 완료</div>
+                  <div className="text-sm text-[#0338FF]">주문 완료</div>
                 </div>
               </div>
             </Link>
