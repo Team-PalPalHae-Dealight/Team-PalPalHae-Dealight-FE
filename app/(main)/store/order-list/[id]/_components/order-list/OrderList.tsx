@@ -29,7 +29,10 @@ const OrderList = () => {
             <OrderListDropDown />
           </div>
         </div>
-        <InfiniteScrollList fetchData={fetchOrderList}>
+        <InfiniteScrollList
+          fetchData={fetchOrderList}
+          isEmptyWord={'주문 내역이 없습니다.'}
+        >
           <OrderListCard />
         </InfiniteScrollList>
       </main>

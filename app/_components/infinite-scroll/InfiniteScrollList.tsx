@@ -5,12 +5,19 @@ import { ResponseItemTypes } from './fetchData';
 export type InfiniteListPropType = {
   fetchData: (page: number) => Promise<ResponseItemTypes[] | null>;
   children: ReactElement | undefined;
+  isEmptyWord: string;
 };
 
-const InfiniteScrollList = ({ fetchData, children }: InfiniteListPropType) => {
+const InfiniteScrollList = ({
+  fetchData,
+  children,
+  isEmptyWord,
+}: InfiniteListPropType) => {
   return (
     <div className="container min-h-screen w-full">
-      <LoadMoreItems fetchData={fetchData}>{children}</LoadMoreItems>
+      <LoadMoreItems fetchData={fetchData} isEmptyWord={isEmptyWord}>
+        {children}
+      </LoadMoreItems>
     </div>
   );
 };

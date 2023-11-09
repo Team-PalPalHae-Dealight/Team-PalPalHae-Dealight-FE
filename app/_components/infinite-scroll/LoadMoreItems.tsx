@@ -6,7 +6,11 @@ import { useInView } from 'react-intersection-observer';
 import { InfiniteListPropType } from './InfiniteScrollList';
 import Spinner from '../spinner/Spinner';
 
-const LoadMoreItems = ({ fetchData, children }: InfiniteListPropType) => {
+const LoadMoreItems = ({
+  fetchData,
+  children,
+  isEmptyWord,
+}: InfiniteListPropType) => {
   const [items, setItems] = useState<ResponseItemTypes[]>([]);
   const [page, setPage] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
@@ -59,7 +63,17 @@ const LoadMoreItems = ({ fetchData, children }: InfiniteListPropType) => {
         className="col-span-1 flex items-center justify-center sm:col-span-2 md:col-span-3"
         ref={ref}
       >
-        {isLoading && !isEnded ? <Spinner /> : <></>}
+        {isLoading && !isEnded ? (
+          <Spinner />
+        ) : items.length ? (
+          <div className="flex items-center justify-center text-xs text-dark-gray">
+            <p>{isEmptyWord}</p>
+          </div>
+        ) : (
+          <div className="flex h-96 items-center justify-center text-xs text-dark-gray">
+            <p>{isEmptyWord}</p>
+          </div>
+        )}
       </div>
     </>
   );
