@@ -1,3 +1,7 @@
+/**
+ * todo: api 연결 완료 후 수정 필요
+ */
+
 export type ResponseItemTypes = {
   userId: number;
   id: number;
