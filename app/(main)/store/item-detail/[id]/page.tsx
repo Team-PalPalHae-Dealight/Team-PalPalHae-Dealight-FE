@@ -15,7 +15,7 @@ const ItemDetail = ({ params }: { params: { id: string } }) => {
 
       <Item itemId={itemId} />
 
-      <Link href={pageRoute.store.itemDetailEdit(itemId)}>수정하기</Link>
+      <Link href={pageRoute.store.editItem(itemId)}>수정하기</Link>
       <button onClick={() => deleteItem({ itemId })}>삭제하기</button>
     </main>
   );
