@@ -11,8 +11,9 @@ const ToggleSwitch = ({ getToggleValue }: ToggleSwitchPropsType) => {
 
   const handleToggleSwitch = () => {
     setIsOn(prev => !prev);
-    getToggleValue(isOn);
   };
+
+  getToggleValue(isOn);
 
   return (
     <div className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden">
