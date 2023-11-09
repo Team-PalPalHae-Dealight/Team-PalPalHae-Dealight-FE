@@ -3,9 +3,10 @@
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { object } from 'yup';
 import PrimaryButton from '../../../../../_components/PrimaryButton/PrimaryButton';
-import pageRoute from '../../../../../_constants/route';
+import pageRoute from '../../../../../_constants/path';
 import { useRouter } from 'next/navigation';
 import { isValidStoreNumber } from '../../_utils/validate';
+import LocalStorage from '../../../../../../app/_utils/localstorage';
 
 type initialValuesType = {
   storeNumber: string;
@@ -23,7 +24,7 @@ const StoreNumForm = () => {
   });
 
   const submitForm = (values: initialValuesType) => {
-    localStorage.setItem('dealight-storeNumber', values.storeNumber);
+    LocalStorage.setItem('dealight-storeNumber', values.storeNumber);
 
     router.push(pageRoute.store.registerStoreInfo());
   };
