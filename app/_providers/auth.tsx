@@ -1,10 +1,5 @@
-import {
-  ReactComponentElement,
-  ReactNode,
-  createContext,
-  useContext,
-  useState,
-} from 'react';
+'use client';
+import { ReactNode, createContext, useContext, useState } from 'react';
 import React from 'react';
 
 const LogContext = createContext({ loggedin: false, loginToggle: () => {} });
