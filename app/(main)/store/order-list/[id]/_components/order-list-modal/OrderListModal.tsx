@@ -20,7 +20,7 @@ const OrderListModal = ({ onClose }: OrderListModalPropType) => {
         </div>
         <div>
           <div className="mt-3">
-            <label className="text-sm font-semibold text-[#00CC22]">
+            <label className="text-sm font-semibold text-green">
               주문 접수
             </label>
           </div>
@@ -30,7 +30,7 @@ const OrderListModal = ({ onClose }: OrderListModalPropType) => {
             </p>
           </div>
           <div className="mt-3">
-            <label className="text-sm font-semibold text-[#FF5C01]">
+            <label className="text-sm font-semibold text-orange">
               주문 확인
             </label>
           </div>
@@ -41,9 +41,7 @@ const OrderListModal = ({ onClose }: OrderListModalPropType) => {
             </p>
           </div>
           <div className="mt-3">
-            <label className="text-sm font-semibold text-[#0338FF]">
-              주문 완료
-            </label>
+            <label className="text-sm font-semibold text-blue">주문 완료</label>
           </div>
           <div>
             <p className=" text-xs text-dark-gray">
@@ -52,9 +50,7 @@ const OrderListModal = ({ onClose }: OrderListModalPropType) => {
             </p>
           </div>
           <div className="mt-3">
-            <label className="text-sm font-semibold text-[#FF0201]">
-              주문 취소
-            </label>
+            <label className="text-sm font-semibold text-red">주문 취소</label>
           </div>
           <div>
             <p className=" text-xs text-dark-gray">
