@@ -21,13 +21,13 @@ const OrderListDropDown = () => {
   if (toggleMenu === '전체') {
     buttonClasses += ' text-black';
   } else if (toggleMenu === '주문 접수') {
-    buttonClasses += ' text-[#00CC22]';
+    buttonClasses += ' text-green';
   } else if (toggleMenu === '주문 확인') {
-    buttonClasses += ' text-[#FF5C01]';
+    buttonClasses += ' text-orange';
   } else if (toggleMenu === '주문 완료') {
-    buttonClasses += ' text-[#0338FF]';
+    buttonClasses += ' text-blue';
   } else if (toggleMenu === '주문 취소') {
-    buttonClasses += ' text-[#FF0201]';
+    buttonClasses += ' text-red';
   }
 
   return (
@@ -53,25 +53,25 @@ const OrderListDropDown = () => {
             </li>
             <li
               onClick={() => onClickOption('주문 접수')}
-              className="px-2 py-1 text-[#00CC22]"
+              className="px-2 py-1 text-green"
             >
               주문 접수
             </li>
             <li
               onClick={() => onClickOption('주문 확인')}
-              className="px-2 py-1 text-[#FF5C01]"
+              className="px-2 py-1 text-orange"
             >
               주문 확인
             </li>
             <li
               onClick={() => onClickOption('주문 완료')}
-              className="px-2 py-1 text-[#0338FF]"
+              className="px-2 py-1 text-blue"
             >
               주문 완료
             </li>
             <li
               onClick={() => onClickOption('주문 취소')}
-              className="px-2 py-1 text-[#FF0201]"
+              className="px-2 py-1 text-red"
             >
               주문 취소
             </li>
