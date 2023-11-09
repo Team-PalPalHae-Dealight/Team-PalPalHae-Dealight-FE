@@ -31,10 +31,11 @@ export default async function Home() {
 
       <div className="flex flex-col border border-indigo-400 p-2">
         <h2>상품과 관련된 테스트를 진행합니다.</h2>
-        <Link href={'/store/product-detail/1'}>특정(1번) 상품 페이지</Link>
+        <Link href={'/store/item-detail/1'}>특정(1번) 상품 페이지</Link>
       </div>
 
       <ApiTest />
+
       <HydrationBoundary state={dehydrate(queryClient)}>
         <QueryTest />
       </HydrationBoundary>
