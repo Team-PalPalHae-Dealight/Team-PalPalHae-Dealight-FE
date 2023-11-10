@@ -14,7 +14,7 @@ const OrderList = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const onClickOrderList = () => {
-    setIsOpen(() => !isOpen);
+    setIsOpen(prev => !prev);
   };
 
   return (
@@ -31,7 +31,7 @@ const OrderList = () => {
         </div>
         <InfiniteScrollList
           fetchData={fetchOrderList}
-          isEmptyWord={'주문 내역이 없습니다.'}
+          emptyWord={'주문 내역이 없습니다.'}
         >
           <OrderListCard />
         </InfiniteScrollList>

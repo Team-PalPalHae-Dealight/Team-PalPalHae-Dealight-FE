@@ -3,14 +3,14 @@
 import { ResponseItemTypes } from '@/app/_components/infinite-scroll/fetchData';
 import React, { useEffect, useState, useCallback } from 'react';
 import { useInView } from 'react-intersection-observer';
-import { InfiniteListPropType } from './InfiniteScrollList';
+import { InfiniteListPropsType } from './InfiniteScrollList';
 import Spinner from '../spinner/Spinner';
 
 const LoadMoreItems = ({
   fetchData,
   children,
-  isEmptyWord,
-}: InfiniteListPropType) => {
+  emptyWord,
+}: InfiniteListPropsType) => {
   const [items, setItems] = useState<ResponseItemTypes[]>([]);
   const [page, setPage] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
@@ -67,11 +67,11 @@ const LoadMoreItems = ({
           <Spinner />
         ) : items.length ? (
           <div className="flex items-center justify-center text-xs text-dark-gray">
-            <p>{isEmptyWord}</p>
+            <p>{emptyWord}</p>
           </div>
         ) : (
           <div className="flex h-96 items-center justify-center text-xs text-dark-gray">
-            <p>{isEmptyWord}</p>
+            <p>{emptyWord}</p>
           </div>
         )}
       </div>

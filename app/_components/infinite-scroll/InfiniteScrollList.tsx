@@ -2,20 +2,20 @@ import LoadMoreItems from './LoadMoreItems';
 import { ReactElement } from 'react';
 import { ResponseItemTypes } from './fetchData';
 
-export type InfiniteListPropType = {
+export type InfiniteListPropsType = {
   fetchData: (page: number) => Promise<ResponseItemTypes[] | null>;
-  children: ReactElement | undefined;
-  isEmptyWord: string;
+  children: ReactElement;
+  emptyWord: string;
 };
 
 const InfiniteScrollList = ({
   fetchData,
   children,
-  isEmptyWord,
-}: InfiniteListPropType) => {
+  emptyWord,
+}: InfiniteListPropsType) => {
   return (
     <div className="container min-h-screen w-full">
-      <LoadMoreItems fetchData={fetchData} isEmptyWord={isEmptyWord}>
+      <LoadMoreItems fetchData={fetchData} emptyWord={emptyWord}>
         {children}
       </LoadMoreItems>
     </div>
