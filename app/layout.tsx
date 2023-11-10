@@ -5,6 +5,7 @@ import pretendardRegular from './_constants/font';
 import { MSWComponent } from '@/public/mocks/MSWComponent';
 import Script from 'next/script';
 import QueryProvider from './_providers/QueryProvider';
+import { LogContextProvider } from './_providers/auth';
 
 declare global {
   interface Window {
@@ -33,11 +34,13 @@ export default function RootLayout({
         />
       </head>
       <QueryProvider>
-        <body className={`${pretendardRegular.className} bg-gray`}>
-          <div className="mx-auto min-h-screen max-w-[375px]">
-            <MSWComponent>{children}</MSWComponent>
-          </div>
-        </body>
+        <LogContextProvider>
+          <body className={`${pretendardRegular.className} bg-gray`}>
+            <div className="mx-auto min-h-screen max-w-[375px]">
+              <MSWComponent>{children}</MSWComponent>
+            </div>
+          </body>
+        </LogContextProvider>
       </QueryProvider>
     </html>
   );
