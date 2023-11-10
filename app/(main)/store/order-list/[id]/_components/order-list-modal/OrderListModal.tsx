@@ -1,10 +1,10 @@
 import { MouseEvent } from 'react';
 
-type OrderListModalPropType = {
+type OrderListModalPropsType = {
   onClose: () => void;
 };
 
-const OrderListModal = ({ onClose }: OrderListModalPropType) => {
+const OrderListModal = ({ onClose }: OrderListModalPropsType) => {
   const onClickOutSide = (e: MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) onClose();
   };
