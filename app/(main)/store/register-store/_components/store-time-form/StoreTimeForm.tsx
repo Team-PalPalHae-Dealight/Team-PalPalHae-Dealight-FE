@@ -2,16 +2,16 @@
 
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { object } from 'yup';
-import PrimaryButton from '../../../../../_components/PrimaryButton/PrimaryButton';
 import { TIME_LIST } from '../../_constants/time';
-import Notification from '../../../../../_assets/images/notification.png';
+import Notification from '@/app/_assets/images/notification.png';
 import Image from 'next/image';
 import {
   isValidStoreCloseTime,
   isValidStoreDayOff,
   isValidStoreOpenTime,
 } from '../../_utils/validate';
-import LocalStorage from '../../../../../../app/_utils/localstorage';
+import LocalStorage from '@/app/_utils/localstorage';
+import PrimaryButton from '@/app/_components/PrimaryButton/PrimaryButton';
 
 type initialValuesType = {
   storeOpenTime: string;

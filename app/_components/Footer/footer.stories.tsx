@@ -12,7 +12,7 @@ type Story = StoryObj<typeof Footer>;
 export const Primary: Story = {
   render: () => (
     <div className="fixed bottom-0 h-16 w-full">
-      <Footer />,
+      <Footer />
     </div>
   ),
 };

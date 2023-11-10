@@ -14,7 +14,7 @@ const InfiniteScrollList = ({
   isEmptyWord,
 }: InfiniteListPropType) => {
   return (
-    <div className="container min-h-screen w-full">
+    <div className="min-h-screen w-full">
       <LoadMoreItems fetchData={fetchData} isEmptyWord={isEmptyWord}>
         {children}
       </LoadMoreItems>

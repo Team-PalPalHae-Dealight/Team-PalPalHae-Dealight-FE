@@ -1,6 +1,6 @@
 'use client';
 
-import ToggleSwitch from '../../../../../../app/_components/toggle-switch/ToggleSwitch';
+import ToggleSwitch from '@/app/_components/toggle-switch/ToggleSwitch';
 import { useState } from 'react';
 
 const BusinessStatus = () => {
