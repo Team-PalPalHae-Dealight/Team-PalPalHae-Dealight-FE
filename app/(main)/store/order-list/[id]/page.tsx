@@ -1,4 +1,11 @@
-export default function Page({ params }: { params: { slug: string } }) {
-  console.log(params);
-  return <h1>orderlist</h1>;
-}
+import OrderList from './_components/order-list/OrderList';
+
+const page = () => {
+  return (
+    <>
+      <OrderList />
+    </>
+  );
+};
+
+export default page;

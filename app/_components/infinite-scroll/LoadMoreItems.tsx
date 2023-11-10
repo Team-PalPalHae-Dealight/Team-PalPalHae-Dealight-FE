@@ -1,15 +1,18 @@
 'use client';
 
 import { ResponseItemTypes } from '@/app/_components/infinite-scroll/fetchData';
-import { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { InfiniteListPropType } from './InfiniteScrollList';
-import Items from './Items';
 import Spinner from '../spinner/Spinner';
 
-const LoadMoreItems = ({ fetchData }: InfiniteListPropType) => {
+const LoadMoreItems = ({
+  fetchData,
+  children,
+  isEmptyWord,
+}: InfiniteListPropType) => {
   const [items, setItems] = useState<ResponseItemTypes[]>([]);
-  const [page, setPage] = useState(5);
+  const [page, setPage] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [isEnded, setIsEnded] = useState(false);
 
@@ -50,12 +53,27 @@ const LoadMoreItems = ({ fetchData }: InfiniteListPropType) => {
 
   return (
     <>
-      <Items items={items} />
+      {children && React.isValidElement(children)
+        ? React.cloneElement(
+            children as React.ReactElement<{ items: ResponseItemTypes[] }>,
+            { items }
+          )
+        : null}
       <div
-        className="col-span-1 flex items-center justify-center p-4 sm:col-span-2 md:col-span-3"
+        className="col-span-1 flex items-center justify-center sm:col-span-2 md:col-span-3"
         ref={ref}
       >
-        {isLoading && !isEnded ? <Spinner /> : <></>}
+        {isLoading && !isEnded ? (
+          <Spinner />
+        ) : items.length ? (
+          <div className="flex items-center justify-center text-xs text-dark-gray">
+            <p>{isEmptyWord}</p>
+          </div>
+        ) : (
+          <div className="flex h-96 items-center justify-center text-xs text-dark-gray">
+            <p>{isEmptyWord}</p>
+          </div>
+        )}
       </div>
     </>
   );
