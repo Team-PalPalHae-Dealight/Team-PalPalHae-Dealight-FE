@@ -6,6 +6,7 @@ import Items from './Items';
 const meta: Meta<typeof InfiniteScrollList> = {
   title: 'Components/InfiniteScrollList',
   component: InfiniteScrollList,
+  tags: ['autodocs'],
 };
 
 export default meta;

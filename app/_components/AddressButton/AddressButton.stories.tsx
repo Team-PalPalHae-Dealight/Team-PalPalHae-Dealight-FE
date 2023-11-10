@@ -4,6 +4,7 @@ import AddressButton from './AddressButton';
 const meta: Meta<typeof AddressButton> = {
   title: 'Components/AddressButton',
   component: AddressButton,
+  tags: ['autodocs'],
 };
 
 export default meta;

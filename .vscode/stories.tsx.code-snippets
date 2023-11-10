@@ -8,6 +8,7 @@
       "const meta: Meta<typeof ${1:${TM_FILENAME/(.*).stories.[t|j]sx/${1}/}}> = {",
       "  title: 'Components/${1:${TM_FILENAME/(.*).stories.[t|j]sx/${1}/}}',",
       "  component: ${1:${TM_FILENAME/(.*).stories.[t|j]sx/${1}/}},",
+      "  tags: ['autodocs'],"
       "};",
       "",
       "export default meta;",

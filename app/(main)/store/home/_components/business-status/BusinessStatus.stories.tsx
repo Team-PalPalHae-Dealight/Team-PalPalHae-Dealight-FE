@@ -4,6 +4,7 @@ import BusinessStatus from './BusinessStatus';
 const meta: Meta<typeof BusinessStatus> = {
   title: 'Components/BusinessStatus',
   component: BusinessStatus,
+  tags: ['autodocs'],
 };
 
 export default meta;

@@ -4,6 +4,7 @@ import StoreNumForm from './StoreNumForm';
 const meta: Meta<typeof StoreNumForm> = {
   title: 'Components/StoreNumForm',
   component: StoreNumForm,
+  tags: ['autodocs'],
 };
 
 export default meta;
