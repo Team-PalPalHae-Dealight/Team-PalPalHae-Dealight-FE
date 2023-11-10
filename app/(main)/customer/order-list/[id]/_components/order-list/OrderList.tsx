@@ -5,10 +5,10 @@ import Image from 'next/image';
 import notification from '@/app/_assets/images/notification.png';
 import InfiniteScrollList from '@/app/_components/infinite-scroll/InfiniteScrollList';
 import Footer from '@/app/_components/Footer/Footer';
-import OrderListDropDown from '@/app/(main)/store/order-list/[id]/_components/order-list-dropdown/OrderListDropDown';
-import fetchOrderList from '@/app/(main)/store/order-list/[id]/fetchOrderList';
-import OrderListCard from '@/app/(main)/store/order-list/[id]/_components/order-list-card/OrderListCard';
-import OrderListModal from '@/app/(main)/store/order-list/[id]/_components/order-list-modal/OrderListModal';
+import OrderListDropDown from '@/app/(main)/customer/order-list/[id]/_components/order-list-dropdown/OrderListDropDown';
+import fetchOrderList from '@/app/(main)/customer/order-list/[id]/fetchOrderList';
+import OrderListCard from '@/app/(main)/customer/order-list/[id]/_components/order-list-card/OrderListCard';
+import OrderListModal from '@/app/(main)/customer/order-list/[id]/_components/order-list-modal/OrderListModal';
 
 const OrderList = () => {
   const [isOpen, setIsOpen] = useState(false);
