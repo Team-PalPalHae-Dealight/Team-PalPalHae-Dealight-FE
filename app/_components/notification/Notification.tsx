@@ -11,8 +11,8 @@ const Notification = ({ children }: NotificationPropsType) => {
       </div>
       <div className="pb-2 text-xs text-black">{children}</div>
       <div className="text-xs text-black">
-        딜라잇(Dealight)은 상품 거래 예약을 도와주며, <br />그 외 과정에서
-        문제가 발생할 경우 책임을 지지 않습니다.
+        딜라잇(Dealight)은 상품 거래 예약을 도와주며, 그 외 과정에서 문제가
+        발생할 경우 책임을 지지 않습니다.
       </div>
     </div>
   );
