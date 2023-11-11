@@ -24,6 +24,9 @@ const config: Config = {
       lineHeight: {
         '12': '3rem',
       },
+      height: {
+        '42.5': '10.625rem',
+      },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':
