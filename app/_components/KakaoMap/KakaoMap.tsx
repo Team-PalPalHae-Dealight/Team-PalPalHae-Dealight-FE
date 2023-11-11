@@ -25,11 +25,7 @@ const KakaoMap = ({
   onClickCurrentPosition,
   onClickPosition,
 }: KakaoMapPropsType) => {
-  const map = useGetMap({
-    lat: currentPosition.lat,
-    lng: currentPosition.lng,
-    positionCount: positions.length,
-  });
+  const map = useGetMap({ lat: currentPosition.lat, lng: currentPosition.lng });
 
   useGetCurrentMarker({ currentPosition, map, onClickCurrentPosition });
   useGetMarker({ positions, map, onClickPosition });
