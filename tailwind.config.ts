@@ -17,6 +17,9 @@ const config: Config = {
         'dark-gray': '#9E9E9E',
         gray: '#F6F6F6',
         'light-gray': '#F9F9F9',
+        blue: '#0038FF',
+        orange: '#FF5C00',
+        green: '#00CC21',
       },
       lineHeight: {
         '12': '3rem',

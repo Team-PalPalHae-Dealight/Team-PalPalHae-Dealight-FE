@@ -1,7 +1,15 @@
+import LocalStorage from '@/app/_utils/localstorage';
+import RegisterModal from './_components/register-modal/RegisterModal';
+import BusinessStatus from './_components/business-status/BusinessStatus';
+
 export default function Page() {
+  const isStore = LocalStorage.getItem('dealight-storeId');
+
   return (
-    <main className="flex flex-col items-center px-5">
-      {/** @todo 모달창 띄워야 하는지 여부에 따라 등록하기 modal 띄우는 이벤트 처리하기 */}
-    </main>
+    <>
+      <main className="flex flex-col items-center px-5">
+        {isStore ? <BusinessStatus /> : <RegisterModal />}
+      </main>
+    </>
   );
 }

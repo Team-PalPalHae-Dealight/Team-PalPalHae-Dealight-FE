@@ -4,7 +4,7 @@ import { ResponseItemTypes } from '@/app/_components/infinite-scroll/fetchData';
 import Link from 'next/link';
 
 export type ItemTypes = {
-  items: ResponseItemTypes[] | null;
+  items?: ResponseItemTypes[] | null;
 };
 
 const Items = ({ items }: ItemTypes) => {
