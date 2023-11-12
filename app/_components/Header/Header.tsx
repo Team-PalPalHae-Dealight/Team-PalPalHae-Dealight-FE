@@ -1,4 +1,4 @@
-import DelightEmoji from './assets/delightemogi.svg';
+import DelightEmoji from './assets/dealight-emoji.svg';
 const Header = () => {
   return (
     <div className=" align-center sticky box-border flex h-16 w-full justify-start rounded-b-2xl  bg-yellow px-8 py-3 ">
