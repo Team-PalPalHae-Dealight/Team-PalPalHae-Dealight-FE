@@ -1,5 +1,5 @@
+import { ERROR_MESSAGE } from '../../../../_constants/errorMessage';
 import { array, string } from 'yup';
-import { ERROR_MESSAGE } from '../_constants/errorMessage';
 
 export const isValidStoreName = () => {
   return string()
