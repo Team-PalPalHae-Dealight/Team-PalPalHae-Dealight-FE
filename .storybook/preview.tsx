@@ -1,5 +1,7 @@
 import type { Preview } from '@storybook/react';
 import '../app/globals.css';
+import React from 'react';
+import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 
 const preview: Preview = {
   parameters: {
@@ -27,6 +29,17 @@ const preview: Preview = {
       },
     },
   },
+  decorators: [
+    Story => {
+      const queryClient = new QueryClient();
+
+      return (
+        <QueryClientProvider client={queryClient}>
+          <Story />
+        </QueryClientProvider>
+      );
+    },
+  ],
 };
 
 export default preview;

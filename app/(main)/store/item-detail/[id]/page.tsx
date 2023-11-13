@@ -1,12 +1,12 @@
-import ItemDetailTemp from './_components/ItemDetailTemp';
+import ItemDetail from './_components/ItemDetail';
 
-const ItemDetail = ({ params }: { params: { id: string } }) => {
+const Page = ({ params }: { params: { id: string } }) => {
   console.log(params);
   return (
     <main className="flex flex-col items-center px-5 pt-2.5">
-      <ItemDetailTemp />
+      <ItemDetail />
     </main>
   );
 };
 
-export default ItemDetail;
+export default Page;

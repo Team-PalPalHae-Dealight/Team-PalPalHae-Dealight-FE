@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import ItemDetailTemp from './ItemDetailTemp';
+import ItemDetailTemp from './ItemDetail';
 
 const meta: Meta<typeof ItemDetailTemp> = {
   title: 'Components/ItemDetailTemp',

@@ -1,6 +1,7 @@
 'use client';
 
 import { useCreateItem } from '@/app/_hooks/query/item';
+import ItemRegister from './_components/ItemRegister';
 
 export default function Page() {
   const { mutate: createItem } = useCreateItem();
@@ -17,6 +18,7 @@ export default function Page() {
 
   return (
     <main>
+      <ItemRegister />
       <h1>상품 등록 페이지</h1>
 
       <div>

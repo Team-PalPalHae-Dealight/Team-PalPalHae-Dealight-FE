@@ -35,7 +35,7 @@ export default async function Home() {
         <Link href={pageRoute.store.itemDetail('1')}>
           특정(1번) 상품 페이지로 가기
         </Link>
-        <Link href={pageRoute.store.registerItem()}>상품 등록하러 가기</Link>
+        <Link href={pageRoute.store.itemRegister()}>상품 등록하러 가기</Link>
       </div>
 
       <ApiTest />

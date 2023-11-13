@@ -60,7 +60,7 @@ const ItemDetail = () => {
       <div className="flex w-full gap-5">
         <PrimaryButton
           onClick={() => {
-            rounter.push(pageRoute.store.editItem('1'));
+            rounter.push(pageRoute.store.itemEdit('1'));
           }}
         >
           수정하기
