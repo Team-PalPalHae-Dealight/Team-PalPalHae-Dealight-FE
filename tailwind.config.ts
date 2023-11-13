@@ -24,6 +24,9 @@ const config: Config = {
       lineHeight: {
         '12': '3rem',
       },
+      borderWidth: {
+        '1': '1px',
+      },
       height: {
         '42.5': '10.625rem',
       },

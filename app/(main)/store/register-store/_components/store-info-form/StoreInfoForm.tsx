@@ -2,14 +2,14 @@
 
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { object } from 'yup';
-import { ERROR_MESSAGE } from '../../_constants/errorMessage';
-import PrimaryButton from '../../../../../_components/PrimaryButton/PrimaryButton';
-import pageRoute from '../../../../../_constants/path';
+import { ERROR_MESSAGE } from '@/app/_constants/errorMessage';
+import PrimaryButton from '@/app/_components/PrimaryButton/PrimaryButton';
+import pageRoute from '@/app/_constants/path';
 import { useRouter } from 'next/navigation';
-import AddressButton from '../../../../../_components/AddressButton/AddressButton';
+import AddressButton from '@/app/_components/AddressButton/AddressButton';
 import { useState, useEffect } from 'react';
 import { isValidStoreName, isValidStorePhone } from '../../_utils/validate';
-import LocalStorage from '../../../../../../app/_utils/localstorage';
+import LocalStorage from '@/app/_utils/localstorage';
 
 type initialValuesType = {
   storeName: string;
