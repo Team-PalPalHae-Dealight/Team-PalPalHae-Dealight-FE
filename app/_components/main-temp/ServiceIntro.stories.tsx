@@ -4,6 +4,7 @@ import ServiceIntro from './ServiceIntro';
 const meta: Meta<typeof ServiceIntro> = {
   title: 'Components/ServiceIntro',
   component: ServiceIntro,
+  tags: ['autodocs'],
 };
 
 export default meta;

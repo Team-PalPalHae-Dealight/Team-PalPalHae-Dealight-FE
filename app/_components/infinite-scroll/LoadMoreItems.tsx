@@ -26,14 +26,11 @@ const LoadMoreItems = ({
     setIsLoading(true);
     await delay(777);
 
-    const newProducts = (await fetchData(page)) ?? [];
+    const newItems = (await fetchData(page)) ?? [];
 
-    if (newProducts.length === 0) setIsEnded(true);
+    if (newItems.length === 0) setIsEnded(true);
 
-    setItems((prevProducts: ResponseItemTypes[]) => [
-      ...prevProducts,
-      ...newProducts,
-    ]);
+    setItems((prevItems: ResponseItemTypes[]) => [...prevItems, ...newItems]);
     setPage(prevPage => prevPage + 5);
     setIsLoading(false);
   }, [page, fetchData]);

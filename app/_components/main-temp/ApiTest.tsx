@@ -16,17 +16,13 @@ async function postApi() {
       }),
     }
   );
-
   const data = await response.json();
-
   if (!response.ok) {
     if (data.message) {
       throw new Error(data.message);
     }
-
     throw new Error('알 수 없는 에러');
   }
-
   console.log(data);
   return data;
 }
@@ -53,12 +49,12 @@ async function getApi() {
 }
 
 const ApiTest = () => {
-  const onClickPost = async () => {
-    await postApi();
+  const onClickPost = () => {
+    postApi();
   };
 
-  const onClickGet = async () => {
-    await getApi()
+  const onClickGet = () => {
+    getApi()
       .then(res => console.log(res))
       .catch(err => console.log(err));
   };

@@ -68,7 +68,7 @@ export const itemHandler = [
     await delay(1000);
 
     const { itemId } = params;
-    console.log(itemId);
+    console.log(itemId, 'delete');
 
     return new HttpResponse(null, { status: 204 });
   }),
