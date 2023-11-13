@@ -1,11 +1,11 @@
-import pageRoute from '../../../../../_constants/route';
+import pageRoute from '@/app/_constants/path';
 import Link from 'next/link';
 
 const RegisterModal = () => {
   return (
-    <div className="fixed flex h-full min-h-screen w-full items-center bg-dark-gray/75">
-      <div className="mx-5 h-96 w-full bg-white">
-        <div className="mx-5 flex flex-col items-center">
+    <div className="fixed left-0 top-0 flex h-full min-h-screen w-full items-center bg-dark-gray/75">
+      <div className="mx-5 flex h-96 w-full flex-col justify-center bg-white">
+        <div className="mx-5 flex flex-1 flex-col items-center">
           <div className="mb-7 mt-10 w-full text-center text-lg font-semibold text-black">
             고객님의 편리한
             <br />
