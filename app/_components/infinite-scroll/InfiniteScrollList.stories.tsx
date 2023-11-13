@@ -16,7 +16,7 @@ export const Primary: Story = {
   render: () => (
     <InfiniteScrollList
       fetchData={fetchData}
-      isEmptyWord={'더 이상 불러올 내용이 없습니다.'}
+      emptyWord={'더 이상 불러올 내용이 없습니다.'}
     >
       <Items />
     </InfiniteScrollList>

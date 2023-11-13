@@ -3,14 +3,14 @@
 import { ResponseItemTypes } from '@/app/_components/infinite-scroll/fetchData';
 import React, { useEffect, useState, useCallback } from 'react';
 import { useInView } from 'react-intersection-observer';
-import { InfiniteListPropType } from './InfiniteScrollList';
+import { InfiniteListPropsType } from './InfiniteScrollList';
 import Spinner from '../spinner/Spinner';
 
 const LoadMoreItems = ({
   fetchData,
   children,
-  isEmptyWord,
-}: InfiniteListPropType) => {
+  emptyWord,
+}: InfiniteListPropsType) => {
   const [items, setItems] = useState<ResponseItemTypes[]>([]);
   const [page, setPage] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
@@ -26,14 +26,11 @@ const LoadMoreItems = ({
     setIsLoading(true);
     await delay(777);
 
-    const newProducts = (await fetchData(page)) ?? [];
+    const newItems = (await fetchData(page)) ?? [];
 
-    if (newProducts.length === 0) setIsEnded(true);
+    if (newItems.length === 0) setIsEnded(true);
 
-    setItems((prevProducts: ResponseItemTypes[]) => [
-      ...prevProducts,
-      ...newProducts,
-    ]);
+    setItems((prevItems: ResponseItemTypes[]) => [...prevItems, ...newItems]);
     setPage(prevPage => prevPage + 5);
     setIsLoading(false);
   }, [page, fetchData]);
@@ -67,11 +64,11 @@ const LoadMoreItems = ({
           <Spinner />
         ) : items.length ? (
           <div className="flex items-center justify-center text-xs text-dark-gray">
-            <p>{isEmptyWord}</p>
+            <p>{emptyWord}</p>
           </div>
         ) : (
           <div className="flex h-96 items-center justify-center text-xs text-dark-gray">
-            <p>{isEmptyWord}</p>
+            <p>{emptyWord}</p>
           </div>
         )}
       </div>
