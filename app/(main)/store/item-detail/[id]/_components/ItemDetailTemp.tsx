@@ -3,8 +3,12 @@
 import PrimaryButton from '@/app/_components/PrimaryButton/PrimaryButton';
 import MockDonut from '@/app/_assets/images/mock-donut.png';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import pageRoute from '@/app/_constants/path';
 
 const ItemDetail = () => {
+  const rounter = useRouter();
+
   return (
     <div className="mb-5 w-full">
       <div className="mb-5 flex gap-5">
@@ -54,8 +58,22 @@ const ItemDetail = () => {
       </div>
 
       <div className="flex w-full gap-5">
-        <PrimaryButton onClick={() => {}}>수정하기</PrimaryButton>
-        <PrimaryButton onClick={() => {}}>삭제하기</PrimaryButton>
+        <PrimaryButton
+          onClick={() => {
+            rounter.push(pageRoute.store.editItem('1'));
+          }}
+        >
+          수정하기
+        </PrimaryButton>
+        <PrimaryButton
+          onClick={() => {
+            if (confirm('상품을 삭제하시겠습니까?')) {
+              rounter.push('/');
+            }
+          }}
+        >
+          삭제하기
+        </PrimaryButton>
       </div>
     </div>
   );
