@@ -31,7 +31,12 @@ const ItemEdit = ({ itemId }: ItemEditPropsType) => {
       <div className="mb-5 flex gap-4">
         <div className="flex flex-col gap-1.5">
           <Image src={MockDonut} alt="mock docut" />
-          <PrimaryButton onClick={() => {}}>이미지 불러오기</PrimaryButton>
+          <PrimaryButton
+            onClick={() => {}}
+            className="h-7 px-4 text-sm font-bold"
+          >
+            이미지 불러오기
+          </PrimaryButton>
         </div>
 
         <div>
