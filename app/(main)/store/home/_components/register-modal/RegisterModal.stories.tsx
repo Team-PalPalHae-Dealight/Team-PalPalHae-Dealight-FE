@@ -4,6 +4,7 @@ import RegisterModal from './RegisterModal';
 const meta: Meta<typeof RegisterModal> = {
   title: 'Components/RegisterModal',
   component: RegisterModal,
+  tags: ['autodocs'],
 };
 
 export default meta;

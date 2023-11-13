@@ -1,5 +1,7 @@
 import type { StorybookConfig } from '@storybook/nextjs';
 
+const path = require('path');
+
 const config: StorybookConfig = {
   stories: ['../app/**/*.mdx', '../app/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
   addons: [
@@ -15,7 +17,6 @@ const config: StorybookConfig = {
   docs: {
     autodocs: 'tag',
   },
-  staticDirs: ['../public'],
   core: {
     builder: '@storybook/builder-webpack5',
   },
@@ -36,6 +37,14 @@ const config: StorybookConfig = {
       test: /\.svg$/,
       use: ['@svgr/webpack'],
     });
+
+    if (config.resolve) {
+      config.resolve.modules = [path.resolve(__dirname, '..'), 'node_modules'];
+      config.resolve.alias = {
+        ...config.resolve.alias,
+        '@': path.resolve(__dirname, '../'),
+      };
+    }
 
     return config;
   },
