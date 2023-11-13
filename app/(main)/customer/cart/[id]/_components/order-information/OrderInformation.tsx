@@ -1,8 +1,5 @@
-'use client';
-
 import { useForm } from 'react-hook-form';
 import { HOUR_LIST, MINUTE_LIST } from '../../_constants/time';
-import { useEffect } from 'react';
 
 type InputType = {
   hour?: string | undefined;
@@ -16,10 +13,9 @@ type OrderInformationPropsType = {
 
 const OrderInformation = ({ getInput }: OrderInformationPropsType) => {
   const { register, watch } = useForm({});
+  const { hour, minute, request } = watch();
 
-  useEffect(() => {
-    watch(value => getInput(value));
-  }, [watch, getInput]);
+  getInput({ hour, minute, request });
 
   return (
     <div className="min-h-64 w-full rounded bg-white text-sm font-semibold text-black">

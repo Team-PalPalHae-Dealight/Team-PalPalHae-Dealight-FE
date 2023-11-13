@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { useState } from 'react';
 import polygon from '@/app/_assets/images/polygon.png';
-import reversePolygon from '@/app/_assets/images/reversePolygon.png';
+import reversePolygon from '@/app/_assets/images//reversePolygon.png';
 import { twMerge } from 'tailwind-merge';
 
 type DropDownTextType =

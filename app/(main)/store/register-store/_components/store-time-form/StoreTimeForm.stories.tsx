@@ -4,6 +4,7 @@ import StoreTimeForm from './StoreTimeForm';
 const meta: Meta<typeof StoreTimeForm> = {
   title: 'Components/StoreTimeForm',
   component: StoreTimeForm,
+  tags: ['autodocs'],
 };
 
 export default meta;

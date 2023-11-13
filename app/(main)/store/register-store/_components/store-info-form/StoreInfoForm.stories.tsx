@@ -4,6 +4,7 @@ import StoreInfoForm from './StoreInfoForm';
 const meta: Meta<typeof StoreInfoForm> = {
   title: 'Components/StoreInfoForm',
   component: StoreInfoForm,
+  tags: ['autodocs'],
 };
 
 export default meta;

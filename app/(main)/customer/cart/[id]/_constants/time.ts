@@ -1,4 +1,5 @@
 export const HOUR_LIST = [
+  '00',
   '01',
   '02',
   '03',

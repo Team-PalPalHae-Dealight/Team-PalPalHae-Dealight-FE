@@ -4,6 +4,7 @@ import OrderListModal from './OrderListModal';
 const meta: Meta<typeof OrderListModal> = {
   title: 'Components/OrderListModal',
   component: OrderListModal,
+  tags: ['autodocs'],
 };
 
 export default meta;
