@@ -1,6 +1,6 @@
-import DealightIntro1 from '../../_assets/images/dealight-intro-1.png';
-import DealightIntro2 from '../../_assets/images/dealight-intro-2.png';
-import DealightIntro3 from '../../_assets/images/dealight-intro-3.png';
+import DealightIntro1 from '@/app/_assets/images/dealight-intro-1.png';
+import DealightIntro2 from '@/app/_assets/images/dealight-intro-2.png';
+import DealightIntro3 from '@/app/_assets/images/dealight-intro-3.png';
 import Image from 'next/image';
 
 const ServiceIntro = () => {

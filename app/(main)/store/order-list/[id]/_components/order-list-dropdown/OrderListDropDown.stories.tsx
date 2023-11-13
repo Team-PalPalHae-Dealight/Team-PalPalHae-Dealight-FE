@@ -4,6 +4,7 @@ import OrderListDropDown from './OrderListDropDown';
 const meta: Meta<typeof OrderListDropDown> = {
   title: 'Components/OrderListDropDown',
   component: OrderListDropDown,
+  tags: ['autodocs'],
 };
 
 export default meta;

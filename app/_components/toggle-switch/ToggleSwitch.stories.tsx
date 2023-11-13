@@ -4,6 +4,7 @@ import ToggleSwitch from './ToggleSwitch';
 const meta: Meta<typeof ToggleSwitch> = {
   title: 'Components/ToggleSwitch',
   component: ToggleSwitch,
+  tags: ['autodocs'],
 };
 
 export default meta;
