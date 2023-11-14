@@ -13,6 +13,8 @@ import { getTodos, todoKeys } from './_hooks/query/tempTodo';
 import QueryTest from './_components/main-temp/QueryTest';
 import ApiTest from './_components/main-temp/ApiTest';
 import pageRoute from './_constants/path';
+import Header from './_components/Header/Header';
+import CustomerHeader from './_components/Header/CustomerHeader';
 
 export default async function Home() {
   const queryClient = new QueryClient();
@@ -39,7 +41,8 @@ export default async function Home() {
       </div>
 
       <ApiTest />
-
+      <Header />
+      <CustomerHeader />
       <HydrationBoundary state={dehydrate(queryClient)}>
         <QueryTest />
       </HydrationBoundary>
