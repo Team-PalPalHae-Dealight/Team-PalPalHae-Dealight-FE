@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import CustomerHeader from './CustomerHeader';
 const meta: Meta<typeof CustomerHeader> = {
-  title: 'offStory',
+  title: 'offStory/CustomerHeader',
   component: CustomerHeader,
 };
 
