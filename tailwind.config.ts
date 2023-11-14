@@ -30,6 +30,7 @@ const config: Config = {
       height: {
         '22.5': '5.5625rem',
         '42.5': '10.625rem',
+        '122': '30.5rem',
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

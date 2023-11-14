@@ -1,20 +1,12 @@
+import { CartCardType } from '../../_types';
 import ItemCard from '../item-card/ItemCard';
 
-type ItemListPropsType = {
-  _id: string;
-  image: string;
-  title: string;
-  price: number;
-  stock: number;
-  count: number;
-};
-
-const ItemList = (props: { data: ItemListPropsType[] }) => {
+const ItemList = (props: { data: CartCardType[] | undefined }) => {
   return (
     <div className="grid grid-cols-1 gap-y-2.5">
       {props.data ? (
         props.data.map(
-          ({ _id, image, title, price, stock, count }: ItemListPropsType) => (
+          ({ _id, image, title, price, stock, count }: CartCardType) => (
             <ItemCard
               key={_id}
               image={image}
@@ -26,7 +18,9 @@ const ItemList = (props: { data: ItemListPropsType[] }) => {
           )
         )
       ) : (
-        <div className="text-xs text-dark-gray">상품이 없습니다</div>
+        <div className="flex h-122 items-center justify-center text-xs text-dark-gray">
+          상품이 없습니다
+        </div>
       )}
     </div>
   );
