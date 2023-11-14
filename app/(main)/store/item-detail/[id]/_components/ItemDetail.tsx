@@ -34,7 +34,7 @@ const ItemDetail = () => {
           <div className="mb-3 text-sm font-bold">할인 가격 : {1500}원</div>
           <div className="mb-2.5 text-xs text-dark-gray">원가 : {3000}원</div>
 
-          <p className="text-xs font-bold">
+          <p className="text-xs">
             {
               '달콤한 도너츠는 도너츠 가게 시그니처 메뉴입니다.가장 인기가 많은 제품으로, 초콜릿 시럽과 캔디로 토핑이 이루어져 있습니다. 냉장 보관 필수이며, 3일 내로 섭취해주세요.'
             }
