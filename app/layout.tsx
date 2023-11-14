@@ -27,10 +27,10 @@ export default function RootLayout({
     <html lang="ko">
       <QueryProvider>
         <LogContextProvider>
-          <body className={`${pretendardRegular.className} bg-gray`}>
-            <div className="mx-auto min-h-screen max-w-[375px]">
-              <MSWProvider>{children}</MSWProvider>
-            </div>
+          <body
+            className={`${pretendardRegular.className} mx-auto min-h-screen max-w-[375px] bg-gray text-black`}
+          >
+            <MSWProvider>{children}</MSWProvider>
           </body>
         </LogContextProvider>
       </QueryProvider>

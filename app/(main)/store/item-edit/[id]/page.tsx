@@ -4,9 +4,9 @@ const ItemDetailEdit = ({ params }: { params: { id: string } }) => {
   const { id: itemId } = params;
 
   return (
-    <div className="flex flex-col gap-20">
+    <main className="px-5 pb-10 pt-5">
       <ItemEdit itemId={itemId} />
-    </div>
+    </main>
   );
 };
 

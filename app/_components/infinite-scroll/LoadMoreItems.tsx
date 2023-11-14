@@ -41,7 +41,10 @@ const LoadMoreItems = ({
     }
   }, [inView, isEnded, loadMoreItems, isLoading]);
 
-  const scrollY = Number(sessionStorage.getItem('scrollY'));
+  const scrollY =
+    typeof window !== 'undefined'
+      ? Number(sessionStorage.getItem('scrollY'))
+      : null;
 
   if (scrollY) {
     window.scrollTo({ left: 0, top: scrollY, behavior: 'smooth' });
