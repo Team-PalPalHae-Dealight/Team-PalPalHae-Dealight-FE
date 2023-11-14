@@ -28,6 +28,7 @@ const config: Config = {
         '1': '1px',
       },
       height: {
+        '22.5': '5.5625rem',
         '42.5': '10.625rem',
       },
       backgroundImage: {
