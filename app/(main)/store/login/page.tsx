@@ -24,7 +24,9 @@ export default function Page() {
       </p>
 
       <PrimaryButton
-        onClick={() => router.push('/')}
+        onClick={() => {
+          router.push(`${process.env.NEXT_PUBLIC_KAKAO_OAUTH_URL}`);
+        }}
         className="mt-16 flex items-center justify-center gap-1"
       >
         <Image src={Kakao} alt="kakao" />
