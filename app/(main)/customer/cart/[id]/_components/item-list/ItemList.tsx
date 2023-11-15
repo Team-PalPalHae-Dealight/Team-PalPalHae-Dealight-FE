@@ -1,4 +1,4 @@
-import { CartCardType } from '../../_types';
+import { CartCardType } from '../../_types/CartCardType';
 import ItemCard from '../item-card/ItemCard';
 
 const ItemList = (props: { data: CartCardType[] | undefined }) => {

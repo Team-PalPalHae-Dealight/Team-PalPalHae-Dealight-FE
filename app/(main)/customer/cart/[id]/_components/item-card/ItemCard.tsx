@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { useState } from 'react';
 import PLUS_IMAGE from '@/app/_assets/images/plus.png';
-import MINUS_IMAGE from '../../../../../../_assets/images/minus.png';
+import MINUS_IMAGE from '@/app/_assets/images/minus.png';
 
 type ItemCardPropsType = {
   image: string;
