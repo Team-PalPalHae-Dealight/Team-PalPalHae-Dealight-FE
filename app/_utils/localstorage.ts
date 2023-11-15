@@ -1,6 +1,6 @@
 /**
  * @namespace 로컬스토리지 key name : dealight-변수명
- * 변수명 컨벤션 : Camel case
+ * 변수명 컨벤션 : camelCase
  * ex) dealight-storeId
  */
 
@@ -13,7 +13,7 @@ const LocalStorage = {
   },
   getItem: (key: string) => {
     if (typeof window !== 'undefined') {
-      return window.localStorage.getItem(key) || '{}';
+      return window.localStorage.getItem(key);
     }
     return null;
   },
