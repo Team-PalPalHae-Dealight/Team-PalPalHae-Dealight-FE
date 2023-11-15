@@ -51,4 +51,5 @@ const CustomerHeader = () => {
     </div>
   );
 };
+
 export default CustomerHeader;
