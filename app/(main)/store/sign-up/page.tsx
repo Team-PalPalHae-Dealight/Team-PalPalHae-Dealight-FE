@@ -1,6 +1,6 @@
 'use client';
 import PrimaryButton from '@/app/_components/PrimaryButton/PrimaryButton';
-import GuideText from './components/GuideText';
+import GuideText from './components/GuildText';
 import Input from './components/Input';
 import NicknameInput from './components/NicknameInput';
 import { useForm, SubmitHandler } from 'react-hook-form';
