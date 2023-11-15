@@ -5,12 +5,12 @@ import Link from 'next/link';
 import pageRoute from '@/app/_constants/path';
 import { useState } from 'react';
 import AddressButton from '../AddressButton/AddressButton';
-import { useLogin } from '@/app/_providers/auth';
 import Triangle from './assets/triangle.svg';
+import { useAuth } from '@/app/_providers/AuthProvider';
 
 const CustomerHeader = () => {
   const [address, setAddress] = useState('강남역 2번 출구');
-  const { loggedin } = useLogin();
+  const { loggedIn } = useAuth();
 
   return (
     <div className=" align-center space-between text-l sticky box-border flex h-16 w-full justify-between rounded-b-2xl bg-yellow px-3 py-4 font-semibold text-black">
@@ -28,7 +28,7 @@ const CustomerHeader = () => {
       </div>
       <div className="align-center flex ">
         <div>
-          {loggedin ? (
+          {loggedIn ? (
             <div></div>
           ) : (
             <Link href={pageRoute.customer.login()}>
