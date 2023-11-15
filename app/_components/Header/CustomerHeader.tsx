@@ -20,7 +20,7 @@ const CustomerHeader = () => {
             <div className="flex flex-row">
               <div>{address}</div>
               <div>
-                <Triangle className="h-6 w-6 px-3  py-1.5" />
+                <Triangle className="h-6 w-6 px-1  py-1.5" />
               </div>
             </div>
           </AddressButton>
