@@ -14,12 +14,12 @@ export default function OnlyStoreLayout({
   const { role } = useUserInfo();
 
   useEffect(() => {
-    if (role === '업체') return;
+    if (role === 'store') return;
 
     router.push(pageRoute.store.home());
   }, [role, router]);
 
-  if (!role || role === '고객') {
+  if (!role || role === 'member') {
     return null;
   }
 

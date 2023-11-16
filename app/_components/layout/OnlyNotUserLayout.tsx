@@ -18,7 +18,7 @@ export default function OnlyNotUserLayout({
     router.push('/');
   }, [role, router]);
 
-  if (role === '고객' || role === '업체') {
+  if (role === 'member' || role === 'store') {
     return null;
   }
 

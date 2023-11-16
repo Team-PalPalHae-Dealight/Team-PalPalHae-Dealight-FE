@@ -14,7 +14,7 @@ export default function OnlyUserLayout({
   const { role } = useUserInfo();
 
   useEffect(() => {
-    if (role === '고객' || role === '업체') return;
+    if (role === 'member' || role === 'store') return;
 
     router.push(pageRoute.customer.home());
   }, [role, router]);

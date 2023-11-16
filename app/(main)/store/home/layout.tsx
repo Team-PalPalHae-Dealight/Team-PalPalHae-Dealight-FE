@@ -6,9 +6,5 @@ import RegisterModal from './_components/register-modal/RegisterModal';
 export default function Layout({ children }: { children: React.ReactNode }) {
   const { role } = useUserInfo();
 
-  if (!role) {
-    return null;
-  }
-
-  return <div>{role === '업체' ? children : <RegisterModal />}</div>;
+  return <div>{role === 'store' ? children : <RegisterModal />}</div>;
 }

@@ -8,7 +8,7 @@ import LocalStorage from '../_utils/localstorage';
 
 type DefaultContextType = {
   nickname: string | null;
-  role: '업체' | '고객' | null;
+  role: 'store' | 'member' | null;
 } | null;
 
 const UserInfoContext = createContext<DefaultContextType>(null);
@@ -19,7 +19,7 @@ async function getUser(): Promise<DefaultContextType> {
   /**
    * @description role에 고객 or 업체가 들어온다. 이 값을 통해 라우팅 처리가 이루어지게 된다.
    */
-  return { nickname: '업체 닉네임', role: '업체' };
+  return { nickname: '업체 닉네임', role: 'member' };
 }
 
 export const UserInfoProvider = ({
