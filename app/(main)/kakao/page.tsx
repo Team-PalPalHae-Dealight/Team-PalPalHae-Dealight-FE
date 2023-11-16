@@ -1,21 +1,68 @@
 'use client';
 
-// import { useAuth } from '@/app/_providers/AuthProvider';
+import pageRoute from '@/app/_constants/path';
+import { useAuth } from '@/app/_providers/AuthProvider';
 import { axiosInstance } from '@/app/_services/apiClient';
-// import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+import LocalStorage from '@/app/_utils/localstorage';
+import { useRouter } from 'next/navigation';
+import { useCallback, useEffect } from 'react';
+
+type SignupNewUserType = {
+  provider: string;
+  providerId: number;
+  nickName: string;
+};
+
+async function getKakaoInfo(code: string) {
+  const response = await axiosInstance.get(
+    `${process.env.NEXT_PUBLIC_API_URL}/auth/kakao?code=${code}`
+  );
+
+  return response;
+}
 
 const Page = () => {
-  // const { login } = useAuth();
+  const router = useRouter();
+  const { login } = useAuth();
+
+  const signupNewUser = useCallback(
+    ({ provider, providerId, nickName }: SignupNewUserType) => {
+      LocalStorage.setItem('dealight-signup', {
+        provider,
+        providerId,
+        nickName,
+      });
+
+      if (LocalStorage.getItem('dealight-lastLoginPage') === 'customer') {
+        router.push(pageRoute.customer.signUp());
+        return;
+      }
+
+      if (LocalStorage.getItem('dealight-lastLoginPage') === 'store') {
+        router.push(pageRoute.store.signUp());
+        return;
+      }
+    },
+    [router]
+  );
 
   useEffect(() => {
-    const code = new URL(document.location.toString()).searchParams.get('code');
-    console.log(code);
+    const code = new URL(document.location.toString()).searchParams.get(
+      'code'
+    )!;
 
-    axiosInstance
-      .post(`${process.env.NEXT_PUBLIC_API_URL}/auth/kakao?code=${code}`)
-      .then(res => console.log(res));
-  }, []);
+    getKakaoInfo(code).then(res => {
+      const data = res.data;
+
+      if (data.message) {
+        const { provider, providerId, nickName } = data;
+        signupNewUser({ provider, providerId, nickName });
+      }
+
+      const { accessToken, refreshToken } = data;
+      login({ accessToken, refreshToken });
+    });
+  }, [router, login, signupNewUser]);
 
   return null;
 };

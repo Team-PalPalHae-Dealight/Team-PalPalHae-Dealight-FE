@@ -5,9 +5,15 @@ import Kakao from '../../../_assets/images/kakao.png';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { useEffect } from 'react';
+import LocalStorage from '@/app/_utils/localstorage';
 
 export default function Page() {
   const router = useRouter();
+
+  useEffect(() => {
+    LocalStorage.setItem('dealight-lastLoginPage', 'store');
+  }, []);
 
   return (
     <main className="flex flex-col items-center px-5">
