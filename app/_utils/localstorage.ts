@@ -13,7 +13,11 @@ const LocalStorage = {
   },
   getItem: (key: string) => {
     if (typeof window !== 'undefined') {
-      return window.localStorage.getItem(key);
+      const data = window.localStorage.getItem(key);
+
+      if (data) {
+        return JSON.parse(data);
+      }
     }
     return null;
   },
