@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import GuideText from '../GuildText';
+import GuideText from './GuildeText';
 
 const meta: Meta<typeof GuideText> = {
   title: 'Components/GuideText',
