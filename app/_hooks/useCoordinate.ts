@@ -1,23 +1,28 @@
-import { useState, useEffect } from 'react';
 import { Document } from '../_types/kakaoMap';
 
 const useCoordinate = (address: string) => {
-  const [coords, setCoords] = useState([0, 0]);
+  const kakaoMapScript = document.createElement('script');
+  kakaoMapScript.async = false;
+  kakaoMapScript.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_MAP_KEY}&autoload=false&libraries=services`;
+  document.head.appendChild(kakaoMapScript);
 
-  useEffect(() => {
-    window.kakao.maps.load(() => {
-      const geocoder = new window.kakao.maps.services.Geocoder();
+  if (window.kakao) {
+    const geocoder = new window.kakao.maps.services.Geocoder();
+
+    const mapInformation = new Promise((resolve, reject) => {
       geocoder.addressSearch(
         address,
         function (result: Document[], status: 'OK' | 'ZERO_RESULT' | 'ERROR') {
           if (status === window.kakao.maps.services.Status.OK) {
-            setCoords([Number(result[0].x), Number(result[0].y)]);
+            resolve(result);
+          } else {
+            reject(status);
           }
         }
       );
     });
-  }, [address]);
-  return coords;
+    return mapInformation;
+  }
 };
 
 export default useCoordinate;

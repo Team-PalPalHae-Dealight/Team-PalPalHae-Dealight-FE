@@ -13,6 +13,8 @@ import { getTodos, todoKeys } from './_hooks/query/tempTodo';
 import QueryTest from './_components/main-temp/QueryTest';
 import ApiTest from './_components/main-temp/ApiTest';
 import pageRoute from './_constants/path';
+import Header from './_components/Header/Header';
+import CustomerHeader from './_components/Header/CustomerHeader';
 
 export default async function Home() {
   const queryClient = new QueryClient();
@@ -35,11 +37,12 @@ export default async function Home() {
         <Link href={pageRoute.store.itemDetail('1')}>
           특정(1번) 상품 페이지로 가기
         </Link>
-        <Link href={pageRoute.store.registerItem()}>상품 등록하러 가기</Link>
+        <Link href={pageRoute.store.itemRegister()}>상품 등록하러 가기</Link>
       </div>
 
       <ApiTest />
-
+      <Header />
+      <CustomerHeader />
       <HydrationBoundary state={dehydrate(queryClient)}>
         <QueryTest />
       </HydrationBoundary>
