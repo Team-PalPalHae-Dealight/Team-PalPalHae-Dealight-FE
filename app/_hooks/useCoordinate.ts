@@ -21,7 +21,7 @@ const useCoordinate = (address: string) => {
             status: 'OK' | 'ZERO_RESULT' | 'ERROR'
           ) {
             if (status === window.kakao.maps.services.Status.OK) {
-              setCoords([Number(result[0].x), Number(result[0].y)]);
+              setCoords([Number(result[0].y), Number(result[0].x)]);
             }
           }
         );
