@@ -15,7 +15,7 @@ const HomeButton = () => {
         href={'/'}
       >
         <b className="text-xl font-semibold">주문내역</b>
-        <p className="mb-4 mt-2.5 text-xs">
+        <p className=" mb-7 mt-2.5 text-xs">
           한눈에 <br /> 주문 확인하기
         </p>
         <Image
@@ -27,7 +27,7 @@ const HomeButton = () => {
       </Link>
 
       <Link
-        className="relative w-full rounded-lg bg-white px-1.5 py-3.5 shadow"
+        className="relative w-full rounded-lg bg-white p-1.5 shadow"
         /**
          * @todo
          * 라우팅 작업 수정 필요
@@ -35,7 +35,7 @@ const HomeButton = () => {
         href={'/'}
       >
         <b className="text-xl font-semibold">상품 등록</b>
-        <p className="mb-4 mt-2.5 text-xs">
+        <p className="mb-7 mt-2.5 text-xs">
           원하는 <br /> 상품 등록하기
         </p>
         <Image
