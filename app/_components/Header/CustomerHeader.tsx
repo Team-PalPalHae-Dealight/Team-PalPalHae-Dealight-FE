@@ -7,7 +7,9 @@ import pageRoute from '@/app/_constants/path';
 import { useState } from 'react';
 import AddressButton from '../AddressButton/AddressButton';
 import Triangle from './assets/triangle.svg';
-import LoginHeader from './LoginHeader';
+import dynamic from 'next/dynamic';
+
+const LoginHeader = dynamic(() => import('./LoginHeader'), { ssr: false });
 
 const CustomerHeader = () => {
   const [address, setAddress] = useState('강남역 2번 출구');
