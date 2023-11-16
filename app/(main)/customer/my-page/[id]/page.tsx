@@ -5,7 +5,7 @@ import Footer from '@/app/_components/Footer/Footer';
 export default function Page({ params }: { params: { slug: string } }) {
   console.log(params);
   return (
-    <div className="flex flex-col items-center pt-2.5">
+    <div className="flex flex-col items-center">
       <CustomerHeader />
       <div className="w-full px-5">
         <MyPageContents />

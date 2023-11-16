@@ -120,7 +120,11 @@ const MyPageContents = () => {
           height="220px"
           onClickCurrentPosition={() => {}}
           onClickPosition={() => {}}
-          currentPosition={{ lat: coords[0], lng: coords[1], title: '' }}
+          currentPosition={{
+            lat: Number(coords[0]),
+            lng: Number(coords[1]),
+            title: '',
+          }}
         />
       </div>
       <PrimaryButton className="mb-5" type="submit" onClick={() => {}}>
