@@ -19,7 +19,7 @@ const OrderList = () => {
 
   return (
     <>
-      <main className="mx-5 rounded-t-lg bg-gray pb-3 pl-5 pr-5 pt-5">
+      <main className="rounded-t-lg bg-gray px-5">
         <div className="sticky top-0 my-3 flex h-14 items-center justify-between bg-gray">
           <div className="flex items-center gap-1" onClick={onClickOrderList}>
             <label className="text-xl	font-semibold text-black">주문 내역</label>
