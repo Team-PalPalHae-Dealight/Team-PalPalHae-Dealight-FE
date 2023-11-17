@@ -1,23 +1,16 @@
+'use client';
+
 import { useCallback, useEffect, useState } from 'react';
-import TodayDealightDropDown, {
-  DropDownTextType,
-} from './TodayDealightDropDown';
-import fetchData, { ResponseItemTypes } from '../fetchData';
-import ItemCards from './ItemCards';
+import fetchData, { ResponseItemTypes } from '../../fetchData';
 import { useInView } from 'react-intersection-observer';
+import ItemCards from './ItemCards';
 import Spinner from '@/app/_components/spinner/Spinner';
 
-type TodayDealightPropsType = {
-  listName: '오늘의 딜라잇' | '상품 목록';
-  emptyWord: string;
-};
-
-const TodayDealight = ({ listName, emptyWord }: TodayDealightPropsType) => {
+const ProductList = () => {
   const [items, setItems] = useState<ResponseItemTypes[]>([]);
   const [page, setPage] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [isEnded, setIsEnded] = useState(false);
-  const [sortBy, setSortBy] = useState<DropDownTextType>('거리순');
 
   const { ref, inView } = useInView();
 
@@ -29,7 +22,9 @@ const TodayDealight = ({ listName, emptyWord }: TodayDealightPropsType) => {
     setIsLoading(true);
     await delay(777);
 
-    /**@todo api 작업 시 fetch함수에 넘겨줄 파라미터 수정해야 함 ex)sortBy,x좌표,y좌표 등 */
+    /**
+     * @todo api 작업 시 fetch함수에 넘겨줄 파라미터 수정해야 함 ex)sortBy,x좌표,y좌표 등
+     */
     const newItems = (await fetchData(page)) ?? [];
 
     if (newItems.length === 0) setIsEnded(true);
@@ -47,34 +42,34 @@ const TodayDealight = ({ listName, emptyWord }: TodayDealightPropsType) => {
 
   return (
     <>
-      <div className="my-3 flex items-center justify-between">
-        <h2 className="text-lg font-bold">{listName}</h2>
-        <TodayDealightDropDown sortBy={sortBy} setSortBy={setSortBy} />
+      <div className="my-3 flex w-full items-center justify-start">
+        <h2 className="text-lg font-bold">상품 목록</h2>
       </div>
       {/* 목록 리스트 안에 들어있는 아이템이 늘어날때 overflow속성을 어떻게 해야할 지 의논 후 수정 필요 */}
-      <div>
+      <div className="w-full">
         <ItemCards items={items} />
         <div
           className="col-span-1 flex items-center justify-center sm:col-span-2 md:col-span-3"
           ref={ref}
         >
           {isLoading && !isEnded ? (
-            <Spinner />
+            <>
+              <Spinner />
+              <div className="h-16" />
+            </>
           ) : items.length ? (
-            <div className="flex items-center justify-center text-xs text-dark-gray">
-              <p>{emptyWord}</p>
+            <div className="items-center justify-center p-8 text-xs text-dark-gray">
+              <p>등록한 상품이 없습니다.</p>
             </div>
           ) : (
             <div className="flex h-96 items-center justify-center text-xs text-dark-gray">
-              <p>{emptyWord}</p>
+              <p>등록한 상품이 없습니다.</p>
             </div>
           )}
         </div>
-        {/* footer 수정 작업 후 수정 필요 */}
-        <div className="h-16" />
       </div>
     </>
   );
 };
 
-export default TodayDealight;
+export default ProductList;
