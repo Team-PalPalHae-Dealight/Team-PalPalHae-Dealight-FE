@@ -11,7 +11,7 @@ export default function Page() {
 
   return (
     <>
-      {!isStore ? (
+      {isStore ? (
         <>
           <Header />
           <main className="mt-2 flex flex-col items-center px-5">

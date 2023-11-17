@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import orderList from '@/app/_assets/images/order-list.png';
-import productRegistration from '@/app/_assets/images/product-registration.png';
+import OrderList from '@/app/_assets/images/order-list.png';
+import ProductRegistration from '@/app/_assets/images/product-registration.png';
 
 const HomeButton = () => {
   return (
@@ -19,7 +19,7 @@ const HomeButton = () => {
           한눈에 <br /> 주문 확인하기
         </p>
         <Image
-          src={orderList}
+          src={OrderList}
           priority
           alt="order-list"
           className="absolute bottom-0 right-0"
@@ -39,7 +39,7 @@ const HomeButton = () => {
           원하는 <br /> 상품 등록하기
         </p>
         <Image
-          src={productRegistration}
+          src={ProductRegistration}
           priority
           alt="product-registration"
           className="absolute bottom-0 right-0"
