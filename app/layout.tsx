@@ -28,7 +28,7 @@ export default function RootLayout({
       <QueryProvider>
         <LogContextProvider>
           <body
-            className={`${pretendardRegular.className} mx-auto min-h-screen max-w-[375px] bg-gray text-black`}
+            className={`${pretendardRegular.className} mx-auto min-h-screen w-full bg-gray text-black`}
           >
             <MSWProvider>{children}</MSWProvider>
           </body>
