@@ -13,20 +13,19 @@ const CustomerHeader = () => {
   const { loggedin } = useLogin();
 
   return (
-    <div className=" align-center space-between text-l sticky box-border flex h-16 w-full justify-between rounded-b-2xl bg-yellow px-3 py-4 font-semibold text-black">
-      <div className="flex flex-row">
-        <div>
-          <AddressButton getAddress={addressVal => setAddress(addressVal)}>
-            <div className="flex flex-row">
-              <div>{address}</div>
-              <div>
-                <Triangle className="h-6 w-6 px-1  py-1.5" />
-              </div>
+    <div className="text-l sticky z-20 flex h-16 w-full flex-row items-center justify-between rounded-b-2xl bg-yellow px-3 py-4 font-semibold text-black">
+      <div className="flex  items-center ">
+        <AddressButton getAddress={addressVal => setAddress(addressVal)}>
+          <div className="flex flex-row">
+            <div>{address}</div>
+            <div>
+              <Triangle className="h-6 w-6 px-1  py-1.5" />
             </div>
-          </AddressButton>
-        </div>
+          </div>
+        </AddressButton>
       </div>
-      <div className="align-center flex ">
+
+      <div className="flex  items-center ">
         <div>
           {loggedin ? (
             <div></div>
@@ -37,14 +36,14 @@ const CustomerHeader = () => {
           )}
         </div>
 
-        <div className=" py-1">
+        <div className=" py-2">
           <Link href={pageRoute.customer.search('')}>
-            <Search className="ml-1 h-6  w-6" />
+            <Search className=" h-6  w-6 px-1  py-1" />
           </Link>
         </div>
-        <div className=" py-1">
+        <div className=" py-2">
           <Link href={pageRoute.customer.cart('1')}>
-            <Cart className="ml-1 h-6  w-6" />
+            <Cart className=" h-6  w-6  py-1" />
           </Link>
         </div>
       </div>
