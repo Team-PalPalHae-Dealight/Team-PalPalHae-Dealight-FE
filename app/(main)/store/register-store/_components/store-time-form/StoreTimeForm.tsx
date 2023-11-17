@@ -6,6 +6,7 @@ import { TIME_LIST } from '../../_constants/time';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import Notification from '@/app/_assets/images/notification.png';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import {
   isValidStoreCloseTime,
   isValidStoreDayOff,
@@ -14,6 +15,7 @@ import {
 import LocalStorage from '@/app/_utils/localstorage';
 import PrimaryButton from '@/app/_components/PrimaryButton/PrimaryButton';
 import { yupResolver } from '@hookform/resolvers/yup';
+import pageRoute from '@/app/_constants/path';
 
 type initialValuesType = {
   storeOpenTime: string;
@@ -22,7 +24,7 @@ type initialValuesType = {
 };
 
 const StoreTimeForm = () => {
-  //const router = useRouter();
+  const router = useRouter();
 
   const schema = object().shape({
     storeOpenTime: isValidStoreOpenTime(),
@@ -32,11 +34,13 @@ const StoreTimeForm = () => {
 
   const onSubmit: SubmitHandler<initialValuesType> = () => {
     const { storeOpenTime, storeCloseTime, storeDayOff } = watch();
+
     LocalStorage.setItem('dealight-storeOpenTime', storeOpenTime);
     LocalStorage.setItem('dealight-storeCloseTime', storeCloseTime);
     LocalStorage.setItem('dealight-storeDayOff', storeDayOff);
-    /** @todo api res 값에 따라 라우팅 분기 처리 */
-    // router.push(pageRoute.store.home());
+    /** @todo api 연결 */
+    /** @todo api res status 200일 경우 LocalStorage 삭제 */
+    router.push(pageRoute.store.home());
   };
 
   const {

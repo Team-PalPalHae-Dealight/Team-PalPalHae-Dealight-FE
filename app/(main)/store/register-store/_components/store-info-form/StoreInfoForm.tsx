@@ -12,6 +12,7 @@ import { useState, useEffect } from 'react';
 import { isValidStoreName, isValidStorePhone } from '../../_utils/validate';
 import LocalStorage from '@/app/_utils/localstorage';
 import { yupResolver } from '@hookform/resolvers/yup';
+import useCoordinate from '@/app/_hooks/useCoordinate';
 
 type initialValuesType = {
   storeName: string;
@@ -24,7 +25,7 @@ const StoreInfoForm = () => {
   const [address, setAddress] = useState('');
   const [addressError, setAddressError] = useState(true);
   const [click, setClick] = useState(false);
-  const [next, setNext] = useState(false);
+  const coords = useCoordinate(address);
 
   const schema = object().shape({
     storeName: isValidStoreName(),
@@ -44,7 +45,8 @@ const StoreInfoForm = () => {
     const address = LocalStorage.getItem('dealight-storeAddress');
 
     if (address) setAddressError(false);
-    if (!addressError && storeName && storePhone && next) {
+
+    if (!addressError && storeName && storePhone) {
       LocalStorage.setItem('dealight-storeName', storeName);
       LocalStorage.setItem('dealight-storePhone', storePhone);
 
@@ -56,10 +58,11 @@ const StoreInfoForm = () => {
 
   const handleAddressButton = (address: string) => {
     LocalStorage.setItem('dealight-storeAddress', address);
+    LocalStorage.setItem('dealight-coords', coords);
 
+    console.log(coords);
     setAddress(address);
     setAddressError(false);
-    setNext(false);
   };
 
   useEffect(() => {
@@ -119,7 +122,7 @@ const StoreInfoForm = () => {
           </label>
           <div className="flex gap-x-2">
             <div
-              className={`base-2/5 h-12 w-full rounded bg-white py-3 pl-3 text-base text-black outline-none`}
+              className={`base-2/5 h-12 w-full truncate rounded bg-white py-3 pl-3 text-base text-black outline-none`}
             >
               {address}
             </div>
@@ -142,7 +145,7 @@ const StoreInfoForm = () => {
           <div className="h-2.5 w-2.5 rounded-full bg-yellow"></div>
           <div className="h-2.5 w-2.5 rounded-full bg-dark-gray"></div>
         </div>
-        <PrimaryButton type="submit" onClick={() => setNext(true)}>
+        <PrimaryButton type="submit" onClick={() => {}}>
           다음
         </PrimaryButton>
       </form>
