@@ -2,6 +2,8 @@ import type { Preview } from '@storybook/react';
 import '../app/globals.css';
 import React from 'react';
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
+import { AuthProvider } from '../app/_providers/AuthProvider';
+import { UserInfoProvider } from '../app/_providers/UserInfoProvider';
 
 const preview: Preview = {
   parameters: {
@@ -35,7 +37,11 @@ const preview: Preview = {
 
       return (
         <QueryClientProvider client={queryClient}>
-          <Story />
+          <AuthProvider>
+            <UserInfoProvider>
+              <Story />
+            </UserInfoProvider>
+          </AuthProvider>
         </QueryClientProvider>
       );
     },

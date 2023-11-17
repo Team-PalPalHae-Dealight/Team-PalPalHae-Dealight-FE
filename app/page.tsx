@@ -15,6 +15,7 @@ import ApiTest from './_components/main-temp/ApiTest';
 import pageRoute from './_constants/path';
 import Header from './_components/Header/Header';
 import CustomerHeader from './_components/Header/CustomerHeader';
+import AuthTest from './_components/main-temp/AuthTest';
 
 export default async function Home() {
   const queryClient = new QueryClient();
@@ -46,6 +47,12 @@ export default async function Home() {
       <HydrationBoundary state={dehydrate(queryClient)}>
         <QueryTest />
       </HydrationBoundary>
+
+      <div className="flex flex-col border border-sky-400 p-2">
+        <h2>로그인과 관련된 테스트</h2>
+
+        <AuthTest />
+      </div>
     </main>
   );
 }
