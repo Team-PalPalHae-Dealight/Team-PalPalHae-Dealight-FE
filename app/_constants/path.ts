@@ -11,7 +11,7 @@ const pageRoute = {
     review: (id: string) => `/customer/review/${id}`,
     reviewWrite: (id: string) => `/customer/review-write/${id}`,
     search: (id: string) => `/customer/search/${id}`,
-    signUp: () => '/customer/sign-up',
+    signup: () => '/customer/signup',
     storeDetail: (id: string) => `/customer/store-detail/${id}`,
   },
   store: {
@@ -23,7 +23,7 @@ const pageRoute = {
     orderList: (id: string) => `/store/order-list/${id}`,
     itemDetail: (id: string) => `/store/item-detail/${id}`,
     itemRegister: () => '/store/item-register',
-    signUp: () => '/store/sign-up',
+    signup: () => '/store/signup',
     storeManage: (id: string) => `/store/store-manage/${id}`,
     registerStoreNumber: () => '/store/register-store/store-number',
     registerStoreInfo: () => '/store/register-store/store-info',

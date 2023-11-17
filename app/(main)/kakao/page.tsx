@@ -30,16 +30,16 @@ const Page = () => {
       LocalStorage.setItem('dealight-signup', {
         provider,
         providerId,
-        nickName,
+        kakaoNickName: nickName,
       });
 
       if (LocalStorage.getItem('dealight-lastLoginPage') === 'customer') {
-        router.push(pageRoute.customer.signUp());
+        router.push(pageRoute.customer.signup());
         return;
       }
 
       if (LocalStorage.getItem('dealight-lastLoginPage') === 'store') {
-        router.push(pageRoute.store.signUp());
+        router.push(pageRoute.store.signup());
         return;
       }
     },
