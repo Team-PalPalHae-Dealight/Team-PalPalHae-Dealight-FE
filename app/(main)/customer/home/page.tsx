@@ -3,6 +3,7 @@
 import KakaoMap from '@/app/_components/KakaoMap/KakaoMap';
 import TodayDealight from '@/app/(main)/customer/home/_components/TodayDealight';
 import CustomerHeader from '@/app/_components/Header/CustomerHeader';
+import Footer from '@/app/_components/Footer/Footer';
 
 export default function Page() {
   return (
@@ -26,6 +27,7 @@ export default function Page() {
           />
         </div>
       </div>
+      <Footer />
     </>
   );
 }
