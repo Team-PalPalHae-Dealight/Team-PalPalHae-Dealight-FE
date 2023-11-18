@@ -2,9 +2,9 @@ type PopUpPropsType = {
   mainText: string;
   subText?: string;
   leftBtnText: string;
-  leftBtnClick: React.MouseEventHandler<HTMLButtonElement>;
+  leftBtnClick: () => void;
   rightBtnText: string;
-  rightBtnClick: React.MouseEventHandler<HTMLButtonElement>;
+  rightBtnClick: () => void;
 };
 
 const PopUp = ({
@@ -16,7 +16,7 @@ const PopUp = ({
   rightBtnClick,
 }: PopUpPropsType) => {
   return (
-    <div className="fixed left-0 top-0 flex h-full w-full items-center justify-center bg-black bg-opacity-50">
+    <div className="fixed left-0 top-0 z-[500] flex h-full w-full items-center justify-center bg-black bg-opacity-50">
       <div className="flex w-60 flex-col items-center rounded bg-white">
         <div className="flex w-full flex-col items-center justify-center p-6 text-center text-sm">
           <div className="font-semibold">{mainText}</div>
