@@ -2,9 +2,9 @@ type PopUpPropsType = {
   mainText: string;
   subText?: string;
   leftBtnText: string;
-  leftBtnClick: () => void;
+  leftBtnClick: React.MouseEventHandler<HTMLButtonElement>;
   rightBtnText: string;
-  rightBtnClick: () => void;
+  rightBtnClick: React.MouseEventHandler<HTMLButtonElement>;
 };
 
 const PopUp = ({
