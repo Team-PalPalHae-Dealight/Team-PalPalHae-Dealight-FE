@@ -8,7 +8,9 @@ const LoginHeader = () => {
   const { loggedIn } = useAuth();
 
   return loggedIn ? null : (
-    <Link href={pageRoute.customer.login()}>로그인</Link>
+    <Link className="px-3" href={pageRoute.customer.login()}>
+      로그인
+    </Link>
   );
 };
 
