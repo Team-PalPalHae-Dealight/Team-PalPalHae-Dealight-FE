@@ -49,7 +49,7 @@ const ToggleSwitch = ({ getToggleValue }: ToggleSwitchPropsType) => {
       {onPopUp && (
         <PopUp
           mainText={'영업을 종료하시겠습니까?'}
-          subText={'영업을 종료하시면 등록한 상품이 \n모두 삭제됩니다.'}
+          subText={'영업을 종료하시면 등록한 상품이 모두 삭제됩니다.'}
           leftBtnText={'아니요'}
           rightBtnText={'네'}
           leftBtnClick={onClickLeftButton}
