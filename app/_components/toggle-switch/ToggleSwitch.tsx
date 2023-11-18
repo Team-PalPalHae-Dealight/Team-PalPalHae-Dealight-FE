@@ -19,6 +19,10 @@ const ToggleSwitch = ({ getToggleValue }: ToggleSwitchPropsType) => {
     }
   };
 
+  const onClickLeftButton = () => {
+    setOnPopUp(false);
+  };
+
   const onClickRightButton = () => {
     setOnPopUp(false);
     setIsOn(false);
@@ -48,8 +52,8 @@ const ToggleSwitch = ({ getToggleValue }: ToggleSwitchPropsType) => {
           subText={'영업을 종료하시면 등록한 상품이 \n모두 삭제됩니다.'}
           leftBtnText={'아니요'}
           rightBtnText={'네'}
-          leftBtnClick={() => setOnPopUp(false)}
-          rightBtnClick={() => onClickRightButton()}
+          leftBtnClick={onClickLeftButton}
+          rightBtnClick={onClickRightButton}
         />
       )}
     </div>
