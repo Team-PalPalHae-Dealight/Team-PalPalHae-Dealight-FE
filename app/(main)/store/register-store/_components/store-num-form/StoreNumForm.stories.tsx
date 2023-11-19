@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import StoreNumForm from './StoreNumForm';
 
 const meta: Meta<typeof StoreNumForm> = {
-  title: 'Components/StoreNumForm',
+  title: 'Forms/StoreNumForm',
   component: StoreNumForm,
   tags: ['autodocs'],
 };

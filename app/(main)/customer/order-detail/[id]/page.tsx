@@ -1,6 +1,6 @@
 import CustomerHeader from '@/app/_components/Header/CustomerHeader';
 import Footer from '@/app/_components/Footer/Footer';
-import OrderResult from '@/app/_components/order-information/OrderResult';
+import OrderResult from '@/app/_components/order-result/OrderResult';
 
 export default function Page({ params }: { params: { slug: string } }) {
   /** @TODO API 연결 후 res로 받은 데이터로 초기화시키기 */
