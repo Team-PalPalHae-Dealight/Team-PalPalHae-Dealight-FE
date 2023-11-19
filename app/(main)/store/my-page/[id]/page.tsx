@@ -2,6 +2,7 @@ import Footer from '@/app/_components/Footer/Footer';
 import Header from '@/app/_components/Header/Header';
 import ImageUploader from './_components/image-uploader/ImageUploader';
 import LogoutButton from './_components/logout-button/LogoutButton';
+import ProfileInformation from './_components/profile-information/ProfileInformation';
 
 export default function Page({ params }: { params: { slug: string } }) {
   console.log(params);
@@ -10,6 +11,7 @@ export default function Page({ params }: { params: { slug: string } }) {
       <Header />
       <main className="flex w-full flex-col px-5 pt-5">
         <ImageUploader />
+        <ProfileInformation />
         <LogoutButton />
       </main>
       <Footer />
