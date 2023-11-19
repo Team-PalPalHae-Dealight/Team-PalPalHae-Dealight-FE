@@ -7,19 +7,18 @@ const ImageUploader = () => {
   const [image, setImage] = useState('');
   const fileInput = useRef(null);
 
-  //eslint-disable-next-line
-  const handleImage = async (e: any) => {
-    const file = e.target.files[0];
+  const handleImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const target = e.target as HTMLInputElement;
+    const file = target.files![0];
     if (!file) return;
 
     const reader = new FileReader();
 
     reader.readAsDataURL(file);
 
-    //eslint-disable-next-line
-    reader.onload = (e: any) => {
-      if (reader.readyState === 2) {
-        setImage(e.target.result);
+    reader.onload = () => {
+      if (reader.readyState === 2 && typeof reader.result === 'string') {
+        setImage(reader.result);
       }
     };
   };
