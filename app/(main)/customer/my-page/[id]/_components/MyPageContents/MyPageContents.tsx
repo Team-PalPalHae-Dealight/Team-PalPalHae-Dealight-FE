@@ -117,8 +117,8 @@ const MyPageContents = () => {
           onClickCurrentPosition={() => {}}
           onClickPosition={() => {}}
           currentPosition={{
-            lat: coords[0],
-            lng: coords[1],
+            lat: coords.lat,
+            lng: coords.lng,
             title: '',
           }}
         />
