@@ -3,6 +3,7 @@ import Footer from '@/app/_components/Footer/Footer';
 import OrderResult from '@/app/_components/order-information/OrderResult';
 
 export default function Page({ params }: { params: { slug: string } }) {
+  /** @TODO API 연결 후 res로 받은 데이터로 초기화시키기 */
   console.log(params);
   const data = {
     storeName: '행복도너츠가게',
@@ -23,13 +24,3 @@ export default function Page({ params }: { params: { slug: string } }) {
     </main>
   );
 }
-
-/** @TODO API 연결 후 res로 받은 데이터로 초기화시키기 */
-// export const data = {
-//   storeName: '행복도너츠가게',
-//   totalCount: '4',
-//   totalPrice: '11000',
-//   arriveTime: '17 : 32',
-//   useName: '에프와 오프',
-//   comments: '빨리 갈께요!',
-// };
