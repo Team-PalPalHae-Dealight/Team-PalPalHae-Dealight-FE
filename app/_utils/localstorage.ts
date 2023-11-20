@@ -14,7 +14,7 @@ const LocalStorage = {
   getItem: (key: string) => {
     if (typeof window !== 'undefined') {
       const data = window.localStorage.getItem(key);
-
+      console.log(key);
       if (data) {
         return JSON.parse(data);
       }

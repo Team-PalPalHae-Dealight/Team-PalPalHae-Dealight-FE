@@ -1,7 +1,7 @@
 'use client';
-import GuideText from './Components/GuildeText/GuideText';
+import GuideText from './_components/GuildeText/GuideText';
 import Header from '@/app/_components/Header/Header';
-import Signup from './Components/Signup/Signup';
+import Signup from './_components/Signup/Signup';
 
 export default function Page() {
   return (

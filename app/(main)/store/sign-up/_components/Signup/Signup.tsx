@@ -31,19 +31,20 @@ export default function Signup() {
   } = useForm<IFormInput>({ resolver: yupResolver(schema) });
 
   const onSubmit: SubmitHandler<IFormInput> = async data => {
+    console.log('data', data);
     if (isNicknameValid === true) {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/auth/signup`,
+        `${process.env.NEXT_PUBLIC_API_URL}/auth/signup`,
         {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json;charset=UTF-8',
             Authorization:
-              'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1MDAwMDAxIiwiaXNzIjoiREVBTElHSFQtQVBJLVNFUlZFUiIsImlhdCI6MTY5OTgzODEzOSwiZXhwIjoxNjk5OTI0NTM5LCJBdXRob3JpdGllcyI6IlJPTEVfTUVNQkVSIn0.wowAMfaK7bjn4XWhOmkBpgmlR-atvAHSx1klB6lNq8w',
+              'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1MDAwMDAyIiwiaXNzIjoiREVBTElHSFQtQVBJLVNFUlZFUiIsImlhdCI6MTY5OTgzODIzNywiZXhwIjo5OTk5OTk5OTk5LCJBdXRob3JpdGllcyI6IlJPTEVfU1RPUkUifQ.4AddVJWedO0aV0iMPOpdnp83-ZJQ33k69wc1QkN5wo8',
           },
           body: JSON.stringify({
             provider: 'kakao',
-            providerId: 12345,
+            providerId: '3148882014',
             realName: data.realname,
             nickName: data.nickName,
             phoneNumber: data.phoneNumber,
@@ -54,6 +55,8 @@ export default function Signup() {
       if (!response.ok) {
         throw new Error('알 수 없는 에러');
       }
+      const val = await response.json();
+      console.log(val);
       alert('회원가입이 완료되었습니다!');
     } else {
       alert('닉네임 중복 확인을 해주세요!');
@@ -79,20 +82,22 @@ export default function Signup() {
               />
             </div>
           </label>
+
           {errors.realname && (
             <span className=" text-xs font-semibold text-red">
               이름을 입력해주세요
             </span>
           )}
         </div>
-
+      </form>
+      <form className="flex w-5/6 flex-col " onSubmit={handleSubmit(onSubmit)}>
         <label>
           <div className="text-xs ">닉네임</div>
           <div className="flex flex-row ">
             <div className="flex  h-12  flex-row rounded border-white bg-white">
               <input
                 {...register('nickName')}
-                className={`h-12 w-56 rounded bg-light-gray text-sm text-dark-gray ${
+                className={`h-12 w-60 rounded bg-light-gray text-sm text-dark-gray ${
                   errors.nickName ? 'border-red' : 'border-yellow'
                 } cursor-pointer pl-3 outline-none focus:border-2`}
               />
