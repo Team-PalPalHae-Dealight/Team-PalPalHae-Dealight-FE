@@ -16,7 +16,7 @@ import LocalStorage from '@/app/_utils/localstorage';
 import PrimaryButton from '@/app/_components/PrimaryButton/PrimaryButton';
 import { yupResolver } from '@hookform/resolvers/yup';
 import pageRoute from '@/app/_constants/path';
-import { postStore } from '../../api/postStore';
+import { postStore } from '../../_services/postStore';
 
 type initialValuesType = {
   storeOpenTime: string;

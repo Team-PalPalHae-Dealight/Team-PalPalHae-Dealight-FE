@@ -1,6 +1,8 @@
 import { axiosInstance } from '@/app/_services/apiClient';
 import LocalStorage from '@/app/_utils/localstorage';
 import { patchRole } from './patchRole';
+import { useRouter } from 'next/navigation';
+import pageRoute from '@/app/_constants/path';
 
 type postStoreReqType = {
   req: {
@@ -33,6 +35,7 @@ export const postStore = async ({ req }: postStoreReqType) => {
       /** @todo role을 store로 바꾸는 api 호출 및 storeId값 저장하는 로직 추가 */
       console.log(response);
       patchRole();
+
       LocalStorage.removeItem('dealight-storeNumber');
       LocalStorage.removeItem('dealight-storeName');
       LocalStorage.removeItem('dealight-storePhone');
@@ -45,5 +48,7 @@ export const postStore = async ({ req }: postStoreReqType) => {
     })
     .catch(function (error) {
       console.log(error);
+      const router = useRouter();
+      router.push(pageRoute.store.home());
     });
 };
