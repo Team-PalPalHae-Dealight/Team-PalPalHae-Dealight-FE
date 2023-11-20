@@ -21,6 +21,13 @@ const ProfileInformation = () => {
     resolver: yupResolver(schema),
   });
 
+  const data = {
+    storeName: '행복도너츠가게',
+    userName: '오프와 에프',
+    phoneNumber: '01012345678',
+    status: '영업 중',
+  };
+
   const { register } = useFormContext();
 
   return (
@@ -61,11 +68,3 @@ const ProfileInformation = () => {
 };
 
 export default ProfileInformation;
-
-/** @TODO API 연결 후 res로 받은 데이터로 초기화시키기 */
-export const data = {
-  storeName: '행복도너츠가게',
-  userName: '오프와 에프',
-  phoneNumber: '01012345678',
-  status: '영업 중',
-};
