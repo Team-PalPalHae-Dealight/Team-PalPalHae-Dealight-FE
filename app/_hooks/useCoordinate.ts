@@ -2,7 +2,10 @@ import { useEffect, useState } from 'react';
 import { Document } from '../_types/kakaoMap';
 
 const useCoordinate = (address: string) => {
-  const [coords, setCoords] = useState([0, 0]);
+  const [coords, setCoords] = useState({
+    lat: 37.4981646510326,
+    lng: 127.028307900881,
+  });
 
   useEffect(() => {
     const kakaoMapScript = document.createElement('script');
@@ -15,13 +18,13 @@ const useCoordinate = (address: string) => {
         const geocoder = new window.kakao.maps.services.Geocoder();
 
         geocoder.addressSearch(
-          address,
+          address === '' ? '서울 강남구 강남대로 지하 396' : address,
           function (
             result: Document[],
             status: 'OK' | 'ZERO_RESULT' | 'ERROR'
           ) {
             if (status === window.kakao.maps.services.Status.OK) {
-              setCoords([Number(result[0].y), Number(result[0].x)]);
+              setCoords({ lat: Number(result[0].y), lng: Number(result[0].x) });
             }
           }
         );

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import StartLink from './StartLink';
 
 const meta: Meta<typeof StartLink> = {
-  title: 'Components/StartLink',
+  title: 'Buttons/StartLink',
   component: StartLink,
   tags: ['autodocs'],
 };

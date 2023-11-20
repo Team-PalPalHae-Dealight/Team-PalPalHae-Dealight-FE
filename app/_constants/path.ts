@@ -28,6 +28,7 @@ const pageRoute = {
     registerStoreNumber: () => '/store/register-store/store-number',
     registerStoreInfo: () => '/store/register-store/store-info',
     registerStoreTime: () => '/store/register-store/store-time',
+    itemManage: (id: string) => `/store/item-manage/${id}`,
   },
 };
 
