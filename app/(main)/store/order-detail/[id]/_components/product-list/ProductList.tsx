@@ -41,7 +41,7 @@ const ProductList = () => {
   }, [inView, isEnded, loadMoreItems, isLoading]);
 
   return (
-    <div className="mb-2 h-[35vh]">
+    <div className="mb-5 h-[33vh]">
       <div className="mt-5 h-full w-full overflow-y-scroll">
         <ItemCards items={items} />
         <div
