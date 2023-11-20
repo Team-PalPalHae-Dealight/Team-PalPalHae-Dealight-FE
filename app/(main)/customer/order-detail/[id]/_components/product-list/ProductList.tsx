@@ -42,7 +42,7 @@ const ProductList = () => {
 
   return (
     <div className="mb-2 h-[35vh]">
-      <div className="mt-5 h-full w-full overflow-y-scroll">
+      <div className="h-full w-full overflow-y-scroll">
         <ItemCards items={items} />
         <div
           className="col-span-1 flex items-center justify-center sm:col-span-2 md:col-span-3"
