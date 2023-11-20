@@ -51,8 +51,7 @@ const TodayDealight = ({ listName, emptyWord }: TodayDealightPropsType) => {
         <h2 className="text-lg font-bold">{listName}</h2>
         <TodayDealightDropDown sortBy={sortBy} setSortBy={setSortBy} />
       </div>
-      {/* 목록 리스트 안에 들어있는 아이템이 늘어날때 overflow속성을 어떻게 해야할 지 의논 후 수정 필요 */}
-      <div>
+      <div className="h-[50vh] overflow-y-scroll">
         <ItemCards items={items} />
         <div
           className="col-span-1 flex items-center justify-center sm:col-span-2 md:col-span-3"
@@ -70,8 +69,6 @@ const TodayDealight = ({ listName, emptyWord }: TodayDealightPropsType) => {
             </div>
           )}
         </div>
-        {/* footer 수정 작업 후 수정 필요 */}
-        <div className="h-16" />
       </div>
     </>
   );
