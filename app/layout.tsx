@@ -4,7 +4,8 @@ import './globals.css';
 import pretendardRegular from './_constants/font';
 import { MSWProvider } from '@/public/mocks/MSWProvider';
 import QueryProvider from './_providers/QueryProvider';
-import { LogContextProvider } from './_providers/auth';
+import { AuthProvider } from './_providers/AuthProvider';
+import { UserInfoProvider } from './_providers/UserInfoProvider';
 
 declare global {
   interface Window {
@@ -26,13 +27,15 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <QueryProvider>
-        <LogContextProvider>
-          <body
-            className={`${pretendardRegular.className} mx-auto min-h-screen max-w-[375px] bg-gray text-black`}
-          >
-            <MSWProvider>{children}</MSWProvider>
-          </body>
-        </LogContextProvider>
+        <AuthProvider>
+          <UserInfoProvider>
+            <body
+              className={`${pretendardRegular.className} mx-auto min-h-screen w-full bg-gray text-black`}
+            >
+              <MSWProvider>{children}</MSWProvider>
+            </body>
+          </UserInfoProvider>
+        </AuthProvider>
       </QueryProvider>
     </html>
   );

@@ -21,11 +21,7 @@ const MyPageContents = () => {
   const [address, setAddress] = useState(data.address);
   const [addressError, setAddressError] = useState(true);
   const [click, setClick] = useState(false);
-  const [coords, setCoords] = useState([0, 0]);
-
-  const mapInformation = useCoordinate(address);
-  //eslint-disable-next-line
-  mapInformation?.then((value: any) => setCoords([value[0].x, value[0].y]));
+  const coords = useCoordinate(address);
 
   const schema = object().shape({
     nickName: isValidNickName(),
@@ -121,8 +117,8 @@ const MyPageContents = () => {
           onClickCurrentPosition={() => {}}
           onClickPosition={() => {}}
           currentPosition={{
-            lat: Number(coords[0]),
-            lng: Number(coords[1]),
+            lat: coords.lat,
+            lng: coords.lng,
             title: '',
           }}
         />

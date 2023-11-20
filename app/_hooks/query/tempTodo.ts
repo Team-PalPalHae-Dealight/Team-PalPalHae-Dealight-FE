@@ -12,7 +12,7 @@ export const todoKeys = {
 };
 
 export const getTodos = async (): Promise<TodoType[]> => {
-  const response = await fetch('https://jsonplaceholder.typicode.com/todos', {
+  const response = await fetch('https://jsonplaceholder.typicode.com/todos/1', {
     method: 'GET',
     headers: { 'Content-Type': 'application/json;charset=UTF-8' },
   });

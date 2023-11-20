@@ -14,7 +14,7 @@ import QueryTest from './_components/main-temp/QueryTest';
 import ApiTest from './_components/main-temp/ApiTest';
 import pageRoute from './_constants/path';
 import Header from './_components/Header/Header';
-import CustomerHeader from './_components/Header/CustomerHeader';
+import AuthTest from './_components/main-temp/AuthTest';
 
 export default async function Home() {
   const queryClient = new QueryClient();
@@ -25,27 +25,34 @@ export default async function Home() {
   });
 
   return (
-    <main className="flex flex-col items-center px-5 pt-2.5">
-      <Image src={Banner} priority alt="banner" />
-
-      <StartLink />
-      <ServiceIntro />
-      <MswTestButton />
-
-      <div className="flex flex-col border border-indigo-400 p-2">
-        <h2>상품과 관련된 테스트를 진행합니다.</h2>
-        <Link href={pageRoute.store.itemDetail('1')}>
-          특정(1번) 상품 페이지로 가기
-        </Link>
-        <Link href={pageRoute.store.itemRegister()}>상품 등록하러 가기</Link>
-      </div>
-
-      <ApiTest />
+    <>
       <Header />
-      <CustomerHeader />
-      <HydrationBoundary state={dehydrate(queryClient)}>
-        <QueryTest />
-      </HydrationBoundary>
-    </main>
+      <main className="flex flex-col items-center px-5 pt-2.5">
+        <Image src={Banner} priority alt="banner" />
+
+        <StartLink />
+        <ServiceIntro />
+        <MswTestButton />
+
+        <div className="flex flex-col border border-indigo-400 p-2">
+          <h2>상품과 관련된 테스트를 진행합니다.</h2>
+          <Link href={pageRoute.store.itemDetail('1')}>
+            특정(1번) 상품 페이지로 가기
+          </Link>
+          <Link href={pageRoute.store.itemRegister()}>상품 등록하러 가기</Link>
+        </div>
+
+        <ApiTest />
+        <HydrationBoundary state={dehydrate(queryClient)}>
+          <QueryTest />
+        </HydrationBoundary>
+
+        <div className="flex flex-col border border-sky-400 p-2">
+          <h2>로그인과 관련된 테스트</h2>
+
+          <AuthTest />
+        </div>
+      </main>
+    </>
   );
 }
