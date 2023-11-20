@@ -54,8 +54,8 @@ const Page = () => {
     getKakaoInfo(code).then(res => {
       const data = res.data;
 
-      if (data.message) {
-        const { provider, providerId, nickName } = data.data;
+      if (data.message === '딜라이트 서비스에 가입이 필요합니다.') {
+        const { provider, providerId, nickName } = data;
         signupNewUser({ provider, providerId, nickName });
         return;
       }

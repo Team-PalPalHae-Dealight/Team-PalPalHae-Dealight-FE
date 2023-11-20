@@ -20,13 +20,21 @@ async function getUser(): Promise<DefaultContextType> {
     .get(`${process.env.NEXT_PUBLIC_API_URL}/members/profiles`)
     .then(res => res.data);
 
-  console.log(data);
+  const { nickName, providerId, role } = data;
 
-  const { nickName, providerId, role, storeId } = data;
+  let storeId = null;
+
+  if (role === 'store') {
+    storeId = await axiosInstance
+      .get(`${process.env.NEXT_PUBLIC_API_URL}/stores/confirm`)
+      .then(res => res.data);
+    console.log(data);
+  }
+
   /**
    * @description role에 고객 or 업체가 들어온다. 이 값을 통해 라우팅 처리가 이루어지게 된다.
    */
-  return { role, nickName, providerId, storeId };
+  return { role: 'store', nickName, providerId, storeId };
 }
 
 export const UserInfoProvider = ({
