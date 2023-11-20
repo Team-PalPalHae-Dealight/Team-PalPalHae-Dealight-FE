@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import OrderListModal from './OrderListModal';
 
 const meta: Meta<typeof OrderListModal> = {
-  title: 'Components/OrderListModal',
+  title: 'Modals/OrderListModal',
   component: OrderListModal,
   tags: ['autodocs'],
 };
