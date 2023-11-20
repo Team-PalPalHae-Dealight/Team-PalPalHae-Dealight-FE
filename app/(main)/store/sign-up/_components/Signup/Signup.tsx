@@ -31,8 +31,9 @@ export default function Signup() {
   } = useForm<IFormInput>({ resolver: yupResolver(schema) });
 
   const onSubmit: SubmitHandler<IFormInput> = async data => {
-    console.log('data', data);
     if (isNicknameValid === true) {
+      const datalocal = localStorage.getItem('dealight-signup');
+      console.log('datalocal', datalocal);
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/auth/signup`,
         {
@@ -52,6 +53,7 @@ export default function Signup() {
           }),
         }
       );
+      console.log('response', response);
       if (!response.ok) {
         throw new Error('알 수 없는 에러');
       }
@@ -94,26 +96,26 @@ export default function Signup() {
         <label>
           <div className="text-xs ">닉네임</div>
           <div className="flex flex-row ">
-            <div className="flex  h-12  flex-row rounded border-white bg-white">
+            <div className="flex  h-12  w-full   flex-row rounded border-white bg-white">
               <input
                 {...register('nickName')}
-                className={`h-12 w-60 rounded bg-light-gray text-sm text-dark-gray ${
+                className={`base-2/5 h-12 w-full  rounded bg-light-gray text-sm text-dark-gray ${
                   errors.nickName ? 'border-red' : 'border-yellow'
                 } cursor-pointer pl-3 outline-none focus:border-2`}
               />
             </div>
             <div className=" min-w-fit  px-1">
-              <PrimaryButton type="submit" onClick={handleNicknameCheck}>
+              <PrimaryButton type="button" onClick={handleNicknameCheck}>
                 중복확인
               </PrimaryButton>
             </div>
           </div>
         </label>
-        {errors.nickName && (
-          <div>
-            {' '}
-            <span className=" text-xs text-red">닉네임을 입력해주세요</span>
-          </div>
+        {isNicknameValid && errors.nickName && (
+          <span className=" text-xs text-red">닉네임을 입력해주세요</span>
+        )}
+        {!isNicknameValid && (
+          <span className=" text-xs text-red">중복확인해주세요!</span>
         )}
         <div>
           <label className="text-xs">전화번호</label>
