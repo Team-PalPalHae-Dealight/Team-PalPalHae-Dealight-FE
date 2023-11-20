@@ -6,6 +6,7 @@ import { MSWProvider } from '@/public/mocks/MSWProvider';
 import QueryProvider from './_providers/QueryProvider';
 import { AuthProvider } from './_providers/AuthProvider';
 import { UserInfoProvider } from './_providers/UserInfoProvider';
+import { AddressProvider } from './_providers/AddressProvider';
 
 declare global {
   interface Window {
@@ -29,11 +30,13 @@ export default function RootLayout({
       <QueryProvider>
         <AuthProvider>
           <UserInfoProvider>
-            <body
-              className={`${pretendardRegular.className} mx-auto min-h-screen w-full bg-gray text-black`}
-            >
-              <MSWProvider>{children}</MSWProvider>
-            </body>
+            <AddressProvider>
+              <body
+                className={`${pretendardRegular.className} mx-auto min-h-screen w-full bg-gray text-black`}
+              >
+                <MSWProvider>{children}</MSWProvider>
+              </body>
+            </AddressProvider>
           </UserInfoProvider>
         </AuthProvider>
       </QueryProvider>
