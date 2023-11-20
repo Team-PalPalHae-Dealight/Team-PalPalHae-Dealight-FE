@@ -1,6 +1,6 @@
 'use client';
 
-import { useForm } from 'react-hook-form';
+import { useForm, useFormContext } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 import { object } from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -16,11 +16,12 @@ const ProfileInformation = () => {
   });
 
   const {
-    register,
     formState: { errors },
   } = useForm<initialValuesType>({
     resolver: yupResolver(schema),
   });
+
+  const { register } = useFormContext();
 
   return (
     <div className="min-h-64 my-5 w-full rounded bg-white text-sm font-semibold text-black">

@@ -3,7 +3,11 @@
 import Image from 'next/image';
 import { useRef, useState } from 'react';
 
-const ImageUploader = () => {
+type ImageUploaderPropsType = {
+  getImage: (imageUrl: string) => void;
+};
+
+const ImageUploader = ({ getImage }: ImageUploaderPropsType) => {
   const [image, setImage] = useState('');
   const fileInput = useRef(null);
 
@@ -19,6 +23,7 @@ const ImageUploader = () => {
     reader.onload = () => {
       if (reader.readyState === 2 && typeof reader.result === 'string') {
         setImage(reader.result);
+        getImage(image);
       }
     };
   };
