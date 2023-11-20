@@ -15,10 +15,8 @@ async function storeSignup() {
   await axiosInstance.get('https://jsonplaceholder.typicode.com/todos/1');
 
   return {
-    accessToken:
-      'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1MDAwMDAyIiwiaXNzIjoiREVBTElHSFQtQVBJLVNFUlZFUiIsImlhdCI6MTY5OTgzODIzNywiZXhwIjoxNjk5OTI0NjM3LCJBdXRob3JpdGllcyI6IlJPTEVfU1RPUkUifQ.DBZXu3cunea0NEZas5eDQYcGAv51HkKPWoepWa4n7ek',
-    refreshToken:
-      'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1MDAwMDAyIiwiaXNzIjoiREVBTElHSFQtQVBJLVNFUlZFUiIsImlhdCI6MTY5OTgzODIzNywiZXhwIjoxNzAyNDMwMjM3LCJBdXRob3JpdGllcyI6IlJPTEVfU1RPUkUifQ.ODqLCyBhXkqbkBp6cb6uWXi6KgbvD0BCNjvU_M_NrzU',
+    accessToken: process.env.NEXT_PUBLIC_STORE_ACCESS_TOKEN!,
+    refreshToken: process.env.NEXT_PUBLIC_STORE_REFRESH_TOKEN!,
   };
 }
 
@@ -26,17 +24,15 @@ async function memberSignup() {
   await axiosInstance.get('https://jsonplaceholder.typicode.com/todos/1');
 
   return {
-    accessToken:
-      'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1MDAwMDAyIiwiaXNzIjoiREVBTElHSFQtQVBJLVNFUlZFUiIsImlhdCI6MTY5OTgzODIzNywiZXhwIjoxNjk5OTI0NjM3LCJBdXRob3JpdGllcyI6IlJPTEVfU1RPUkUifQ.DBZXu3cunea0NEZas5eDQYcGAv51HkKPWoepWa4n7ek',
-    refreshToken:
-      'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1MDAwMDAxIiwiaXNzIjoiREVBTElHSFQtQVBJLVNFUlZFUiIsImlhdCI6MTY5OTgzODEzOSwiZXhwIjoxNzAyNDMwMTM5LCJBdXRob3JpdGllcyI6IlJPTEVfTUVNQkVSIn0.tfcGCuZ50iEy9qCPXu_W0ThiDYCSwON3VoUFauCUEy4',
+    accessToken: process.env.NEXT_PUBLIC_MEMBER_ACCESS_TOKEN!,
+    refreshToken: process.env.NEXT_PUBLIC_MEMBER_REFRESH_TOKEN!,
   };
 }
 
 export default function AuthTest() {
   // const router = useRouter();
   const { login, logout } = useAuth();
-  const { nickname, role } = useUserInfo();
+  const { nickName, role } = useUserInfo();
 
   const onClickStoreSignup = () => {
     storeSignup().then(res => {
@@ -53,7 +49,7 @@ export default function AuthTest() {
     });
   };
 
-  console.log(nickname, role);
+  console.log(nickName, role);
 
   return (
     <div className="flex flex-col gap-4 text-center">
@@ -101,6 +97,17 @@ export default function AuthTest() {
           로그아웃 시도
         </button>
       </div>
+
+      <button
+        onClick={() => {
+          login({
+            accessToken: process.env.NEXT_PUBLIC_STORE_ACCESS_TOKEN!,
+            refreshToken: process.env.NEXT_PUBLIC_STORE_REFRESH_TOKEN!,
+          });
+        }}
+      >
+        로그인 시도해봅니다!
+      </button>
     </div>
   );
 }

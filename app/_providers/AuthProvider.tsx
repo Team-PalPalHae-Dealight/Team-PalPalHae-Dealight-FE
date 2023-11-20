@@ -39,7 +39,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setIsLoggedIn(false);
 
     queryClient.setQueryData(['user-info'], () => ({
-      nickname: null,
+      nickName: null,
       role: null,
     }));
   };

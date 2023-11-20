@@ -55,8 +55,9 @@ const Page = () => {
       const data = res.data;
 
       if (data.message) {
-        const { provider, providerId, nickName } = data;
+        const { provider, providerId, nickName } = data.data;
         signupNewUser({ provider, providerId, nickName });
+        return;
       }
 
       const { accessToken, refreshToken } = data;

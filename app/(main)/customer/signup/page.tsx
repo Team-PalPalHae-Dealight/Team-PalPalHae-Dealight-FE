@@ -1,6 +1,7 @@
 'use client';
 
 import pageRoute from '@/app/_constants/path';
+import { useAuth } from '@/app/_providers/AuthProvider';
 import { axiosInstance } from '@/app/_services/apiClient';
 import LocalStorage from '@/app/_utils/localstorage';
 import { useRouter } from 'next/navigation';
@@ -44,6 +45,8 @@ export default function Page() {
 
   const router = useRouter();
 
+  const { login } = useAuth();
+
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -53,7 +56,8 @@ export default function Page() {
       provider,
       providerId,
       realName,
-    }).then(() => {
+    }).then(({ accessToken, refreshToken }) => {
+      login({ accessToken, refreshToken });
       router.push(pageRoute.customer.home());
     });
   };
