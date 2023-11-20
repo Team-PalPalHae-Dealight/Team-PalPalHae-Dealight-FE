@@ -11,7 +11,7 @@ const MainContents = () => {
    * @todo
    * api res값의 status값을 토대로 state값 변경 로직 추가해야 함
    */
-  const [status] = useState('주문 확인');
+  const [status] = useState('주문 취소');
   const [onPopUpCancel, setOnPopUpCancel] = useState(false);
   const [onPopUpReceive, setOnPopUpReceive] = useState(false);
   const [onPopUpReject, setOnPopUpReject] = useState(false);
@@ -29,11 +29,12 @@ const MainContents = () => {
       <ProductList />
       <OrderResult data={data} />
       <div className="mt-2 flex gap-3">
-        {status === '주문 접수' ? (
+        {status === '주문 접수' && (
           <PrimaryButton onClick={() => setOnPopUpCancel(true)}>
             주문 취소하기
           </PrimaryButton>
-        ) : status === '주문 확인' ? (
+        )}
+        {status === '주문 확인' && (
           <>
             <PrimaryButton onClick={() => setOnPopUpReceive(true)}>
               접수하기
@@ -42,15 +43,17 @@ const MainContents = () => {
               거절하기
             </PrimaryButton>
           </>
-        ) : status === '주문 완료' ? (
+        )}
+        {status === '주문 완료' && (
           <div className="mt-3 flex w-full items-center justify-center text-blue">
             <div>주문 완료</div>
           </div>
-        ) : status === '주문 취소' ? (
+        )}
+        {status === '주문 취소' && (
           <div className="mt-3 flex w-full items-center justify-center text-red">
             <div>주문 취소</div>
           </div>
-        ) : null}
+        )}
       </div>
       {onPopUpCancel && (
         <PopUp
