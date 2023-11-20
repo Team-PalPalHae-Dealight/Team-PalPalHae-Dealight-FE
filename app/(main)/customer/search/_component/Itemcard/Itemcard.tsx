@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import Seveneleven from 'app/(main)/customer/search/assets/seveneleven.svg';
+import Seveneleven from 'app/(main)/customer/search/_component/assets/seveneleven.svg';
 type ItemCardPropTypes = {
   image: string;
   distance: string;

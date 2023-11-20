@@ -1,10 +1,10 @@
 'use client';
 import { useState } from 'react';
-import SearchBar from './Searchbar';
-import Sort from './Sort';
-import ItemCard from './Itemcard';
+import SearchBar from './_component/searchbar/Searchbar';
+import Sort from './_component/sort/Sort';
+import ItemCard from './_component/Itemcard/Itemcard';
 
-type ItemPropTypes = {
+type ItemPropsTypes = {
   id: number;
   image: string;
   distance: string;
@@ -14,7 +14,7 @@ type ItemPropTypes = {
 
 export default function Page() {
   const [sortOption, setSortOption] = useState('distance');
-  const [items, setItems] = useState<ItemPropTypes[]>([
+  const [items, setItems] = useState<ItemPropsTypes[]>([
     {
       id: 1,
       image: 'app/_assets/images/donut.png',
@@ -45,14 +45,13 @@ export default function Page() {
     },
   ]);
 
-  const getItems = (val: ItemPropTypes[]) => {
+  const getItems = (val: ItemPropsTypes[]) => {
     setItems(val);
   };
 
   const getsortOption = (val: string) => {
     setSortOption(val);
   };
-  console.log('sortOption', sortOption, 'items', items);
   return (
     <main className="flex flex-col items-center px-5">
       <SearchBar getItems={getItems} sortOption={sortOption} />

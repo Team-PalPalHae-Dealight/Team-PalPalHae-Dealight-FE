@@ -1,11 +1,10 @@
 import React from 'react';
-import OrderListDropDown from './OrderlistDropdown';
-
-type SortPropTypes = {
+import OrderListDropDown from '../order-list-Dropdown/SortlistDropdown';
+type SortPropsTypes = {
   getsortOption: (val: string) => void;
 };
 
-const Sort = ({ getsortOption }: SortPropTypes) => {
+const Sort = ({ getsortOption }: SortPropsTypes) => {
   return (
     <div className="my-3 flex w-full flex-row items-center justify-between">
       <div className="text-xl font-semibold">검색 결과</div>

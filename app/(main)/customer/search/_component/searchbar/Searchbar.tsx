@@ -1,5 +1,5 @@
 'use client';
-import SearchIcon from './assets/search.svg';
+import SearchIcon from 'app/(main)/customer/search/_component/assets/search.svg';
 import { useState, ChangeEvent } from 'react';
 
 type ItemPropTypes = {
