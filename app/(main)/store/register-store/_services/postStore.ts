@@ -49,6 +49,6 @@ export const postStore = async ({ req }: postStoreReqType) => {
     .catch(function (error) {
       console.log(error);
       const router = useRouter();
-      router.push(pageRoute.store.home());
+      router.push(pageRoute.store.login());
     });
 };
