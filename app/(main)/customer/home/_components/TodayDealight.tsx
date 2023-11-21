@@ -10,9 +10,16 @@ import Spinner from '@/app/_components/spinner/Spinner';
 type TodayDealightPropsType = {
   listName: '오늘의 딜라잇' | '상품 목록';
   emptyWord: string;
+  lat: number;
+  lng: number;
 };
 
-const TodayDealight = ({ listName, emptyWord }: TodayDealightPropsType) => {
+const TodayDealight = ({
+  listName,
+  emptyWord,
+  lat,
+  lng,
+}: TodayDealightPropsType) => {
   const [items, setItems] = useState<ResponseItemTypes[]>([]);
   const [page, setPage] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
@@ -32,8 +39,8 @@ const TodayDealight = ({ listName, emptyWord }: TodayDealightPropsType) => {
     /**@todo api 작업 시 fetch함수에 넘겨줄 파라미터 수정해야 함 ex)sortBy,x좌표,y좌표 등 */
     const newItems =
       (await fetchData({
-        xCoordinate: 127.0221068,
-        yCoordinate: 37.5912999,
+        xCoordinate: lat,
+        yCoordinate: lng,
         sortBy,
         page,
       })) ?? [];
@@ -43,13 +50,13 @@ const TodayDealight = ({ listName, emptyWord }: TodayDealightPropsType) => {
     setItems((prevItems: ResponseItemTypes[]) => [...prevItems, ...newItems]);
     setPage(prevPage => prevPage + 5);
     setIsLoading(false);
-  }, [page, sortBy]);
+  }, [lat, lng, page, sortBy]);
 
   useEffect(() => {
     if (inView && !isEnded && !isLoading) {
       loadMoreItems();
     }
-  }, [inView, isEnded, loadMoreItems, isLoading]);
+  }, [inView, isEnded, loadMoreItems, isLoading, sortBy]);
 
   return (
     <>

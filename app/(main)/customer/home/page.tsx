@@ -53,6 +53,8 @@ export default function Page() {
           <TodayDealight
             listName={'오늘의 딜라잇'}
             emptyWord={'상품이 존재하지 않습니다.'}
+            lat={lat}
+            lng={lng}
           />
         </div>
       </div>
