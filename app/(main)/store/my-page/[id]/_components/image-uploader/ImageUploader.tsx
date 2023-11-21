@@ -40,7 +40,7 @@ const ImageUploader = ({ getImage }: ImageUploaderPropsType) => {
         </div>
       )}
       <label htmlFor="input-file">
-        <div className="flex h-12 w-full items-center justify-center rounded-md bg-yellow text-base text-black">
+        <div className="flex h-12 w-full cursor-pointer items-center justify-center rounded-md bg-yellow text-base text-black">
           업체 사진 변경하기
         </div>
       </label>
