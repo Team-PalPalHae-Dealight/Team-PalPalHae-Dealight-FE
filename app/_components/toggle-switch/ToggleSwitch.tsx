@@ -1,7 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import PopUp from '../pop-up/PopUp';
+import { patchStatus } from '@/app/(main)/store/home/_services/patchStatus';
+import { getStatus } from '@/app/(main)/store/home/_services/getStatus';
 
 type ToggleSwitchPropsType = {
   getToggleValue: (toggle: boolean) => void;
@@ -11,24 +13,39 @@ const ToggleSwitch = ({ getToggleValue }: ToggleSwitchPropsType) => {
   const [isOn, setIsOn] = useState(false);
   const [onPopUp, setOnPopUp] = useState(false);
 
-  const onClickToggleSwitch = () => {
+  const onClickToggleSwitch = async () => {
     if (isOn) {
       setOnPopUp(true);
     } else {
       setIsOn(true);
+      await patchStatus(1, '영업 중');
     }
+    setStoreStatus();
   };
 
   const onClickLeftButton = () => {
     setOnPopUp(false);
+    setIsOn(true);
   };
 
-  const onClickRightButton = () => {
+  const onClickRightButton = async () => {
     setOnPopUp(false);
     setIsOn(false);
+
+    await patchStatus(1, '영업 준비 중');
+    setStoreStatus();
   };
 
-  getToggleValue(isOn);
+  const setStoreStatus = async () => {
+    const storeStatus = await getStatus(1);
+
+    if (storeStatus === '영업 준비 중') setIsOn(false);
+    else setIsOn(true);
+  };
+
+  useEffect(() => {
+    getToggleValue(isOn);
+  }, [getToggleValue, isOn]);
 
   return (
     <div className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden">
