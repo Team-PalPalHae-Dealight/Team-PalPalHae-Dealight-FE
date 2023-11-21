@@ -27,8 +27,7 @@ async function getUser(): Promise<DefaultContextType> {
   if (role === 'store') {
     storeId = await axiosInstance
       .get(`${process.env.NEXT_PUBLIC_API_URL}/stores/confirm`)
-      .then(res => res.data);
-    console.log(data);
+      .then(res => res.data.storeId);
   }
 
   /**

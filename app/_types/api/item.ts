@@ -7,5 +7,5 @@ export type ItemType = {
   originalPrice: number;
   description: string;
   information: string;
-  image: string | null;
+  image: File;
 };

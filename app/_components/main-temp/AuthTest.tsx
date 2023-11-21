@@ -59,7 +59,11 @@ export default function AuthTest() {
           업체 로그인 시도 (토큰을 넣습니다.)
         </button>
 
-        <Link href={pageRoute.store.home()} className="bg-teal-300">
+        <Link
+          href={pageRoute.store.home()}
+          scroll={false}
+          className="bg-teal-300"
+        >
           업체만 접근 가능한 페이지로 이동하기 (store-home)
         </Link>
 
