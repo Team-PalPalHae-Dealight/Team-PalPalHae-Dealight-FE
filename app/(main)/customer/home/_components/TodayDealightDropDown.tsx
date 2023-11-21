@@ -3,7 +3,7 @@ import { useState } from 'react';
 import polygon from '@/app/_assets/images/polygon.png';
 import reversePolygon from '@/app/_assets/images//reversePolygon.png';
 
-export type DropDownTextType = '거리순' | '마감 임박순' | '할인율순';
+export type DropDownTextType = 'distance' | 'deadline' | 'discount-rate';
 
 type TodayDealightDropDownPropsType = {
   sortBy: string;
@@ -31,7 +31,9 @@ const TodayDealightDropDown = ({
         onClick={onClickToggleMenu}
         className="flex items-center gap-2 rounded text-xs "
       >
-        {sortBy}
+        {sortBy === 'distance' && '거리순'}
+        {sortBy === 'deadline' && '마감 입박순'}
+        {sortBy === 'discount-rate' && '할인율순'}
         {isMenuOpen ? (
           <Image
             src={reversePolygon}
@@ -47,19 +49,19 @@ const TodayDealightDropDown = ({
         <div className="border-gray-300 absolute mt-2 w-[67px] rounded border bg-white text-xs shadow-lg">
           <ul>
             <li
-              onClick={() => onClickOption('거리순')}
+              onClick={() => onClickOption('distance')}
               className="cursor-pointer px-1 py-1"
             >
               거리순
             </li>
             <li
-              onClick={() => onClickOption('마감 임박순')}
+              onClick={() => onClickOption('deadline')}
               className="cursor-pointer px-1 py-1 "
             >
               마감 임박순
             </li>
             <li
-              onClick={() => onClickOption('할인율순')}
+              onClick={() => onClickOption('discount-rate')}
               className="cursor-pointer px-1 py-1"
             >
               할인율순

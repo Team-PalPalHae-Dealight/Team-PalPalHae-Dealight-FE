@@ -17,7 +17,7 @@ const TodayDealight = ({ listName, emptyWord }: TodayDealightPropsType) => {
   const [page, setPage] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [isEnded, setIsEnded] = useState(false);
-  const [sortBy, setSortBy] = useState<DropDownTextType>('거리순');
+  const [sortBy, setSortBy] = useState<DropDownTextType>('distance');
 
   const { ref, inView } = useInView();
 
@@ -30,14 +30,20 @@ const TodayDealight = ({ listName, emptyWord }: TodayDealightPropsType) => {
     await delay(777);
 
     /**@todo api 작업 시 fetch함수에 넘겨줄 파라미터 수정해야 함 ex)sortBy,x좌표,y좌표 등 */
-    const newItems = (await fetchData(page)) ?? [];
+    const newItems =
+      (await fetchData({
+        xCoordinate: 127.0221068,
+        yCoordinate: 37.5912999,
+        sortBy,
+        page,
+      })) ?? [];
 
     if (newItems.length === 0) setIsEnded(true);
 
     setItems((prevItems: ResponseItemTypes[]) => [...prevItems, ...newItems]);
     setPage(prevPage => prevPage + 5);
     setIsLoading(false);
-  }, [page]);
+  }, [page, sortBy]);
 
   useEffect(() => {
     if (inView && !isEnded && !isLoading) {
@@ -64,7 +70,7 @@ const TodayDealight = ({ listName, emptyWord }: TodayDealightPropsType) => {
               <p>{emptyWord}</p>
             </div>
           ) : (
-            <div className="flex h-96 items-center justify-center text-xs text-dark-gray">
+            <div className="flex h-[43vh] items-center justify-center text-xs text-dark-gray">
               <p>{emptyWord}</p>
             </div>
           )}

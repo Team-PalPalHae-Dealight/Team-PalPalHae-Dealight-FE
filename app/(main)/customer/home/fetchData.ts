@@ -1,22 +1,49 @@
+import { axiosInstance } from '@/app/_services/apiClient';
+
 export type ResponseItemTypes = {
-  userId: number;
-  id: number;
-  title: string;
-  body: string;
+  itemId: number;
+  storeId: number;
+  itemName: string;
+  stock: number;
+  discountPrice: number;
+  originalPrice: number;
+  description: string;
+  information: string;
+  image: string;
+  storeName: string;
+  storeOpenTime: string;
+  storeCloseTime: string;
+  storeAddress: StoredAddressType;
 };
 
-const fetchData = async (page: number) => {
-  const url = `https://jsonplaceholder.typicode.com/comments/?_start=${page}&_limit=5`;
+type StoredAddressType = {
+  name: string;
+  xCoordinate: number;
+  yCoordinate: number;
+};
 
-  try {
-    const res = await fetch(url);
-    const data = await res.json();
+type FetchDataPropsType = {
+  xCoordinate: number;
+  yCoordinate: number;
+  sortBy: string;
+  page: number;
+};
 
-    return data as ResponseItemTypes[];
-  } catch (error) {
-    console.error('Error: ', error);
-    return null;
-  }
+const fetchData = async ({
+  xCoordinate,
+  yCoordinate,
+  sortBy,
+  page,
+}: FetchDataPropsType) => {
+  const data = await axiosInstance
+    .get(
+      `/items/members?x-coordinate=${xCoordinate}&y-coordinate=${yCoordinate}&sort-by=${sortBy}&size=5&page=${page}`
+    )
+    .then(res => {
+      return res.data.items;
+    });
+
+  return data;
 };
 
 export default fetchData;
