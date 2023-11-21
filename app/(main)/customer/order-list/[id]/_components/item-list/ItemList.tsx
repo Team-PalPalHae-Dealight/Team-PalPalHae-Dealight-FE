@@ -39,6 +39,14 @@ const ItemList = ({ status }: ItemListPropsType) => {
     }
   }, [inView, isEnded, loadMoreItems, isLoading]);
 
+  useEffect(() => {
+    if (status) {
+      setPage(0);
+      setIsEnded(false);
+      setItems([]);
+    }
+  }, [status]);
+
   return (
     <>
       <div className="h-[72vh] overflow-y-scroll">

@@ -31,12 +31,13 @@ type FetchOrderListPropsType = {
 };
 
 const fetchOrderList = async ({ status, page }: FetchOrderListPropsType) => {
+  const url =
+    status === 'ALL'
+      ? `/orders?page=${page}&size=5`
+      : `/orders?status=${status}&page=${page}&size=5`;
+
   const data = await axiosInstance
-    .get(
-      status === 'ALL'
-        ? `/orders?page=${page}&size=5`
-        : `/orders?status=${status}&page=${page}&size=5`
-    )
+    .get(url)
     .then(res => {
       return res.data.orders;
     })

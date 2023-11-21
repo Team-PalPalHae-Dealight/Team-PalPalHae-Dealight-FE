@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { ResponseItemType } from '../../fetchOrderList';
+import pageRoute from '@/app/_constants/path';
 
 export type OrderListCardPropsType = {
   items?: ResponseItemType[] | null;
@@ -13,23 +14,40 @@ const OrderListCard = ({ items }: OrderListCardPropsType) => {
       {items ? (
         items.map(item => {
           return (
-            <Link key={item.orderId} href={'/asd'}>
+            <Link
+              key={item.orderId}
+              href={pageRoute.customer.orderDetail(String(item.orderId))}
+            >
               <div
                 className=" mb-3 rounded-md bg-white p-2"
                 style={{ boxShadow: '0px 0px 4px 0px rgb(0, 0, 0, 0.1)' }}
               >
                 <div className="flex text-xs text-dark-gray">
                   <div className="flex justify-between">
-                    <div>2023.10.20.</div>
+                    {/* @todo 시간 수정해야 함 */}
+                    <div>{item.createdAt}</div>
                   </div>
-                  <div className="ml-1">17:32</div>
                 </div>
                 <div className="flex items-center gap-1 text-black">
-                  <div className="text-sm">달콤한 도너츠 외 3개</div>
-                  <div className=" text-xs">11000 원</div>
+                  <div className="text-sm">
+                    {item.orderProductsRes.orderProducts[0].name} 외
+                    {item.orderProductsRes.orderProducts.length - 1}개
+                  </div>
+                  <div className=" text-xs">{item.totalPrice} 원</div>
                 </div>
                 <div className="flex items-center text-black">
-                  <div className="text-sm text-[#0338FF]">주문 완료</div>
+                  {item.status === '주문 접수' && (
+                    <div className="text-sm text-green">{item.status}</div>
+                  )}
+                  {item.status === '주문 확인' && (
+                    <div className="text-sm text-orange">{item.status}</div>
+                  )}
+                  {item.status === '주문 완료' && (
+                    <div className="text-sm text-blue">{item.status}</div>
+                  )}
+                  {item.status === '주문 취소' && (
+                    <div className="text-sm text-red">{item.status}</div>
+                  )}
                 </div>
               </div>
             </Link>
