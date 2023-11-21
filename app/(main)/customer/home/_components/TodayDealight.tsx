@@ -58,6 +58,14 @@ const TodayDealight = ({
     }
   }, [inView, isEnded, loadMoreItems, isLoading, sortBy]);
 
+  useEffect(() => {
+    if (sortBy) {
+      setPage(0);
+      setIsEnded(false);
+      setItems([]);
+    }
+  }, [sortBy]);
+
   return (
     <>
       <div className="my-3 flex items-center justify-between">
