@@ -32,7 +32,7 @@ const ItemCards = ({ items }: ItemTypes) => {
                     <div className="text-sm font-semibold">{item.itemName}</div>
                     <div className="flex gap-1 text-xs font-semibold">
                       <div>재고: </div>
-                      <div className="text-red">{item.stock}</div>
+                      <div className="text-red">{item.stock}개</div>
                     </div>
                     <div className="text-xs text-dark-gray">
                       {item.storeAddress.name}
