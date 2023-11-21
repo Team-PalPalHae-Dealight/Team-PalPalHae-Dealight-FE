@@ -2,7 +2,7 @@
 import SearchIcon from 'app/(main)/customer/search/_component/assets/search.svg';
 import { useState, ChangeEvent } from 'react';
 
-type ItemPropTypes = {
+type ItemPropsType = {
   id: number;
   image: string;
   distance: string;
@@ -11,7 +11,7 @@ type ItemPropTypes = {
 };
 
 type SearchBarPropTypes = {
-  getItems: (val: ItemPropTypes[]) => void;
+  getItems: (val: ItemPropsType[]) => void;
   sortOption: string;
 };
 
@@ -30,7 +30,7 @@ const SearchBar = ({ getItems, sortOption }: SearchBarPropTypes) => {
             e.preventDefault();
             console.log(word), setWord('');
             console.log(sortOption);
-            const searchResults: ItemPropTypes[] = [
+            const searchResults: ItemPropsType[] = [
               {
                 id: 1,
                 image: 'https://fake-image.com/item1.png',
@@ -66,7 +66,11 @@ const SearchBar = ({ getItems, sortOption }: SearchBarPropTypes) => {
         >
           <SearchIcon className="my-5 mr-4 h-5  w-5" />
         </button>
-        <input value={word} onChange={handleChange} className=" h-full w-4/5" />
+        <input
+          value={word}
+          onChange={handleChange}
+          className=" h-full w-4/5 p-1 outline-none"
+        />
       </form>
     </>
   );
