@@ -41,7 +41,10 @@ const ItemEdit = ({ itemId }: ItemEditPropsType) => {
 
         <div>
           <div className="flex flex-col gap-3">
-            <input className="rounded py-3.5 pl-3" placeholder={item?.name} />
+            <input
+              className="rounded py-3.5 pl-3"
+              placeholder={item?.itemName}
+            />
 
             <input
               className="rounded py-3.5 pl-3"

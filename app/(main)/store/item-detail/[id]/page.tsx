@@ -5,8 +5,6 @@ const ItemDetail = dynamic(() => import('./_components/ItemDetail'), {
 });
 
 const Page = ({ params }: { params: { id: string } }) => {
-  console.log(params.id);
-
   return (
     <main className="flex flex-col items-center px-5 pt-2.5">
       <ItemDetail itemId={params.id} />

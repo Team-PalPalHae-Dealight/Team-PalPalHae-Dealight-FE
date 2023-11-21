@@ -15,9 +15,7 @@ type CreateItmePropsType = Omit<ItemType, 'itemId' | 'storeId'>;
 export const getItem = async ({
   itemId,
 }: GetItemPropsType): Promise<ItemType> => {
-  const response = await axiosInstance.get(
-    `${process.env.NEXT_PUBLIC_API_URL}/items/${itemId}`
-  );
+  const response = await axiosInstance.get(`/items/${itemId}`);
 
   const data = response.data;
 
@@ -32,30 +30,19 @@ export const createItem = async ({
   const { image, ...itemReq } = item;
 
   const formData = new FormData();
+
   formData.append(
     'itemReq',
     new Blob([JSON.stringify(itemReq)], { type: 'application/json' })
   );
-  formData.append('image', image);
 
-  const response = await axiosInstance.post(
-    `${process.env.NEXT_PUBLIC_API_URL}/items`,
-    formData,
-    { headers: { 'Content-Type': 'multipart/form-data' } }
-  );
+  formData.append('image', image ?? new Blob([], { type: 'image/jpeg' }));
+
+  const response = await axiosInstance.post(`/items`, formData, {
+    headers: { 'Content-Type': 'multipart/form-data' },
+  });
 
   const data = response.data;
-  console.log(data);
-
-  // if (!response.ok) {
-  //   if (data.message) {
-  //     throw new Error(data.message);
-  //   }
-
-  //   throw new Error('알 수 없는 에러');
-  // }
-
-  console.log(data);
 
   return data;
 };
@@ -85,15 +72,11 @@ export const patchItem = async ({
 };
 
 export const deleteItem = async ({ itemId }: GetItemPropsType) => {
-  const response = await fetch(
-    `http://localhost:3000/mocks/api/items/${itemId}`,
-    {
-      method: 'DELETE',
-      headers: { 'Content-Type': 'application/json;charset=UTF-8' },
-    }
-  );
+  const response = await axiosInstance.delete(`/items/${itemId}`);
 
-  return response.status;
+  const data = response.data;
+
+  return data;
 };
 
 export const useGetItem = ({ itemId }: GetItemPropsType) => {

@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import pageRoute from '@/app/_constants/path';
 import Notification from '@/app/_components/notification/Notification';
-import { useGetItem } from '@/app/_hooks/query/item';
+import { useDeleteItem, useGetItem } from '@/app/_hooks/query/item';
 
 type ItemDetailType = {
   itemId: string;
@@ -13,7 +13,9 @@ type ItemDetailType = {
 
 const ItemDetail = ({ itemId }: ItemDetailType) => {
   const { data: item } = useGetItem({ itemId });
-  const { discountPrice, originalPrice, stock, name, image, description } =
+
+  const { mutate: deleteItem } = useDeleteItem();
+  const { discountPrice, originalPrice, stock, itemName, image, description } =
     item;
 
   const rounter = useRouter();
@@ -32,7 +34,7 @@ const ItemDetail = ({ itemId }: ItemDetailType) => {
         </div>
 
         <div className="mt-3 flex flex-col gap-4">
-          <h2 className="text-xl font-bold">{name}</h2>
+          <h2 className="text-xl font-bold">{itemName}</h2>
 
           <div className="text-lg font-bold">
             <span className="mr-5">재고:</span>
@@ -72,7 +74,14 @@ const ItemDetail = ({ itemId }: ItemDetailType) => {
         <PrimaryButton
           onClick={() => {
             if (confirm('상품을 삭제하시겠습니까?')) {
-              rounter.push('/');
+              deleteItem(
+                { itemId },
+                {
+                  onSuccess: () => {
+                    rounter.push(pageRoute.store.home());
+                  },
+                }
+              );
             }
           }}
         >

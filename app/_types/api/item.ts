@@ -1,7 +1,7 @@
 export type ItemType = {
   itemId: number;
   storeId: number;
-  name: string;
+  itemName: string;
   stock: number;
   discountPrice: number;
   originalPrice: number;
