@@ -20,7 +20,9 @@ const CustomerHeader = () => {
         <div>
           <AddressButton getAddress={addressVal => setAddress(addressVal)}>
             <div className="flex flex-row">
-              <div>{address}</div>
+              <div className=" w-28 overflow-hidden text-ellipsis whitespace-nowrap">
+                {address}
+              </div>
               <div>
                 <Triangle className="h-6 w-6 px-1 py-1.5" />
               </div>

@@ -1,12 +1,12 @@
 'use client';
 
 import Image from 'next/image';
-import { ResponseItemTypes } from '../fetchData';
+import { ResponseItemTypes } from '../_services/fetchData';
 import Link from 'next/link';
-import donut from '@/app/_assets/images/donut.png';
+import pageRoute from '@/app/_constants/path';
 
 export type ItemTypes = {
-  items?: ResponseItemTypes[] | null;
+  items?: ResponseItemTypes[] | [];
 };
 
 const ItemCards = ({ items }: ItemTypes) => {
@@ -16,37 +16,40 @@ const ItemCards = ({ items }: ItemTypes) => {
       {items ? (
         items.map(item => {
           return (
-            <Link key={item.id} href={'/asd'}>
+            <Link
+              key={item.itemId}
+              href={pageRoute.customer.storeDetail(String(item.storeId))}
+            >
               <div
                 className="mb-2 flex justify-between gap-2 rounded bg-white p-4"
                 style={{ boxShadow: '0px 0px 4px 0px rgb(0, 0, 0, 0.1)' }}
               >
                 <div>
-                  <Image width={60} height={60} src={donut} alt="donut" />
+                  <Image width={60} height={60} src={item.image} alt="donut" />
                 </div>
                 <div className="flex gap-5">
                   <div>
-                    <div className="text-sm font-semibold">달콤한 도너츠</div>
+                    <div className="text-sm font-semibold">{item.itemName}</div>
                     <div className="flex gap-1 text-xs font-semibold">
                       <div>재고: </div>
-                      <div className="text-red">3개</div>
+                      <div className="text-red">{item.stock}개</div>
                     </div>
                     <div className="text-xs text-dark-gray">
-                      현재 위치로부터 100m
+                      {item.storeAddress.name}
                     </div>
                   </div>
                   <div>
                     <div className="flex justify-end text-xs text-dark-gray line-through">
-                      <div>3000 원</div>
+                      <div>{item.originalPrice} 원</div>
                     </div>
                     <div className="flex items-center justify-end gap-2">
                       <div className="text-sm font-semibold text-red">
-                        할인 50%
+                        할인 {(item.discountPrice / item.originalPrice) * 100}%
                       </div>
-                      <div className="text-xs">1500 원</div>
+                      <div className="text-xs">{item.discountPrice} 원</div>
                     </div>
                     <div className="flex justify-end text-xs text-dark-gray">
-                      <div>마감 시간 : 22 : 00</div>
+                      <div>마감 시간 : {item.storeCloseTime}</div>
                     </div>
                   </div>
                 </div>
