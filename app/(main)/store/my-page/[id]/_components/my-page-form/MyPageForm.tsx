@@ -5,7 +5,6 @@ import ImageUploader from '../image-uploader/ImageUploader';
 import ProfileInformation from '../profile-information/ProfileInformation';
 import PrimaryButton from '@/app/_components/PrimaryButton/PrimaryButton';
 import LogoutButton from '../logout-button/LogoutButton';
-//import { ProfileType } from '../../_types/ProfileType';
 import { useState } from 'react';
 import StoreInformation from '../store-information/StoreInformation';
 
