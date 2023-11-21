@@ -41,7 +41,8 @@ const fetchData = async ({
     )
     .then(res => {
       return res.data.items;
-    });
+    })
+    .catch(err => console.log(err.message));
 
   return data;
 };

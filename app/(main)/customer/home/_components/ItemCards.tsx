@@ -1,12 +1,12 @@
 'use client';
 
 import Image from 'next/image';
-import { ResponseItemTypes } from '../fetchData';
+import { ResponseItemTypes } from '../_services/fetchData';
 import Link from 'next/link';
 import pageRoute from '@/app/_constants/path';
 
 export type ItemTypes = {
-  items?: ResponseItemTypes[] | null;
+  items?: ResponseItemTypes[] | [];
 };
 
 const ItemCards = ({ items }: ItemTypes) => {

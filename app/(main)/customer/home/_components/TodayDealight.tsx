@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import TodayDealightDropDown, {
   DropDownTextType,
 } from './TodayDealightDropDown';
-import fetchData, { ResponseItemTypes } from '../fetchData';
+import fetchData, { ResponseItemTypes } from '../_services/fetchData';
 import ItemCards from './ItemCards';
 import { useInView } from 'react-intersection-observer';
 import Spinner from '@/app/_components/spinner/Spinner';
