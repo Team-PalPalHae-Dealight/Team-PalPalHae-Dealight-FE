@@ -4,6 +4,10 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { useState } from 'react';
+import { axiosInstance } from '@/app/_services/apiClient';
+import { useRouter } from 'next/navigation';
+import LocalStorage from '@/app/_utils/localstorage';
+import pageRoute from '@/app/_constants/path';
 
 interface IFormInput {
   realname: string;
@@ -13,6 +17,7 @@ interface IFormInput {
 
 export default function Signup() {
   const [isNicknameValid, setisNicknameValid] = useState(false);
+  const router = useRouter();
   const schema = yup.object().shape({
     realname: yup.string().required('이름을 입력해주세요'),
     nickName: yup.string().required('닉네임을 입력해주세요'),
@@ -32,36 +37,29 @@ export default function Signup() {
 
   const onSubmit: SubmitHandler<IFormInput> = async data => {
     if (isNicknameValid === true) {
-      const datalocal = localStorage.getItem('dealight-signup');
-      console.log('datalocal', datalocal);
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/auth/signup`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json;charset=UTF-8',
-            Authorization:
-              'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1MDAwMDAyIiwiaXNzIjoiREVBTElHSFQtQVBJLVNFUlZFUiIsImlhdCI6MTY5OTgzODIzNywiZXhwIjo5OTk5OTk5OTk5LCJBdXRob3JpdGllcyI6IlJPTEVfU1RPUkUifQ.4AddVJWedO0aV0iMPOpdnp83-ZJQ33k69wc1QkN5wo8',
-          },
-          body: JSON.stringify({
-            provider: 'kakao',
-            providerId: '3148882014',
-            realName: data.realname,
-            nickName: data.nickName,
-            phoneNumber: data.phoneNumber,
-            role: 'store',
-          }),
+      const { provider, providerId } = LocalStorage.getItem('dealight-signup');
+      try {
+        await axiosInstance.post('/auth/signup', {
+          provider: provider,
+          providerId: providerId,
+          realName: data.realname,
+          nickName: data.nickName,
+          phoneNumber: data.phoneNumber,
+          role: 'store',
+        });
+        alert('회원가입이 완료되었습니다!');
+        if (LocalStorage.getItem('dealight-lastLoginPage') === 'customer') {
+          router.push(pageRoute.customer.home());
+          return;
         }
-      );
-      console.log('response', response);
-      if (!response.ok) {
-        throw new Error('알 수 없는 에러');
+        if (LocalStorage.getItem('dealight-lastLoginPage') === 'store') {
+          router.push(pageRoute.store.home());
+          return;
+        }
+      } catch (error) {
+        alert(error);
+        console.error(error);
       }
-      const val = await response.json();
-      console.log(val);
-      alert('회원가입이 완료되었습니다!');
-    } else {
-      alert('닉네임 중복 확인을 해주세요!');
     }
   };
 
@@ -114,7 +112,7 @@ export default function Signup() {
         {isNicknameValid && errors.nickName && (
           <span className=" text-xs text-red">닉네임을 입력해주세요</span>
         )}
-        {!isNicknameValid && (
+        {!isNicknameValid && errors.nickName && (
           <span className=" text-xs text-red">중복확인해주세요!</span>
         )}
         <div>
