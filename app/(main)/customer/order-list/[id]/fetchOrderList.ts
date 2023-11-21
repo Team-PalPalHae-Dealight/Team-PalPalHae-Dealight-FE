@@ -1,26 +1,50 @@
-/**
- * todo: api 연결 완료 후 수정 필요
- */
+import { axiosInstance } from '@/app/_services/apiClient';
 
-export type ResponseItemTypes = {
-  userId: number;
-  id: number;
-  title: string;
-  body: string;
+export type ResponseItemType = {
+  orderId: number;
+  storeId: number;
+  memberId: number;
+  memberNickName: string;
+  storeName: string;
+  demand: string;
+  arrivalTime: string;
+  orderProductsRes: {
+    orderProducts: OrderProductsType[];
+  };
+  totalPrice: number;
+  createdAt: string;
+  status: string;
 };
 
-const fetchOrderList = async (page: number) => {
-  const url = `https://jsonplaceholder.typicode.com/posts/?_start=${page}&_limit=5`;
+type OrderProductsType = {
+  itemId: number;
+  name: string;
+  quantity: number;
+  discountPrice: number;
+  originalPrice: number;
+  image: string;
+};
 
-  try {
-    const res = await fetch(url);
-    const data = await res.json();
+type FetchOrderListPropsType = {
+  status: 'ALL' | 'RECEIVED' | 'CONFIRMED' | 'COMPLETED' | 'CANCELED';
+  page: number;
+};
 
-    return data as ResponseItemTypes[];
-  } catch (error) {
-    console.error('Error: ', error);
-    return null;
-  }
+const fetchOrderList = async ({ status, page }: FetchOrderListPropsType) => {
+  const data = await axiosInstance
+    .get(
+      status === 'ALL'
+        ? `/orders?page=${page}&size=5`
+        : `/orders?status=${status}&page=${page}&size=5`
+    )
+    .then(res => {
+      return res.data.orders;
+    })
+    .catch(err => console.log(err.message));
+
+  console.log(data);
+
+  return data;
 };
 
 export default fetchOrderList;

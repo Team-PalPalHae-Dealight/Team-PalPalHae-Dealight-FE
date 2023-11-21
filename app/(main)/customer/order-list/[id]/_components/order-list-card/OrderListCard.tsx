@@ -1,22 +1,19 @@
 'use client';
 
-import { ResponseItemTypes } from '@/app/_components/infinite-scroll/fetchData';
 import Link from 'next/link';
+import { ResponseItemType } from '../../fetchOrderList';
 
 export type OrderListCardPropsType = {
-  items?: ResponseItemTypes[] | null;
+  items?: ResponseItemType[] | null;
 };
 
 const OrderListCard = ({ items }: OrderListCardPropsType) => {
-  const onClickCardLink = () => {
-    sessionStorage.setItem('scrollY', JSON.stringify(window.scrollY));
-  };
   return (
     <>
       {items ? (
         items.map(item => {
           return (
-            <Link key={item.id} href={'/asd'} onClick={onClickCardLink}>
+            <Link key={item.orderId} href={'/asd'}>
               <div
                 className=" mb-3 rounded-md bg-white p-2"
                 style={{ boxShadow: '0px 0px 4px 0px rgb(0, 0, 0, 0.1)' }}
