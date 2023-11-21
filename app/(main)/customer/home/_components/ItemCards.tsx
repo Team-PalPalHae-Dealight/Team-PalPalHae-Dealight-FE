@@ -44,7 +44,7 @@ const ItemCards = ({ items }: ItemTypes) => {
                     </div>
                     <div className="flex items-center justify-end gap-2">
                       <div className="text-sm font-semibold text-red">
-                        {(item.discountPrice / item.originalPrice) * 100}%
+                        할인 {(item.discountPrice / item.originalPrice) * 100}%
                       </div>
                       <div className="text-xs">{item.discountPrice} 원</div>
                     </div>
