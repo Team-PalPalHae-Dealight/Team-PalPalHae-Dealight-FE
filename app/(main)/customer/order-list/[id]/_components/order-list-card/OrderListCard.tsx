@@ -1,11 +1,11 @@
 'use client';
 
 import Link from 'next/link';
-import { ResponseItemType } from '../../fetchOrderList';
+import { ResponseItemType } from '../../_services/fetchOrderList';
 import pageRoute from '@/app/_constants/path';
 
 export type OrderListCardPropsType = {
-  items?: ResponseItemType[] | null;
+  items?: ResponseItemType[] | [];
 };
 
 const OrderListCard = ({ items }: OrderListCardPropsType) => {

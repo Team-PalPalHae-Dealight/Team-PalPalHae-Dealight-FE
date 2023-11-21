@@ -1,7 +1,9 @@
 import Spinner from '@/app/_components/spinner/Spinner';
 import OrderListCard from '../order-list-card/OrderListCard';
 import { useCallback, useEffect, useState } from 'react';
-import fetchOrderList, { ResponseItemType } from '../../fetchOrderList';
+import fetchOrderList, {
+  ResponseItemType,
+} from '../../_services/fetchOrderList';
 import { useInView } from 'react-intersection-observer';
 
 type ItemListPropsType = {
