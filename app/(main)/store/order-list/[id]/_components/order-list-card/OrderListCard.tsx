@@ -35,7 +35,8 @@ const OrderListCard = ({ items }: OrderListCardPropsType) => {
                 </div>
                 <div className="flex items-center justify-between text-black">
                   <div className="text-xs">
-                    도착예정 시간: {item.arrivalTime.slice(0, -3)}
+                    도착예정 시간: {item.arrivalTime.slice(0, -3).split(':')[0]}
+                    시{item.arrivalTime.slice(0, -3).split(':')[1]}분
                   </div>
                   {item.status === '주문 접수' && (
                     <div className="text-sm text-green">주문 접수</div>
