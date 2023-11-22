@@ -9,6 +9,19 @@ export type OrderListCardPropsType = {
 };
 
 const OrderListCard = ({ items }: OrderListCardPropsType) => {
+  const formattedDate = (dateString: string) => {
+    const matchArray = dateString.match(
+      /(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})/
+    );
+
+    if (matchArray) {
+      const [, year, month, day, hours, minutes] = matchArray;
+      return `${year}.${month}.${day} ${hours}.${minutes}`;
+    } else {
+      console.error('Invalid date string format');
+      return null;
+    }
+  };
   return (
     <>
       {items ? (
@@ -24,8 +37,7 @@ const OrderListCard = ({ items }: OrderListCardPropsType) => {
               >
                 <div className="flex text-xs text-dark-gray">
                   <div className="flex justify-between">
-                    {/* @todo 시간 수정해야 함 */}
-                    <div>{item.createdAt}</div>
+                    <div>{formattedDate(item.createdAt)}</div>
                   </div>
                 </div>
                 <div className="flex items-center gap-1 text-black">

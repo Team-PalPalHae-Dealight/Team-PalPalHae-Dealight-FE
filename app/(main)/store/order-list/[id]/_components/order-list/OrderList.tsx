@@ -7,6 +7,7 @@ import OrderListModal from '../order-list-modal/OrderListModal';
 import Image from 'next/image';
 import StoreFooter from '@/app/_components/Footer/StoreFooter';
 import ItemList from '../item-list/ItemList';
+import Header from '@/app/_components/Header/Header';
 
 export type DropDownTextType =
   | 'ALL'
@@ -25,8 +26,9 @@ const OrderList = () => {
 
   return (
     <>
+      <Header />
       <main className="rounded-t-lg bg-gray px-5">
-        <div className="sticky top-0 my-3 flex h-14 items-center justify-between bg-gray">
+        <div className="flex h-14 items-center justify-between bg-gray">
           <div className="flex items-center gap-1" onClick={onClickOrderList}>
             <label className="text-xl	font-semibold text-black">주문 내역</label>
             <Image src={notification} className="h-4 w-4" alt="notification" />

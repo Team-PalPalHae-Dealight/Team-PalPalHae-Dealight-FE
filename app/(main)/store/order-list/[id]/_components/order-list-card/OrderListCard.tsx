@@ -1,5 +1,3 @@
-'use client';
-
 import Link from 'next/link';
 import { ResponseItemType } from '../../_services/getOrderList';
 import pageRoute from '@/app/_constants/path';
@@ -9,6 +7,19 @@ export type OrderListCardPropsType = {
 };
 
 const OrderListCard = ({ items }: OrderListCardPropsType) => {
+  const formattedDate = (dateString: string) => {
+    const matchArray = dateString.match(
+      /(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})/
+    );
+
+    if (matchArray) {
+      const [, year, month, day, hours, minutes] = matchArray;
+      return `${year}.${month}.${day} ${hours}.${minutes}`;
+    } else {
+      console.error('Invalid date string format');
+      return null;
+    }
+  };
   return (
     <>
       {items ? (
@@ -23,8 +34,7 @@ const OrderListCard = ({ items }: OrderListCardPropsType) => {
                 style={{ boxShadow: '0px 0px 4px 0px rgb(0, 0, 0, 0.1)' }}
               >
                 <div className="flex text-xs text-dark-gray">
-                  {/* 시간 수정 해야 함 */}
-                  <div>{item.createdAt}</div>
+                  <div>{formattedDate(item.createdAt)}</div>
                 </div>
                 <div className="flex items-center gap-1 text-black">
                   <div className="text-sm">
