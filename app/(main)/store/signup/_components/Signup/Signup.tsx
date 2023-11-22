@@ -40,7 +40,9 @@ export default function Signup() {
     if (isNicknameValid === true) {
       const { provider, providerId } = LocalStorage.getItem('dealight-signup');
       try {
-        await axiosInstance.post('auth/signup', {
+        const {
+          data: { accessToken, refreshToken },
+        } = await axiosInstance.post('auth/signup', {
           provider: provider,
           providerId: providerId,
           realName: data.realname,
@@ -48,6 +50,10 @@ export default function Signup() {
           phoneNumber: data.phoneNumber,
           role: 'store',
         });
+        console.log(accessToken, refreshToken);
+        LocalStorage.setItem('dealight-accessToken', accessToken);
+        LocalStorage.setItem('dealight-refreshToken', refreshToken);
+
         alert('회원가입이 완료되었습니다!');
         if (LocalStorage.getItem('dealight-lastLoginPage') === 'customer') {
           router.push(pageRoute.customer.home());
@@ -67,15 +73,13 @@ export default function Signup() {
   const handleNicknameCheck = async () => {
     try {
       const watchNickName = watch('nickName');
-      console.log(watchNickName);
-      const res = await axiosInstance.post('/auth/duplicate', {
+      await axiosInstance.post('auth/duplicate', {
         nickName: watchNickName,
       });
-      console.log(res);
       alert('닉네임 검사 통과');
       setisNicknameValid(true);
     } catch (error) {
-      alert(error.data.message);
+      alert(error.message);
       console.error(error);
     }
   };
