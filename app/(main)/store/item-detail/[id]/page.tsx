@@ -1,10 +1,13 @@
-import ItemDetail from './_components/ItemDetail';
+import dynamic from 'next/dynamic';
+
+const ItemDetail = dynamic(() => import('./_components/ItemDetail'), {
+  ssr: false,
+});
 
 const Page = ({ params }: { params: { id: string } }) => {
-  console.log(params);
   return (
     <main className="flex flex-col items-center px-5 pt-2.5">
-      <ItemDetail />
+      <ItemDetail itemId={params.id} />
     </main>
   );
 };

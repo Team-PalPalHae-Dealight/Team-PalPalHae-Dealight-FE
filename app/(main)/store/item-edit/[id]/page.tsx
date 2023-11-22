@@ -1,4 +1,8 @@
-import ItemEdit from './_components/ItemEdit';
+import dynamic from 'next/dynamic';
+
+const ItemEdit = dynamic(() => import('./_components/ItemEdit'), {
+  ssr: false,
+});
 
 const ItemDetailEdit = ({ params }: { params: { id: string } }) => {
   const { id: itemId } = params;

@@ -2,7 +2,6 @@ import StartLink from './_components/main-temp/StartLink';
 import Banner from './_assets/images/banner.png';
 import Image from 'next/image';
 import ServiceIntro from './_components/main-temp/ServiceIntro';
-import { MswTestButton } from './_components/main-temp/MswTestButton';
 import Link from 'next/link';
 import {
   HydrationBoundary,
@@ -32,7 +31,6 @@ export default async function Home() {
 
         <StartLink />
         <ServiceIntro />
-        <MswTestButton />
 
         <div className="flex flex-col border border-indigo-400 p-2">
           <h2>상품과 관련된 테스트를 진행합니다.</h2>

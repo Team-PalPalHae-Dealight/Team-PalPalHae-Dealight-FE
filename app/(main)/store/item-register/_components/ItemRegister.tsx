@@ -3,29 +3,86 @@
 import PrimaryButton from '@/app/_components/PrimaryButton/PrimaryButton';
 import ImageUpload from '@/app/_assets/images/image-upload.png';
 import Notification from '@/app/_assets/images/notification.png';
-import Image from 'next/image';
+import Image, { StaticImageData } from 'next/image';
+import { useCreateItem } from '@/app/_hooks/query/item';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import pageRoute from '@/app/_constants/path';
 
 const ItemRegister = () => {
+  const { mutate: createItem } = useCreateItem();
+
+  const router = useRouter();
+
+  const [file, setFile] = useState<File>();
+  const [itemName, setItemName] = useState('');
+  const [stock, setStock] = useState<number>(0);
+  const [discountPrice, setDiscountPrice] = useState<number>(0);
+  const [originalPrice, setOriginalPrice] = useState<number>(0);
+  const [description, setDescription] = useState('');
+  const [previewImage, setPreviewImage] = useState<StaticImageData | string>(
+    ImageUpload
+  );
+
   return (
     <div className="flex flex-col">
       <h2 className="mb-3 text-lg font-bold">상품 등록</h2>
 
       <div className="mb-5 flex gap-4">
         <div className="flex flex-col items-center justify-around gap-1.5">
-          <Image src={ImageUpload} alt="image upload" />
+          <div className="relative h-20 w-20">
+            <Image
+              src={previewImage}
+              fill
+              sizes="(max-width: 768px) 100vw"
+              alt="preview upload"
+            />
+          </div>
+
           <PrimaryButton
             onClick={() => {}}
             className="h-7 px-4 text-sm font-bold"
           >
             이미지 불러오기
           </PrimaryButton>
+          <input
+            className="w-32"
+            type="file"
+            accept="image/*"
+            onChange={e => {
+              if (!e.target.files || e.target.files.length === 0) return;
+
+              const file = e.target.files[0];
+
+              setFile(file);
+              const reader = new FileReader();
+
+              reader.readAsDataURL(file);
+              reader.onload = e => {
+                if (!reader.result || !e.target) return;
+                if (typeof e.target.result !== 'string') return;
+
+                setPreviewImage(reader.result as string);
+              };
+            }}
+          />
         </div>
 
         <div>
           <div className="flex flex-col gap-3">
-            <input className="rounded py-3.5 pl-3" placeholder="상품명" />
+            <input
+              className="rounded py-3.5 pl-3"
+              placeholder="상품명"
+              value={itemName}
+              onChange={e => setItemName(e.currentTarget.value)}
+            />
 
-            <input className="rounded py-3.5 pl-3" placeholder="0" />
+            <input
+              className="rounded py-3.5 pl-3"
+              placeholder="0"
+              value={stock}
+              onChange={e => setStock(Number(e.currentTarget.value))}
+            />
           </div>
         </div>
       </div>
@@ -56,6 +113,8 @@ const ItemRegister = () => {
               id="originalPrice"
               placeholder="0"
               className="rounded py-3.5 pl-3"
+              value={originalPrice}
+              onChange={e => setOriginalPrice(Number(e.currentTarget.value))}
             />
           </div>
 
@@ -68,6 +127,8 @@ const ItemRegister = () => {
               id="originalPrice"
               placeholder="0"
               className="rounded py-3.5 pl-3"
+              value={discountPrice}
+              onChange={e => setDiscountPrice(Number(e.currentTarget.value))}
             />
           </div>
 
@@ -80,11 +141,37 @@ const ItemRegister = () => {
               id="originalPrice"
               placeholder="(선택 사항) 추가적인 상품 설명을 작성해주세요."
               className="rounded py-9 pl-3"
+              value={description}
+              onChange={e => setDescription(e.currentTarget.value)}
             />
           </div>
         </div>
 
-        <PrimaryButton onClick={() => {}}>등록하기</PrimaryButton>
+        <PrimaryButton
+          onClick={() => {
+            createItem(
+              {
+                item: {
+                  itemName,
+                  stock,
+                  discountPrice,
+                  originalPrice,
+                  description,
+                  information: '없애야 하는 데이터',
+                  image: file!,
+                },
+              },
+              {
+                onSuccess: data => {
+                  const { itemId } = data;
+                  router.push(pageRoute.store.itemDetail(String(itemId)));
+                },
+              }
+            );
+          }}
+        >
+          등록하기
+        </PrimaryButton>
       </div>
     </div>
   );

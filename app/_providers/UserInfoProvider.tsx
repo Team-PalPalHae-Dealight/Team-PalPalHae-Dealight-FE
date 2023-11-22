@@ -7,30 +7,34 @@ import { useAuth } from './AuthProvider';
 import LocalStorage from '../_utils/localstorage';
 
 type DefaultContextType = {
-  nickname: string | null;
+  providerId: number | null;
+  storeId: number | null;
+  nickName: string | null;
   role: 'store' | 'member' | null;
 } | null;
 
 const UserInfoContext = createContext<DefaultContextType>(null);
 
 async function getUser(): Promise<DefaultContextType> {
-  //await axiosInstance.get('https://jsonplaceholder.typicode.com/todos/1');
   const data = await axiosInstance
     .get(`${process.env.NEXT_PUBLIC_API_URL}/members/profiles`)
     .then(res => res.data);
-  const { role } = data;
+
+  const { nickName, providerId, role } = data;
+
   let storeId = null;
-  if (role === `store`) {
+
+  if (role === 'store') {
     storeId = await axiosInstance
       .get(`${process.env.NEXT_PUBLIC_API_URL}/stores/confirm`)
-      .then(res => res.data);
+      .then(res => res.data.storeId);
   }
 
   console.log(data, storeId);
   /**
    * @description role에 고객 or 업체가 들어온다. 이 값을 통해 라우팅 처리가 이루어지게 된다.
    */
-  return { nickname: '업체 닉네임', role: 'store' };
+  return { role, nickName, providerId, storeId };
 }
 
 export const UserInfoProvider = ({
@@ -47,7 +51,12 @@ export const UserInfoProvider = ({
   const { data: userInfo, isError } = useQuery({
     queryKey: ['user-info'],
     queryFn: getUser,
-    initialData: { nickname: null, role: null },
+    initialData: {
+      nickName: null,
+      role: null,
+      storeId: null,
+      providerId: null,
+    },
     enabled:
       !!LocalStorage.getItem('dealight-accessToken') ||
       !!LocalStorage.getItem('dealight-refreshToken'),

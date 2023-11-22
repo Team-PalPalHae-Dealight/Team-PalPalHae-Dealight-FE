@@ -2,50 +2,92 @@
 
 import { useGetItem, usePatchItem } from '@/app/_hooks/query/item';
 import Image from 'next/image';
-import MockDonut from '@/app/_assets/images/mock-donut.png';
 import Notification from '@/app/_assets/images/notification.png';
 
 import PrimaryButton from '@/app/_components/PrimaryButton/PrimaryButton';
+import { useState } from 'react';
 
 type ItemEditPropsType = {
   itemId: string;
 };
 
 const ItemEdit = ({ itemId }: ItemEditPropsType) => {
-  const { data: item, isLoading } = useGetItem({ itemId });
+  const { data: item } = useGetItem({ itemId });
 
   const { mutate: patchItem } = usePatchItem();
 
-  const onClickEdit = () => {
-    patchItem({ itemId });
-  };
+  const { discountPrice, originalPrice, stock, itemName, image, description } =
+    item;
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
+  const [previewImage, setPreviewImage] = useState<string>(String(image));
+  const [file, setFile] = useState<File>(image);
+
+  const onClickEdit = () => {
+    patchItem({
+      item: {
+        itemName: '수정 상품22',
+        description: '수정하겠습니다.',
+        discountPrice: 2000,
+        originalPrice: 3000,
+        image: file!,
+        information: '없애야 하는 데이터',
+        stock: 3,
+      },
+      itemId,
+    });
+  };
 
   return (
     <div className="flex flex-col">
       <h2 className="mb-3 text-lg font-bold">상품 등록</h2>
 
       <div className="mb-5 flex gap-4">
-        <div className="flex flex-col gap-1.5">
-          <Image src={MockDonut} alt="mock docut" />
+        <div className="flex flex-col items-center justify-around gap-1.5">
+          <div className="relative h-20 w-20">
+            <Image
+              src={previewImage}
+              fill
+              sizes="(max-width: 768px) 100vw"
+              alt="preview upload"
+            />
+          </div>
+
           <PrimaryButton
             onClick={() => {}}
             className="h-7 px-4 text-sm font-bold"
           >
             이미지 불러오기
           </PrimaryButton>
+          <input
+            className="w-32"
+            type="file"
+            accept="image/*"
+            onChange={e => {
+              if (!e.target.files || e.target.files.length === 0) return;
+
+              const file = e.target.files[0];
+
+              setFile(file);
+              const reader = new FileReader();
+
+              reader.readAsDataURL(file);
+              reader.onload = e => {
+                if (!reader.result || !e.target) return;
+                if (typeof e.target.result !== 'string') return;
+
+                setPreviewImage(reader.result as string);
+              };
+            }}
+          />
         </div>
 
         <div>
           <div className="flex flex-col gap-3">
-            <input className="rounded py-3.5 pl-3" placeholder={item?.name} />
+            <input className="rounded py-3.5 pl-3" placeholder={itemName} />
 
             <input
               className="rounded py-3.5 pl-3"
-              placeholder={String(item?.stock ?? 0)}
+              placeholder={String(stock)}
             />
           </div>
         </div>
@@ -75,7 +117,7 @@ const ItemEdit = ({ itemId }: ItemEditPropsType) => {
             <input
               type="text"
               id="originalPrice"
-              placeholder={String(item?.originalPrice ?? 0)}
+              placeholder={String(discountPrice)}
               className="rounded py-3.5 pl-3"
             />
           </div>
@@ -87,7 +129,7 @@ const ItemEdit = ({ itemId }: ItemEditPropsType) => {
             <input
               type="text"
               id="originalPrice"
-              placeholder={String(item?.originalPrice ?? 0)}
+              placeholder={String(originalPrice)}
               className="rounded py-3.5 pl-3"
             />
           </div>
@@ -99,13 +141,17 @@ const ItemEdit = ({ itemId }: ItemEditPropsType) => {
             <input
               type="text"
               id="originalPrice"
-              placeholder="(선택 사항) 추가적인 상품 설명을 작성해주세요."
+              placeholder={
+                description === ''
+                  ? '(선택 사항) 추가적인 상품 설명을 작성해주세요.'
+                  : description
+              }
               className="rounded py-9 pl-3"
             />
           </div>
         </div>
 
-        <PrimaryButton onClick={() => onClickEdit()}>수정하기</PrimaryButton>
+        <PrimaryButton onClick={onClickEdit}>수정하기</PrimaryButton>
       </div>
     </div>
   );

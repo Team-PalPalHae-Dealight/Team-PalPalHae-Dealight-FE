@@ -32,7 +32,7 @@ async function memberSignup() {
 export default function AuthTest() {
   // const router = useRouter();
   const { login, logout } = useAuth();
-  const { nickname, role } = useUserInfo();
+  const { nickName, role } = useUserInfo();
 
   const onClickStoreSignup = () => {
     storeSignup().then(res => {
@@ -49,7 +49,7 @@ export default function AuthTest() {
     });
   };
 
-  console.log(nickname, role);
+  console.log(nickName, role);
 
   return (
     <div className="flex flex-col gap-4 text-center">
@@ -59,7 +59,11 @@ export default function AuthTest() {
           업체 로그인 시도 (토큰을 넣습니다.)
         </button>
 
-        <Link href={pageRoute.store.home()} className="bg-teal-300">
+        <Link
+          href={pageRoute.store.home()}
+          scroll={false}
+          className="bg-teal-300"
+        >
           업체만 접근 가능한 페이지로 이동하기 (store-home)
         </Link>
 
@@ -97,6 +101,17 @@ export default function AuthTest() {
           로그아웃 시도
         </button>
       </div>
+
+      <button
+        onClick={() => {
+          login({
+            accessToken: process.env.NEXT_PUBLIC_STORE_ACCESS_TOKEN!,
+            refreshToken: process.env.NEXT_PUBLIC_STORE_REFRESH_TOKEN!,
+          });
+        }}
+      >
+        로그인 시도해봅니다!
+      </button>
     </div>
   );
 }

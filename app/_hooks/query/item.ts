@@ -1,5 +1,6 @@
+import { axiosInstance } from '@/app/_services/apiClient';
 import { ItemType } from '@/app/_types/api/item';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useSuspenseQuery } from '@tanstack/react-query';
 
 export const itemKeys = {
   item: (itemId: string) => ['item', itemId] as const,
@@ -9,28 +10,14 @@ type GetItemPropsType = {
   itemId: string;
 };
 
-type CreateItmePropsType = Omit<ItemType, 'itemId' | 'storeId'>;
+type ItmePropsType = Omit<ItemType, 'itemId' | 'storeId'>;
 
 export const getItem = async ({
   itemId,
 }: GetItemPropsType): Promise<ItemType> => {
-  const response = await fetch(
-    `http://localhost:3000/mocks/api/items/${itemId}`,
-    {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json;charset=UTF-8' },
-    }
-  );
+  const response = await axiosInstance.get(`/items/${itemId}`);
 
-  const data = await response.json();
-
-  if (!response.ok) {
-    if (data.message) {
-      throw new Error(data.message);
-    }
-
-    throw new Error('알 수 없는 에러');
-  }
+  const data = response.data;
 
   return data;
 };
@@ -38,67 +25,80 @@ export const getItem = async ({
 export const createItem = async ({
   item,
 }: {
-  item: CreateItmePropsType;
+  item: ItmePropsType;
 }): Promise<ItemType> => {
-  const response = await fetch('http://localhost:3000/mocks/api/items', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json;charset=UTF-8' },
-    body: JSON.stringify({ ...item }),
+  const { image, ...itemReq } = item;
+
+  const formData = new FormData();
+
+  formData.append(
+    'itemReq',
+    new Blob([JSON.stringify(itemReq)], { type: 'application/json' })
+  );
+
+  formData.append('image', image ?? new Blob([], { type: 'image/jpeg' }));
+
+  const response = await axiosInstance.post(`/items`, formData, {
+    headers: { 'Content-Type': 'multipart/form-data' },
   });
 
-  const data = await response.json();
-
-  if (!response.ok) {
-    if (data.message) {
-      throw new Error(data.message);
-    }
-
-    throw new Error('알 수 없는 에러');
-  }
-
-  console.log(data);
+  const data = response.data;
 
   return data;
 };
 
 export const patchItem = async ({
+  item,
   itemId,
-}: GetItemPropsType): Promise<ItemType> => {
-  const response = await fetch(
-    `http://localhost:3000/mocks/api/items/${itemId}`,
-    {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json;charset=UTF-8' },
-    }
+}: {
+  item: ItmePropsType;
+  itemId: string;
+}): Promise<ItemType> => {
+  const { image, ...itemReq } = item;
+
+  const formData = new FormData();
+
+  formData.append(
+    'itemReq',
+    new Blob([JSON.stringify(itemReq)], { type: 'application/json' })
   );
 
-  const data = await response.json();
+  if (typeof image === 'string') {
+    const url = image as string;
+    const ext = url.split('.').pop();
+    const metadata = { type: `image/${ext}` };
+    const filename = url.split('/').pop();
 
-  if (!response.ok) {
-    if (data.message) {
-      throw new Error(data.message);
-    }
+    console.log(filename, metadata);
 
-    throw new Error('알 수 없는 에러');
+    const response = await fetch(url);
+
+    const blob = await response.blob();
+    const convertedFile = new File([blob], filename!, { type: ext });
+    formData.append('image', convertedFile);
+  } else {
+    formData.append('image', image ?? new Blob([], { type: 'image/jpeg' }));
   }
+
+  const response = await axiosInstance.patch(`/items/${itemId}`, formData, {
+    headers: { 'Content-Type': 'multipart/form-data' },
+  });
+
+  const data = response.data;
 
   return data;
 };
 
 export const deleteItem = async ({ itemId }: GetItemPropsType) => {
-  const response = await fetch(
-    `http://localhost:3000/mocks/api/items/${itemId}`,
-    {
-      method: 'DELETE',
-      headers: { 'Content-Type': 'application/json;charset=UTF-8' },
-    }
-  );
+  const response = await axiosInstance.delete(`/items/${itemId}`);
 
-  return response.status;
+  const data = response.data;
+
+  return data;
 };
 
 export const useGetItem = ({ itemId }: GetItemPropsType) => {
-  return useQuery({
+  return useSuspenseQuery({
     queryKey: [itemKeys.item(itemId)],
     queryFn: () => getItem({ itemId }),
   });

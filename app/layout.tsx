@@ -2,7 +2,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import pretendardRegular from './_constants/font';
-import { MSWProvider } from '@/public/mocks/MSWProvider';
 import QueryProvider from './_providers/QueryProvider';
 import { AuthProvider } from './_providers/AuthProvider';
 import { UserInfoProvider } from './_providers/UserInfoProvider';
@@ -34,7 +33,7 @@ export default function RootLayout({
               <body
                 className={`${pretendardRegular.className} mx-auto min-h-screen w-full bg-gray text-black`}
               >
-                <MSWProvider>{children}</MSWProvider>
+                {children}
               </body>
             </AddressProvider>
           </UserInfoProvider>
