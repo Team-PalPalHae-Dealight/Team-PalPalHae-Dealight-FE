@@ -16,6 +16,7 @@ import LocalStorage from '@/app/_utils/localstorage';
 import PrimaryButton from '@/app/_components/PrimaryButton/PrimaryButton';
 import { yupResolver } from '@hookform/resolvers/yup';
 import pageRoute from '@/app/_constants/path';
+import { postStore } from '../../_services/postStore';
 
 type initialValuesType = {
   storeOpenTime: string;
@@ -35,11 +36,22 @@ const StoreTimeForm = () => {
   const onSubmit: SubmitHandler<initialValuesType> = () => {
     const { storeOpenTime, storeCloseTime, storeDayOff } = watch();
 
-    LocalStorage.setItem('dealight-storeOpenTime', storeOpenTime);
-    LocalStorage.setItem('dealight-storeCloseTime', storeCloseTime);
+    LocalStorage.setItem('dealight-storeOpenTime', storeOpenTime + ':00');
+    LocalStorage.setItem('dealight-storeCloseTime', storeCloseTime + ':00');
     LocalStorage.setItem('dealight-storeDayOff', storeDayOff);
-    /** @todo api 연결 */
-    /** @todo api res status 200일 경우 LocalStorage 삭제 */
+
+    const req = {
+      storeNumber: LocalStorage.getItem('dealight-storeNumber'),
+      name: LocalStorage.getItem('dealight-storeName'),
+      telephone: LocalStorage.getItem('dealight-storePhone'),
+      addressName: LocalStorage.getItem('dealight-storeAddress'),
+      xCoordinate: LocalStorage.getItem('dealight-coords-x'),
+      yCoordinate: LocalStorage.getItem('dealight-coords-y'),
+      openTime: LocalStorage.getItem('dealight-storeOpenTime'),
+      closeTime: LocalStorage.getItem('dealight-storeCloseTime'),
+      dayOff: LocalStorage.getItem('dealight-storeDayOff'),
+    };
+    postStore({ req: req });
     router.push(pageRoute.store.home());
   };
 
@@ -125,7 +137,7 @@ const StoreTimeForm = () => {
             <div className="h-12 w-full bg-white">
               <input
                 type="checkbox"
-                value="연중무휴"
+                value="연중 무휴"
                 defaultChecked
                 className=" peer/연중무휴 hidden h-12 w-full"
                 id="연중무휴"

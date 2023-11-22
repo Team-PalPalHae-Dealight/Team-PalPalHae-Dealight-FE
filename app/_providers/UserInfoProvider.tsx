@@ -30,6 +30,7 @@ async function getUser(): Promise<DefaultContextType> {
       .then(res => res.data.storeId);
   }
 
+  console.log(data, storeId);
   /**
    * @description role에 고객 or 업체가 들어온다. 이 값을 통해 라우팅 처리가 이루어지게 된다.
    */

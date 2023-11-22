@@ -6,7 +6,7 @@ export type ResponseItemTypes = {
 };
 
 const fetchData = async (page: number) => {
-  const url = `https://jsonplaceholder.typicode.com/comments/?_start=${page}&_limit=5`;
+  const url = `https://jsonplaceholder.typicode.com/posts/?_start=${page}&_limit=5`;
 
   try {
     const res = await fetch(url);

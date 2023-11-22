@@ -4,15 +4,15 @@ import SearchIcon from '../../_assets/svgs/search-icon.svg';
 import CartIcon from '../../_assets/svgs/cart-icon.svg';
 import Link from 'next/link';
 import pageRoute from '@/app/_constants/path';
-import { useState } from 'react';
 import AddressButton from '../AddressButton/AddressButton';
 import Triangle from './assets/triangle.svg';
 import dynamic from 'next/dynamic';
+import { useAddress } from '@/app/_providers/AddressProvider';
 
 const LoginHeader = dynamic(() => import('./LoginHeader'), { ssr: false });
 
 const CustomerHeader = () => {
-  const [address, setAddress] = useState('강남역 2번 출구');
+  const { address, setAddress } = useAddress();
 
   return (
     <div className="align-center space-between text-l sticky box-border flex h-16 w-full justify-between border-b-1 border-dark-gray/30 bg-light-gray px-3 py-4 font-semibold text-black">
@@ -20,7 +20,9 @@ const CustomerHeader = () => {
         <div>
           <AddressButton getAddress={addressVal => setAddress(addressVal)}>
             <div className="flex flex-row">
-              <div>{address}</div>
+              <div className=" w-28 overflow-hidden text-ellipsis whitespace-nowrap">
+                {address}
+              </div>
               <div>
                 <Triangle className="h-6 w-6 px-1 py-1.5" />
               </div>

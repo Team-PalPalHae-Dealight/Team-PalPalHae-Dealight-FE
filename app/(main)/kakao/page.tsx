@@ -37,9 +37,9 @@ const Page = () => {
         router.push(pageRoute.customer.signup());
         return;
       }
-
       if (LocalStorage.getItem('dealight-lastLoginPage') === 'store') {
-        router.push(pageRoute.store.signup());
+        router.push('/store/sign-up');
+        console.log('확인');
         return;
       }
     },
@@ -53,15 +53,15 @@ const Page = () => {
 
     getKakaoInfo(code).then(res => {
       const data = res.data;
-
-      if (data.message === '딜라이트 서비스에 가입이 필요합니다.') {
-        const { provider, providerId, nickName } = data;
+      if (data.message === `딜라이트 서비스에 가입이 필요합니다.`) {
+        const { provider, providerId, nickName } = data.data;
         signupNewUser({ provider, providerId, nickName });
         return;
       }
 
-      const { accessToken, refreshToken } = data;
+      const { accessToken, refreshToken } = data.data;
       login({ accessToken, refreshToken });
+      router.push('/');
     });
   }, [router, login, signupNewUser]);
 

@@ -15,8 +15,8 @@ async function storeSignup() {
   await axiosInstance.get('https://jsonplaceholder.typicode.com/todos/1');
 
   return {
-    accessToken: process.env.NEXT_PUBLIC_STORE_ACCESS_TOKEN!,
-    refreshToken: process.env.NEXT_PUBLIC_STORE_REFRESH_TOKEN!,
+    accessToken: `${process.env.NEXT_PUBLIC_STORE_ACCESS_TOKEN}`,
+    refreshToken: `${process.env.NEXT_PUBLIC_STORE_REFRESH_TOKEN}`,
   };
 }
 
@@ -24,8 +24,8 @@ async function memberSignup() {
   await axiosInstance.get('https://jsonplaceholder.typicode.com/todos/1');
 
   return {
-    accessToken: process.env.NEXT_PUBLIC_MEMBER_ACCESS_TOKEN!,
-    refreshToken: process.env.NEXT_PUBLIC_MEMBER_REFRESH_TOKEN!,
+    accessToken: `${process.env.NEXT_PUBLIC_MEMBER_ACCESS_TOKEN}`,
+    refreshToken: `${process.env.NEXT_PUBLIC_MEMBER_REFRESH_TOKEN}`,
   };
 }
 

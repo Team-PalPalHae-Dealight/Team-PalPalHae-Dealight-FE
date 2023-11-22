@@ -1,15 +1,18 @@
 'use client';
 
 import ToggleSwitch from '@/app/_components/toggle-switch/ToggleSwitch';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const BusinessStatus = () => {
   const [isOn, setIsOn] = useState(false);
 
   const getBusinessStatus = (toggle: boolean) => {
     setIsOn(toggle);
-    /** @todo 영업 상태 변경 api 연결 추가 */
   };
+
+  useEffect(() => {
+    getBusinessStatus(isOn);
+  }, [isOn]);
 
   return (
     <div className="flex h-11 w-full items-center justify-between rounded bg-white shadow-sm">
