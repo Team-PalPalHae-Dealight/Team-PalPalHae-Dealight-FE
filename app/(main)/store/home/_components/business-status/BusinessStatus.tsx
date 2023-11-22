@@ -2,25 +2,16 @@
 
 import ToggleSwitch from '@/app/_components/toggle-switch/ToggleSwitch';
 import { useEffect, useState } from 'react';
-import { getStatus } from '../../_services/getStatus';
 
 const BusinessStatus = () => {
   const [isOn, setIsOn] = useState(false);
 
   const getBusinessStatus = (toggle: boolean) => {
     setIsOn(toggle);
-    /** @todo 영업 상태 변경 api 연결 추가 */
-  };
-
-  const setStoreStatus = async () => {
-    const storeStatus = await getStatus(1);
-
-    if (storeStatus === '영업 준비 중') setIsOn(false);
-    else setIsOn(true);
   };
 
   useEffect(() => {
-    setStoreStatus();
+    getBusinessStatus(isOn);
   }, [isOn]);
 
   return (
