@@ -3,7 +3,7 @@
 import CustomerHeader from '@/app/_components/Header/CustomerHeader';
 import ProductList from '../product-list/ProductList';
 import OrderResult from '@/app/_components/order-result/OrderResult';
-import Footer from '@/app/_components/Footer/Footer';
+import CustomerFooter from '@/app/_components/Footer/CustomerFooter';
 
 const MainContents = () => {
   /** @TODO API 연결 후 res로 받은 데이터로 초기화시키기 */
@@ -22,7 +22,7 @@ const MainContents = () => {
         <ProductList />
         <OrderResult data={data} />
       </div>
-      <Footer />
+      <CustomerFooter />
     </main>
   );
 };

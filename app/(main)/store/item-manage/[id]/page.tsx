@@ -2,7 +2,7 @@
 
 import Header from '@/app/_components/Header/Header';
 import ProductList from './_components/product-list/ProductList';
-import Footer from '@/app/_components/Footer/Footer';
+import StoreFooter from '@/app/_components/Footer/StoreFooter';
 
 export default function Page() {
   return (
@@ -11,7 +11,7 @@ export default function Page() {
       <main className="px-5">
         <ProductList />
       </main>
-      <Footer />
+      <StoreFooter />
     </>
   );
 }

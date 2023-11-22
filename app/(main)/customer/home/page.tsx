@@ -3,9 +3,9 @@
 import KakaoMap from '@/app/_components/KakaoMap/KakaoMap';
 import TodayDealight from '@/app/(main)/customer/home/_components/TodayDealight';
 import CustomerHeader from '@/app/_components/Header/CustomerHeader';
-import Footer from '@/app/_components/Footer/Footer';
 import { useAddress } from '@/app/_providers/AddressProvider';
 import useCoordinate from '@/app/_hooks/useCoordinate';
+import CustomerFooter from '@/app/_components/Footer/CustomerFooter';
 // import fetchData from './fetchData';
 // import { useEffect, useState } from 'react';
 
@@ -58,7 +58,7 @@ export default function Page() {
           />
         </div>
       </div>
-      <Footer />
+      <CustomerFooter />
     </>
   );
 }
