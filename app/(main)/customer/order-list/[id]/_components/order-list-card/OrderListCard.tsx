@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { ResponseItemType } from '../../_services/fetchOrderList';
+import { ResponseItemType } from '../../_services/getOrderList';
 import pageRoute from '@/app/_constants/path';
 
 export type OrderListCardPropsType = {

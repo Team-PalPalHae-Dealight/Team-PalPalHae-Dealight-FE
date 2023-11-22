@@ -25,12 +25,12 @@ type OrderProductsType = {
   image: string;
 };
 
-type FetchOrderListPropsType = {
+type getOrderListPropsType = {
   status: 'ALL' | 'RECEIVED' | 'CONFIRMED' | 'COMPLETED' | 'CANCELED';
   page: number;
 };
 
-const fetchOrderList = async ({ status, page }: FetchOrderListPropsType) => {
+const getOrderList = async ({ status, page }: getOrderListPropsType) => {
   const url =
     status === 'ALL'
       ? `/orders?page=${page}&size=5`
@@ -43,9 +43,7 @@ const fetchOrderList = async ({ status, page }: FetchOrderListPropsType) => {
     })
     .catch(err => console.log(err.message));
 
-  console.log(data);
-
   return data;
 };
 
-export default fetchOrderList;
+export default getOrderList;

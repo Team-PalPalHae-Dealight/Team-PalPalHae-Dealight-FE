@@ -1,9 +1,7 @@
 import Spinner from '@/app/_components/spinner/Spinner';
 import OrderListCard from '../order-list-card/OrderListCard';
 import { useCallback, useEffect, useState } from 'react';
-import fetchOrderList, {
-  ResponseItemType,
-} from '../../_services/fetchOrderList';
+import getOrderList, { ResponseItemType } from '../../_services/getOrderList';
 import { useInView } from 'react-intersection-observer';
 
 type ItemListPropsType = {
@@ -26,7 +24,7 @@ const ItemList = ({ status }: ItemListPropsType) => {
     setIsLoading(true);
     await delay(777);
 
-    const newItems = (await fetchOrderList({ status, page })) ?? [];
+    const newItems = (await getOrderList({ status, page })) ?? [];
 
     if (newItems.length === 0) setIsEnded(true);
 
