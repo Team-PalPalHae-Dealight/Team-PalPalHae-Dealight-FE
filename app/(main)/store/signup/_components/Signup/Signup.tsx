@@ -32,6 +32,7 @@ export default function Signup() {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm<IFormInput>({ resolver: yupResolver(schema) });
 
@@ -39,7 +40,7 @@ export default function Signup() {
     if (isNicknameValid === true) {
       const { provider, providerId } = LocalStorage.getItem('dealight-signup');
       try {
-        await axiosInstance.post(pageRoute.store.signup(), {
+        await axiosInstance.post('auth/signup', {
           provider: provider,
           providerId: providerId,
           realName: data.realname,
@@ -57,14 +58,26 @@ export default function Signup() {
           return;
         }
       } catch (error) {
-        alert(error);
+        if (error) alert(error);
         console.error(error);
       }
     }
   };
 
-  const handleNicknameCheck = () => {
-    setisNicknameValid(true);
+  const handleNicknameCheck = async () => {
+    try {
+      const watchNickName = watch('nickName');
+      console.log(watchNickName);
+      const res = await axiosInstance.post('/auth/duplicate', {
+        nickName: watchNickName,
+      });
+      console.log(res);
+      alert('닉네임 검사 통과');
+      setisNicknameValid(true);
+    } catch (error) {
+      alert(error.data.message);
+      console.error(error);
+    }
   };
 
   return (
