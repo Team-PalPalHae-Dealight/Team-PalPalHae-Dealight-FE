@@ -6,7 +6,11 @@ import { useInView } from 'react-intersection-observer';
 import ItemCards from './ItemCards';
 import Spinner from '@/app/_components/spinner/Spinner';
 
-const ProductList = () => {
+type ProductListPropsType = {
+  status: '영업 중' | '영업 준비 중' | '';
+};
+
+const ProductList = ({ status }: ProductListPropsType) => {
   const [items, setItems] = useState<ResponseItemTypes[]>([]);
   const [page, setPage] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
@@ -36,7 +40,6 @@ const ProductList = () => {
       loadMoreItems();
     }
   }, [inView, isEnded, loadMoreItems, isLoading]);
-
   return (
     <>
       <div className="my-3 flex w-full items-center justify-start">
@@ -51,13 +54,17 @@ const ProductList = () => {
           {isLoading && !isEnded ? (
             <>
               <Spinner />
-              <div className="h-16" />
             </>
           ) : items.length ? (
             <div className="items-center justify-center p-8 text-xs text-dark-gray">
               <p>등록한 상품이 없습니다.</p>
             </div>
           ) : (
+            <div className="flex h-[47vh] items-center justify-center text-xs text-dark-gray">
+              <p>등록한 상품이 없습니다.</p>
+            </div>
+          )}
+          {status === '영업 준비 중' && items.length !== 0 && (
             <div className="flex h-[47vh] items-center justify-center text-xs text-dark-gray">
               <p>등록한 상품이 없습니다.</p>
             </div>

@@ -1,9 +1,13 @@
 'use client';
 
 import ToggleSwitch from '@/app/_components/toggle-switch/ToggleSwitch';
-import { useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
-const BusinessStatus = () => {
+type BusinessStatusPropsType = {
+  setStatus: Dispatch<SetStateAction<'' | '영업 중' | '영업 준비 중'>>;
+};
+
+const BusinessStatus = ({ setStatus }: BusinessStatusPropsType) => {
   const [isOn, setIsOn] = useState(false);
 
   const getBusinessStatus = (toggle: boolean) => {
@@ -24,7 +28,7 @@ const BusinessStatus = () => {
           {isOn ? '영업 중' : '영업 준비 중'}
         </div>
       </div>
-      <ToggleSwitch getToggleValue={getBusinessStatus} />
+      <ToggleSwitch getToggleValue={getBusinessStatus} setStatus={setStatus} />
     </div>
   );
 };
