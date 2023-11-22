@@ -39,7 +39,7 @@ export default function Signup() {
     if (isNicknameValid === true) {
       const { provider, providerId } = LocalStorage.getItem('dealight-signup');
       try {
-        await axiosInstance.post('/auth/signup', {
+        await axiosInstance.post(pageRoute.store.signup(), {
           provider: provider,
           providerId: providerId,
           realName: data.realname,
@@ -72,12 +72,12 @@ export default function Signup() {
       <form className="flex w-5/6 flex-col " onSubmit={handleSubmit(onSubmit)}>
         <div>
           <label>
-            <div className="py-3 text-xs">이름</div>
+            <div className="pt-3 text-xs font-semibold">이름</div>
             <div className="h-12  rounded  border-white bg-white">
               <input
                 {...register('realname')}
-                className={`h-12 w-full rounded bg-light-gray text-sm text-dark-gray ${
-                  errors.nickName ? 'border-red' : 'border-yellow'
+                className={`h-12 w-full rounded bg-light-gray text-xs text-dark-gray ${
+                  errors.realname ? 'border-red' : 'border-yellow'
                 } cursor-pointer pl-3 outline-none focus:border-2`}
               />
             </div>
@@ -92,19 +92,19 @@ export default function Signup() {
       </form>
       <form className="flex w-5/6 flex-col " onSubmit={handleSubmit(onSubmit)}>
         <label>
-          <div className="text-xs ">닉네임</div>
+          <div className="pt-3 text-xs font-semibold">닉네임</div>
           <div className="flex flex-row ">
             <div className="flex  h-12  w-full   flex-row rounded border-white bg-white">
               <input
                 {...register('nickName')}
-                className={`base-2/5 h-12 w-full  rounded bg-light-gray text-sm text-dark-gray ${
+                className={`base-2/5 h-12 w-full  rounded bg-light-gray text-xs text-dark-gray ${
                   errors.nickName ? 'border-red' : 'border-yellow'
                 } cursor-pointer pl-3 outline-none focus:border-2`}
               />
             </div>
             <div className=" min-w-fit  px-1">
               <PrimaryButton type="button" onClick={handleNicknameCheck}>
-                중복확인
+                <div className="text-xs">중복확인</div>
               </PrimaryButton>
             </div>
           </div>
@@ -116,12 +116,12 @@ export default function Signup() {
           <span className=" text-xs text-red">중복확인해주세요!</span>
         )}
         <div>
-          <label className="text-xs">전화번호</label>
+          <label className="mt-3 text-xs font-semibold">전화번호</label>
           <div className="h-12  rounded  border-white bg-white">
             <input
               {...register('phoneNumber')}
-              className={`h-12 w-full rounded bg-light-gray text-sm text-dark-gray ${
-                errors.nickName ? 'border-red' : 'border-yellow'
+              className={`h-12 w-full rounded bg-light-gray text-xs text-dark-gray ${
+                errors.phoneNumber ? 'border-red' : 'border-yellow'
               } cursor-pointer pl-3 outline-none focus:border-2`}
             />
           </div>
