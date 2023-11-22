@@ -68,18 +68,17 @@ export const patchItem = async ({
 
   if (typeof image === 'string') {
     const url = image as string;
-    const ext = url.split('.').pop();
-    const metadata = { type: `image/${ext}` };
-    const filename = url.split('/').pop();
+    const filename = url.split('/').pop()!;
 
-    console.log(filename, metadata);
-
-    const response = await fetch(url, {
-      headers: { 'Access-Control-Allow-Origin': '*' },
-    });
-
+    const response = await fetch(url);
     const blob = await response.blob();
-    const convertedFile = new File([blob], filename!, { type: ext });
+
+    const convertedFile = new File(
+      [blob],
+      filename.includes('.png') ? filename : filename + '.png',
+      { type: blob.type }
+    );
+
     formData.append('image', convertedFile);
   } else {
     formData.append('image', image ?? new Blob([], { type: 'image/jpeg' }));
