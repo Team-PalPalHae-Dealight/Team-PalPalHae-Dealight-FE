@@ -10,7 +10,7 @@ type GetItemPropsType = {
   itemId: string;
 };
 
-type CreateItmePropsType = Omit<ItemType, 'itemId' | 'storeId'>;
+type ItmePropsType = Omit<ItemType, 'itemId' | 'storeId'>;
 
 export const getItem = async ({
   itemId,
@@ -25,7 +25,7 @@ export const getItem = async ({
 export const createItem = async ({
   item,
 }: {
-  item: CreateItmePropsType;
+  item: ItmePropsType;
 }): Promise<ItemType> => {
   const { image, ...itemReq } = item;
 
@@ -48,25 +48,43 @@ export const createItem = async ({
 };
 
 export const patchItem = async ({
+  item,
   itemId,
-}: GetItemPropsType): Promise<ItemType> => {
-  const response = await fetch(
-    `http://localhost:3000/mocks/api/items/${itemId}`,
-    {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json;charset=UTF-8' },
-    }
+}: {
+  item: ItmePropsType;
+  itemId: string;
+}): Promise<ItemType> => {
+  const { image, ...itemReq } = item;
+
+  const formData = new FormData();
+
+  formData.append(
+    'itemReq',
+    new Blob([JSON.stringify(itemReq)], { type: 'application/json' })
   );
 
-  const data = await response.json();
+  if (typeof image === 'string') {
+    const url = image as string;
+    const ext = url.split('.').pop();
+    const metadata = { type: `image/${ext}` };
+    const filename = url.split('/').pop();
 
-  if (!response.ok) {
-    if (data.message) {
-      throw new Error(data.message);
-    }
+    console.log(filename, metadata);
 
-    throw new Error('알 수 없는 에러');
+    const response = await fetch(url);
+
+    const blob = await response.blob();
+    const convertedFile = new File([blob], filename!, { type: ext });
+    formData.append('image', convertedFile);
+  } else {
+    formData.append('image', image ?? new Blob([], { type: 'image/jpeg' }));
   }
+
+  const response = await axiosInstance.patch(`/items/${itemId}`, formData, {
+    headers: { 'Content-Type': 'multipart/form-data' },
+  });
+
+  const data = response.data;
 
   return data;
 };

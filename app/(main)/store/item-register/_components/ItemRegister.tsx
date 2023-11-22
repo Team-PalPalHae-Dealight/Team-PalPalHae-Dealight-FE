@@ -6,9 +6,14 @@ import Notification from '@/app/_assets/images/notification.png';
 import Image, { StaticImageData } from 'next/image';
 import { useCreateItem } from '@/app/_hooks/query/item';
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import pageRoute from '@/app/_constants/path';
 
 const ItemRegister = () => {
   const { mutate: createItem } = useCreateItem();
+
+  const router = useRouter();
+
   const [file, setFile] = useState<File>();
   const [itemName, setItemName] = useState('');
   const [stock, setStock] = useState<number>(0);
@@ -26,7 +31,12 @@ const ItemRegister = () => {
       <div className="mb-5 flex gap-4">
         <div className="flex flex-col items-center justify-around gap-1.5">
           <div className="relative h-20 w-20">
-            <Image src={previewImage} fill alt="preview upload" />
+            <Image
+              src={previewImage}
+              fill
+              sizes="(max-width: 768px) 100vw"
+              alt="preview upload"
+            />
           </div>
 
           <PrimaryButton
@@ -139,17 +149,25 @@ const ItemRegister = () => {
 
         <PrimaryButton
           onClick={() => {
-            createItem({
-              item: {
-                itemName,
-                stock,
-                discountPrice,
-                originalPrice,
-                description,
-                information: '없애야 하는 데이터',
-                image: file!,
+            createItem(
+              {
+                item: {
+                  itemName,
+                  stock,
+                  discountPrice,
+                  originalPrice,
+                  description,
+                  information: '없애야 하는 데이터',
+                  image: file!,
+                },
               },
-            });
+              {
+                onSuccess: data => {
+                  const { itemId } = data;
+                  router.push(pageRoute.store.itemDetail(String(itemId)));
+                },
+              }
+            );
           }}
         >
           등록하기

@@ -33,7 +33,7 @@ async function getUser(): Promise<DefaultContextType> {
   /**
    * @description role에 고객 or 업체가 들어온다. 이 값을 통해 라우팅 처리가 이루어지게 된다.
    */
-  return { role: 'store', nickName, providerId, storeId };
+  return { role, nickName, providerId, storeId };
 }
 
 export const UserInfoProvider = ({
