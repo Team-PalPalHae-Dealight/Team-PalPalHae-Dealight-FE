@@ -13,6 +13,7 @@ const pageRoute = {
     search: (id: string) => `/customer/search/${id}`,
     signup: () => '/customer/sign-up',
     storeDetail: (id: string) => `/customer/store-detail/${id}`,
+    itemDetail: (id: string) => `/customer/item-detail/${id}`,
   },
   store: {
     itemEdit: (id: string) => `/store/item-edit/${id}`,

@@ -70,7 +70,7 @@ const ItemDetail = ({ itemId }: ItemDetailType) => {
       </div>
 
       <div className="min-h-42.5 w-full rounded bg-white p-4">
-        <h2 className="pb-2.5 text-lg font-bold">업체 위치</h2>
+        <h2 className="pb-2.5 text-lg font-semibold">업체 위치</h2>
         <KakaoMap
           currentPosition={{
             lng: storeAddress.xCoordinate,
@@ -81,7 +81,7 @@ const ItemDetail = ({ itemId }: ItemDetailType) => {
       </div>
 
       <div className="min-h-42.5 w-full rounded bg-white p-4">
-        <h2 className="pb-4 text-lg font-bold">주문서</h2>
+        <h2 className="pb-4 text-lg font-semibold">주문서</h2>
 
         <div className="flex gap-10">
           <div className="flex gap-1">
