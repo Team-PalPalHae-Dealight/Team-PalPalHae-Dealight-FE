@@ -2,14 +2,12 @@ import pageRoute from '@/app/_constants/path';
 import { axiosInstance } from '@/app/_services/apiClient';
 import { useRouter } from 'next/navigation';
 
-export const getStatus = async (storeId: number | null) => {
-  return await axiosInstance
-    .get(`/stores/status/${storeId}`)
-
+export const getProfile = (storeId: number | null) => {
+  return axiosInstance
+    .get(`/stores/profiles/${storeId}`)
     .then(function (response) {
-      return response.data.storeStatus;
+      return response.data;
     })
-
     .catch(function (error) {
       console.log(error);
 

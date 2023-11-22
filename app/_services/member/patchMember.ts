@@ -1,11 +1,11 @@
+import { profileType } from '@/app/_types/member/profileType';
 import { axiosInstance } from '@/app/_services/apiClient';
-import { profileType } from '../_types/profileType';
 
 type reqType = {
   req: profileType;
 };
 
-export const patchProfile = ({ req }: reqType) => {
+export const patchMember = ({ req }: reqType) => {
   return axiosInstance
     .patch('/members/profiles', {
       nickname: req.nickName,
