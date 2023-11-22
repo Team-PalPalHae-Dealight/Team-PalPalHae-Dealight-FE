@@ -10,7 +10,10 @@ type GetItemPropsType = {
   itemId: string;
 };
 
-type ItmePropsType = Omit<ItemType, 'itemId' | 'storeId'>;
+type ItmePropsType = Omit<
+  ItemType,
+  'itemId' | 'storeId' | 'storeName' | 'storeCloseTime' | 'storeAddress'
+>;
 
 export const getItem = async ({
   itemId,
@@ -71,7 +74,9 @@ export const patchItem = async ({
 
     console.log(filename, metadata);
 
-    const response = await fetch(url);
+    const response = await fetch(url, {
+      headers: { 'Access-Control-Allow-Origin': '*' },
+    });
 
     const blob = await response.blob();
     const convertedFile = new File([blob], filename!, { type: ext });

@@ -35,7 +35,7 @@ const ItemRegister = () => {
               src={previewImage}
               fill
               sizes="(max-width: 768px) 100vw"
-              alt="preview upload"
+              alt="미리보기 이미지"
             />
           </div>
 
@@ -157,7 +157,6 @@ const ItemRegister = () => {
                   discountPrice,
                   originalPrice,
                   description,
-                  information: '없애야 하는 데이터',
                   image: file!,
                 },
               },

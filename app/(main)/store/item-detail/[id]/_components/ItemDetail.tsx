@@ -26,7 +26,7 @@ const ItemDetail = ({ itemId }: ItemDetailType) => {
         <div className="relative h-24 w-32">
           <Image
             src={String(image)}
-            alt="mock donut"
+            alt="상품 이미지"
             priority
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

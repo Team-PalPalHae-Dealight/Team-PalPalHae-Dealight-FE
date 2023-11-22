@@ -20,7 +20,7 @@ const ItemEdit = ({ itemId }: ItemEditPropsType) => {
     item;
 
   const [previewImage, setPreviewImage] = useState<string>(String(image));
-  const [file, setFile] = useState<File>(image);
+  const [file, setFile] = useState<File>(image as File);
 
   const onClickEdit = () => {
     patchItem({
@@ -30,7 +30,6 @@ const ItemEdit = ({ itemId }: ItemEditPropsType) => {
         discountPrice: 2000,
         originalPrice: 3000,
         image: file!,
-        information: '없애야 하는 데이터',
         stock: 3,
       },
       itemId,
@@ -48,7 +47,7 @@ const ItemEdit = ({ itemId }: ItemEditPropsType) => {
               src={previewImage}
               fill
               sizes="(max-width: 768px) 100vw"
-              alt="preview upload"
+              alt="미리보기 이미지"
             />
           </div>
 

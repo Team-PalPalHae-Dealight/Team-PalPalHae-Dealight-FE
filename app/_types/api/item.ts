@@ -6,6 +6,12 @@ export type ItemType = {
   discountPrice: number;
   originalPrice: number;
   description: string;
-  information: string;
-  image: File;
+  image: File | string;
+  storeName: string;
+  storeCloseTime: string;
+  storeAddress: {
+    name: string;
+    xCoordinate: number;
+    yCoordinate: number;
+  };
 };
