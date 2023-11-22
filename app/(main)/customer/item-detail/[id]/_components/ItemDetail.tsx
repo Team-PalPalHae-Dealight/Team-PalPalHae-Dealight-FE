@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import pageRoute from '@/app/_constants/path';
 import { useGetItem } from '@/app/_hooks/query/item';
+import { useUserInfo } from '@/app/_providers/UserInfoProvider';
 
 type ItemDetailType = {
   itemId: string;
@@ -13,6 +14,7 @@ type ItemDetailType = {
 
 const ItemDetail = ({ itemId }: ItemDetailType) => {
   const router = useRouter();
+  const { nickName } = useUserInfo();
 
   const { data: item } = useGetItem({ itemId });
 
@@ -24,7 +26,10 @@ const ItemDetail = ({ itemId }: ItemDetailType) => {
     image,
     description,
     storeAddress,
+    storeName,
   } = item;
+
+  console.log(item);
 
   return (
     <>
@@ -86,7 +91,7 @@ const ItemDetail = ({ itemId }: ItemDetailType) => {
         <div className="flex gap-10">
           <div className="flex gap-1">
             <div className="font-semibold">가게명 :</div>
-            <span className="text-dark-gray">행복도너츠가게</span>
+            <span className="text-dark-gray">{storeName}</span>
           </div>
 
           <div className="flex gap-1">
@@ -97,12 +102,12 @@ const ItemDetail = ({ itemId }: ItemDetailType) => {
 
         <div className="flex gap-1">
           <div className="font-semibold">상품명 :</div>
-          <span className="text-dark-gray">달콤한 도너츠</span>
+          <span className="text-dark-gray">{itemName}</span>
         </div>
 
         <div className="flex gap-1">
           <div className="font-semibold">주문자 :</div>
-          <span className="text-dark-gray">에프와 오프</span>
+          <span className="text-dark-gray">{nickName ?? '딜라잇'}</span>
         </div>
       </div>
     </>
