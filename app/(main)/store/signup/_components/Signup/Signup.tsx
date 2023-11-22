@@ -4,6 +4,10 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { useState } from 'react';
+import { axiosInstance } from '@/app/_services/apiClient';
+import { useRouter } from 'next/navigation';
+import LocalStorage from '@/app/_utils/localstorage';
+import pageRoute from '@/app/_constants/path';
 
 interface IFormInput {
   realname: string;
@@ -13,6 +17,7 @@ interface IFormInput {
 
 export default function Signup() {
   const [isNicknameValid, setisNicknameValid] = useState(false);
+  const router = useRouter();
   const schema = yup.object().shape({
     realname: yup.string().required('이름을 입력해주세요'),
     nickName: yup.string().required('닉네임을 입력해주세요'),
@@ -32,31 +37,29 @@ export default function Signup() {
 
   const onSubmit: SubmitHandler<IFormInput> = async data => {
     if (isNicknameValid === true) {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/auth/signup`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json;charset=UTF-8',
-            Authorization:
-              'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1MDAwMDAxIiwiaXNzIjoiREVBTElHSFQtQVBJLVNFUlZFUiIsImlhdCI6MTY5OTgzODEzOSwiZXhwIjoxNjk5OTI0NTM5LCJBdXRob3JpdGllcyI6IlJPTEVfTUVNQkVSIn0.wowAMfaK7bjn4XWhOmkBpgmlR-atvAHSx1klB6lNq8w',
-          },
-          body: JSON.stringify({
-            provider: 'kakao',
-            providerId: 12345,
-            realName: data.realname,
-            nickName: data.nickName,
-            phoneNumber: data.phoneNumber,
-            role: 'store',
-          }),
+      const { provider, providerId } = LocalStorage.getItem('dealight-signup');
+      try {
+        await axiosInstance.post(pageRoute.store.signup(), {
+          provider: provider,
+          providerId: providerId,
+          realName: data.realname,
+          nickName: data.nickName,
+          phoneNumber: data.phoneNumber,
+          role: 'store',
+        });
+        alert('회원가입이 완료되었습니다!');
+        if (LocalStorage.getItem('dealight-lastLoginPage') === 'customer') {
+          router.push(pageRoute.customer.home());
+          return;
         }
-      );
-      if (!response.ok) {
-        throw new Error('알 수 없는 에러');
+        if (LocalStorage.getItem('dealight-lastLoginPage') === 'store') {
+          router.push(pageRoute.store.home());
+          return;
+        }
+      } catch (error) {
+        alert(error);
+        console.error(error);
       }
-      alert('회원가입이 완료되었습니다!');
-    } else {
-      alert('닉네임 중복 확인을 해주세요!');
     }
   };
 
@@ -69,54 +72,56 @@ export default function Signup() {
       <form className="flex w-5/6 flex-col " onSubmit={handleSubmit(onSubmit)}>
         <div>
           <label>
-            <div className="py-3 text-xs">이름</div>
+            <div className="pt-3 text-xs font-normal">이름</div>
             <div className="h-12  rounded  border-white bg-white">
               <input
                 {...register('realname')}
-                className={`h-12 w-full rounded bg-light-gray text-sm text-dark-gray ${
-                  errors.nickName ? 'border-red' : 'border-yellow'
+                className={`h-12 w-full rounded bg-light-gray text-xs text-dark-gray ${
+                  errors.realname ? 'border-red' : 'border-yellow'
                 } cursor-pointer pl-3 outline-none focus:border-2`}
               />
             </div>
           </label>
+
           {errors.realname && (
             <span className=" text-xs font-semibold text-red">
               이름을 입력해주세요
             </span>
           )}
         </div>
-
+      </form>
+      <form className="flex w-5/6 flex-col " onSubmit={handleSubmit(onSubmit)}>
         <label>
-          <div className="text-xs ">닉네임</div>
+          <div className="pt-3 text-xs font-normal">닉네임</div>
           <div className="flex flex-row ">
-            <div className="flex  h-12  flex-row rounded border-white bg-white">
+            <div className="flex  h-12  w-full   flex-row rounded border-white bg-white">
               <input
                 {...register('nickName')}
-                className={`h-12 w-56 rounded bg-light-gray text-sm text-dark-gray ${
+                className={`base-2/5 h-12 w-full  rounded bg-light-gray text-xs text-dark-gray ${
                   errors.nickName ? 'border-red' : 'border-yellow'
                 } cursor-pointer pl-3 outline-none focus:border-2`}
               />
             </div>
             <div className=" min-w-fit  px-1">
-              <PrimaryButton type="submit" onClick={handleNicknameCheck}>
-                중복확인
+              <PrimaryButton type="button" onClick={handleNicknameCheck}>
+                <div className="text-xs font-normal">중복확인</div>
               </PrimaryButton>
             </div>
           </div>
         </label>
-        {errors.nickName && (
-          <div>
-            {' '}
-            <span className=" text-xs text-red">닉네임을 입력해주세요</span>
-          </div>
+        {isNicknameValid && errors.nickName && (
+          <span className=" text-xs text-red">닉네임을 입력해주세요</span>
+        )}
+        {!isNicknameValid && errors.nickName && (
+          <span className=" text-xs text-red">중복확인해주세요!</span>
         )}
         <div>
-          <label className="text-xs">전화번호</label>
+          <label className="mt-3 text-xs font-normal">전화번호</label>
           <div className="h-12  rounded  border-white bg-white">
             <input
               {...register('phoneNumber')}
-              className={`h-12 w-full rounded bg-light-gray text-sm text-dark-gray ${
-                errors.nickName ? 'border-red' : 'border-yellow'
+              className={`h-12 w-full rounded bg-light-gray text-xs text-dark-gray ${
+                errors.phoneNumber ? 'border-red' : 'border-yellow'
               } cursor-pointer pl-3 outline-none focus:border-2`}
             />
           </div>

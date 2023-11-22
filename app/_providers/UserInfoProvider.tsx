@@ -14,8 +14,19 @@ type DefaultContextType = {
 const UserInfoContext = createContext<DefaultContextType>(null);
 
 async function getUser(): Promise<DefaultContextType> {
-  await axiosInstance.get('https://jsonplaceholder.typicode.com/todos/1');
+  //await axiosInstance.get('https://jsonplaceholder.typicode.com/todos/1');
+  const data = await axiosInstance
+    .get(`${process.env.NEXT_PUBLIC_API_URL}/members/profiles`)
+    .then(res => res.data);
+  const { role } = data;
+  let storeId = null;
+  if (role === `store`) {
+    storeId = await axiosInstance
+      .get(`${process.env.NEXT_PUBLIC_API_URL}/stores/confirm`)
+      .then(res => res.data);
+  }
 
+  console.log(data, storeId);
   /**
    * @description role에 고객 or 업체가 들어온다. 이 값을 통해 라우팅 처리가 이루어지게 된다.
    */
