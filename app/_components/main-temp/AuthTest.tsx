@@ -5,11 +5,6 @@ import { useAuth } from '@/app/_providers/AuthProvider';
 import { useUserInfo } from '@/app/_providers/UserInfoProvider';
 import { axiosInstance } from '@/app/_services/apiClient';
 import Link from 'next/link';
-// import { useRouter } from 'next/navigation';
-
-/**
- * @todo storeSignup과 memberSignup은 추후에 하나로 통일된다. 지금은 토큰값을 다르게 구분하기 위해 따로 설정한 상황이다.
- */
 
 async function storeSignup() {
   await axiosInstance.get('https://jsonplaceholder.typicode.com/todos/1');
@@ -30,7 +25,6 @@ async function memberSignup() {
 }
 
 export default function AuthTest() {
-  // const router = useRouter();
   const { login, logout } = useAuth();
   const { nickName, role } = useUserInfo();
 
@@ -45,7 +39,6 @@ export default function AuthTest() {
     memberSignup().then(res => {
       // 토큰이 오면 로그인 처리, 토큰이 안오면 추가 회원가입 진행 처리
       login({ accessToken: res.accessToken, refreshToken: res.refreshToken });
-      // router.push('/');
     });
   };
 
@@ -97,21 +90,11 @@ export default function AuthTest() {
 
       <div className="flex flex-col border border-rose-300">
         <h3>나는 로그아웃</h3>
+
         <button onClick={logout} className="bg-teal-300">
           로그아웃 시도
         </button>
       </div>
-
-      <button
-        onClick={() => {
-          login({
-            accessToken: process.env.NEXT_PUBLIC_STORE_ACCESS_TOKEN!,
-            refreshToken: process.env.NEXT_PUBLIC_STORE_REFRESH_TOKEN!,
-          });
-        }}
-      >
-        로그인 시도해봅니다!
-      </button>
     </div>
   );
 }

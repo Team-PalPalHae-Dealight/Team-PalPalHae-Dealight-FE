@@ -15,7 +15,7 @@ const CustomerHeader = () => {
   const { address, setAddress } = useAddress();
 
   return (
-    <div className="align-center space-between text-l sticky box-border flex h-16 w-full justify-between border-b-1 border-dark-gray/30 bg-light-gray px-3 py-4 font-semibold text-black">
+    <div className="align-center space-between text-l sticky top-0 z-50 box-border flex h-16 w-full justify-between border-b-1 border-dark-gray/30 bg-light-gray px-3 py-4 font-semibold text-black">
       <div className="flex flex-row items-center">
         <div>
           <AddressButton getAddress={addressVal => setAddress(addressVal)}>

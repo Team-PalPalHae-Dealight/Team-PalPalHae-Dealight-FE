@@ -25,7 +25,7 @@ const MainContents = () => {
     comments: '빨리 갈께요!!',
   };
   return (
-    <main className="px-5">
+    <div className="px-5">
       <ProductList />
       <OrderResult data={data} />
       <div className="mt-2 flex gap-3">
@@ -82,7 +82,7 @@ const MainContents = () => {
           rightBtnClick={() => setOnPopUpReject(false)}
         />
       )}
-    </main>
+    </div>
   );
 };
 

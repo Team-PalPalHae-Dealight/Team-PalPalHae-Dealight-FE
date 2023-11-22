@@ -53,18 +53,20 @@ export default function Page() {
     setSortOption(val);
   };
   return (
-    <main className="flex flex-col items-center px-5">
-      <SearchBar getItems={getItems} sortOption={sortOption} />
-      <Sort getsortOption={getsortOption} />
-      {items.map(item => (
-        <ItemCard
-          key={item.id}
-          image={item.image}
-          distance={item.distance}
-          storeName={item.storeName}
-          storeCloseTime={item.storeCloseTime}
-        />
-      ))}
-    </main>
+    <>
+      <div className="flex flex-col items-center px-5">
+        <SearchBar getItems={getItems} sortOption={sortOption} />
+        <Sort getsortOption={getsortOption} />
+        {items.map(item => (
+          <ItemCard
+            key={item.id}
+            image={item.image}
+            distance={item.distance}
+            storeName={item.storeName}
+            storeCloseTime={item.storeCloseTime}
+          />
+        ))}
+      </div>
+    </>
   );
 }

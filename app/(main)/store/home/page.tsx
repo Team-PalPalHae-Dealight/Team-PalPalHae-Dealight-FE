@@ -8,11 +8,11 @@ export default function Page() {
   return (
     <>
       <Header />
-      <main className="mt-2 flex flex-col items-center px-5">
+      <div className="flex flex-col items-center px-5 pt-4">
         <BusinessStatus />
         <HomeButton />
         <ProductList />
-      </main>
+      </div>
       <Footer />
     </>
   );

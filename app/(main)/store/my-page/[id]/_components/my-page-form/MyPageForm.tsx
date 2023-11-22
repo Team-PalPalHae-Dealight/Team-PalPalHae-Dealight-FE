@@ -40,7 +40,7 @@ const MyPageForm = () => {
   return (
     <FormProvider {...methods}>
       <form>
-        <main className="flex w-full flex-col px-5 pt-5">
+        <div className="flex w-full flex-col px-5 pt-5">
           <ImageUploader getImage={getImage} />
           <ProfileInformation />
           <StoreInformation />
@@ -48,7 +48,7 @@ const MyPageForm = () => {
             정보 수정하기
           </PrimaryButton>
           <LogoutButton />
-        </main>
+        </div>
       </form>
     </FormProvider>
   );

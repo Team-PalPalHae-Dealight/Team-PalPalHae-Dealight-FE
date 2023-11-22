@@ -16,14 +16,18 @@ const MainContents = () => {
     comments: '빨리 갈께요!',
   };
   return (
-    <main className="flex flex-col items-center">
+    <>
       <CustomerHeader />
-      <div className="w-full p-5">
-        <ProductList />
-        <OrderResult data={data} />
+
+      <div className="flex flex-col items-center">
+        <div className="w-full p-5">
+          <ProductList />
+          <OrderResult data={data} />
+        </div>
       </div>
+
       <Footer />
-    </main>
+    </>
   );
 };
 

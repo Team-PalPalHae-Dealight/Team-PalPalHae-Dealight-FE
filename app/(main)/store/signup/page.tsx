@@ -7,10 +7,10 @@ export default function Page() {
   return (
     <>
       <Header />
-      <main className=" flex flex-col items-center px-5 font-semibold">
+      <div className=" flex flex-col items-center px-5 font-semibold">
         <GuideText />
         <Signup />
-      </main>
+      </div>
     </>
   );
 }

@@ -8,9 +8,11 @@ export default function Page() {
   return (
     <>
       <Header />
-      <main className="px-5">
+
+      <div className="px-5">
         <ProductList />
-      </main>
+      </div>
+
       <Footer />
     </>
   );

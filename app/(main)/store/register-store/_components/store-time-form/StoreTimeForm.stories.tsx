@@ -12,8 +12,8 @@ type Story = StoryObj<typeof StoreTimeForm>;
 
 export const Primary: Story = {
   render: () => (
-    <main className="mx-auto flex min-h-screen max-w-[375px] flex-col items-center px-5">
+    <div className="mx-auto flex min-h-screen max-w-[375px] flex-col items-center px-5">
       <StoreTimeForm />
-    </main>
+    </div>
   ),
 };
