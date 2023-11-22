@@ -72,7 +72,7 @@ export default function Signup() {
       <form className="flex w-5/6 flex-col " onSubmit={handleSubmit(onSubmit)}>
         <div>
           <label>
-            <div className="pt-3 text-xs font-semibold">이름</div>
+            <div className="pt-3 text-xs font-normal">이름</div>
             <div className="h-12  rounded  border-white bg-white">
               <input
                 {...register('realname')}
@@ -92,7 +92,7 @@ export default function Signup() {
       </form>
       <form className="flex w-5/6 flex-col " onSubmit={handleSubmit(onSubmit)}>
         <label>
-          <div className="pt-3 text-xs font-semibold">닉네임</div>
+          <div className="pt-3 text-xs font-normal">닉네임</div>
           <div className="flex flex-row ">
             <div className="flex  h-12  w-full   flex-row rounded border-white bg-white">
               <input
@@ -116,7 +116,7 @@ export default function Signup() {
           <span className=" text-xs text-red">중복확인해주세요!</span>
         )}
         <div>
-          <label className="mt-3 text-xs font-semibold">전화번호</label>
+          <label className="mt-3 text-xs font-normal">전화번호</label>
           <div className="h-12  rounded  border-white bg-white">
             <input
               {...register('phoneNumber')}
