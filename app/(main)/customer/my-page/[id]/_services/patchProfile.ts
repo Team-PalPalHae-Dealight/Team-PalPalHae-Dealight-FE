@@ -6,7 +6,6 @@ type reqType = {
 };
 
 export const patchProfile = ({ req }: reqType) => {
-  console.log(req);
   return axiosInstance
     .patch('/members/profiles', {
       nickname: req.nickName,

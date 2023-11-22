@@ -6,7 +6,6 @@ export const getProfile = async () => {
   return await axiosInstance
     .get('/members/profiles')
     .then(function (response) {
-      console.log(response.data);
       return response.data;
     })
     .catch(function (error) {
