@@ -17,7 +17,6 @@ const ItemDetail = ({ itemId }: ItemDetailType) => {
   const { mutate: deleteItem } = useDeleteItem();
   const { discountPrice, originalPrice, stock, itemName, image, description } =
     item;
-
   const rounter = useRouter();
 
   return (

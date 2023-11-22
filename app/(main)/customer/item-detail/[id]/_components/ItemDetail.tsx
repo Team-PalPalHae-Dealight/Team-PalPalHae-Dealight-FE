@@ -73,8 +73,8 @@ const ItemDetail = ({ itemId }: ItemDetailType) => {
         <h2 className="pb-2.5 text-lg font-bold">업체 위치</h2>
         <KakaoMap
           currentPosition={{
-            lat: storeAddress.xCoordinate,
-            lng: storeAddress.yCoordinate,
+            lng: storeAddress.xCoordinate,
+            lat: storeAddress.yCoordinate,
             title: storeAddress.name,
           }}
         />
