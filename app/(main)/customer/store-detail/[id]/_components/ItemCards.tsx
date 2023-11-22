@@ -52,7 +52,9 @@ const ItemCards = ({ items }: ItemTypes) => {
                       <div className="text-sm font-semibold text-red">
                         할인
                         {Math.round(
-                          100 * (item.discountPrice / item.originalPrice)
+                          100 *
+                            ((item.originalPrice - item.discountPrice) /
+                              item.originalPrice)
                         )}
                         %
                       </div>
