@@ -1,37 +1,54 @@
 'use client';
 
-import { ResponseItemTypes } from '@/app/_components/infinite-scroll/fetchData';
 import Link from 'next/link';
+import { ResponseItemType } from '../../_services/getOrderList';
+import pageRoute from '@/app/_constants/path';
 
 export type OrderListCardPropsType = {
-  items?: ResponseItemTypes[] | null;
+  items?: ResponseItemType[] | [];
 };
 
 const OrderListCard = ({ items }: OrderListCardPropsType) => {
-  const onClickCardLink = () => {
-    sessionStorage.setItem('scrollY', JSON.stringify(window.scrollY));
-  };
   return (
     <>
       {items ? (
         items.map(item => {
           return (
-            <Link key={item.id} href={'/asd'} onClick={onClickCardLink}>
+            <Link
+              key={item.orderId}
+              href={pageRoute.store.orderDetail(String(item.orderId))}
+            >
               <div
                 className=" mb-3 rounded-md bg-white p-2"
                 style={{ boxShadow: '0px 0px 4px 0px rgb(0, 0, 0, 0.1)' }}
               >
                 <div className="flex text-xs text-dark-gray">
-                  <div>2023.10.20.</div>
-                  <div>17:32</div>
+                  {/* 시간 수정 해야 함 */}
+                  <div>{item.createdAt}</div>
                 </div>
                 <div className="flex items-center gap-1 text-black">
-                  <div className="text-sm">달콤한 도너츠 외 3개</div>
-                  <div className=" text-xs">11000 원</div>
+                  <div className="text-sm">
+                    {item.orderProductsRes.orderProducts[0].name} 외
+                    {item.orderProductsRes.orderProducts.length - 1}개
+                  </div>
+                  <div className=" text-xs">{item.totalPrice} 원</div>
                 </div>
                 <div className="flex items-center justify-between text-black">
-                  <div className="text-xs">도착예정 시간: 17시 32분</div>
-                  <div className="text-sm text-[#0338FF]">주문 완료</div>
+                  <div className="text-xs">
+                    도착예정 시간: {item.arrivalTime.slice(0, -3)}
+                  </div>
+                  {item.status === '주문 접수' && (
+                    <div className="text-sm text-green">주문 접수</div>
+                  )}
+                  {item.status === '주문 확인' && (
+                    <div className="text-sm text-orange">주문 확인</div>
+                  )}
+                  {item.status === '주문 완료' && (
+                    <div className="text-sm text-blue">주문 완료</div>
+                  )}
+                  {item.status === '주문 취소' && (
+                    <div className="text-sm text-red">주문 취소</div>
+                  )}
                 </div>
               </div>
             </Link>
