@@ -104,7 +104,7 @@ export default function Signup() {
             </div>
             <div className=" min-w-fit  px-1">
               <PrimaryButton type="button" onClick={handleNicknameCheck}>
-                <div className="text-xs">중복확인</div>
+                <div className="text-xs font-normal">중복확인</div>
               </PrimaryButton>
             </div>
           </div>
