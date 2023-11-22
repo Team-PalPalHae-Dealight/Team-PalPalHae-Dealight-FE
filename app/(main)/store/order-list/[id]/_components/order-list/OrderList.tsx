@@ -8,7 +8,7 @@ import OrderListModal from '../order-list-modal/OrderListModal';
 import Image from 'next/image';
 import InfiniteScrollList from '@/app/_components/infinite-scroll/InfiniteScrollList';
 import OrderListCard from '../order-list-card/OrderListCard';
-import Footer from '@/app/_components/Footer/Footer';
+import StoreFooter from '@/app/_components/Footer/StoreFooter';
 
 const OrderList = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -36,7 +36,7 @@ const OrderList = () => {
           <OrderListCard />
         </InfiniteScrollList>
       </main>
-      <Footer />
+      <StoreFooter />
       {isOpen && <OrderListModal onClose={onClickOrderList} />}
     </>
   );

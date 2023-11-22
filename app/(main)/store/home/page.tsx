@@ -1,4 +1,4 @@
-import Footer from '@/app/_components/Footer/Footer';
+import Footer from '@/app/_components/Footer/StoreFooter';
 import BusinessStatus from './_components/business-status/BusinessStatus';
 import HomeButton from './_components/home-buttons/HomeButton';
 import ProductList from './_components/product-list/ProductList';
