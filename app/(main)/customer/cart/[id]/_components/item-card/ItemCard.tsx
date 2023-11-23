@@ -1,13 +1,14 @@
 'use client';
 
 import Image from 'next/image';
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import PLUS_IMAGE from '@/app/_assets/images/plus.png';
 import MINUS_IMAGE from '@/app/_assets/images/minus.png';
 import { deleteCart } from '../../_services/deleteCart';
 import PopUp from '@/app/_components/pop-up/PopUp';
 import { useRouter } from 'next/navigation';
 import { useUserInfo } from '@/app/_providers/UserInfoProvider';
+import { patchCart } from '../../_services/patchCart';
 
 type ItemCardPropsType = {
   itemId: number;
@@ -32,17 +33,32 @@ const ItemCard = ({
   const { providerId } = useUserInfo();
   const router = useRouter();
 
-  const handlePlus = () => {
+  const handlePlus = async () => {
     if (quantity < stock) setQuantity(prev => prev + 1);
   };
 
-  const handleMinus = () => {
+  const handleMinus = async () => {
     if (quantity > 1) setQuantity(prev => prev - 1);
   };
+
+  const changeQuantity = useCallback(async () => {
+    await patchCart({
+      carts: [
+        {
+          itemId: itemId,
+          quantity: quantity,
+        },
+      ],
+    });
+  }, [itemId, quantity]);
 
   const deleteCard = () => {
     setOpen(true);
   };
+
+  useEffect(() => {
+    changeQuantity();
+  }, [changeQuantity]);
 
   return (
     <div className="flex h-22.5 w-full justify-between rounded bg-white p-4 shadow-md">

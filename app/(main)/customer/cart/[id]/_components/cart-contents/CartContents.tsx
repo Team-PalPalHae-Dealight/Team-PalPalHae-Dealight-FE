@@ -4,26 +4,22 @@ import Notification from '@/app/_components/notification/Notification';
 import PrimaryButton from '@/app/_components/PrimaryButton/PrimaryButton';
 import ItemList from '../item-list/ItemList';
 import OrderInformation from '../order-information/OrderInformation';
-import { getCart } from '../../_services/getCart';
-import { useEffect, useState } from 'react';
 import { CartType } from '../../_types/CartType';
 
-const CartContent = () => {
-  const [data, setData] = useState<CartType[]>();
+type DataType = {
+  data: CartType[] | undefined;
+};
 
-  // eslint-disable-next-line
-  const getInput = (value: any) => {
-    // console.log(value);
+type InputType = {
+  hour: string;
+  minute: string;
+  request: string;
+};
+
+const CartContent = ({ data }: DataType) => {
+  const getInput = (value: InputType) => {
+    console.log(value);
   };
-
-  const getData = async () => {
-    const res = await getCart();
-    setData(res);
-  };
-
-  useEffect(() => {
-    getData();
-  }, []);
 
   return (
     <div className="grid grid-cols-1 gap-y-5 pb-5">

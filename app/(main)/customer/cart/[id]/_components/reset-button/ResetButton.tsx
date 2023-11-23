@@ -1,11 +1,9 @@
 'use client';
 
 const ResetButton = () => {
-  const handleButton = () => {};
-
   return (
     <button
-      onClick={handleButton}
+      onClick={() => window.location.reload()}
       className="cursor-pointer text-xs text-dark-gray"
     >
       새로고침

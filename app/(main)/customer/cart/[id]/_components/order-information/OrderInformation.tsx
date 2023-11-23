@@ -2,9 +2,9 @@ import { useForm } from 'react-hook-form';
 import { HOUR_LIST, MINUTE_LIST } from '../../_constants/time';
 
 type InputType = {
-  hour?: string | undefined;
-  minute?: string | undefined;
-  request?: string | undefined;
+  hour: string;
+  minute: string;
+  request: string;
 };
 
 type OrderInformationPropsType = {

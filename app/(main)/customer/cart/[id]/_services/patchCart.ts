@@ -2,28 +2,22 @@
 import { axiosInstance } from '@/app/_services/apiClient';
 //import { useRouter } from 'next/navigation';
 
-type ReqType = {
-  req: [
-    {
-      itemId: number;
-      quantity: number;
-    },
-  ];
+type QuantityType = {
+  itemId: number;
+  quantity: number;
 };
 
-export const patchCart = ({ req }: ReqType) => {
+type ReqType = {
+  carts: QuantityType[];
+};
+
+export const patchCart = ({ carts }: ReqType) => {
   return axiosInstance
     .patch('/carts', {
-      carts: req,
+      carts: carts,
     })
-    .then(function (response) {
-      console.log(response);
-      //return response.data.carts;
-    })
+    .then()
     .catch(function (error) {
       console.log(error);
-
-      //   const router = useRouter();
-      //   router.push(pageRoute.customer.login());
     });
 };
