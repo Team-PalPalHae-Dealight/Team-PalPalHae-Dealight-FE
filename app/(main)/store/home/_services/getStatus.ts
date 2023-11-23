@@ -2,7 +2,7 @@ import pageRoute from '@/app/_constants/path';
 import { axiosInstance } from '@/app/_services/apiClient';
 import { useRouter } from 'next/navigation';
 
-export const getStatus = async (storeId: number) => {
+export const getStatus = async (storeId: number | null) => {
   return await axiosInstance
     .get(`/stores/status/${storeId}`)
 
