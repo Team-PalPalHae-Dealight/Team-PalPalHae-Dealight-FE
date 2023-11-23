@@ -63,7 +63,6 @@ const MyPageForm = () => {
   const getData = useCallback(async () => {
     const res = await getProfile(storeId);
     const { nickName, phoneNumber, address } = await getMember();
-
     const data = {
       addressName: address.name,
       closeTime: res.closeTime,
@@ -104,6 +103,7 @@ const MyPageForm = () => {
 
     await patchProfile({
       req: {
+        storeId: storeId ?? 1,
         telephone: telephone ?? profile.telephone,
         addressName: addressName ?? profile.addressName,
         xCoordinate: coords.lat,
@@ -119,7 +119,8 @@ const MyPageForm = () => {
     if (storeId) {
       getData();
     }
-  }, [storeId, getData]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [storeId]);
 
   return (
     <FormProvider {...methods}>

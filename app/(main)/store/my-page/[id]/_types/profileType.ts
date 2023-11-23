@@ -13,6 +13,7 @@ export type profileType = {
 };
 
 export type PatchProfileType = {
+  storeId: number;
   telephone: string;
   addressName: string;
   xCoordinate: number;

@@ -9,7 +9,7 @@ type ReqType = {
 
 export const patchProfile = ({ req }: ReqType) => {
   return axiosInstance
-    .patch(`/members/profiles`, {
+    .patch(`/stores/profiles/${req.storeId}`, {
       telephone: req.telephone,
       addressName: req.addressName,
       xCoordinate: req.xCoordinate,
