@@ -7,12 +7,17 @@ import ProductRegistration from '@/app/_assets/images/product-registration.png';
 import pageRoute from '@/app/_constants/path';
 import { useUserInfo } from '@/app/_providers/UserInfoProvider';
 
-const HomeButton = () => {
+type HomeButtonPropsType = {
+  status: '영업 중' | '영업 준비 중';
+};
+
+const HomeButton = ({ status }: HomeButtonPropsType) => {
   const { providerId } = useUserInfo();
+
   return (
     <div className="mt-2.5 flex w-full gap-2">
       <Link
-        className="relative w-full rounded-lg bg-white p-1.5 shadow"
+        className="relative w-full rounded-lg bg-white p-3 shadow"
         href={pageRoute.store.orderList(String(providerId))}
       >
         <b className="text-xl font-semibold">주문내역</b>
@@ -23,13 +28,13 @@ const HomeButton = () => {
           src={OrderList}
           priority
           alt="order-list"
-          className="absolute bottom-0 right-0"
+          className="absolute bottom-2 right-2"
         />
       </Link>
 
       <Link
-        className="relative w-full rounded-lg bg-white p-1.5 shadow"
-        href={pageRoute.store.itemRegister()}
+        className={'relative w-full rounded-lg bg-white p-3 shadow'}
+        href={status === '영업 중' ? pageRoute.store.itemRegister() : ''}
       >
         <b className="text-xl font-semibold">상품 등록</b>
         <p className="mb-7 mt-2.5 text-xs">
@@ -39,7 +44,7 @@ const HomeButton = () => {
           src={ProductRegistration}
           priority
           alt="product-registration"
-          className="absolute bottom-0 right-0"
+          className="absolute bottom-2 right-2"
         />
       </Link>
     </div>

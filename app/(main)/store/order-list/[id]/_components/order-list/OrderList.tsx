@@ -5,8 +5,6 @@ import { useState } from 'react';
 import OrderListDropDown from '../order-list-dropdown/OrderListDropDown';
 import OrderListModal from '../order-list-modal/OrderListModal';
 import Image from 'next/image';
-// import InfiniteScrollList from '@/app/_components/infinite-scroll/InfiniteScrollList';
-// import OrderListCard from '../order-list-card/OrderListCard';
 import StoreFooter from '@/app/_components/Footer/StoreFooter';
 import ItemList from '../item-list/ItemList';
 import Header from '@/app/_components/Header/Header';
