@@ -3,6 +3,8 @@ import { useState } from 'react';
 import SearchBar from './_component/searchbar/Searchbar';
 import Sort from './_component/sort/Sort';
 import ItemCard from './_component/Itemcard/Itemcard';
+import CustomerHeader from '@/app/_components/Header/CustomerHeader';
+import CustomerFooter from '@/app/_components/Footer/CustomerFooter';
 
 type ItemPropsTypes = {
   id: number;
@@ -54,6 +56,7 @@ export default function Page() {
   };
   return (
     <>
+      <CustomerHeader />
       <div className="flex flex-col items-center px-5">
         <SearchBar getItems={getItems} sortOption={sortOption} />
         <Sort getsortOption={getsortOption} />
@@ -67,6 +70,7 @@ export default function Page() {
           />
         ))}
       </div>
+      <CustomerFooter />
     </>
   );
 }

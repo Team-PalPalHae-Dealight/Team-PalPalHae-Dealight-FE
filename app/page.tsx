@@ -1,6 +1,7 @@
 import StartLink from './_components/main-temp/StartLink';
-import Banner from './_assets/images/banner.png';
-import Image from 'next/image';
+// import Banner from './_assets/images/banner.png';
+// import Image from 'next/image';
+import Banner from './_assets/svgs/banner.svg';
 import ServiceIntro from './_components/main-temp/ServiceIntro';
 import {
   HydrationBoundary,
@@ -26,13 +27,7 @@ export default async function Home() {
 
       <div className="flex flex-col items-center px-5 pt-4">
         <div className="relative h-44 w-full">
-          <Image
-            src={Banner}
-            priority
-            fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            alt="banner"
-          />
+          <Banner fill />
         </div>
 
         <StartLink />

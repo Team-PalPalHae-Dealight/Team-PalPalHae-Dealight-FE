@@ -14,6 +14,8 @@ import KakaoMap from '@/app/_components/KakaoMap/KakaoMap';
 import { profileType } from '../../../../../../_types/member/profileType';
 import { patchMember } from '@/app/_services/member/patchMember';
 import { getMember } from '@/app/_services/member/getMember';
+import { useAuth } from '@/app/_providers/AuthProvider';
+import { useRouter } from 'next/navigation';
 
 type initialValuesType = {
   nickName: string;
@@ -39,6 +41,8 @@ const MyPageContents = () => {
   const [click, setClick] = useState(false);
 
   const coords = useCoordinate(address);
+  const { logout } = useAuth();
+  const router = useRouter();
 
   const schema = object().shape({
     nickName: isValidNickName(),
@@ -168,6 +172,10 @@ const MyPageContents = () => {
       <button
         style={{ boxShadow: '0px 0px 4px 0px rgb(0, 0, 0, 0.1)' }}
         className="mb-5 h-12 w-full rounded-md bg-light-gray text-base text-red"
+        onClick={() => {
+          logout();
+          router.push('/');
+        }}
       >
         로그아웃
       </button>

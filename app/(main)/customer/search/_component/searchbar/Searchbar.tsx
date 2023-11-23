@@ -24,7 +24,7 @@ const SearchBar = ({ getItems, sortOption }: SearchBarPropTypes) => {
 
   return (
     <>
-      <form className="mt-20 flex h-11 w-full flex-row items-center justify-center rounded-xl bg-white">
+      <form className="mt-3 flex h-11 w-full flex-row items-center justify-center rounded-xl bg-white">
         <button
           onClick={e => {
             e.preventDefault();
