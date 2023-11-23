@@ -7,7 +7,7 @@ import { getStatus } from '@/app/(main)/store/home/_services/getStatus';
 
 type ToggleSwitchPropsType = {
   getToggleValue: (toggle: boolean) => void;
-  setStatus: Dispatch<SetStateAction<'' | '영업 중' | '영업 준비 중'>>;
+  setStatus: Dispatch<SetStateAction<'영업 중' | '영업 준비 중'>>;
 };
 
 const ToggleSwitch = ({ getToggleValue, setStatus }: ToggleSwitchPropsType) => {

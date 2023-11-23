@@ -4,7 +4,7 @@ import ToggleSwitch from '@/app/_components/toggle-switch/ToggleSwitch';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
 type BusinessStatusPropsType = {
-  setStatus: Dispatch<SetStateAction<'' | '영업 중' | '영업 준비 중'>>;
+  setStatus: Dispatch<SetStateAction<'영업 중' | '영업 준비 중'>>;
 };
 
 const BusinessStatus = ({ setStatus }: BusinessStatusPropsType) => {

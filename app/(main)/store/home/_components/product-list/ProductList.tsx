@@ -7,7 +7,7 @@ import ItemCards from './ItemCards';
 import Spinner from '@/app/_components/spinner/Spinner';
 
 type ProductListPropsType = {
-  status: '영업 중' | '영업 준비 중' | '';
+  status: '영업 중' | '영업 준비 중';
 };
 
 const ProductList = ({ status }: ProductListPropsType) => {
