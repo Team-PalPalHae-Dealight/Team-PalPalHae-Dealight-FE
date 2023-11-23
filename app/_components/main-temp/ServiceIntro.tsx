@@ -5,7 +5,7 @@ import Image from 'next/image';
 
 const ServiceIntro = () => {
   return (
-    <section className="mt-4 flex flex-col gap-3 rounded-lg bg-white p-4 shadow">
+    <section className="mt-4 flex w-full flex-col gap-3 rounded-lg bg-white p-4 shadow">
       <h1 className="text-lg font-semibold">서비스 소개</h1>
 
       <article className="flex flex-col gap-2 rounded-lg bg-gray p-5 ">

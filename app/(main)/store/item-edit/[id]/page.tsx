@@ -1,3 +1,4 @@
+import Header from '@/app/_components/Header/Header';
 import dynamic from 'next/dynamic';
 
 const ItemEdit = dynamic(() => import('./_components/ItemEdit'), {
@@ -8,9 +9,13 @@ const ItemDetailEdit = ({ params }: { params: { id: string } }) => {
   const { id: itemId } = params;
 
   return (
-    <main className="px-5 pb-10 pt-5">
-      <ItemEdit itemId={itemId} />
-    </main>
+    <>
+      <Header />
+
+      <div className="px-5 pt-7">
+        <ItemEdit itemId={itemId} />
+      </div>
+    </>
   );
 };
 

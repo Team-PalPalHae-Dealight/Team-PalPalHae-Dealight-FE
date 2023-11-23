@@ -27,10 +27,11 @@ const OrderList = () => {
   return (
     <>
       <CustomerHeader />
-      <main className="rounded-t-lg bg-gray px-5">
-        <div className="flex h-14 items-center justify-between bg-gray">
+
+      <div className="rounded-t-lg px-5">
+        <div className="flex h-14 items-center justify-between">
           <div className="flex items-center gap-1" onClick={onClickOrderList}>
-            <label className="text-xl	font-semibold text-black">주문 내역</label>
+            <label className="text-xl	font-semibold">주문 내역</label>
             <Image src={notification} className="h-4 w-4" alt="notification" />
           </div>
           <div>
@@ -41,7 +42,8 @@ const OrderList = () => {
           </div>
         </div>
         <ItemList status={toggleMenu} />
-      </main>
+      </div>
+
       <CustomerFooter />
       {isOpen && <OrderListModal onClose={onClickOrderList} />}
     </>

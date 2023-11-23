@@ -55,15 +55,19 @@ const MainContents = () => {
   }, [getData]);
 
   return (
-    <main className="flex flex-col items-center">
+    <>
       <CustomerHeader />
-      <div className="w-full p-5">
-        <ProductList />
-        <OrderResult data={sampleData} />
-        <ReviewButton status={sampleData.status} orderId={Number(orderId)} />
+
+      <div className="flex flex-col items-center">
+        <div className="w-full p-5">
+          <ProductList />
+          <OrderResult data={sampleData} />
+          <ReviewButton status={sampleData.status} orderId={Number(orderId)} />
+        </div>
       </div>
+
       <CustomerFooter />
-    </main>
+    </>
   );
 };
 

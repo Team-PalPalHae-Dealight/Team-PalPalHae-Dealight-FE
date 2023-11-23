@@ -125,7 +125,7 @@ const MyPageForm = () => {
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)}>
-        <main className="flex w-full flex-col px-5 pt-5">
+        <div className="flex w-full flex-col px-5 pt-5">
           <ImageUploader />
           <ProfileInformation data={profile} />
           <StoreInformation data={profile} />
@@ -134,7 +134,7 @@ const MyPageForm = () => {
           </PrimaryButton>
           <ManageButton />
           <LogoutButton />
-        </main>
+        </div>
       </form>
     </FormProvider>
   );

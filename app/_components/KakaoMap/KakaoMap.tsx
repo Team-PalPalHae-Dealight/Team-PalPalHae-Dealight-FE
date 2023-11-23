@@ -13,12 +13,17 @@ type KakaoMapPropsType = {
   onClickPosition?: () => void;
 };
 
+/**
+ * @description lng => x좌표(경도), lat => y좌표(위도)
+ * @example 광화문 lng(x좌표): 126.976372775, lat(y좌표): 37.571648599
+ */
+
 const KakaoMap = ({
   width = '100%',
   height = '140px',
   currentPosition = {
-    lat: 33.450701,
     lng: 126.570667,
+    lat: 33.450701,
     title: '현재 장소',
   },
   positions = [],

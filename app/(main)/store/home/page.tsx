@@ -6,7 +6,11 @@ export default function Page() {
   return (
     <>
       <Header />
-      <MainContents />
+
+      <div className="mt-2 flex flex-col items-center px-5">
+        <MainContents />
+      </div>
+
       <StoreFooter />
     </>
   );

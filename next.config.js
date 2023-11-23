@@ -9,6 +9,9 @@ module.exports = {
     return config;
   },
   images: {
-    domains: ['team-08-bucket.s3.ap-northeast-2.amazonaws.com'],
+    domains: [
+      'team-08-bucket.s3.ap-northeast-2.amazonaws.com',
+      'picsum.photos',
+    ],
   },
 };

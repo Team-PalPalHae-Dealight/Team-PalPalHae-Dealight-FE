@@ -11,11 +11,11 @@ const MainContents = () => {
   );
 
   return (
-    <main className="mt-2 flex flex-col items-center px-5">
+    <>
       <BusinessStatus setStatus={setStatus} />
       <HomeButton />
       <ProductList status={status} />
-    </main>
+    </>
   );
 };
 

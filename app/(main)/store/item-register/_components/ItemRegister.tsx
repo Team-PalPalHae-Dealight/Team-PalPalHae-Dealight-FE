@@ -35,7 +35,7 @@ const ItemRegister = () => {
               src={previewImage}
               fill
               sizes="(max-width: 768px) 100vw"
-              alt="preview upload"
+              alt="미리보기 이미지"
             />
           </div>
 
@@ -45,6 +45,7 @@ const ItemRegister = () => {
           >
             이미지 불러오기
           </PrimaryButton>
+
           <input
             className="w-32"
             type="file"
@@ -68,22 +69,20 @@ const ItemRegister = () => {
           />
         </div>
 
-        <div>
-          <div className="flex flex-col gap-3">
-            <input
-              className="rounded py-3.5 pl-3"
-              placeholder="상품명"
-              value={itemName}
-              onChange={e => setItemName(e.currentTarget.value)}
-            />
+        <div className="flex w-full flex-col gap-3">
+          <input
+            className="rounded py-3.5 pl-3"
+            placeholder="상품명"
+            value={itemName}
+            onChange={e => setItemName(e.currentTarget.value)}
+          />
 
-            <input
-              className="rounded py-3.5 pl-3"
-              placeholder="0"
-              value={stock}
-              onChange={e => setStock(Number(e.currentTarget.value))}
-            />
-          </div>
+          <input
+            className="rounded py-3.5 pl-3"
+            placeholder="0"
+            value={stock}
+            onChange={e => setStock(Number(e.currentTarget.value))}
+          />
         </div>
       </div>
 
@@ -157,7 +156,6 @@ const ItemRegister = () => {
                   discountPrice,
                   originalPrice,
                   description,
-                  information: '없애야 하는 데이터',
                   image: file!,
                 },
               },

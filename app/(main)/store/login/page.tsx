@@ -16,7 +16,7 @@ export default function Page() {
   }, []);
 
   return (
-    <main className="flex flex-col items-center px-5">
+    <div className="flex flex-col items-center px-5">
       <h1 className="mt-52 text-center text-xl font-semibold">
         함께하는 즐거움,
         <br />
@@ -45,6 +45,6 @@ export default function Page() {
       >
         시작 페이지로 돌아가기
       </Link>
-    </main>
+    </div>
   );
 }
