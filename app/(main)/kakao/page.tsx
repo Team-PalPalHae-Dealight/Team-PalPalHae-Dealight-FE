@@ -38,8 +38,7 @@ const Page = () => {
         return;
       }
       if (LocalStorage.getItem('dealight-lastLoginPage') === 'store') {
-        router.push('/store/sign-up');
-        console.log('확인');
+        router.push(pageRoute.store.signup());
         return;
       }
     },

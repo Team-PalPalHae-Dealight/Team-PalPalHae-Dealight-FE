@@ -8,6 +8,7 @@ import { axiosInstance } from '@/app/_services/apiClient';
 import { useRouter } from 'next/navigation';
 import LocalStorage from '@/app/_utils/localstorage';
 import pageRoute from '@/app/_constants/path';
+import { useAuth } from '@/app/_providers/AuthProvider';
 
 interface IFormInput {
   realname: string;
@@ -17,6 +18,7 @@ interface IFormInput {
 
 export default function Signup() {
   const [isNicknameValid, setisNicknameValid] = useState(false);
+  const { login } = useAuth();
   const router = useRouter();
   const schema = yup.object().shape({
     realname: yup.string().required('이름을 입력해주세요'),
@@ -32,14 +34,18 @@ export default function Signup() {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm<IFormInput>({ resolver: yupResolver(schema) });
 
   const onSubmit: SubmitHandler<IFormInput> = async data => {
     if (isNicknameValid === true) {
       const { provider, providerId } = LocalStorage.getItem('dealight-signup');
+
       try {
-        await axiosInstance.post(pageRoute.store.signup(), {
+        const {
+          data: { accessToken, refreshToken },
+        } = await axiosInstance.post('auth/signup', {
           provider: provider,
           providerId: providerId,
           realName: data.realname,
@@ -47,6 +53,7 @@ export default function Signup() {
           phoneNumber: data.phoneNumber,
           role: 'store',
         });
+        login({ accessToken, refreshToken });
         alert('회원가입이 완료되었습니다!');
         if (LocalStorage.getItem('dealight-lastLoginPage') === 'customer') {
           router.push(pageRoute.customer.home());
@@ -57,14 +64,24 @@ export default function Signup() {
           return;
         }
       } catch (error) {
-        alert(error);
+        if (error) alert(error);
         console.error(error);
       }
     }
   };
 
-  const handleNicknameCheck = () => {
-    setisNicknameValid(true);
+  const handleNicknameCheck = async () => {
+    try {
+      const watchNickName = watch('nickName');
+      await axiosInstance.post('auth/duplicate', {
+        nickName: watchNickName,
+      });
+      alert('닉네임 검사 통과');
+      setisNicknameValid(true);
+    } catch (error) {
+      alert(error.message);
+      console.error(error);
+    }
   };
 
   return (

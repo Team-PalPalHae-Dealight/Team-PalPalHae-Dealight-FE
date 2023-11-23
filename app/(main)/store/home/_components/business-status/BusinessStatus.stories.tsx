@@ -11,5 +11,5 @@ export default meta;
 type Story = StoryObj<typeof BusinessStatus>;
 
 export const Primary: Story = {
-  render: () => <BusinessStatus />,
+  render: () => <BusinessStatus setStatus={() => {}} />,
 };

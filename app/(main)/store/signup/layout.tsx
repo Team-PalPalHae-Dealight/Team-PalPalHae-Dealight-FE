@@ -1,5 +1,6 @@
 'use client';
 
+import pageRoute from '@/app/_constants/path';
 import { useUserInfo } from '@/app/_providers/UserInfoProvider';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
@@ -15,7 +16,7 @@ export default function OnlyNotUserLayout({
   useEffect(() => {
     if (!role) return;
 
-    router.push('/');
+    router.push(pageRoute.store.home());
   }, [role, router]);
 
   if (role === 'member' || role === 'store') {

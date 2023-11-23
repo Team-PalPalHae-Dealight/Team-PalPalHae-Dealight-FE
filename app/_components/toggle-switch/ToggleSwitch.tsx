@@ -1,15 +1,16 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import PopUp from '../pop-up/PopUp';
 import { patchStatus } from '@/app/(main)/store/home/_services/patchStatus';
 import { getStatus } from '@/app/(main)/store/home/_services/getStatus';
 
 type ToggleSwitchPropsType = {
   getToggleValue: (toggle: boolean) => void;
+  setStatus: Dispatch<SetStateAction<'영업 중' | '영업 준비 중'>>;
 };
 
-const ToggleSwitch = ({ getToggleValue }: ToggleSwitchPropsType) => {
+const ToggleSwitch = ({ getToggleValue, setStatus }: ToggleSwitchPropsType) => {
   const [isOn, setIsOn] = useState(false);
   const [onPopUp, setOnPopUp] = useState(false);
 
@@ -19,6 +20,7 @@ const ToggleSwitch = ({ getToggleValue }: ToggleSwitchPropsType) => {
     } else {
       setIsOn(true);
       await patchStatus(1, '영업 중');
+      setStatus('영업 중');
     }
     setStoreStatus();
   };
@@ -33,6 +35,7 @@ const ToggleSwitch = ({ getToggleValue }: ToggleSwitchPropsType) => {
     setIsOn(false);
 
     await patchStatus(1, '영업 준비 중');
+    setStatus('영업 준비 중');
     setStoreStatus();
   };
 
