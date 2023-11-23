@@ -12,7 +12,7 @@ type ProductListPropsType = {
 
 const ProductList = ({ status }: ProductListPropsType) => {
   const [items, setItems] = useState<ResponseItemTypes[]>([]);
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [isEnded, setIsEnded] = useState(false);
 

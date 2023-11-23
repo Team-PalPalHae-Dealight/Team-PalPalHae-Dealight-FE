@@ -11,7 +11,7 @@ import { useRouter } from 'next/navigation';
 
 const ProductList = () => {
   const [items, setItems] = useState<ResponseItemTypes[]>([]);
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [isEnded, setIsEnded] = useState(false);
   const router = useRouter();
@@ -26,9 +26,6 @@ const ProductList = () => {
     setIsLoading(true);
     await delay(777);
 
-    /**
-     * @todo api 작업 시 fetch함수에 넘겨줄 파라미터 수정해야 함 ex)sortBy,x좌표,y좌표 등
-     */
     const newItems = (await getItemList(page)) ?? [];
 
     if (newItems.length === 0) setIsEnded(true);
