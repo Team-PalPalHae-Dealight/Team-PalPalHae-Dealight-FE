@@ -18,7 +18,7 @@ const ItemCards = ({ items }: ItemTypes) => {
           return (
             <Link
               key={item.itemId}
-              href={pageRoute.customer.storeDetail(String(item.storeId))}
+              href={pageRoute.customer.itemDetail(String(item.storeId))}
             >
               <div
                 className="mb-2 flex justify-between gap-2 rounded bg-white p-4"
