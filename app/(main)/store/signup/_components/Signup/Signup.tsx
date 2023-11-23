@@ -8,6 +8,7 @@ import { axiosInstance } from '@/app/_services/apiClient';
 import { useRouter } from 'next/navigation';
 import LocalStorage from '@/app/_utils/localstorage';
 import pageRoute from '@/app/_constants/path';
+import { useAuth } from '@/app/_providers/AuthProvider';
 
 interface IFormInput {
   realname: string;
@@ -17,6 +18,7 @@ interface IFormInput {
 
 export default function Signup() {
   const [isNicknameValid, setisNicknameValid] = useState(false);
+  const { login } = useAuth();
   const router = useRouter();
   const schema = yup.object().shape({
     realname: yup.string().required('이름을 입력해주세요'),
@@ -39,6 +41,7 @@ export default function Signup() {
   const onSubmit: SubmitHandler<IFormInput> = async data => {
     if (isNicknameValid === true) {
       const { provider, providerId } = LocalStorage.getItem('dealight-signup');
+
       try {
         const {
           data: { accessToken, refreshToken },
@@ -50,10 +53,7 @@ export default function Signup() {
           phoneNumber: data.phoneNumber,
           role: 'store',
         });
-        console.log(accessToken, refreshToken);
-        LocalStorage.setItem('dealight-accessToken', accessToken);
-        LocalStorage.setItem('dealight-refreshToken', refreshToken);
-
+        login({ accessToken, refreshToken });
         alert('회원가입이 완료되었습니다!');
         if (LocalStorage.getItem('dealight-lastLoginPage') === 'customer') {
           router.push(pageRoute.customer.home());
