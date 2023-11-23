@@ -4,7 +4,7 @@ export default function Page({ params }: { params: { slug: string } }) {
   console.log(params);
   return (
     <>
-      <MainContents orderId={1} />
+      <MainContents />
     </>
   );
 }

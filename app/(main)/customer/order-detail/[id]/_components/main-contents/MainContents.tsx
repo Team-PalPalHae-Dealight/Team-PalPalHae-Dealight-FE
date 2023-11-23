@@ -17,14 +17,12 @@ type OrderResultPropsType = {
   comments: string;
 };
 
-type MainContentsPropsType = {
-  orderId: number;
-};
-
-const MainContents = ({ orderId }: MainContentsPropsType) => {
+const MainContents = () => {
   const [data, setData] = useState();
   const [order, setOrder] = useState<OrderResultPropsType>();
   console.log(data, order);
+
+  const orderId = window.location.href.split('/')[5];
 
   const sampleData = {
     storeName: '행복도너츠가게',
@@ -37,7 +35,7 @@ const MainContents = ({ orderId }: MainContentsPropsType) => {
   };
 
   const getData = useCallback(async () => {
-    const res = await getOrder(orderId);
+    const res = await getOrder(Number(orderId));
     console.log(res);
 
     /** @todo sampleData 자리에 order로 초기화, status 자리에 data.status 초기화 */
@@ -62,7 +60,7 @@ const MainContents = ({ orderId }: MainContentsPropsType) => {
       <div className="w-full p-5">
         <ProductList />
         <OrderResult data={sampleData} />
-        <ReviewButton status={sampleData.status} orderId={orderId} />
+        <ReviewButton status={sampleData.status} orderId={Number(orderId)} />
       </div>
       <CustomerFooter />
     </main>
