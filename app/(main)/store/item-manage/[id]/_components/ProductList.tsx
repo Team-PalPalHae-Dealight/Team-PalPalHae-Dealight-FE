@@ -1,17 +1,20 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
-import fetchData, { ResponseItemTypes } from '../../fetchData';
+import getItemList, { ResponseItemTypes } from '../_services/getItemList';
 import { useInView } from 'react-intersection-observer';
 import ItemCards from './ItemCards';
 import Spinner from '@/app/_components/spinner/Spinner';
 import PrimaryButton from '@/app/_components/PrimaryButton/PrimaryButton';
+import pageRoute from '@/app/_constants/path';
+import { useRouter } from 'next/navigation';
 
 const ProductList = () => {
   const [items, setItems] = useState<ResponseItemTypes[]>([]);
   const [page, setPage] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [isEnded, setIsEnded] = useState(false);
+  const router = useRouter();
 
   const { ref, inView } = useInView();
 
@@ -26,7 +29,7 @@ const ProductList = () => {
     /**
      * @todo api 작업 시 fetch함수에 넘겨줄 파라미터 수정해야 함 ex)sortBy,x좌표,y좌표 등
      */
-    const newItems = (await fetchData(page)) ?? [];
+    const newItems = (await getItemList(page)) ?? [];
 
     if (newItems.length === 0) setIsEnded(true);
 
@@ -55,7 +58,6 @@ const ProductList = () => {
           {isLoading && !isEnded ? (
             <>
               <Spinner />
-              <div className="h-16" />
             </>
           ) : items.length ? (
             <div className="items-center justify-center p-8 text-xs text-dark-gray">
@@ -68,7 +70,9 @@ const ProductList = () => {
           )}
         </div>
       </div>
-      <PrimaryButton onClick={() => console.log('등록')}>
+      <PrimaryButton
+        onClick={() => router.push(pageRoute.store.itemRegister())}
+      >
         등록하기
       </PrimaryButton>
     </div>
