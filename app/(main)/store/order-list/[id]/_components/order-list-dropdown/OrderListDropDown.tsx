@@ -31,9 +31,9 @@ const OrderListDropDown = ({
         className={`flex items-center gap-2 rounded text-xs ${
           toggleMenu === 'ALL'
             ? 'text-black'
-            : toggleMenu === 'RECEIVED'
-            ? 'text-green'
             : toggleMenu === 'CONFIRMED'
+            ? 'text-green'
+            : toggleMenu === 'RECEIVED'
             ? 'text-orange'
             : toggleMenu === 'COMPLETED'
             ? 'text-blue'
@@ -43,8 +43,8 @@ const OrderListDropDown = ({
         }`}
       >
         {toggleMenu === 'ALL' && '전체'}
-        {toggleMenu === 'RECEIVED' && '주문 접수'}
-        {toggleMenu === 'CONFIRMED' && '주문 확인'}
+        {toggleMenu === 'CONFIRMED' && '주문 접수'}
+        {toggleMenu === 'RECEIVED' && '주문 확인'}
         {toggleMenu === 'COMPLETED' && '주문 완료'}
         {toggleMenu === 'CANCELED' && '주문 취소'}
         {isMenuOpen ? (
@@ -68,13 +68,13 @@ const OrderListDropDown = ({
               전체
             </li>
             <li
-              onClick={() => onClickOption('RECEIVED')}
+              onClick={() => onClickOption('CONFIRMED')}
               className="cursor-pointer p-1 text-green"
             >
               주문 접수
             </li>
             <li
-              onClick={() => onClickOption('CONFIRMED')}
+              onClick={() => onClickOption('RECEIVED')}
               className="cursor-pointer p-1 text-orange"
             >
               주문 확인
