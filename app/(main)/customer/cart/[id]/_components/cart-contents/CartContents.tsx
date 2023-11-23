@@ -9,22 +9,7 @@ import { useEffect, useState } from 'react';
 import { CartType } from '../../_types/CartType';
 
 const CartContent = () => {
-  const [data, setData] = useState<CartType[]>([
-    {
-      cartId: 0,
-      itemId: 0,
-      storeId: 0,
-      memberProviderId: 0,
-      itemName: '',
-      stock: 0,
-      discountPrice: 0,
-      itemImage: '',
-      quantity: 0,
-      storeName: '',
-      storeCloseTime: '',
-      expirationDateTime: '',
-    },
-  ]);
+  const [data, setData] = useState<CartType[]>();
 
   // eslint-disable-next-line
   const getInput = (value: any) => {

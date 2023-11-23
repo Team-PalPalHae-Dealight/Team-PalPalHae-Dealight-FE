@@ -4,8 +4,13 @@ import Image from 'next/image';
 import { useState } from 'react';
 import PLUS_IMAGE from '@/app/_assets/images/plus.png';
 import MINUS_IMAGE from '@/app/_assets/images/minus.png';
+import { deleteCart } from '../../_services/deleteCart';
+import PopUp from '@/app/_components/pop-up/PopUp';
+import { useRouter } from 'next/navigation';
+import { useUserInfo } from '@/app/_providers/UserInfoProvider';
 
 type ItemCardPropsType = {
+  itemId: number;
   image: string;
   title: string;
   price: number;
@@ -13,8 +18,19 @@ type ItemCardPropsType = {
   count: number;
 };
 
-const ItemCard = ({ image, title, price, stock, count }: ItemCardPropsType) => {
+const ItemCard = ({
+  itemId,
+  image,
+  title,
+  price,
+  stock,
+  count,
+}: ItemCardPropsType) => {
   const [quantity, setQuantity] = useState(stock ? count : 0);
+  const [open, setOpen] = useState(false);
+
+  const { providerId } = useUserInfo();
+  const router = useRouter();
 
   const handlePlus = () => {
     if (quantity < stock) setQuantity(prev => prev + 1);
@@ -22,6 +38,10 @@ const ItemCard = ({ image, title, price, stock, count }: ItemCardPropsType) => {
 
   const handleMinus = () => {
     if (quantity > 1) setQuantity(prev => prev - 1);
+  };
+
+  const deleteCard = () => {
+    setOpen(true);
   };
 
   return (
@@ -36,7 +56,9 @@ const ItemCard = ({ image, title, price, stock, count }: ItemCardPropsType) => {
       </div>
 
       <div className="flex flex-col justify-between">
-        <button className="text-xs text-dark-gray">삭제</button>
+        <button className="text-xs text-dark-gray" onClick={deleteCard}>
+          삭제
+        </button>
         <div>
           {stock ? (
             <div className="flex justify-around">
@@ -53,6 +75,21 @@ const ItemCard = ({ image, title, price, stock, count }: ItemCardPropsType) => {
           )}
         </div>
       </div>
+      {open && (
+        <PopUp
+          mainText="선택한 상품을 장바구니에서 삭제하시겠습니까?"
+          leftBtnText="취소"
+          leftBtnClick={() => {
+            providerId ? setOpen(false) : router.push('/');
+          }}
+          rightBtnText="삭제"
+          rightBtnClick={async () => {
+            setOpen(false);
+            await deleteCart(itemId);
+            window.location.reload();
+          }}
+        />
+      )}
     </div>
   );
 };

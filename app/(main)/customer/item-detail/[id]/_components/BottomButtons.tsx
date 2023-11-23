@@ -93,9 +93,7 @@ const BottomButtons = ({ itemId }: ItemIdType) => {
           mainText={message}
           subText="선택하신 상품을 장바구니에 담을 경우 이전에 담은 상품이 모두 삭제됩니다."
           leftBtnText="취소"
-          leftBtnClick={() =>
-            router.push(pageRoute.customer.itemDetail(itemId))
-          }
+          leftBtnClick={() => setOpen(false)}
           rightBtnText="담기"
           rightBtnClick={clearCart}
         />
