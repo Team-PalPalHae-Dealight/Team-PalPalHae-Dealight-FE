@@ -3,11 +3,11 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import notification from '@/app/_assets/images/notification.png';
-import Footer from '@/app/_components/Footer/Footer';
 import OrderListDropDown from '@/app/(main)/customer/order-list/[id]/_components/order-list-dropdown/OrderListDropDown';
 import OrderListModal from '@/app/(main)/customer/order-list/[id]/_components/order-list-modal/OrderListModal';
 import CustomerHeader from '@/app/_components/Header/CustomerHeader';
 import ItemList from '../item-list/ItemList';
+import CustomerFooter from '@/app/_components/Footer/CustomerFooter';
 
 export type DropDownTextType =
   | 'ALL'
@@ -44,8 +44,7 @@ const OrderList = () => {
         <ItemList status={toggleMenu} />
       </div>
 
-      <Footer />
-
+      <CustomerFooter />
       {isOpen && <OrderListModal onClose={onClickOrderList} />}
     </>
   );

@@ -2,13 +2,10 @@
 
 import Image from 'next/image';
 import { useRef, useState } from 'react';
+//import { patchImage } from '../../_services/patchImage';
 
-type ImageUploaderPropsType = {
-  getImage: (imageUrl: string) => void;
-};
-
-const ImageUploader = ({ getImage }: ImageUploaderPropsType) => {
-  const [image, setImage] = useState('');
+const ImageUploader = () => {
+  const [imageUrl, setImageUrl] = useState('');
   const fileInput = useRef(null);
 
   const handleImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -16,23 +13,29 @@ const ImageUploader = ({ getImage }: ImageUploaderPropsType) => {
     const file = target.files![0];
     if (!file) return;
 
+    // await patchImage({
+    //   req: {
+    //     storeId: 1,
+    //     formData: file,
+    //   },
+    // });
+
     const reader = new FileReader();
 
     reader.readAsDataURL(file);
 
     reader.onload = () => {
       if (reader.readyState === 2 && typeof reader.result === 'string') {
-        setImage(reader.result);
-        getImage(image);
+        setImageUrl(reader.result);
       }
     };
   };
 
   return (
     <>
-      {image ? (
+      {imageUrl ? (
         <div className="relative mb-2.5 h-44 w-full rounded bg-white">
-          <Image src={image} fill alt="프로필 이미지" className="rounded" />
+          <Image src={imageUrl} fill alt="프로필 이미지" className="rounded" />
         </div>
       ) : (
         <div className="mb-2.5 flex h-44 w-full items-center justify-center rounded bg-white text-sm text-dark-gray">

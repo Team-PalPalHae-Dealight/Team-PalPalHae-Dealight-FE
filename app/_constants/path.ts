@@ -11,7 +11,7 @@ const pageRoute = {
     review: (id: string) => `/customer/review/${id}`,
     reviewWrite: (id: string) => `/customer/review-write/${id}`,
     search: (id: string) => `/customer/search/${id}`,
-    signup: () => '/customer/sign-up',
+    signup: () => '/customer/signup',
     storeDetail: (id: string) => `/customer/store-detail/${id}`,
     itemDetail: (id: string) => `/customer/item-detail/${id}`,
   },

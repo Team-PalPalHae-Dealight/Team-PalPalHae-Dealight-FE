@@ -3,16 +3,24 @@
 import notification from '../../../../../../_assets/images/notification.png';
 import { useState } from 'react';
 import OrderListDropDown from '../order-list-dropdown/OrderListDropDown';
-import fetchOrderList from '../../fetchOrderList';
 import OrderListModal from '../order-list-modal/OrderListModal';
 import Image from 'next/image';
-import InfiniteScrollList from '@/app/_components/infinite-scroll/InfiniteScrollList';
-import OrderListCard from '../order-list-card/OrderListCard';
-import Footer from '@/app/_components/Footer/Footer';
+// import InfiniteScrollList from '@/app/_components/infinite-scroll/InfiniteScrollList';
+// import OrderListCard from '../order-list-card/OrderListCard';
+import StoreFooter from '@/app/_components/Footer/StoreFooter';
+import ItemList from '../item-list/ItemList';
 import Header from '@/app/_components/Header/Header';
+
+export type DropDownTextType =
+  | 'ALL'
+  | 'RECEIVED'
+  | 'CONFIRMED'
+  | 'COMPLETED'
+  | 'CANCELED';
 
 const OrderList = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [toggleMenu, setToggleMenu] = useState<DropDownTextType>('ALL');
 
   const onClickOrderList = () => {
     setIsOpen(prev => !prev);
@@ -27,21 +35,17 @@ const OrderList = () => {
           <label className="text-xl	font-semibold text-black">주문 내역</label>
           <Image src={notification} className="h-4 w-4" alt="notification" />
         </div>
+
         <div>
-          <OrderListDropDown />
+          <OrderListDropDown
+            toggleMenu={toggleMenu}
+            setToggleMenu={setToggleMenu}
+          />
         </div>
       </div>
 
-      <div className="rounded-t-lg">
-        <InfiniteScrollList
-          fetchData={fetchOrderList}
-          emptyWord={'주문 내역이 없습니다.'}
-        >
-          <OrderListCard />
-        </InfiniteScrollList>
-      </div>
-
-      <Footer />
+      <ItemList status={toggleMenu} />
+      <StoreFooter />
       {isOpen && <OrderListModal onClose={onClickOrderList} />}
     </>
   );

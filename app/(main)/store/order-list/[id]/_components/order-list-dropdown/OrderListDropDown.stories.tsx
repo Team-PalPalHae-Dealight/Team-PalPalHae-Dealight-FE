@@ -11,5 +11,7 @@ export default meta;
 type Story = StoryObj<typeof OrderListDropDown>;
 
 export const Primary: Story = {
-  render: () => <OrderListDropDown />,
+  render: () => (
+    <OrderListDropDown toggleMenu={'ALL'} setToggleMenu={() => {}} />
+  ),
 };

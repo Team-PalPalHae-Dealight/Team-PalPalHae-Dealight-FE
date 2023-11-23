@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { object } from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { isValidNickName, isValidPhoneNumber } from '../../_utils/validate';
@@ -11,6 +11,9 @@ import { ERROR_MESSAGE } from '@/app/_constants/errorMessage';
 import useCoordinate from '@/app/_hooks/useCoordinate';
 import { ErrorMessage } from '@hookform/error-message';
 import KakaoMap from '@/app/_components/KakaoMap/KakaoMap';
+import { profileType } from '../../../../../../_types/member/profileType';
+import { patchMember } from '@/app/_services/member/patchMember';
+import { getMember } from '@/app/_services/member/getMember';
 
 type initialValuesType = {
   nickName: string;
@@ -18,9 +21,23 @@ type initialValuesType = {
 };
 
 const MyPageContents = () => {
-  const [address, setAddress] = useState(data.address);
+  const [profile, setProfile] = useState<profileType>({
+    address: {
+      name: '서울 강남구 강남대로 지하 396',
+      xCoordinate: 37.4981646510326,
+      yCoordinate: 127.028307900881,
+    },
+    nickName: '',
+    phoneNumber: '',
+    providerId: 0,
+    realName: '',
+    role: '',
+  });
+
+  const [address, setAddress] = useState(profile.address.name);
   const [addressError, setAddressError] = useState(true);
   const [click, setClick] = useState(false);
+
   const coords = useCoordinate(address);
 
   const schema = object().shape({
@@ -33,21 +50,45 @@ const MyPageContents = () => {
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<initialValuesType>({ resolver: yupResolver(schema) });
+  } = useForm<initialValuesType>({
+    resolver: yupResolver(schema),
+    defaultValues: async () => await getMember(),
+  });
 
-  const onSubmit: SubmitHandler<initialValuesType> = () => {
-    /** @todo api 연결 */
-    const { nickName, phoneNumber } = watch();
-    console.log(nickName, phoneNumber, address);
-    console.log(coords);
+  const onSubmit: SubmitHandler<initialValuesType> = async () => {
     if (address) setAddressError(false);
     setClick(true);
+  };
+
+  const changeProfile = async () => {
+    const { nickName, phoneNumber } = watch();
+
+    await patchMember({
+      req: {
+        nickName: nickName,
+        phoneNumber: phoneNumber,
+        address: {
+          name: address,
+          xCoordinate: coords.lat,
+          yCoordinate: coords.lng,
+        },
+      },
+    });
   };
 
   const handleAddressButton = (address: string) => {
     setAddress(address);
     setAddressError(false);
   };
+
+  const getData = async () => {
+    const profileData = await getMember();
+    setProfile(profileData);
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
 
   return (
     <form className="w-full pt-5" onSubmit={handleSubmit(onSubmit)}>
@@ -62,7 +103,6 @@ const MyPageContents = () => {
           className={`h-12 w-full rounded bg-light-gray text-sm text-dark-gray ${
             errors.nickName ? 'border-red' : 'border-yellow'
           } cursor-pointer pl-3 outline-none focus:border-2`}
-          defaultValue={data.nickName}
           {...register('nickName')}
         />
         <ErrorMessage
@@ -79,7 +119,6 @@ const MyPageContents = () => {
           className={`h-12 w-full rounded bg-light-gray text-sm text-dark-gray ${
             errors.phoneNumber ? 'border-red' : 'border-yellow'
           } cursor-pointer pl-3 outline-none focus:border-2`}
-          defaultValue={data.phoneNumber}
           {...register('phoneNumber')}
         />
         <ErrorMessage
@@ -123,7 +162,7 @@ const MyPageContents = () => {
           }}
         />
       </div>
-      <PrimaryButton className="mb-5" type="submit" onClick={() => {}}>
+      <PrimaryButton className="mb-5" type="submit" onClick={changeProfile}>
         정보 수정하기
       </PrimaryButton>
       <button
@@ -136,9 +175,3 @@ const MyPageContents = () => {
   );
 };
 export default MyPageContents;
-
-export const data = {
-  nickName: '오프와 에프',
-  phoneNumber: '01012345678',
-  address: '서울 강남구 강남대로 지하 396',
-};

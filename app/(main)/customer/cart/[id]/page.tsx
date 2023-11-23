@@ -1,7 +1,7 @@
-import Footer from '@/app/_components/Footer/Footer';
 import CartContent from './_components/cart-contents/CartContents';
 import CustomerHeader from '@/app/_components/Header/CustomerHeader';
 import ResetButton from './_components/reset-button/ResetButton';
+import CustomerFooter from '@/app/_components/Footer/CustomerFooter';
 
 export default function Page({ params }: { params: { slug: string } }) {
   return (
@@ -15,8 +15,7 @@ export default function Page({ params }: { params: { slug: string } }) {
         </div>
         <CartContent params={params} />
       </div>
-
-      <Footer />
+      <CustomerFooter />
     </>
   );
 }
