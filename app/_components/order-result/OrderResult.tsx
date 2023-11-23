@@ -12,7 +12,7 @@ const OrderResult = (props: { data: OrderResultPropsType }) => {
     props.data;
 
   return (
-    <div className="min-h-64 w-full rounded bg-white text-sm font-semibold text-black">
+    <div className="min-h-64 my-5 w-full rounded bg-white text-sm font-semibold text-black">
       <div className="p-4">
         <div className="pb-4 text-lg">주문 정보</div>
         <div className="flex justify-between pb-2.5 pr-5">
