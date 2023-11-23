@@ -11,13 +11,11 @@ export type ResponseItemTypes = {
   image: string;
   storeName: string;
   storeCloseTime: string;
-  storeAddress: StoreAddressType;
-};
-
-type StoreAddressType = {
-  name: string;
-  xCoordinate: number;
-  yCoordinate: number;
+  storeAddress: {
+    name: string;
+    xCoordinate: number;
+    yCoordinate: number;
+  };
 };
 
 const getItemList = async (page: number) => {
