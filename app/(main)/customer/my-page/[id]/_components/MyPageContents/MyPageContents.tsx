@@ -11,9 +11,9 @@ import { ERROR_MESSAGE } from '@/app/_constants/errorMessage';
 import useCoordinate from '@/app/_hooks/useCoordinate';
 import { ErrorMessage } from '@hookform/error-message';
 import KakaoMap from '@/app/_components/KakaoMap/KakaoMap';
-import { getProfile } from '../../_services/getProfile';
-import { profileType } from '../../_types/profileType';
-import { patchProfile } from '../../_services/patchProfile';
+import { profileType } from '../../../../../../_types/member/profileType';
+import { patchMember } from '@/app/_services/member/patchMember';
+import { getMember } from '@/app/_services/member/getMember';
 
 type initialValuesType = {
   nickName: string;
@@ -52,7 +52,7 @@ const MyPageContents = () => {
     formState: { errors },
   } = useForm<initialValuesType>({
     resolver: yupResolver(schema),
-    defaultValues: async () => await getProfile(),
+    defaultValues: async () => await getMember(),
   });
 
   const onSubmit: SubmitHandler<initialValuesType> = async () => {
@@ -63,7 +63,7 @@ const MyPageContents = () => {
   const changeProfile = async () => {
     const { nickName, phoneNumber } = watch();
 
-    await patchProfile({
+    await patchMember({
       req: {
         nickName: nickName,
         phoneNumber: phoneNumber,
@@ -82,7 +82,7 @@ const MyPageContents = () => {
   };
 
   const getData = async () => {
-    const profileData = await getProfile();
+    const profileData = await getMember();
     setProfile(profileData);
   };
 

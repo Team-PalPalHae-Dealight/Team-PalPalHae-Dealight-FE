@@ -2,7 +2,7 @@ import pageRoute from '@/app/_constants/path';
 import { axiosInstance } from '@/app/_services/apiClient';
 import { useRouter } from 'next/navigation';
 
-export const getProfile = async () => {
+export const getMember = async () => {
   return await axiosInstance
     .get('/members/profiles')
     .then(function (response) {
