@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import { useRef, useState } from 'react';
+//import { patchImage } from '../../_services/patchImage';
 
 type ImageUploaderPropsType = {
   getImage: (imageUrl: string) => void;
@@ -15,6 +16,13 @@ const ImageUploader = ({ getImage }: ImageUploaderPropsType) => {
     const target = e.target as HTMLInputElement;
     const file = target.files![0];
     if (!file) return;
+
+    // await patchImage({
+    //   req: {
+    //     storeId: 1,
+    //     formData: file,
+    //   },
+    // });
 
     const reader = new FileReader();
 
