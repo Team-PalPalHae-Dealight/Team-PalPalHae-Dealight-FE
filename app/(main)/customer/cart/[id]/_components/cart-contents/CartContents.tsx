@@ -4,21 +4,46 @@ import Notification from '@/app/_components/notification/Notification';
 import PrimaryButton from '@/app/_components/PrimaryButton/PrimaryButton';
 import ItemList from '../item-list/ItemList';
 import OrderInformation from '../order-information/OrderInformation';
+import { getCart } from '../../_services/getCart';
+import { useEffect, useState } from 'react';
+import { CartType } from '../../_types/CartType';
 
-const CartContent = ({ params }: { params: { slug: string } }) => {
-  /** @todo api 연결로 data 받아오기 + 수정 params 이용 */
-  const itemData = undefined;
+const CartContent = () => {
+  const [data, setData] = useState<CartType[]>([
+    {
+      cartId: 0,
+      itemId: 0,
+      storeId: 0,
+      memberProviderId: 0,
+      itemName: '',
+      stock: 0,
+      discountPrice: 0,
+      itemImage: '',
+      quantity: 0,
+      storeName: '',
+      storeCloseTime: '',
+      expirationDateTime: '',
+    },
+  ]);
 
   // eslint-disable-next-line
   const getInput = (value: any) => {
     // console.log(value);
-    console.log(params);
   };
+
+  const getData = async () => {
+    const res = await getCart();
+    setData(res);
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
 
   return (
     <div className="grid grid-cols-1 gap-y-5 pb-5">
-      <ItemList data={itemData} />
-      {itemData ? (
+      <ItemList data={data} />
+      {data ? (
         <>
           <OrderInformation getInput={getInput} />
           <Notification>

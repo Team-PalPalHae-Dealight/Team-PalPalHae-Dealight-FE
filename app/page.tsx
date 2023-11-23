@@ -27,7 +27,7 @@ export default async function Home() {
 
       <div className="flex flex-col items-center px-5 pt-4">
         <div className="relative h-44 w-full">
-          <Banner fill />
+          <Banner fill="true" />
         </div>
 
         <StartLink />

@@ -4,7 +4,10 @@ const ResetButton = () => {
   const handleButton = () => {};
 
   return (
-    <button onClick={handleButton} className="text-xs text-dark-gray">
+    <button
+      onClick={handleButton}
+      className="cursor-pointer text-xs text-dark-gray"
+    >
       새로고침
     </button>
   );
