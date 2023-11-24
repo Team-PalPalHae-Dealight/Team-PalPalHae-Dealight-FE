@@ -56,15 +56,11 @@ const ProductList = () => {
             <>
               <Spinner />
             </>
-          ) : items.length ? (
-            <div className="items-center justify-center p-8 text-xs text-dark-gray">
+          ) : !items.length ? (
+            <div className="h-[63vh] items-center justify-center  text-xs text-dark-gray">
               <p>등록한 상품이 없습니다.</p>
             </div>
-          ) : (
-            <div className="flex h-96 items-center justify-center text-xs text-dark-gray">
-              <p>등록한 상품이 없습니다.</p>
-            </div>
-          )}
+          ) : null}
         </div>
       </div>
       <PrimaryButton
