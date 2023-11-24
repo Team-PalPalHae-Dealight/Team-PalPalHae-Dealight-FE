@@ -25,10 +25,6 @@ const useInfiniteScroll = <T>({
 
   const ref = useRef<HTMLDivElement | null>(null);
 
-  if (data) {
-    console.log(data);
-  }
-
   useEffect(() => {
     const options = {
       root: null,
