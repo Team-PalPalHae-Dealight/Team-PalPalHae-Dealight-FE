@@ -54,13 +54,75 @@ const MainContents = () => {
     getData();
   }, [getData]);
 
+  /**
+   * @todo
+   * 주문 관련 api가 끝나고 res값을 productList로 보내줘야 함
+   */
+  const sampleRes = {
+    orderId: 1,
+    storeId: 1,
+    memberId: 1,
+    memberNickName: 'member nickName',
+    storeName: 'GS25',
+    demand: '도착할 때까지 상품 냉장고에 보관 부탁드려요',
+    arrivalTime: '12:30:00',
+    orderProductsRes: {
+      orderProducts: [
+        {
+          itemId: 1,
+          name: '달콤한 도넛',
+          quantity: 5,
+          discountPrice: 1000,
+          originalPrice: 1500,
+          image: '',
+        },
+        {
+          itemId: 2,
+          name: '그냥 그런 도넛',
+          quantity: 4,
+          discountPrice: 10,
+          originalPrice: 100,
+          image: '',
+        },
+        {
+          itemId: 3,
+          name: '크리스피 도넛',
+          quantity: 3,
+          discountPrice: 100,
+          originalPrice: 1500,
+          image: '',
+        },
+        {
+          itemId: 4,
+          name: '개노맛 도넛',
+          quantity: 2,
+          discountPrice: 10,
+          originalPrice: 150,
+          image: '',
+        },
+        {
+          itemId: 5,
+          name: '개비싼 도넛',
+          quantity: 1,
+          discountPrice: 10000,
+          originalPrice: 150000,
+          image: '',
+        },
+      ],
+    },
+    totalPrice: 10000,
+    createdAt: '2023-11-23T15:41:17.870880549',
+    status: '주문 확인',
+    reviewContains: false,
+  };
+
   return (
     <>
       <CustomerHeader />
 
       <div className="flex flex-col items-center">
         <div className="w-full p-5">
-          <ProductList />
+          <ProductList items={sampleRes} />
           <OrderResult data={sampleData} />
           <ReviewButton status={sampleData.status} orderId={Number(orderId)} />
         </div>
