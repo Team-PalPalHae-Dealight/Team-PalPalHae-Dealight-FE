@@ -7,9 +7,9 @@ import { useAuth } from './AuthProvider';
 import LocalStorage from '../_utils/localstorage';
 
 type AddressPropstype = {
-  name: string | null;
-  xCoordinate: number | null;
-  yCoordinate: number | null;
+  name: string;
+  xCoordinate: number;
+  yCoordinate: number;
 };
 
 type DefaultContextType = {
@@ -19,7 +19,7 @@ type DefaultContextType = {
   role: 'store' | 'member' | null;
   realName: string | null;
   phoneNumber: number | null;
-  address: AddressPropstype | null;
+  address: AddressPropstype;
 } | null;
 
 const UserInfoContext = createContext<DefaultContextType>(null);
@@ -29,14 +29,7 @@ async function getUser(): Promise<DefaultContextType> {
     .get(`${process.env.NEXT_PUBLIC_API_URL}/members/profiles`)
     .then(res => res.data);
 
-  const {
-    nickName,
-    providerId,
-    role,
-    realName,
-    phoneNumber,
-    address: { name, xCoordinate, yCoordinate },
-  } = data;
+  const { nickName, providerId, role, realName, phoneNumber, address } = data;
 
   let storeId = null;
 
@@ -56,7 +49,7 @@ async function getUser(): Promise<DefaultContextType> {
     storeId,
     realName,
     phoneNumber,
-    address: { name, xCoordinate, yCoordinate },
+    address,
   };
 }
 
@@ -81,7 +74,11 @@ export const UserInfoProvider = ({
       providerId: null,
       realName: null,
       phoneNumber: null,
-      address: { name: null, xCoordinate: null, yCoordinate: null },
+      address: {
+        name: '광화문',
+        xCoordinate: 126.976372775,
+        yCoordinate: 37.571648599,
+      },
     },
     enabled:
       !!LocalStorage.getItem('dealight-accessToken') ||
