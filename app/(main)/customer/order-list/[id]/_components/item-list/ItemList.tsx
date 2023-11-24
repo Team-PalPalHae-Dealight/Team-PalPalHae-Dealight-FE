@@ -10,7 +10,7 @@ type ItemListPropsType = {
 
 const ItemList = ({ status }: ItemListPropsType) => {
   const [items, setItems] = useState<ResponseItemType[]>([]);
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [isEnded, setIsEnded] = useState(false);
 
@@ -41,7 +41,7 @@ const ItemList = ({ status }: ItemListPropsType) => {
 
   useEffect(() => {
     if (status) {
-      setPage(0);
+      setPage(1);
       setIsEnded(false);
       setItems([]);
     }
