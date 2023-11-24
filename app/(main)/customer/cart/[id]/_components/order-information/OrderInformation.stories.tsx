@@ -42,8 +42,5 @@ export const Primary: Story = {
         expirationDateTime: '2023-11-23 23:30:00',
       },
     ],
-    getInput: value => {
-      console.log(value);
-    },
   },
 };
