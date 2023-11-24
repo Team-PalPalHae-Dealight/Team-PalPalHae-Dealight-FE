@@ -17,13 +17,20 @@ const ItemCards = ({ items }: ItemTypes) => {
             href={pageRoute.store.itemDetail(String(item.itemId))}
           >
             <div
-              className="mb-2 flex h-20 items-center justify-between rounded bg-white p-4"
+              className="mb-2 flex h-20 items-center gap-2 rounded bg-white p-4"
               style={{ boxShadow: '0px 0px 4px 0px rgb(0, 0, 0, 0.1)' }}
             >
-              <div>
-                <Image width={60} height={60} src={item.image} alt="donut" />
+              <div className="relative h-14 w-14 overflow-hidden rounded">
+                <Image
+                  priority
+                  fill
+                  alt={item.itemName}
+                  src={String(item.image)}
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                />
               </div>
-              <div className="ml-5 flex w-full items-center justify-between">
+
+              <div className="flex w-full items-center">
                 <div className="flex flex-col gap-1">
                   <div className=" w-20 overflow-hidden text-ellipsis whitespace-nowrap text-sm font-semibold">
                     {item.itemName}
@@ -33,7 +40,8 @@ const ItemCards = ({ items }: ItemTypes) => {
                     <div className="text-red">{item.stock}개</div>
                   </div>
                 </div>
-                <div className="ml-12 flex flex-col gap-1">
+
+                <div className="ml-auto flex flex-col gap-1">
                   <div className="flex justify-end text-xs text-dark-gray line-through">
                     <div>{item.originalPrice} 원</div>
                   </div>
