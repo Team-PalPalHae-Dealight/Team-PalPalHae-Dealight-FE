@@ -12,7 +12,7 @@ type ProductListPropsType = {
 
 const ProductList = ({ status }: ProductListPropsType) => {
   const [items, setItems] = useState<ResponseItemTypes[]>([]);
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [isEnded, setIsEnded] = useState(false);
 
@@ -40,13 +40,18 @@ const ProductList = ({ status }: ProductListPropsType) => {
       loadMoreItems();
     }
   }, [inView, isEnded, loadMoreItems, isLoading]);
+
+  useEffect(() => {
+    if (status === '영업 준비 중') setItems([]);
+  }, [status]);
+
   return (
     <>
       <div className="my-3 flex w-full items-center justify-start">
         <h2 className="text-lg font-bold">상품 목록</h2>
       </div>
       <div className="h-[47vh] w-full overflow-y-scroll">
-        <ItemCards items={items} />
+        {status === '영업 중' && <ItemCards items={items} />}
         <div
           className="col-span-1 flex items-center justify-center sm:col-span-2 md:col-span-3"
           ref={ref}
@@ -55,16 +60,11 @@ const ProductList = ({ status }: ProductListPropsType) => {
             <>
               <Spinner />
             </>
-          ) : items.length ? (
-            <div className="items-center justify-center p-8 text-xs text-dark-gray">
+          ) : status === '영업 중' && items.length ? (
+            <div className="flex items-center justify-center p-8 text-xs text-dark-gray">
               <p>등록한 상품이 없습니다.</p>
             </div>
           ) : (
-            <div className="flex h-[47vh] items-center justify-center text-xs text-dark-gray">
-              <p>등록한 상품이 없습니다.</p>
-            </div>
-          )}
-          {status === '영업 준비 중' && items.length !== 0 && (
             <div className="flex h-[47vh] items-center justify-center text-xs text-dark-gray">
               <p>등록한 상품이 없습니다.</p>
             </div>

@@ -44,10 +44,7 @@ export default function Page() {
       <CustomerHeader />
       <div className="mx-5">
         <div className="my-3 rounded">
-          <KakaoMap
-            currentPosition={{ lat, lng, title: address }}
-            height="30vh"
-          />
+          <KakaoMap currentPosition={{ lat, lng, title: '' }} height="30vh" />
         </div>
         <div>
           <TodayDealight

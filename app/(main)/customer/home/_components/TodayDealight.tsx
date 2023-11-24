@@ -21,7 +21,7 @@ const TodayDealight = ({
   lng,
 }: TodayDealightPropsType) => {
   const [items, setItems] = useState<ResponseItemTypes[]>([]);
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [isEnded, setIsEnded] = useState(false);
   const [sortBy, setSortBy] = useState<DropDownTextType>('distance');
@@ -60,7 +60,7 @@ const TodayDealight = ({
 
   useEffect(() => {
     if (sortBy) {
-      setPage(0);
+      setPage(1);
       setIsEnded(false);
       setItems([]);
     }
@@ -81,7 +81,7 @@ const TodayDealight = ({
           {isLoading && !isEnded ? (
             <Spinner />
           ) : items.length ? (
-            <div className="flex items-center justify-center text-xs text-dark-gray">
+            <div className="mt-2 flex items-center justify-center text-xs text-dark-gray">
               <p>{emptyWord}</p>
             </div>
           ) : (
