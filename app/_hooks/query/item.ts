@@ -1,6 +1,7 @@
 import { axiosInstance } from '@/app/_services/apiClient';
 import { ItemType } from '@/app/_types/api/item';
 import { useMutation, useSuspenseQuery } from '@tanstack/react-query';
+import useInfiniteScroll from './useInfiniteScroll';
 
 export const itemKeys = {
   item: (itemId: string) => ['item', itemId] as const,
@@ -15,10 +16,33 @@ type ItmePropsType = Omit<
   'itemId' | 'storeId' | 'storeName' | 'storeCloseTime' | 'storeAddress'
 >;
 
+type GetStoreItemsPropsType = {
+  storeId: string;
+  size: number;
+  page: number;
+};
+
 export const getItem = async ({
   itemId,
 }: GetItemPropsType): Promise<ItemType> => {
   const response = await axiosInstance.get(`/items/${itemId}`);
+
+  const data = response.data;
+
+  return data;
+};
+
+export const getStoreItems = async ({
+  storeId,
+  size,
+  page,
+}: GetStoreItemsPropsType): Promise<{
+  items: ItemType[];
+  hasNext: boolean;
+}> => {
+  const response = await axiosInstance.get(
+    `/items/stores/${storeId}?size=${size}&page=${page}`
+  );
 
   const data = response.data;
 
@@ -105,6 +129,19 @@ export const useGetItem = ({ itemId }: GetItemPropsType) => {
   return useSuspenseQuery({
     queryKey: [itemKeys.item(itemId)],
     queryFn: () => getItem({ itemId }),
+  });
+};
+
+export const useGetStoreItems = ({
+  storeId,
+  size,
+}: {
+  storeId: string;
+  size: number;
+}) => {
+  return useInfiniteScroll({
+    queryKey: storeId,
+    fetchData: pageParam => getStoreItems({ page: pageParam, size, storeId }),
   });
 };
 
