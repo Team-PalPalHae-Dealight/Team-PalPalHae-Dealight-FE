@@ -6,6 +6,7 @@ import PrimaryButton from '@/app/_components/PrimaryButton/PrimaryButton';
 import { useCallback, useEffect, useState } from 'react';
 import PopUp from '@/app/_components/pop-up/PopUp';
 import { getOrder } from '@/app/_services/order/getOrder';
+import { PatchOrderPropsType, patchOrder } from '../../_services/patchOrder';
 
 type OrderResultPropsType = {
   storeName: string;
@@ -17,14 +18,11 @@ type OrderResultPropsType = {
 };
 
 const MainContents = () => {
-  /**
-   * @todo
-   * api res값의 status값을 토대로 state값 변경 로직 추가해야 함
-   */
   const [status, setStatus] = useState('주문 접수');
   const [onPopUpCancel, setOnPopUpCancel] = useState(false);
-  const [onPopUpReceive, setOnPopUpReceive] = useState(false);
+  const [onPopUpConfirmed, setOnPopUpConfirmed] = useState(false);
   const [onPopUpReject, setOnPopUpReject] = useState(false);
+  const [onPopUpCompleted, setOnPopUpCompleted] = useState(false);
   const [data, setData] = useState();
   const [order, setOrder] = useState<OrderResultPropsType>();
   console.log(data, order);
@@ -42,9 +40,7 @@ const MainContents = () => {
 
   const getData = useCallback(async () => {
     const res = await getOrder(Number(orderId));
-    console.log(res);
 
-    /** @todo sampleData 자리에 order로 초기화, status 자리에 data.status 초기화 */
     setData(res);
     setStatus(res.status);
     setOrder({
@@ -123,19 +119,29 @@ const MainContents = () => {
     reviewContains: false,
   };
 
+  const updateOrder = async ({ orderId, status }: PatchOrderPropsType) => {
+    console.log(status);
+    await patchOrder({ orderId, status });
+  };
+
   return (
     <div className="p-5">
       <ProductList items={sampleRes} />
       <OrderResult data={sampleData} />
       <div className="mt-2 flex gap-3">
-        {status === '주문 접수' && (
-          <PrimaryButton onClick={() => setOnPopUpCancel(true)}>
-            주문 취소하기
-          </PrimaryButton>
-        )}
         {status === '주문 확인' && (
           <>
-            <PrimaryButton onClick={() => setOnPopUpReceive(true)}>
+            <PrimaryButton onClick={() => setOnPopUpCancel(true)}>
+              주문 취소하기
+            </PrimaryButton>
+            <PrimaryButton onClick={() => setOnPopUpCompleted(true)}>
+              주문 완료하기
+            </PrimaryButton>
+          </>
+        )}
+        {status === '주문 접수' && (
+          <>
+            <PrimaryButton onClick={() => setOnPopUpConfirmed(true)}>
               접수하기
             </PrimaryButton>
             <PrimaryButton onClick={() => setOnPopUpReject(true)}>
@@ -159,17 +165,17 @@ const MainContents = () => {
           mainText="주문을 취소하시겠습니까?"
           leftBtnText="네"
           rightBtnText="아니오"
-          leftBtnClick={() => console.log('네')}
+          leftBtnClick={() => updateOrder({ orderId, status: 'CANCELED' })}
           rightBtnClick={() => setOnPopUpCancel(false)}
         />
       )}
-      {onPopUpReceive && (
+      {onPopUpConfirmed && (
         <PopUp
           mainText="주문을 접수하시겠습니까?"
           leftBtnText="네"
           rightBtnText="아니오"
-          leftBtnClick={() => console.log('네')}
-          rightBtnClick={() => setOnPopUpReceive(false)}
+          leftBtnClick={() => updateOrder({ orderId, status: 'CONFIRMED' })}
+          rightBtnClick={() => setOnPopUpConfirmed(false)}
         />
       )}
       {onPopUpReject && (
@@ -177,8 +183,17 @@ const MainContents = () => {
           mainText="주문을 거절하시겠습니까?"
           leftBtnText="네"
           rightBtnText="아니오"
-          leftBtnClick={() => console.log('네')}
+          leftBtnClick={() => updateOrder({ orderId, status: 'CANCELED' })}
           rightBtnClick={() => setOnPopUpReject(false)}
+        />
+      )}
+      {onPopUpCompleted && (
+        <PopUp
+          mainText="주문을 완료 하시겠습니까?"
+          leftBtnText="네"
+          rightBtnText="아니오"
+          leftBtnClick={() => updateOrder({ orderId, status: 'COMPLETED' })}
+          rightBtnClick={() => setOnPopUpCompleted(false)}
         />
       )}
     </div>

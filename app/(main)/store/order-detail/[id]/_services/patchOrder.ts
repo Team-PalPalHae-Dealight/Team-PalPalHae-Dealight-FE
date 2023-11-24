@@ -3,10 +3,15 @@ import { axiosInstance } from '../../../../../_services/apiClient';
 import pageRoute from '@/app/_constants/path';
 import { useUserInfo } from '@/app/_providers/UserInfoProvider';
 
-export const cancelOrder = (orderId: number) => {
-  return axiosInstance
+export type PatchOrderPropsType = {
+  orderId: string;
+  status: string | undefined;
+};
+
+export const patchOrder = async ({ orderId, status }: PatchOrderPropsType) => {
+  return await axiosInstance
     .patch(`/orders/${orderId}`, {
-      status: 'CANCELED',
+      status,
     })
     .then(function (response) {
       console.log(response);
