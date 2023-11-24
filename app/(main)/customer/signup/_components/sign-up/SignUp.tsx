@@ -51,11 +51,12 @@ export default function Signup() {
           realName: data.realname,
           nickName: data.nickName,
           phoneNumber: data.phoneNumber,
-          role: 'store',
+          role: 'customer',
         });
         login({ accessToken, refreshToken });
-        LocalStorage.removeItem('dealight-signup');
         alert('회원가입이 완료되었습니다!');
+
+        LocalStorage.removeItem('dealight-signup');
         if (LocalStorage.getItem('dealight-lastLoginPage') === 'customer') {
           router.push(pageRoute.customer.home());
           return;
