@@ -15,7 +15,7 @@ const useInfiniteScroll = <T>({
     hasNextPage,
     fetchNextPage,
   } = useInfiniteQuery({
-    queryKey: ['posts', queryKey],
+    queryKey: ['infinite', queryKey],
     queryFn: ({ pageParam }) => fetchData(pageParam),
     initialPageParam: 1,
     getNextPageParam: (lastPage, allPages) => {

@@ -31,5 +31,5 @@ export const getTodos = async (): Promise<TodoType[]> => {
 };
 
 export const useGetTodos = () => {
-  return useSuspenseQuery({ queryKey: [todoKeys.all], queryFn: getTodos });
+  return useSuspenseQuery({ queryKey: todoKeys.all, queryFn: getTodos });
 };

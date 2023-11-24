@@ -3,22 +3,17 @@
 import KakaoMap from '@/app/_components/KakaoMap/KakaoMap';
 import ItemCards from './ItemCards';
 import Image from 'next/image';
-import { useGetStore } from '@/app/_hooks/query/store';
 import { formatPhoneNumber } from '@/app/_utils/number';
-import { useGetStoreReviews } from '@/app/_hooks/query/review';
 import assert from '@/app/_utils/assert';
-import { useGetStoreItems } from '@/app/_hooks/query/item';
+import { useGetMyStoreReviews } from '@/app/_hooks/query/review';
+import { useGetMyStore } from '@/app/_hooks/query/store';
+import { useGetMyStoreItems } from '@/app/_hooks/query/item';
 
-type StoreDetailPropsType = {
-  storeId: string;
-};
-
-const StoreDetail = ({ storeId }: StoreDetailPropsType) => {
-  const { data: store, isLoading: isStoreLoading } = useGetStore({ storeId });
-  const { data: storeReview, isLoading: isReviewLoaading } = useGetStoreReviews(
-    { storeId }
-  );
-  const { data: storeItems, ref } = useGetStoreItems({ storeId, size: 5 });
+const StoreManage = () => {
+  const { data: myStore, isLoading: isStoreLoading } = useGetMyStore();
+  const { data: myStoreReview, isLoading: isReviewLoaading } =
+    useGetMyStoreReviews();
+  const { data: storeItems, ref } = useGetMyStoreItems({ size: 5 });
 
   const reviewImage = {
     '상품 상태가 좋아요': 'https://picsum.photos/id/75/200/300.jpg',
@@ -33,11 +28,11 @@ const StoreDetail = ({ storeId }: StoreDetailPropsType) => {
     return null;
   }
 
-  assert(storeReview);
-  assert(store);
+  assert(myStoreReview);
+  assert(myStore);
 
   const { closeTime, dayOff, name, openTime, telephone, image, addressName } =
-    store;
+    myStore;
   const dayOffText = dayOff.join(' ');
 
   return (
@@ -99,7 +94,7 @@ const StoreDetail = ({ storeId }: StoreDetailPropsType) => {
         <h2 className="mb-5 text-lg font-semibold">응원의 메시지</h2>
 
         <div className="flex flex-col gap-2.5">
-          {storeReview.reviews.map(review => (
+          {myStoreReview.reviews.map(review => (
             <div
               key={review.content}
               className="flex items-center rounded bg-white p-3 text-xs font-semibold shadow"
@@ -120,7 +115,8 @@ const StoreDetail = ({ storeId }: StoreDetailPropsType) => {
               <span className="text-blue">{review.count}</span>
             </div>
           ))}
-          {storeReview.reviews.length === 0 && (
+
+          {myStoreReview.reviews.length === 0 && (
             <span className="text-center text-xs text-dark-gray">
               응원의 메시지를 작성해주세요.
             </span>
@@ -131,4 +127,4 @@ const StoreDetail = ({ storeId }: StoreDetailPropsType) => {
   );
 };
 
-export default StoreDetail;
+export default StoreManage;

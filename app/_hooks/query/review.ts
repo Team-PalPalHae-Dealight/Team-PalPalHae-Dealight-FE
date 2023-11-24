@@ -4,13 +4,14 @@ import { useQuery } from '@tanstack/react-query';
 
 export const reviewKeys = {
   storeReviews: (reviewId: string) => ['review', reviewId] as const,
+  myStoreReviews: () => ['review'] as const,
 };
 
-type GetStoreReviewsByNotUserPropsType = { storeId: string };
+type GetStoreReviewsPropsType = { storeId: string };
 
-export const getStoreReviewsByNotUser = async ({
+export const getStoreReviews = async ({
   storeId,
-}: GetStoreReviewsByNotUserPropsType): Promise<ReviewType> => {
+}: GetStoreReviewsPropsType): Promise<ReviewType> => {
   const response = await axiosInstance.get(`/reviews/stores/${storeId}`);
 
   const data = response.data;
@@ -18,11 +19,24 @@ export const getStoreReviewsByNotUser = async ({
   return data;
 };
 
-export const useGetStoreReviewsByNotUser = ({
-  storeId,
-}: GetStoreReviewsByNotUserPropsType) => {
+export const getMyStoreReviews = async (): Promise<ReviewType> => {
+  const response = await axiosInstance.get(`/reviews/stores`);
+
+  const data = response.data;
+
+  return data;
+};
+
+export const useGetStoreReviews = ({ storeId }: GetStoreReviewsPropsType) => {
   return useQuery({
-    queryKey: [reviewKeys.storeReviews(storeId)],
-    queryFn: () => getStoreReviewsByNotUser({ storeId }),
+    queryKey: reviewKeys.storeReviews(storeId),
+    queryFn: () => getStoreReviews({ storeId }),
+  });
+};
+
+export const useGetMyStoreReviews = () => {
+  return useQuery({
+    queryKey: reviewKeys.myStoreReviews(),
+    queryFn: getMyStoreReviews,
   });
 };

@@ -5,6 +5,8 @@ import useInfiniteScroll from './useInfiniteScroll';
 
 export const itemKeys = {
   item: (itemId: string) => ['item', itemId] as const,
+  storeItem: (storeId: string) => ['store-item', storeId] as const,
+  myStoreItem: () => ['store-item'] as const,
 };
 
 type GetItemPropsType = {
@@ -42,6 +44,22 @@ export const getStoreItems = async ({
 }> => {
   const response = await axiosInstance.get(
     `/items/stores/${storeId}?size=${size}&page=${page}`
+  );
+
+  const data = response.data;
+
+  return data;
+};
+
+export const getMyStoreItems = async ({
+  size,
+  page,
+}: Omit<GetStoreItemsPropsType, 'storeId'>): Promise<{
+  items: ItemType[];
+  hasNext: boolean;
+}> => {
+  const response = await axiosInstance.get(
+    `/items/stores?size=${size}&page=${page}`
   );
 
   const data = response.data;
@@ -127,7 +145,7 @@ export const deleteItem = async ({ itemId }: GetItemPropsType) => {
 
 export const useGetItem = ({ itemId }: GetItemPropsType) => {
   return useSuspenseQuery({
-    queryKey: [itemKeys.item(itemId)],
+    queryKey: itemKeys.item(itemId),
     queryFn: () => getItem({ itemId }),
   });
 };
@@ -140,8 +158,17 @@ export const useGetStoreItems = ({
   size: number;
 }) => {
   return useInfiniteScroll({
-    queryKey: storeId,
+    queryKey: 'store-items',
     fetchData: pageParam => getStoreItems({ page: pageParam, size, storeId }),
+  });
+};
+
+export const useGetMyStoreItems = ({
+  size,
+}: Pick<GetStoreItemsPropsType, 'size'>) => {
+  return useInfiniteScroll({
+    queryKey: 'my-store-items',
+    fetchData: pageParam => getMyStoreItems({ page: pageParam, size }),
   });
 };
 
