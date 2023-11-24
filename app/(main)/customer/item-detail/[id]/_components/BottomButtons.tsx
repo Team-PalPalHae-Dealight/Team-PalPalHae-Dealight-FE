@@ -1,6 +1,9 @@
 'use client';
 
 import PrimaryButton from '@/app/_components/PrimaryButton/PrimaryButton';
+import { postCart } from '../../../cart/[id]/_services/postCart';
+import { useState } from 'react';
+import CustomPopUp from '@/app/_components/pop-up/CustomPopUp';
 import { useRouter } from 'next/navigation';
 import pageRoute from '@/app/_constants/path';
 import PopUp from '@/app/_components/pop-up/PopUp';
