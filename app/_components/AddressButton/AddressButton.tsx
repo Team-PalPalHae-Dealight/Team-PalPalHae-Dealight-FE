@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import SearchAddress from '../SearchAddress/SearchAddress';
+import { useAuth } from '@/app/_providers/AuthProvider';
 
 type AddressButtonPropsType = {
   getAddress: (address: string) => void;
@@ -11,7 +12,7 @@ const AddressButton = ({
   className,
 }: AddressButtonPropsType) => {
   const [open, setOpen] = useState(false);
-
+  const { loggedIn } = useAuth();
   const setData = (address: string) => {
     getAddress(address);
     setOpen(prev => !prev);
@@ -19,7 +20,12 @@ const AddressButton = ({
 
   return (
     <>
-      <button className={className} onClick={() => setOpen(prev => !prev)}>
+      <button
+        className={className}
+        onClick={() =>
+          loggedIn === true ? setOpen(prev => !prev) : alert('로그인 하십시오.')
+        }
+      >
         {children}
       </button>
       {open && (
