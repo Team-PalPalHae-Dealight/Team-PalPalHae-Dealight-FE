@@ -33,22 +33,17 @@ const ItemCard = ({
   const { providerId } = useUserInfo();
   const router = useRouter();
 
-  const handlePlus = async () => {
+  const handlePlus = () => {
     if (quantity < stock) setQuantity(prev => prev + 1);
   };
 
-  const handleMinus = async () => {
+  const handleMinus = () => {
     if (quantity > 1) setQuantity(prev => prev - 1);
   };
 
   const changeQuantity = useCallback(async () => {
     await patchCart({
-      carts: [
-        {
-          itemId: itemId,
-          quantity: quantity,
-        },
-      ],
+      carts: [{ itemId: itemId, quantity: quantity }],
     });
   }, [itemId, quantity]);
 
