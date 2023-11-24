@@ -3,8 +3,8 @@
 import { useEffect, useState } from 'react';
 import CartContent from '../cart-contents/CartContents';
 import ResetButton from '../reset-button/ResetButton';
-import { CartType } from '../../_types/CartType';
 import { getCart } from '../../_services/getCart';
+import { CartType } from '../../_types/CartType';
 
 const MainContents = () => {
   const [data, setData] = useState<CartType[] | undefined>();

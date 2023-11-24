@@ -21,17 +21,19 @@ const CartContent = ({ data }: DataType) => {
     console.log(value);
   };
 
+  const submitOrder = () => {};
+
   return (
     <div className="grid grid-cols-1 gap-y-5 pb-5">
       <ItemList data={data} />
       {data ? (
         <>
-          <OrderInformation getInput={getInput} />
+          <OrderInformation data={data} getInput={getInput} />
           <Notification>
             해당 주문 상품의 재고가 부족할 경우 상품 주문이 취소될 수 있으며,
             주문 중에 해당 상품이 품절 처리될 수 있습니다.
           </Notification>
-          <PrimaryButton onClick={() => {}}>주문하기</PrimaryButton>
+          <PrimaryButton onClick={submitOrder}>주문하기</PrimaryButton>
         </>
       ) : null}
     </div>

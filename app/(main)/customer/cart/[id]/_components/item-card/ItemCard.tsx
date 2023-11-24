@@ -4,11 +4,11 @@ import Image from 'next/image';
 import { useCallback, useEffect, useState } from 'react';
 import PLUS_IMAGE from '@/app/_assets/images/plus.png';
 import MINUS_IMAGE from '@/app/_assets/images/minus.png';
-import { deleteCart } from '../../_services/deleteCart';
 import PopUp from '@/app/_components/pop-up/PopUp';
 import { useRouter } from 'next/navigation';
 import { useUserInfo } from '@/app/_providers/UserInfoProvider';
 import { patchCart } from '../../_services/patchCart';
+import { deleteCart } from '../../_services/deleteCart';
 
 type ItemCardPropsType = {
   itemId: number;
