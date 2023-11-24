@@ -27,6 +27,7 @@ export const HOUR_LIST = [
 ];
 
 export const MINUTE_LIST = [
+  '00',
   '01',
   '02',
   '03',
@@ -86,5 +87,4 @@ export const MINUTE_LIST = [
   '57',
   '58',
   '59',
-  '00',
 ];
