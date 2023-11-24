@@ -36,10 +36,16 @@ const OrderListCard = ({ items }: OrderListCardPropsType) => {
                 <div>{formattedDate(item.createdAt)}</div>
               </div>
               <div className="flex items-center gap-1 text-black">
-                <div className="text-sm">
-                  {item.orderProductsRes.orderProducts[0].name} 외
-                  {item.orderProductsRes.orderProducts.length - 1}개
-                </div>
+                {item.orderProductsRes.orderProducts.length > 1 ? (
+                  <div className="text-sm">
+                    {item.orderProductsRes.orderProducts[0].name} 외
+                    {item.orderProductsRes.orderProducts.length - 1}개
+                  </div>
+                ) : (
+                  <div className="text-sm">
+                    {item.orderProductsRes.orderProducts[0].name}
+                  </div>
+                )}
                 <div className=" text-xs">{item.totalPrice} 원</div>
               </div>
               <div className="flex items-center justify-between text-black">
