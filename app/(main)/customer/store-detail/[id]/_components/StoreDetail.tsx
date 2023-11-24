@@ -88,7 +88,7 @@ const StoreDetail = ({ storeId }: StoreDetailPropsType) => {
         <div className="h-96 overflow-auto">
           <ItemCards items={storeItems} />
 
-          <div ref={ref} />
+          <div ref={ref} className="h-4" />
 
           {storeItems.length === 0 && (
             <span className="flex items-center justify-center text-xs text-dark-gray">
