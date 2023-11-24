@@ -81,9 +81,11 @@ const StoreManage = () => {
         <h2 className="text-lg font-semibold">상품 목록</h2>
         <div className="h-96 overflow-auto">
           <ItemCards items={storeItems} />
+
           <div ref={ref} />
+
           {storeItems.length === 0 && (
-            <span className="text-center text-xs text-dark-gray">
+            <span className="flex items-center justify-center text-xs text-dark-gray">
               등록한 상품이 없습니다.
             </span>
           )}
