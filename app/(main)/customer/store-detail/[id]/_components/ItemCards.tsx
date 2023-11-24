@@ -13,10 +13,6 @@ const ItemCards = ({ items }: ItemTypes) => {
       {items ? (
         items.map(item => {
           return (
-            /**
-             * @todo
-             * 라우팅 처리 수정 필요
-             */
             <Link
               key={item.itemId}
               href={pageRoute.customer.itemDetail(String(item.itemId))}

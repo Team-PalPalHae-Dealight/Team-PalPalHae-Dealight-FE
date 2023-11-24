@@ -2,7 +2,6 @@
 
 import KakaoMap from '@/app/_components/KakaoMap/KakaoMap';
 import ItemCards from './ItemCards';
-import { ITEM_CARDS } from '../_mocks/itemMock';
 import Image from 'next/image';
 import { useGetStore } from '@/app/_hooks/query/store';
 import { formatPhoneNumber } from '@/app/_utils/number';
@@ -18,7 +17,6 @@ const StoreDetail = ({ storeId }: StoreDetailPropsType) => {
   const { data: store, isLoading: isStoreLoading } = useGetStore({ storeId });
   const { data: storeReview, isLoading: isReviewLoaading } =
     useGetStoreReviewsByNotUser({ storeId });
-
   const { data: storeItems, ref } = useGetStoreItems({ storeId, size: 5 });
 
   const reviewImage = {
@@ -84,9 +82,12 @@ const StoreDetail = ({ storeId }: StoreDetailPropsType) => {
         </div>
       </div>
 
-      <div className="flex w-full flex-col gap-2.5">
+      <div className="flex  w-full flex-col gap-2.5 ">
         <h2 className="text-lg font-semibold">상품 목록</h2>
-        <ItemCards items={ITEM_CARDS} />
+        <div className="h-96 overflow-auto">
+          <ItemCards items={storeItems} />
+          <div ref={ref} />
+        </div>
       </div>
 
       <div className="flex w-full flex-col">
@@ -119,10 +120,6 @@ const StoreDetail = ({ storeId }: StoreDetailPropsType) => {
               응원의 메시지를 작성해주세요
             </span>
           )}
-          {storeItems.map(storeItem => (
-            <div key={storeItem.itemId}>{storeItem.itemName}</div>
-          ))}
-          <div ref={ref}>ref test</div>
         </div>
       </div>
     </>
