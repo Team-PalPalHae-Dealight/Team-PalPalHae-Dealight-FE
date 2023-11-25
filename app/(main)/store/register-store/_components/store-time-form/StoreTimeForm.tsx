@@ -6,17 +6,18 @@ import { TIME_LIST } from '../../_constants/time';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import Notification from '@/app/_assets/images/notification.png';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
 import {
   isValidStoreCloseTime,
-  isValidStoreDayOff,
   isValidStoreOpenTime,
 } from '../../_utils/validate';
 import LocalStorage from '@/app/_utils/localstorage';
 import PrimaryButton from '@/app/_components/PrimaryButton/PrimaryButton';
 import { yupResolver } from '@hookform/resolvers/yup';
-import pageRoute from '@/app/_constants/path';
 import { postStore } from '../../_services/postStore';
+import getReq from '../../_utils/getReq';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import CustomPopUp from '@/app/_components/pop-up/CustomPopUp';
 
 type initialValuesType = {
   storeOpenTime: string;
@@ -26,33 +27,36 @@ type initialValuesType = {
 
 const StoreTimeForm = () => {
   const router = useRouter();
+  const [open, setOpen] = useState(false);
+  const [message, setMessage] = useState('');
 
   const schema = object().shape({
     storeOpenTime: isValidStoreOpenTime(),
     storeCloseTime: isValidStoreCloseTime(),
-    storeDayOff: isValidStoreDayOff(),
   });
 
-  const onSubmit: SubmitHandler<initialValuesType> = () => {
+  const onSubmit: SubmitHandler<initialValuesType> = async () => {
     const { storeOpenTime, storeCloseTime, storeDayOff } = watch();
 
     LocalStorage.setItem('dealight-storeOpenTime', storeOpenTime + ':00');
     LocalStorage.setItem('dealight-storeCloseTime', storeCloseTime + ':00');
-    LocalStorage.setItem('dealight-storeDayOff', storeDayOff);
+    if (storeDayOff) {
+      LocalStorage.setItem(
+        'dealight-storeDayOff',
+        storeDayOff.length ? storeDayOff : ['연중 무휴']
+      );
+    } else {
+      LocalStorage.setItem('dealight-storeDayOff', ['연중 무휴']);
+    }
 
-    const req = {
-      storeNumber: LocalStorage.getItem('dealight-storeNumber'),
-      name: LocalStorage.getItem('dealight-storeName'),
-      telephone: LocalStorage.getItem('dealight-storePhone'),
-      addressName: LocalStorage.getItem('dealight-storeAddress'),
-      xCoordinate: LocalStorage.getItem('dealight-coords-x'),
-      yCoordinate: LocalStorage.getItem('dealight-coords-y'),
-      openTime: LocalStorage.getItem('dealight-storeOpenTime'),
-      closeTime: LocalStorage.getItem('dealight-storeCloseTime'),
-      dayOff: LocalStorage.getItem('dealight-storeDayOff'),
-    };
-    postStore({ req: req });
-    router.push(pageRoute.store.home());
+    const req = getReq();
+    const res = await postStore({ req: req });
+    if (res.status === 200) {
+      setMessage('업체가 등록되었습니다.');
+    } else {
+      setMessage('오류가 발생했습니다.');
+    }
+    setOpen(true);
   };
 
   const {
@@ -60,7 +64,8 @@ const StoreTimeForm = () => {
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<initialValuesType>({ resolver: yupResolver(schema) });
+    //eslint-disable-next-line
+  } = useForm<initialValuesType | any>({ resolver: yupResolver(schema) });
 
   return (
     <div className="flex w-full flex-col items-center">
@@ -85,7 +90,7 @@ const StoreTimeForm = () => {
               errors={errors}
               name="storeOpenTime"
               render={({ message }) => (
-                <div className="w-full text-left text-xs text-red">
+                <div className="w-full pt-3 text-left text-xs text-red">
                   {message}
                 </div>
               )}
@@ -108,17 +113,15 @@ const StoreTimeForm = () => {
                 </option>
               ))}
             </select>
-            <ErrorMessage
-              errors={errors}
-              name="storeCloseTime"
-              render={({ message }) => (
-                <div className="w-full text-left text-xs text-red">
-                  {message}
-                </div>
-              )}
-            />
           </div>
         </div>
+        <ErrorMessage
+          errors={errors}
+          name="storeCloseTime"
+          render={({ message }) => (
+            <div className="w-full text-left text-xs text-red">{message}</div>
+          )}
+        />
         <div className="mt-5 w-full">
           <div className="mb-2 mt-5 text-xs font-semibold text-black">
             휴무일
@@ -126,7 +129,8 @@ const StoreTimeForm = () => {
           <div className="flex w-full">
             <Image className="h-3 w-3" src={Notification} alt="notification" />
             <p className="mb-2 text-xs text-dark-gray">
-              (복수선택가능) 휴무일 설정은 매주를 기준으로 합니다.
+              (복수선택가능) 휴무일 설정은 매주를 기준으로 하며, 선택하지 않을
+              경우 연중 무휴로 인지됩니다.
             </p>
           </div>
           <div
@@ -134,22 +138,6 @@ const StoreTimeForm = () => {
             aria-labelledby="checkbox-group"
             className="grid w-full grid-flow-row grid-cols-4 gap-2.5"
           >
-            <div className="h-12 w-full bg-white">
-              <input
-                type="checkbox"
-                value="연중 무휴"
-                defaultChecked
-                className=" peer/연중무휴 hidden h-12 w-full"
-                id="연중무휴"
-                {...register('storeDayOff')}
-              />
-              <label
-                htmlFor="연중무휴"
-                className="block h-12 w-full cursor-pointer text-center text-xs leading-12 text-black peer-checked/연중무휴:bg-cyan/50"
-              >
-                연중무휴
-              </label>
-            </div>
             <div className="h-12 w-full bg-white">
               <input
                 type="checkbox"
@@ -273,6 +261,16 @@ const StoreTimeForm = () => {
           등록하기
         </PrimaryButton>
       </form>
+      {open && (
+        <CustomPopUp
+          mainText={message}
+          btnText="확인"
+          btnClick={() => {
+            setOpen(false);
+            router.push('/');
+          }}
+        />
+      )}
     </div>
   );
 };

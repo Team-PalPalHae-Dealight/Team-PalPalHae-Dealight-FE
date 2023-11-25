@@ -13,6 +13,7 @@ import { isValidStoreName, isValidStorePhone } from '../../_utils/validate';
 import LocalStorage from '@/app/_utils/localstorage';
 import { yupResolver } from '@hookform/resolvers/yup';
 import useCoordinate from '@/app/_hooks/useCoordinate';
+import { useUserInfo } from '@/app/_providers/UserInfoProvider';
 
 type initialValuesType = {
   storeName: string;
@@ -26,6 +27,7 @@ const StoreInfoForm = () => {
   const [addressError, setAddressError] = useState(true);
   const [click, setClick] = useState(false);
   const coords = useCoordinate(address);
+  const { providerId } = useUserInfo();
 
   const schema = object().shape({
     storeName: isValidStoreName(),
@@ -40,7 +42,6 @@ const StoreInfoForm = () => {
   } = useForm<initialValuesType>({ resolver: yupResolver(schema) });
 
   const onSubmit: SubmitHandler<initialValuesType> = () => {
-    /** @todo api 연결 */
     const { storeName, storePhone } = watch();
     const address = LocalStorage.getItem('dealight-storeAddress');
 
@@ -50,7 +51,7 @@ const StoreInfoForm = () => {
       LocalStorage.setItem('dealight-storeName', storeName);
       LocalStorage.setItem('dealight-storePhone', storePhone);
 
-      router.push(pageRoute.store.registerStoreTime());
+      router.push(pageRoute.store.registerStoreTime(String(providerId)));
     }
 
     setClick(true);

@@ -1,7 +1,10 @@
 import pageRoute from '@/app/_constants/path';
+import { useUserInfo } from '@/app/_providers/UserInfoProvider';
 import Link from 'next/link';
 
 const RegisterModal = () => {
+  const { providerId } = useUserInfo();
+
   return (
     <div className="fixed left-0 top-0 flex h-full min-h-screen w-full items-center bg-dark-gray/75">
       <div className="mx-5 flex h-96 w-full flex-col justify-center bg-white">
@@ -24,7 +27,7 @@ const RegisterModal = () => {
             가능합니다.
           </p>
         </div>
-        <Link href={pageRoute.store.registerStoreNumber()}>
+        <Link href={pageRoute.store.registerStoreNumber(String(providerId))}>
           <button className="sticky bottom-0 h-20 w-full bg-yellow text-center text-lg font-semibold">
             업체 등록하기
           </button>

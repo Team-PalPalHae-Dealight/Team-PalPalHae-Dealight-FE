@@ -9,6 +9,7 @@ import PrimaryButton from '@/app/_components/PrimaryButton/PrimaryButton';
 import { isValidStoreNumber } from '../../_utils/validate';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { useUserInfo } from '@/app/_providers/UserInfoProvider';
 
 type initialValuesType = {
   storeNumber: string;
@@ -16,17 +17,17 @@ type initialValuesType = {
 
 const StoreNumForm = () => {
   const router = useRouter();
+  const { providerId } = useUserInfo();
 
   const schema = object().shape({
     storeNumber: isValidStoreNumber(),
   });
 
   const onSubmit: SubmitHandler<initialValuesType> = () => {
-    /** @todo api 연결 */
     const { storeNumber } = watch();
     LocalStorage.setItem('dealight-storeNumber', storeNumber);
 
-    router.push(pageRoute.store.registerStoreInfo());
+    router.push(pageRoute.store.registerStoreInfo(String(providerId)));
   };
 
   const {

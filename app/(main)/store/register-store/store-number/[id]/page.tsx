@@ -1,4 +1,4 @@
-import StoreNumForm from '../_components/store-num-form/StoreNumForm';
+import StoreNumForm from '../../_components/store-num-form/StoreNumForm';
 
 const StoreNumber = () => {
   return (
