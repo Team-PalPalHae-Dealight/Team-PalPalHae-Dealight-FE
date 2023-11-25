@@ -80,15 +80,11 @@ const TodayDealight = ({
         >
           {isLoading && !isEnded ? (
             <Spinner />
-          ) : items.length ? (
-            <div className="mt-2 flex items-center justify-center text-xs text-dark-gray">
+          ) : !items.length ? (
+            <div className="flex h-[50vh] items-center justify-center text-xs text-dark-gray">
               <p>{emptyWord}</p>
             </div>
-          ) : (
-            <div className="flex h-[43vh] items-center justify-center text-xs text-dark-gray">
-              <p>{emptyWord}</p>
-            </div>
-          )}
+          ) : null}
         </div>
       </div>
     </>

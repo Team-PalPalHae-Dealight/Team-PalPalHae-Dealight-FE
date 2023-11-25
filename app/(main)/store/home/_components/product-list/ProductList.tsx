@@ -60,11 +60,7 @@ const ProductList = ({ status }: ProductListPropsType) => {
             <>
               <Spinner />
             </>
-          ) : status === '영업 중' && items.length ? (
-            <div className="flex items-center justify-center p-8 text-xs text-dark-gray">
-              <p>등록한 상품이 없습니다.</p>
-            </div>
-          ) : (
+          ) : status === '영업 중' && items.length ? null : (
             <div className="flex h-[47vh] items-center justify-center text-xs text-dark-gray">
               <p>등록한 상품이 없습니다.</p>
             </div>
