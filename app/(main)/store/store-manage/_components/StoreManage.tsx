@@ -4,15 +4,13 @@ import KakaoMap from '@/app/_components/KakaoMap/KakaoMap';
 import ItemCards from './ItemCards';
 import Image from 'next/image';
 import { formatPhoneNumber } from '@/app/_utils/number';
-import assert from '@/app/_utils/assert';
 import { useGetMyStoreReviews } from '@/app/_hooks/query/review';
 import { useGetMyStore } from '@/app/_hooks/query/store';
 import { useGetMyStoreItems } from '@/app/_hooks/query/item';
 
 const StoreManage = () => {
-  const { data: myStore, isLoading: isStoreLoading } = useGetMyStore();
-  const { data: myStoreReview, isLoading: isReviewLoaading } =
-    useGetMyStoreReviews();
+  const { data: myStore } = useGetMyStore();
+  const { data: myStoreReview } = useGetMyStoreReviews();
   const { data: storeItems, ref } = useGetMyStoreItems({ size: 5 });
 
   const reviewImage = {
@@ -23,13 +21,6 @@ const StoreManage = () => {
     '게시된 설명이 자세하고 실제 상품과 동일해요':
       'https://picsum.photos/id/95/200/300.jpg',
   };
-
-  if (isStoreLoading || isReviewLoaading) {
-    return null;
-  }
-
-  assert(myStoreReview);
-  assert(myStore);
 
   const { closeTime, dayOff, name, openTime, telephone, image, addressName } =
     myStore;

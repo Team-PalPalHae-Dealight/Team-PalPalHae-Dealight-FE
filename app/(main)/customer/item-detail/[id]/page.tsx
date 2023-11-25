@@ -1,19 +1,33 @@
 import Notification from '@/app/_components/notification/Notification';
-import dynamic from 'next/dynamic';
 import BottomButtons from './_components/BottomButtons';
 import Footer from '@/app/_components/Footer/Footer';
 import CustomerHeader from '@/app/_components/Header/CustomerHeader';
+import {
+  HydrationBoundary,
+  QueryClient,
+  dehydrate,
+} from '@tanstack/react-query';
+import ItemDetail from './_components/ItemDetail';
+import { Suspense } from 'react';
+import { getItem, itemKeys } from '@/app/_hooks/query/item';
 
-const ItemDetail = dynamic(() => import('./_components/ItemDetail'), {
-  ssr: false,
-});
+export default async function Page({ params }: { params: { id: string } }) {
+  const queryClient = new QueryClient();
 
-export default function Page({ params }: { params: { id: string } }) {
+  await queryClient.prefetchQuery({
+    queryKey: itemKeys.item(params.id),
+    queryFn: () => getItem({ itemId: params.id }),
+  });
+
   return (
     <>
       <CustomerHeader />
       <div className="flex flex-col items-center gap-5 px-5 pt-7">
-        <ItemDetail itemId={params.id} />
+        <HydrationBoundary state={dehydrate(queryClient)}>
+          <Suspense fallback={<div>server render</div>}>
+            <ItemDetail itemId={params.id} />
+          </Suspense>
+        </HydrationBoundary>
 
         <Notification>
           상품은 해당 페이지에서 주문 수량은 1개로 제한됩니다. 추가 주문을

@@ -1,8 +1,14 @@
 import StoreFooter from '@/app/_components/Footer/StoreFooter';
 import Header from '@/app/_components/Header/Header';
-import StoreManage from './_components/StoreManage';
 
-export default function Page() {
+import dynamic from 'next/dynamic';
+
+const StoreManage = dynamic(() => import('./_components/StoreManage'), {
+  loading: () => <div>client loading</div>,
+  ssr: false,
+});
+
+export default async function Page() {
   return (
     <>
       <Header />
