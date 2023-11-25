@@ -28,7 +28,7 @@ async function getUser(): Promise<DefaultContextType> {
   const data = await axiosInstance
     .get(`${process.env.NEXT_PUBLIC_API_URL}/members/profiles`)
     .then(res => res.data);
-
+  console.log('fetch', data);
   const { nickName, providerId, role, realName, phoneNumber, address } = data;
 
   let storeId = null;
@@ -75,7 +75,7 @@ export const UserInfoProvider = ({
       realName: null,
       phoneNumber: null,
       address: {
-        name: '광화문',
+        name: '강남역 2번출구',
         xCoordinate: 126.976372775,
         yCoordinate: 37.571648599,
       },

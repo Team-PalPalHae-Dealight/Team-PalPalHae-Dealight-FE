@@ -1,5 +1,8 @@
 'use client';
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState, useEffect } from 'react';
+import { axiosInstance } from '@/app/_services/apiClient';
+import { useUserInfo } from '@/app/_providers/UserInfoProvider';
+import useCoordinate from '@/app/_hooks/useCoordinate';
 
 type MyAddressPropTypes = {
   address: string;
@@ -9,10 +12,33 @@ type MyAddressPropTypes = {
 const AddressContext = createContext<MyAddressPropTypes | undefined>(undefined);
 
 const AddressProvider = ({ children }: { children: React.ReactNode }) => {
-  const [address, setAddress] = useState('강남역 2번 출구');
+  const state = useUserInfo();
+  const [address, setAddress] = useState(
+    state.address.name ? state.address.name : '강남역 2번 출구'
+  );
+  const { lng, lat } = useCoordinate(address);
   const getAddress = (address: string) => {
     setAddress(address);
   };
+
+  useEffect(() => {
+    // if (!state || !state.address || !state.address.name) return;
+    //if (state.role === null) return;
+    const updateAddress = async () => {
+      try {
+        const res = await axiosInstance.patch('/members/addresses', {
+          name: address,
+          xCoordinate: lng,
+          yCoordinate: lat,
+        });
+        console.log(res, 'activatead');
+      } catch (error) {
+        console.log('state', state);
+        console.error('에러', error);
+      }
+    };
+    updateAddress();
+  }, [address, lat, lng, state]);
   return (
     <AddressContext.Provider value={{ address, getAddress }}>
       {children}

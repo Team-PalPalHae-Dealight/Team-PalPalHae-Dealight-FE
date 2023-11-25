@@ -8,43 +8,13 @@ import AddressButton from '../AddressButton/AddressButton';
 import Triangle from './assets/triangle.svg';
 import dynamic from 'next/dynamic';
 import { useAuth } from '@/app/_providers/AuthProvider';
-import { useEffect, useState } from 'react';
-import { axiosInstance } from '@/app/_services/apiClient';
-import { useUserInfo } from '@/app/_providers/UserInfoProvider';
-import useCoordinate from '@/app/_hooks/useCoordinate';
 import { useAddress } from '@/app/_providers/AddressProvider';
 
 const LoginHeader = dynamic(() => import('./LoginHeader'), { ssr: false });
 
 const CustomerHeader = () => {
   const { loggedIn } = useAuth();
-  const state = useUserInfo();
-  const [address, setAddress] = useState(state.address.name);
-  const { lng, lat } = useCoordinate(address);
-  const { getAddress } = useAddress();
-
-  useEffect(() => {
-    if (!state || !state.address || !state.address.name) return;
-
-    setAddress(state.address.name);
-  }, [state]);
-
-  useEffect(() => {
-    const updateAddress = async () => {
-      try {
-        const res = await axiosInstance.patch('/members/addresses', {
-          name: address,
-          xCoordinate: lng,
-          yCoordinate: lat,
-        });
-        console.log(res);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    updateAddress();
-    getAddress(address);
-  }, [address, lat, lng, getAddress]);
+  const { getAddress, address } = useAddress();
 
   return (
     <div className="align-center space-between text-l sticky top-0 z-50 box-border flex h-16 w-full justify-between border-b-1 border-dark-gray/30 bg-light-gray px-3 py-4 font-semibold text-black">
@@ -52,7 +22,7 @@ const CustomerHeader = () => {
         <div>
           <AddressButton
             getAddress={addressVal => {
-              setAddress(addressVal);
+              getAddress(addressVal);
             }}
           >
             <div className="flex flex-row">
