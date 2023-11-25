@@ -18,6 +18,7 @@ type OrderResultPropsType = {
   useName: string;
   comments: string;
   status: string;
+  isReview: boolean;
 };
 
 const MainContents = () => {
@@ -38,6 +39,7 @@ const MainContents = () => {
       useName: res.memberNickName,
       comments: res.demand,
       status: res.status,
+      isReview: res.isReview,
     });
   }, [orderId]);
 
@@ -55,7 +57,11 @@ const MainContents = () => {
           {order ? (
             <>
               <OrderResult data={order} />
-              <ReviewButton status={order.status} orderId={Number(orderId)} />
+              <ReviewButton
+                status={order.status}
+                isReview={order.isReview}
+                orderId={Number(orderId.id)}
+              />
             </>
           ) : (
             <div className="flex h-48 items-center justify-center">
