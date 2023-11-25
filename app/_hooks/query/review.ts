@@ -1,6 +1,6 @@
 import { axiosInstance } from '@/app/_services/apiClient';
 import { ReviewType } from '@/app/_types/api/review';
-import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
+import { useSuspenseQuery } from '@tanstack/react-query';
 
 export const reviewKeys = {
   storeReviews: (reviewId: string) => ['review', reviewId] as const,
@@ -28,7 +28,7 @@ export const getMyStoreReviews = async (): Promise<ReviewType> => {
 };
 
 export const useGetStoreReviews = ({ storeId }: GetStoreReviewsPropsType) => {
-  return useQuery({
+  return useSuspenseQuery({
     queryKey: reviewKeys.storeReviews(storeId),
     queryFn: () => getStoreReviews({ storeId }),
   });

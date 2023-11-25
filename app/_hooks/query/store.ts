@@ -1,6 +1,6 @@
 import { axiosInstance } from '@/app/_services/apiClient';
 import { StoreType } from '@/app/_types/api/store';
-import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
+import { useSuspenseQuery } from '@tanstack/react-query';
 
 export const storeKeys = {
   store: (storeId: string) => ['store', storeId] as const,
@@ -30,7 +30,7 @@ export const getMyStore = async (): Promise<StoreType> => {
 };
 
 export const useGetStore = ({ storeId }: GetStorePropsType) => {
-  return useQuery({
+  return useSuspenseQuery({
     queryKey: storeKeys.store(storeId),
     queryFn: () => getStore({ storeId }),
   });

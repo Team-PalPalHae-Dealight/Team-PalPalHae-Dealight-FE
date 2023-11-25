@@ -6,7 +6,6 @@ import Image from 'next/image';
 import { useGetStore } from '@/app/_hooks/query/store';
 import { formatPhoneNumber } from '@/app/_utils/number';
 import { useGetStoreReviews } from '@/app/_hooks/query/review';
-import assert from '@/app/_utils/assert';
 import { useGetStoreItems } from '@/app/_hooks/query/item';
 
 type StoreDetailPropsType = {
@@ -14,10 +13,8 @@ type StoreDetailPropsType = {
 };
 
 const StoreDetail = ({ storeId }: StoreDetailPropsType) => {
-  const { data: store, isLoading: isStoreLoading } = useGetStore({ storeId });
-  const { data: storeReview, isLoading: isReviewLoaading } = useGetStoreReviews(
-    { storeId }
-  );
+  const { data: store } = useGetStore({ storeId });
+  const { data: storeReview } = useGetStoreReviews({ storeId });
   const { data: storeItems, ref } = useGetStoreItems({ storeId, size: 5 });
 
   const reviewImage = {
@@ -28,13 +25,6 @@ const StoreDetail = ({ storeId }: StoreDetailPropsType) => {
     '게시된 설명이 자세하고 실제 상품과 동일해요':
       'https://picsum.photos/id/95/200/300.jpg',
   };
-
-  if (isStoreLoading || isReviewLoaading) {
-    return null;
-  }
-
-  assert(storeReview);
-  assert(store);
 
   const { closeTime, dayOff, name, openTime, telephone, image, addressName } =
     store;
