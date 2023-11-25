@@ -9,7 +9,6 @@ export type OrderListCardPropsType = {
 };
 
 const OrderListCard = ({ items }: OrderListCardPropsType) => {
-  console.log(items);
   return (
     <>
       {items.map(item => {

@@ -26,14 +26,15 @@ type ProductsType = {
   image: string;
 };
 
-const ProductList = ({ items }: { items: ProductListPropsType }) => {
-  const { orderProductsRes } = items;
-  const { orderProducts } = orderProductsRes;
-
+const ProductList = ({
+  items,
+}: {
+  items: ProductListPropsType | undefined;
+}) => {
   return (
-    <div className="mb-2 h-[35vh]">
+    <div className="mb-2 max-h-[35vh]">
       <div className="h-full w-full overflow-y-scroll">
-        {orderProducts.map(item => {
+        {items?.orderProductsRes.orderProducts.map(item => {
           return (
             <div
               className="mb-2 flex h-20 rounded bg-white p-4"

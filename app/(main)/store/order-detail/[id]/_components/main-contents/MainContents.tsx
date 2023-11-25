@@ -7,8 +7,10 @@ import { useCallback, useEffect, useState } from 'react';
 import PopUp from '@/app/_components/pop-up/PopUp';
 import { getOrder } from '@/app/_services/order/getOrder';
 import { PatchOrderPropsType, patchOrder } from '../../_services/patchOrder';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import Spinner from '@/app/_components/spinner/Spinner';
+import { useUserInfo } from '@/app/_providers/UserInfoProvider';
+import pageRoute from '@/app/_constants/path';
 
 type OrderResultPropsType = {
   storeName: string;
@@ -27,6 +29,9 @@ const MainContents = () => {
   const [onPopUpCompleted, setOnPopUpCompleted] = useState(false);
   const [data, setData] = useState();
   const [order, setOrder] = useState<OrderResultPropsType>();
+
+  const router = useRouter();
+  const { providerId } = useUserInfo();
 
   const orderId = useParams();
 
@@ -51,8 +56,13 @@ const MainContents = () => {
   }, [getData]);
 
   const updateOrder = async ({ orderId, status }: PatchOrderPropsType) => {
-    console.log(status);
     await patchOrder({ orderId, status });
+
+    router.push(
+      providerId
+        ? pageRoute.store.orderList(String(providerId))
+        : pageRoute.store.login()
+    );
   };
 
   return (
@@ -68,7 +78,7 @@ const MainContents = () => {
         </div>
       )}
       <div className="mt-2 flex gap-3">
-        {status === '주문 확인' && (
+        {order?.status === '주문 확인' && (
           <>
             <PrimaryButton onClick={() => setOnPopUpCancel(true)}>
               주문 취소하기
@@ -78,7 +88,7 @@ const MainContents = () => {
             </PrimaryButton>
           </>
         )}
-        {status === '주문 접수' && (
+        {order?.status === '주문 접수' && (
           <>
             <PrimaryButton onClick={() => setOnPopUpConfirmed(true)}>
               접수하기
@@ -88,12 +98,12 @@ const MainContents = () => {
             </PrimaryButton>
           </>
         )}
-        {status === '주문 완료' && (
+        {order?.status === '주문 완료' && (
           <div className="mt-3 flex w-full items-center justify-center text-blue">
             <div>주문 완료</div>
           </div>
         )}
-        {status === '주문 취소' && (
+        {order?.status === '주문 취소' && (
           <div className="mt-3 flex w-full items-center justify-center text-red">
             <div>주문 취소</div>
           </div>

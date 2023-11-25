@@ -49,7 +49,7 @@ const ItemList = ({ status }: ItemListPropsType) => {
 
   return (
     <>
-      <div className="mx-5 h-[72vh]  overflow-y-scroll">
+      <div className="h-[72vh]  overflow-y-scroll">
         <OrderListCard items={items} />
         <div
           className="col-span-1 flex items-center justify-center sm:col-span-2 md:col-span-3"

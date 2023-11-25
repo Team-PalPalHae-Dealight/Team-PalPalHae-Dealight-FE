@@ -9,6 +9,7 @@ export type PatchOrderPropsType = {
 };
 
 export const patchOrder = async ({ orderId, status }: PatchOrderPropsType) => {
+  console.log(orderId, status);
   return await axiosInstance
     .patch(`/orders/${orderId}`, {
       status,
@@ -23,8 +24,8 @@ export const patchOrder = async ({ orderId, status }: PatchOrderPropsType) => {
       const { providerId } = useUserInfo();
       router.push(
         providerId
-          ? pageRoute.customer.orderList(String(providerId))
-          : pageRoute.customer.login()
+          ? pageRoute.store.orderList(String(providerId))
+          : pageRoute.store.login()
       );
     });
 };
