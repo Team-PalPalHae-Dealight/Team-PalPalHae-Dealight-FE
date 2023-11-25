@@ -25,7 +25,6 @@ const MainContents = () => {
   const [data, setData] = useState();
   const [order, setOrder] = useState<OrderResultPropsType>();
   const orderId = useParams();
-  console.log(data);
 
   const getData = useCallback(async () => {
     const res = await getOrder(Number(orderId.id));
@@ -53,7 +52,7 @@ const MainContents = () => {
 
       <div className="flex flex-col items-center">
         <div className="w-full p-5">
-          <ProductList />
+          {data && <ProductList items={data} />}
           {order ? (
             <>
               <OrderResult data={order} />
