@@ -15,7 +15,7 @@ import { profileType } from '../../../../../../_types/member/profileType';
 import { patchMember } from '@/app/_services/member/patchMember';
 import { getMember } from '@/app/_services/member/getMember';
 import { useAuth } from '@/app/_providers/AuthProvider';
-import { useRouter } from 'next/navigation';
+import PopUp from '@/app/_components/pop-up/PopUp';
 
 type initialValuesType = {
   nickName: string;
@@ -39,10 +39,10 @@ const MyPageContents = () => {
   const [address, setAddress] = useState(profile.address.name);
   const [addressError, setAddressError] = useState(true);
   const [click, setClick] = useState(false);
+  const [open, setOpen] = useState(false);
 
   const coords = useCoordinate(address);
   const { logout } = useAuth();
-  const router = useRouter();
 
   const schema = object().shape({
     nickName: isValidNickName(),
@@ -173,12 +173,23 @@ const MyPageContents = () => {
         style={{ boxShadow: '0px 0px 4px 0px rgb(0, 0, 0, 0.1)' }}
         className="mb-5 h-12 w-full rounded-md bg-light-gray text-base text-red"
         onClick={() => {
-          logout();
-          router.push('/');
+          setOpen(true);
         }}
       >
         로그아웃
       </button>
+      {open && (
+        <PopUp
+          mainText="로그아웃하시겠습니까?"
+          leftBtnText="예"
+          leftBtnClick={() => {
+            setOpen(false);
+            logout();
+          }}
+          rightBtnText="아니요"
+          rightBtnClick={() => setOpen(false)}
+        />
+      )}
     </form>
   );
 };
