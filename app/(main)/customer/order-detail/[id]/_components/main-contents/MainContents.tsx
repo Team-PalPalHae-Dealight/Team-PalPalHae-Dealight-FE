@@ -32,6 +32,7 @@ const MainContents = () => {
     useName: '에프와 오프',
     comments: '빨리 갈께요!',
     status: '주문 접수',
+    isReview: true,
   };
 
   const getData = useCallback(async () => {
@@ -62,7 +63,11 @@ const MainContents = () => {
         <div className="w-full p-5">
           <ProductList />
           <OrderResult data={sampleData} />
-          <ReviewButton status={sampleData.status} orderId={Number(orderId)} />
+          <ReviewButton
+            status={sampleData.status}
+            isReview={sampleData.isReview}
+            orderId={Number(orderId)}
+          />
         </div>
       </div>
 

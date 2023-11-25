@@ -1,18 +1,19 @@
 import PrimaryButton from '@/app/_components/PrimaryButton/PrimaryButton';
 import pageRoute from '@/app/_constants/path';
 import { useUserInfo } from '@/app/_providers/UserInfoProvider';
-import Link from 'next/link';
 import { cancelOrder } from '../../_services/cancelOrder';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import PopUp from '@/app/_components/pop-up/PopUp';
+import ReviewWriteButton from './ReviewWriteButton';
 
 type ReviewButtonPropsType = {
   status: string;
+  isReview: boolean;
   orderId: number;
 };
 
-const ReviewButton = ({ status, orderId }: ReviewButtonPropsType) => {
+const ReviewButton = ({ status, isReview, orderId }: ReviewButtonPropsType) => {
   const { providerId } = useUserInfo();
   const router = useRouter();
   const [open, setOpen] = useState(false);
@@ -38,17 +39,7 @@ const ReviewButton = ({ status, orderId }: ReviewButtonPropsType) => {
           주문 취소
         </div>
       ) : status === '주문 완료' ? (
-        <Link
-          href={
-            providerId
-              ? pageRoute.customer.reviewWrite(String(providerId))
-              : pageRoute.customer.login()
-          }
-        >
-          <PrimaryButton className="mb-16" onClick={() => {}}>
-            리뷰 작성하기
-          </PrimaryButton>
-        </Link>
+        <ReviewWriteButton isReview={isReview} />
       ) : (
         <PrimaryButton className="mb-16" onClick={openPopup}>
           주문 취소하기
