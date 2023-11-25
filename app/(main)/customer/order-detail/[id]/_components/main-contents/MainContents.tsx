@@ -7,6 +7,8 @@ import CustomerFooter from '@/app/_components/Footer/CustomerFooter';
 import { useCallback, useEffect, useState } from 'react';
 import { getOrder } from '@/app/_services/order/getOrder';
 import ReviewButton from '../review-button/ReviewButton';
+import { useParams } from 'next/navigation';
+import Spinner from '@/app/_components/spinner/Spinner';
 
 type OrderResultPropsType = {
   storeName: string;
@@ -15,30 +17,19 @@ type OrderResultPropsType = {
   arriveTime: string;
   useName: string;
   comments: string;
+  status: string;
 };
 
 const MainContents = () => {
   const [data, setData] = useState();
   const [order, setOrder] = useState<OrderResultPropsType>();
-  console.log(data, order);
 
-  const orderId = window.location.href.split('/')[5];
-
-  const sampleData = {
-    storeName: '행복도너츠가게',
-    totalCount: '4',
-    totalPrice: '11000',
-    arriveTime: '17 : 32',
-    useName: '에프와 오프',
-    comments: '빨리 갈께요!',
-    status: '주문 접수',
-  };
+  const orderId = useParams();
+  console.log(data);
 
   const getData = useCallback(async () => {
-    const res = await getOrder(Number(orderId));
-    console.log(res);
+    const res = await getOrder(Number(orderId.id));
 
-    /** @todo sampleData 자리에 order로 초기화, status 자리에 data.status 초기화 */
     setData(res);
     setOrder({
       storeName: res.storeName,
@@ -47,6 +38,7 @@ const MainContents = () => {
       arriveTime: res.arrivalTime,
       useName: res.memberNickName,
       comments: res.demand,
+      status: res.status,
     });
   }, [orderId]);
 
@@ -61,8 +53,16 @@ const MainContents = () => {
       <div className="flex flex-col items-center">
         <div className="w-full p-5">
           <ProductList />
-          <OrderResult data={sampleData} />
-          <ReviewButton status={sampleData.status} orderId={Number(orderId)} />
+          {order ? (
+            <>
+              <OrderResult data={order} />
+              <ReviewButton status={order.status} orderId={Number(orderId)} />
+            </>
+          ) : (
+            <div className="flex h-48 items-center justify-center">
+              <Spinner />
+            </div>
+          )}
         </div>
       </div>
 

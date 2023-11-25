@@ -3,31 +3,61 @@
 import OrderResult from '@/app/_components/order-result/OrderResult';
 import ProductList from '../product-list/ProductList';
 import PrimaryButton from '@/app/_components/PrimaryButton/PrimaryButton';
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import PopUp from '@/app/_components/pop-up/PopUp';
+import { getOrder } from '@/app/_services/order/getOrder';
+import { useParams } from 'next/navigation';
+import Spinner from '@/app/_components/spinner/Spinner';
+
+type OrderResultPropsType = {
+  storeName: string;
+  totalCount: string;
+  totalPrice: string;
+  arriveTime: string;
+  useName: string;
+  comments: string;
+  status: string;
+};
 
 const MainContents = () => {
-  /**
-   * @todo
-   * api res값의 status값을 토대로 state값 변경 로직 추가해야 함
-   */
-  const [status] = useState('주문 취소');
+  const [status] = useState('주문 취소'); // 이 status는 res.status로 접근 가능합니다. 따로 state 관리해주실 필요없을 듯합니다.
+  const [order, setOrder] = useState<OrderResultPropsType>();
   const [onPopUpCancel, setOnPopUpCancel] = useState(false);
   const [onPopUpReceive, setOnPopUpReceive] = useState(false);
   const [onPopUpReject, setOnPopUpReject] = useState(false);
 
-  const data = {
-    storeName: '행복도너츠가게',
-    totalCount: '5',
-    totalPrice: '11000',
-    arriveTime: '17 : 32',
-    useName: '에프와 오프',
-    comments: '빨리 갈께요!!',
-  };
+  const orderId = useParams();
+
+  const getData = useCallback(async () => {
+    const res = await getOrder(Number(orderId.id)); // 필요한 data를 res에서 받아주기
+
+    setOrder({
+      storeName: res.storeName,
+      totalCount: res.orderProductsRes.orderProducts.length,
+      totalPrice: res.totalPrice,
+      arriveTime: res.arrivalTime,
+      useName: res.memberNickName,
+      comments: res.demand,
+      status: res.status,
+    });
+  }, [orderId]);
+
+  useEffect(() => {
+    getData();
+  }, [getData]);
+
   return (
     <div className="px-5">
       <ProductList />
-      <OrderResult data={data} />
+      {order ? (
+        <>
+          <OrderResult data={order} />
+        </>
+      ) : (
+        <div className="flex h-48 items-center justify-center">
+          <Spinner />
+        </div>
+      )}
       <div className="mt-2 flex gap-3">
         {status === '주문 접수' && (
           <PrimaryButton onClick={() => setOnPopUpCancel(true)}>
