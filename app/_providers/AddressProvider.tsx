@@ -35,5 +35,5 @@ export const useAddress = () => {
     throw new Error('주솟값 확인하세요!');
   }
 
-  return { address, setAddress: getAddress };
+  return { address, getAddress };
 };

@@ -6,6 +6,8 @@ const useCoordinate = (address: string) => {
     lat: 37.4981646510326,
     lng: 127.028307900881,
   });
+  //eslint-disable-next-line
+  const [temp, setTemp] = useState<any>();
 
   useEffect(() => {
     const kakaoMapScript = document.createElement('script');
@@ -16,6 +18,8 @@ const useCoordinate = (address: string) => {
     const onLoadKakaoAPI = () => {
       window.kakao.maps.load(() => {
         const geocoder = new window.kakao.maps.services.Geocoder();
+
+        setTemp(geocoder);
 
         geocoder.addressSearch(
           address === '' ? '서울 강남구 강남대로 지하 396' : address,
@@ -32,6 +36,18 @@ const useCoordinate = (address: string) => {
     };
     kakaoMapScript.addEventListener('load', onLoadKakaoAPI);
   }, [address]);
+
+  useEffect(() => {
+    if (!temp) return;
+    temp.addressSearch(
+      address,
+      (result: Document[], status: 'OK' | 'ZERO_RESULT' | 'ERROR') => {
+        if (status === window.kakao.maps.services.Status.OK) {
+          setCoords({ lat: Number(result[0].y), lng: Number(result[0].x) });
+        }
+      }
+    );
+  }, [address, temp]);
 
   return coords;
 };

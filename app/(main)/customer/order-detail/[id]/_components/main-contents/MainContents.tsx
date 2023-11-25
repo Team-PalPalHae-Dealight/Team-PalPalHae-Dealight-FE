@@ -7,6 +7,8 @@ import CustomerFooter from '@/app/_components/Footer/CustomerFooter';
 import { useCallback, useEffect, useState } from 'react';
 import { getOrder } from '@/app/_services/order/getOrder';
 import ReviewButton from '../review-button/ReviewButton';
+import { useParams } from 'next/navigation';
+import Spinner from '@/app/_components/spinner/Spinner';
 
 type OrderResultPropsType = {
   storeName: string;
@@ -15,30 +17,18 @@ type OrderResultPropsType = {
   arriveTime: string;
   useName: string;
   comments: string;
+  status: string;
 };
 
 const MainContents = () => {
   const [data, setData] = useState();
   const [order, setOrder] = useState<OrderResultPropsType>();
-  console.log(data, order);
 
-  const orderId = window.location.href.split('/')[5];
-
-  const sampleData = {
-    storeName: '행복도너츠가게',
-    totalCount: '4',
-    totalPrice: '11000',
-    arriveTime: '17 : 32',
-    useName: '에프와 오프',
-    comments: '빨리 갈께요!',
-    status: '주문 접수',
-  };
+  const orderId = useParams();
 
   const getData = useCallback(async () => {
-    const res = await getOrder(Number(orderId));
-    console.log(res);
+    const res = await getOrder(Number(orderId.id));
 
-    /** @todo sampleData 자리에 order로 초기화, status 자리에 data.status 초기화 */
     setData(res);
     setOrder({
       storeName: res.storeName,
@@ -47,6 +37,7 @@ const MainContents = () => {
       arriveTime: res.arrivalTime,
       useName: res.memberNickName,
       comments: res.demand,
+      status: res.status,
     });
   }, [orderId]);
 
@@ -54,77 +45,23 @@ const MainContents = () => {
     getData();
   }, [getData]);
 
-  /**
-   * @todo
-   * 주문 관련 api가 끝나고 res값을 productList로 보내줘야 함
-   */
-  const sampleRes = {
-    orderId: 1,
-    storeId: 1,
-    memberId: 1,
-    memberNickName: 'member nickName',
-    storeName: 'GS25',
-    demand: '도착할 때까지 상품 냉장고에 보관 부탁드려요',
-    arrivalTime: '12:30:00',
-    orderProductsRes: {
-      orderProducts: [
-        {
-          itemId: 1,
-          name: '달콤한 도넛',
-          quantity: 5,
-          discountPrice: 1000,
-          originalPrice: 1500,
-          image: '',
-        },
-        {
-          itemId: 2,
-          name: '그냥 그런 도넛',
-          quantity: 4,
-          discountPrice: 10,
-          originalPrice: 100,
-          image: '',
-        },
-        {
-          itemId: 3,
-          name: '크리스피 도넛',
-          quantity: 3,
-          discountPrice: 100,
-          originalPrice: 1500,
-          image: '',
-        },
-        {
-          itemId: 4,
-          name: '개노맛 도넛',
-          quantity: 2,
-          discountPrice: 10,
-          originalPrice: 150,
-          image: '',
-        },
-        {
-          itemId: 5,
-          name: '개비싼 도넛',
-          quantity: 1,
-          discountPrice: 10000,
-          originalPrice: 150000,
-          image: '',
-        },
-      ],
-    },
-    totalPrice: 10000,
-    createdAt: '2023-11-23T15:41:17.870880549',
-    status: '주문 확인',
-    reviewContains: false,
-  };
-
   return (
     <>
       <CustomerHeader />
 
       <div className="flex flex-col items-center">
         <div className="w-full p-5">
-          <ProductList items={sampleRes} />
-          <OrderResult data={sampleData} />
-          <ReviewButton status={sampleData.status} orderId={Number(orderId)} />
+          {data && <ProductList items={data} />}
+          {order ? (
+            <>
+              <OrderResult data={order} />
+              <ReviewButton status={order.status} orderId={Number(orderId)} />
+            </>
+          ) : (
+            <div className="flex h-48 items-center justify-center">
+              <Spinner />
+            </div>
+          )}
         </div>
       </div>
 

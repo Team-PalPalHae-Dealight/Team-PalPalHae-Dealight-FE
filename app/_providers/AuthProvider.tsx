@@ -22,7 +22,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     !!LocalStorage.getItem('dealight-accessToken') ||
       !!LocalStorage.getItem('dealight-refreshToken')
   );
-
+  3;
   const queryClient = useQueryClient();
 
   const login = async ({ accessToken, refreshToken }: TokensType) => {
