@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation';
 import { useUserInfo } from '@/app/_providers/UserInfoProvider';
 import { patchCart } from '../../_services/patchCart';
 import { deleteCart } from '../../_services/deleteCart';
+import CustomPopUp from '@/app/_components/pop-up/CustomPopUp';
 
 type ItemCardPropsType = {
   itemId: number;
@@ -29,6 +30,8 @@ const ItemCard = ({
 }: ItemCardPropsType) => {
   const [quantity, setQuantity] = useState(stock ? count : 0);
   const [open, setOpen] = useState(false);
+  const [customOpen, setCustomOpen] = useState(false);
+  const [message, setMessage] = useState('');
 
   const { providerId } = useUserInfo();
   const router = useRouter();
@@ -42,9 +45,13 @@ const ItemCard = ({
   };
 
   const changeQuantity = useCallback(async () => {
-    await patchCart({
+    const res = await patchCart({
       carts: [{ itemId: itemId, quantity: quantity }],
     });
+    if (res.status !== 200) {
+      setCustomOpen(true);
+      setMessage(res.message);
+    }
   }, [itemId, quantity]);
 
   const deleteCard = () => {
@@ -99,6 +106,13 @@ const ItemCard = ({
             await deleteCart(itemId);
             window.location.reload();
           }}
+        />
+      )}
+      {customOpen && (
+        <CustomPopUp
+          mainText={message}
+          btnText="확인"
+          btnClick={() => window.location.reload()}
         />
       )}
     </div>
