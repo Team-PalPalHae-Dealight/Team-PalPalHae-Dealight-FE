@@ -16,8 +16,11 @@ export const patchCart = ({ carts }: ReqType) => {
     .patch('/carts', {
       carts: carts,
     })
-    .then()
+    .then(function (response) {
+      return response;
+    })
     .catch(function (error) {
       console.log(error);
+      return error.response.data;
     });
 };
