@@ -4,7 +4,6 @@ import { useForm, FormProvider, SubmitHandler } from 'react-hook-form';
 import ImageUploader from '../image-uploader/ImageUploader';
 import ProfileInformation from '../profile-information/ProfileInformation';
 import PrimaryButton from '@/app/_components/PrimaryButton/PrimaryButton';
-import LogoutButton from '../logout-button/LogoutButton';
 import { useCallback, useEffect, useState } from 'react';
 import StoreInformation from '../store-information/StoreInformation';
 import { getProfile } from '../../_services/getProfile';
@@ -22,6 +21,7 @@ import ManageButton from '../manage-button/ManageButton';
 import { patchProfile } from '../../_services/patchProfile';
 import LocalStorage from '@/app/_utils/localstorage';
 import { patchMember } from '@/app/_services/member/patchMember';
+import LogoutButton from '@/app/_components/logout-button/LogoutButton';
 
 const MyPageForm = () => {
   const [profile, setProfile] = useState<profileType>({
@@ -141,17 +141,3 @@ const MyPageForm = () => {
 };
 
 export default MyPageForm;
-
-export const sampleData = {
-  addressName: '서울시 강남구',
-  closeTime: '23:00',
-  dayOff: ['연중 무휴', '월요일'],
-  image: '',
-  name: '딜라잇 마켓',
-  openTime: '09:00',
-  storeNumber: '0123456789',
-  storeStatus: '영업 중',
-  telephone: '0311234567',
-  userPhone: '01012345678',
-  userName: '오프와 에프',
-};

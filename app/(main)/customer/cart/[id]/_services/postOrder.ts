@@ -1,14 +1,10 @@
 import { axiosInstance } from '@/app/_services/apiClient';
+import { clearCart } from './clearCart';
 
 type ReqType = {
   req: {
     orderProductsReq: {
-      orderProducts: [
-        {
-          itemId: number;
-          quantity: number;
-        },
-      ];
+      orderProducts: { itemId: number; quantity: number }[] | undefined;
     };
     storeId: number;
     demand: string;
@@ -20,11 +16,13 @@ type ReqType = {
 export const postOrder = ({ req }: ReqType) => {
   return axiosInstance
     .post('/orders', req)
-    .then(function (response) {
+    .then(async function (response) {
       console.log(response);
-      //return response;
+      await clearCart();
+      return response;
     })
     .catch(function (error) {
       console.log(error);
+      return error.response;
     });
 };

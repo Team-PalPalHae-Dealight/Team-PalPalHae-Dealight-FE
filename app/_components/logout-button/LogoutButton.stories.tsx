@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import LogoutButton from './LogoutButton';
 
 const meta: Meta<typeof LogoutButton> = {
-  title: 'Buttons/LogoutButton',
+  title: 'Components/LogoutButton',
   component: LogoutButton,
   tags: ['autodocs'],
 };

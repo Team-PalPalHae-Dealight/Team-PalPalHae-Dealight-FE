@@ -5,5 +5,5 @@ export const ERROR_MESSAGE = {
   STORE_MIN: '최소 2글자 이상 입력해주세요.',
   STORE_ARRAY_MIN: '최소 1개 이상 선택해주세요.',
   PHONE_NUMBER: '-을 제외한 숫자 11자리를 입력해주세요.',
-  STORE_TIME: '올바른 영업 시간으로 다시 설정해주세요.',
+  STORE_TIME: '마감 시간은 개장 시간과 같을 수 없습니다.',
 };

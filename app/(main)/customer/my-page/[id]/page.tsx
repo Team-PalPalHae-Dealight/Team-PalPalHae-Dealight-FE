@@ -2,8 +2,7 @@ import CustomerHeader from '@/app/_components/Header/CustomerHeader';
 import MyPageContents from './_components/MyPageContents/MyPageContents';
 import CustomerFooter from '@/app/_components/Footer/CustomerFooter';
 
-export default function Page({ params }: { params: { slug: string } }) {
-  console.log(params);
+export default function Page() {
   return (
     <div className="flex flex-col items-center">
       <CustomerHeader />
