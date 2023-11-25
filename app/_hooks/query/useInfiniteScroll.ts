@@ -1,3 +1,5 @@
+'use client';
+
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { useEffect, useRef } from 'react';
 
