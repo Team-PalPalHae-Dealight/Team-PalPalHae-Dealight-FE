@@ -91,10 +91,10 @@ const MainContents = () => {
         {order?.status === '주문 접수' && (
           <>
             <PrimaryButton onClick={() => setOnPopUpConfirmed(true)}>
-              접수하기
+              주문 접수하기
             </PrimaryButton>
             <PrimaryButton onClick={() => setOnPopUpReject(true)}>
-              거절하기
+              주문 거절하기
             </PrimaryButton>
           </>
         )}
