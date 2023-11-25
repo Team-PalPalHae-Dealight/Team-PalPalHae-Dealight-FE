@@ -14,6 +14,7 @@ import CustomPopUp from '@/app/_components/pop-up/CustomPopUp';
 import { useRouter } from 'next/navigation';
 import pageRoute from '@/app/_constants/path';
 import { FormProvider, useForm } from 'react-hook-form';
+import { useUserInfo } from '@/app/_providers/UserInfoProvider';
 
 type DataType = {
   data: CartType[] | undefined;
@@ -32,6 +33,7 @@ const CartContent = ({ data }: DataType) => {
   const [message, setMessage] = useState('');
 
   const router = useRouter();
+  const { providerId } = useUserInfo();
   const methods = useForm<InputType>();
 
   const submitOrder = async () => {
@@ -55,19 +57,20 @@ const CartContent = ({ data }: DataType) => {
         totalPrice: sumTotalPrice({ data })[0],
       },
     });
-    if (res.status !== 200) {
-      setError(true);
-      setMessage(res.data.message);
-    } else {
+
+    if (res.status === 201 || res.status === 200) {
       setOpen(true);
       setOrderId(res.orderId);
+    } else {
+      setError(true);
+      setMessage(res.data.message);
     }
   };
 
   return (
     <div className="grid grid-cols-1 gap-y-5 pb-5">
       <ItemList data={data} />
-      {data ? (
+      {data?.length ? (
         <>
           <FormProvider {...methods}>
             <form>
@@ -80,7 +83,11 @@ const CartContent = ({ data }: DataType) => {
           </Notification>
           <PrimaryButton onClick={submitOrder}>주문하기</PrimaryButton>
         </>
-      ) : null}
+      ) : (
+        <div className="flex h-122 items-center justify-center text-xs text-dark-gray">
+          상품이 없습니다
+        </div>
+      )}
       {error && (
         <PopUp
           mainText={message}
@@ -104,7 +111,7 @@ const CartContent = ({ data }: DataType) => {
           btnClick={() => {
             orderId
               ? router.push(pageRoute.customer.orderDetail(String(orderId)))
-              : router.push('/');
+              : router.push(pageRoute.customer.orderList(String(providerId)));
           }}
         />
       )}
