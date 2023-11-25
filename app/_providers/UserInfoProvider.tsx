@@ -28,7 +28,6 @@ async function getUser(): Promise<DefaultContextType> {
   const data = await axiosInstance
     .get(`${process.env.NEXT_PUBLIC_API_URL}/members/profiles`)
     .then(res => res.data);
-  console.log('fetch', data);
   const { nickName, providerId, role, realName, phoneNumber, address } = data;
 
   let storeId = null;
@@ -38,7 +37,6 @@ async function getUser(): Promise<DefaultContextType> {
       .get(`${process.env.NEXT_PUBLIC_API_URL}/stores/confirm`)
       .then(res => res.data.storeId);
   }
-  console.log('api called');
   /**
    * @description role에 고객 or 업체가 들어온다. 이 값을 통해 라우팅 처리가 이루어지게 된다.
    */
@@ -83,6 +81,7 @@ export const UserInfoProvider = ({
     enabled:
       !!LocalStorage.getItem('dealight-accessToken') ||
       !!LocalStorage.getItem('dealight-refreshToken'),
+    staleTime: 0,
   });
 
   if (isError) {

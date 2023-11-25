@@ -22,8 +22,8 @@ const AddressProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   useEffect(() => {
-    // if (!state || !state.address || !state.address.name) return;
-    //if (state.role === null) return;
+    if (!state || !state.address || !state.address.name) return;
+    if (state.role === null) return;
     const updateAddress = async () => {
       try {
         const res = await axiosInstance.patch('/members/addresses', {
@@ -33,7 +33,6 @@ const AddressProvider = ({ children }: { children: React.ReactNode }) => {
         });
         console.log(res, 'activatead');
       } catch (error) {
-        console.log('state', state);
         console.error('에러', error);
       }
     };
