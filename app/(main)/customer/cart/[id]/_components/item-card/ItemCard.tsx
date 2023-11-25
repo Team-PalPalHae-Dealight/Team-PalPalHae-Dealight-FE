@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { useCallback, useEffect, useState } from 'react';
+import { useState } from 'react';
 import PLUS_IMAGE from '@/app/_assets/images/plus.png';
 import MINUS_IMAGE from '@/app/_assets/images/minus.png';
 import PopUp from '@/app/_components/pop-up/PopUp';
@@ -37,14 +37,20 @@ const ItemCard = ({
   const router = useRouter();
 
   const handlePlus = () => {
-    if (quantity < stock) setQuantity(prev => prev + 1);
+    if (quantity < stock) {
+      setQuantity(prev => prev + 1);
+      changeQuantity();
+    }
   };
 
   const handleMinus = () => {
-    if (quantity > 1) setQuantity(prev => prev - 1);
+    if (quantity > 1) {
+      setQuantity(prev => prev - 1);
+      changeQuantity();
+    }
   };
 
-  const changeQuantity = useCallback(async () => {
+  const changeQuantity = async () => {
     const res = await patchCart({
       carts: [{ itemId: itemId, quantity: quantity }],
     });
@@ -52,15 +58,11 @@ const ItemCard = ({
       setCustomOpen(true);
       setMessage(res.message);
     }
-  }, [itemId, quantity]);
+  };
 
   const deleteCard = () => {
     setOpen(true);
   };
-
-  useEffect(() => {
-    changeQuantity();
-  }, [changeQuantity]);
 
   return (
     <div className="flex h-22.5 w-full justify-between rounded bg-white p-4 shadow-md">

@@ -36,7 +36,7 @@ const MainContents = () => {
       {data ? (
         <CartContent data={data} />
       ) : (
-        <div className=" flex h-40 w-full items-center justify-center">
+        <div className=" flex h-80 w-full items-center justify-center">
           <Spinner />
         </div>
       )}
