@@ -23,7 +23,6 @@ type OrderResultPropsType = {
 const MainContents = () => {
   const [data, setData] = useState();
   const [order, setOrder] = useState<OrderResultPropsType>();
-
   const orderId = useParams();
   console.log(data);
 
