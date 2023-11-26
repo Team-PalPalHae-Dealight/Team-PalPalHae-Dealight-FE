@@ -2,20 +2,11 @@
 import SearchIcon from 'app/(main)/customer/search/_component/assets/search.svg';
 import { useState, ChangeEvent } from 'react';
 
-type ItemPropsType = {
-  id: number;
-  image: string;
-  distance: string;
-  storeName: string;
-  storeCloseTime: string;
-};
-
 type SearchBarPropTypes = {
-  getItems: (val: ItemPropsType[]) => void;
-  sortOption: string;
+  getItems: (val: string) => void;
 };
 
-const SearchBar = ({ getItems, sortOption }: SearchBarPropTypes) => {
+const SearchBar = ({ getItems }: SearchBarPropTypes) => {
   const [word, setWord] = useState<string>('');
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -28,40 +19,9 @@ const SearchBar = ({ getItems, sortOption }: SearchBarPropTypes) => {
         <button
           onClick={e => {
             e.preventDefault();
-            console.log(word), setWord('');
-            console.log(sortOption);
-            const searchResults: ItemPropsType[] = [
-              {
-                id: 1,
-                image: 'https://fake-image.com/item1.png',
-                distance: '100m',
-                storeName: '바보 떡볶이',
-                storeCloseTime: '10:20',
-              },
-              {
-                id: 2,
-                image: 'https://fake-image.com/item2.png',
-                distance: '100m',
-                storeName: '바보 떡볶이',
-                storeCloseTime: '10:20',
-              },
-              {
-                id: 3,
-                image: 'https://fake-image.com/item3.png',
-                distance: '100m',
-                storeName: '바보 떡볶이',
-                storeCloseTime: '10:20',
-              },
-              {
-                id: 4,
-                image: 'https://fake-image.com/item4.png',
-                distance: '100m',
-                storeName: '바보 떡볶이',
-                storeCloseTime: '10:20',
-              },
-            ];
-
-            getItems(searchResults);
+            console.log(word);
+            setWord('');
+            getItems(word);
           }}
         >
           <SearchIcon className="my-5 mr-4 h-5  w-5" />

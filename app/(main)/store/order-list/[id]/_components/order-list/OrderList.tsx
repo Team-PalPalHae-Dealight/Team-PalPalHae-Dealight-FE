@@ -28,7 +28,7 @@ const OrderList = () => {
     <>
       <Header />
 
-      <div className="sticky top-16 my-3 flex h-14 items-center justify-between bg-gray px-5">
+      <div className="my-3 flex items-center justify-between bg-gray px-5">
         <div className="flex items-center gap-1" onClick={onClickOrderList}>
           <label className="text-xl	font-semibold text-black">주문 내역</label>
           <Image src={notification} className="h-4 w-4" alt="notification" />

@@ -31,7 +31,7 @@ const ItemList = ({ status }: ItemListPropsType) => {
     if (newItems.length === 0) setIsEnded(true);
 
     setItems((prevItems: ResponseItemType[]) => [...prevItems, ...newItems]);
-    setPage(prevPage => prevPage + 5);
+    setPage(prevPage => prevPage + 1);
     setIsLoading(false);
   }, [page, status, storeId]);
 

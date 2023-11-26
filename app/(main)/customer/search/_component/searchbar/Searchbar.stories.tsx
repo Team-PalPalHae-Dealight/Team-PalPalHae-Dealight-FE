@@ -11,7 +11,5 @@ export default meta;
 type Story = StoryObj<typeof Searchbar>;
 
 export const Primary: Story = {
-  render: () => (
-    <Searchbar getItems={() => console.log('hi')} sortOption="거리순" />
-  ),
+  render: () => <Searchbar getItems={() => {}} />,
 };

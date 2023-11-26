@@ -18,13 +18,18 @@ const HomeButton = ({ status }: HomeButtonPropsType) => {
   const { providerId } = useUserInfo();
   const router = useRouter();
 
-  const [popUp, setPopUp] = useState(false);
+  const [onPopUp, setOnPopUp] = useState(false);
 
   return (
     <div className="mt-2.5 flex w-full gap-2">
       <Link
         className="relative w-full rounded-lg bg-white p-3 shadow"
-        href={pageRoute.store.orderList(String(providerId))}
+        href={
+          status === '영업 중'
+            ? pageRoute.store.orderList(String(providerId))
+            : ''
+        }
+        onClick={() => status === '영업 준비 중' && setOnPopUp(true)}
       >
         <b className="text-xl font-semibold">주문내역</b>
         <p className=" mb-7 mt-2.5 text-xs">
@@ -45,7 +50,7 @@ const HomeButton = ({ status }: HomeButtonPropsType) => {
         onClick={() => {
           status === '영업 중'
             ? router.push(pageRoute.store.itemRegister())
-            : setPopUp(true);
+            : setOnPopUp(true);
         }}
       >
         <b className="text-xl font-semibold">상품 등록</b>
@@ -60,11 +65,12 @@ const HomeButton = ({ status }: HomeButtonPropsType) => {
         />
       </button>
 
-      {popUp && (
+      {onPopUp && (
         <CustomPopUp
-          btnClick={() => setPopUp(false)}
-          btnText="확인"
-          mainText="영업 상태를 확인해주세요."
+          mainText="영업을 시작 해주세요."
+          subText="주문 내역을 확인하거나 상품을 등록하려면 영업을 시작하셔야 합니다."
+          btnText="영업 시작하러 가기"
+          btnClick={() => setOnPopUp(false)}
         />
       )}
     </div>

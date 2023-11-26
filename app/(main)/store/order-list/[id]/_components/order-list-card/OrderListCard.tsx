@@ -19,8 +19,9 @@ const OrderListCard = ({ items }: OrderListCardPropsType) => {
               className=" mb-3 rounded-md bg-white p-2"
               style={{ boxShadow: '0px 0px 4px 0px rgb(0, 0, 0, 0.1)' }}
             >
-              <div className="flex text-xs text-dark-gray">
+              <div className="flex gap-1 text-xs text-dark-gray">
                 <div>{item.createdAt.split(' ')[0]}</div>
+                <div>{item.createdAt.split(' ')[1]}</div>
               </div>
               <div className="flex items-center gap-1 text-black">
                 {item.orderProductsRes.orderProducts.length > 1 ? (
