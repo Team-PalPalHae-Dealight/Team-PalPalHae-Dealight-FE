@@ -4,6 +4,7 @@ import { ReactNode, createContext, useContext, useState } from 'react';
 import LocalStorage from '../_utils/localstorage';
 import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
+import { userInitialData } from './UserInfoProvider';
 
 type TokensType = {
   accessToken: string;
@@ -41,10 +42,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setIsLoggedIn(false);
     router.push('/');
 
-    queryClient.setQueryData(['user-info'], () => ({
-      nickName: null,
-      role: null,
-    }));
+    queryClient.setQueryData(['user-info'], () => userInitialData);
   };
 
   return (

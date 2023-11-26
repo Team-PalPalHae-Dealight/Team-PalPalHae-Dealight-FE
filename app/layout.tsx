@@ -1,11 +1,9 @@
-/* eslint-disable @next/next/no-before-interactive-script-outside-document */
 import type { Metadata } from 'next';
 import './globals.css';
 import pretendardRegular from './_constants/font';
 import QueryProvider from './_providers/QueryProvider';
 import { AuthProvider } from './_providers/AuthProvider';
 import { UserInfoProvider } from './_providers/UserInfoProvider';
-import { AddressProvider } from './_providers/AddressProvider';
 
 declare global {
   interface Window {
@@ -30,15 +28,13 @@ export default function RootLayout({
       <QueryProvider>
         <AuthProvider>
           <UserInfoProvider>
-            <AddressProvider>
-              <body
-                className={`${pretendardRegular.className} mx-auto min-h-screen w-full max-w-[480px] text-black`}
-              >
-                <main className="min-h-screen w-full bg-gray pb-20">
-                  {children}
-                </main>
-              </body>
-            </AddressProvider>
+            <body
+              className={`${pretendardRegular.className} mx-auto min-h-screen w-full max-w-[480px] text-black`}
+            >
+              <main className="min-h-screen w-full bg-gray pb-20">
+                {children}
+              </main>
+            </body>
           </UserInfoProvider>
         </AuthProvider>
       </QueryProvider>

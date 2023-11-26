@@ -19,7 +19,7 @@ async function memberSignup() {
 
 export default function AuthTest() {
   const { login, logout } = useAuth();
-  const { nickName, role } = useUserInfo();
+  const userInfo = useUserInfo();
 
   const onClickStoreSignup = () => {
     storeSignup().then(res => {
@@ -33,7 +33,7 @@ export default function AuthTest() {
     });
   };
 
-  console.log(nickName, role);
+  console.log(userInfo);
 
   return (
     <div className="flex flex-col gap-4 text-center">
