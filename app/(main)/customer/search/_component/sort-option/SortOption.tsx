@@ -4,7 +4,7 @@ type SortPropsType = {
   getsortOption: (val: string) => void;
 };
 
-const Sort = ({ getsortOption }: SortPropsType) => {
+const Sortoption = ({ getsortOption }: SortPropsType) => {
   return (
     <div className="my-3 flex w-full flex-row items-center justify-between">
       <div className="text-xl font-semibold">검색 결과</div>
@@ -13,4 +13,4 @@ const Sort = ({ getsortOption }: SortPropsType) => {
   );
 };
 
-export default Sort;
+export default Sortoption;
