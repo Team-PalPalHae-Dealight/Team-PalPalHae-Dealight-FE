@@ -2,10 +2,10 @@
 
 import { useForm, FormProvider, SubmitHandler } from 'react-hook-form';
 import ImageUploader from '../image-uploader/ImageUploader';
-import ProfileInformation from '../profile-information/ProfileInformation';
+//import ProfileInformation from '../profile-information/ProfileInformation';
 import PrimaryButton from '@/app/_components/PrimaryButton/PrimaryButton';
 import { useCallback, useEffect, useState } from 'react';
-import StoreInformation from '../store-information/StoreInformation';
+//import StoreInformation from '../store-information/StoreInformation';
 import { getProfile } from '../../_services/getProfile';
 import { useUserInfo } from '@/app/_providers/UserInfoProvider';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -22,21 +22,10 @@ import { patchProfile } from '../../_services/patchProfile';
 import LocalStorage from '@/app/_utils/localstorage';
 import { patchMember } from '@/app/_services/member/patchMember';
 import LogoutButton from '@/app/_components/logout-button/LogoutButton';
+import Spinner from '@/app/_components/spinner/Spinner';
 
 const MyPageForm = () => {
-  const [profile, setProfile] = useState<profileType>({
-    addressName: '',
-    closeTime: '',
-    dayOff: [],
-    image: '',
-    name: '',
-    openTime: '',
-    storeNumber: '',
-    storeStatus: '',
-    telephone: '',
-    userPhone: '',
-    userName: '',
-  });
+  const [profile, setProfile] = useState<profileType>();
 
   const schema = object().shape({
     addressName: isValidRequire(),
@@ -78,12 +67,11 @@ const MyPageForm = () => {
     };
 
     setProfile(data);
-    LocalStorage.setItem('dealight-address', profile.addressName);
+    LocalStorage.setItem('dealight-address', profile?.addressName);
   }, [profile, storeId]);
 
   const changeProfile = async () => {
-    const { userPhone, telephone, openTime, closeTime, dayOff } =
-      methods.watch();
+    const { userPhone, telephone, dayOff } = methods.watch();
     const addressName = LocalStorage.getItem('dealight-address');
     const coords = LocalStorage.getItem('dealight-coords');
 
@@ -91,8 +79,8 @@ const MyPageForm = () => {
 
     await patchMember({
       req: {
-        nickName: profile.userName,
-        phoneNumber: userPhone ?? profile.userPhone,
+        nickName: profile?.userName ?? '',
+        phoneNumber: userPhone ?? profile?.userPhone,
         address: address ?? {
           name: addressName,
           xCoordinate: coords.lat,
@@ -104,12 +92,12 @@ const MyPageForm = () => {
     await patchProfile({
       req: {
         storeId: storeId ?? 1,
-        telephone: telephone ?? profile.telephone,
-        addressName: addressName ?? profile.addressName,
+        telephone: telephone ?? profile?.telephone,
+        addressName: addressName ?? profile?.addressName,
         xCoordinate: coords.lat,
         yCoordinate: coords.lng,
-        openTime: openTime === closeTime ? profile.openTime : openTime,
-        closeTime: openTime === closeTime ? profile.closeTime : closeTime,
+        openTime: '03:00:00', //openTime === closeTime ? profile?.openTime : openTime,
+        closeTime: '06:00:00', //openTime === closeTime ? profile?.closeTime : closeTime,
         dayOff: !dayOff ? ['연중 무휴'] : dayOff,
       },
     });
@@ -122,13 +110,21 @@ const MyPageForm = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [storeId]);
 
+  console.log('profile = ', profile);
+
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)}>
         <div className="flex w-full flex-col px-5 pt-5">
-          <ImageUploader />
-          <ProfileInformation data={profile} />
-          <StoreInformation data={profile} />
+          {profile ? (
+            <>
+              <ImageUploader storeImage={profile.image} />
+            </>
+          ) : (
+            <div className="flex h-80 w-full items-center justify-center">
+              <Spinner />
+            </div>
+          )}
           <PrimaryButton className="mb-5" type="submit" onClick={changeProfile}>
             정보 수정하기
           </PrimaryButton>

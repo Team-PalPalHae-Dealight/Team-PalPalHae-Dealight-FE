@@ -11,5 +11,5 @@ export default meta;
 type Story = StoryObj<typeof ImageUploader>;
 
 export const Primary: Story = {
-  render: () => <ImageUploader />,
+  render: () => <ImageUploader storeImage="https://picsum.photos/200/200" />,
 };

@@ -1,7 +1,7 @@
 import { axiosInstance } from '@/app/_services/apiClient';
 
 type ReqType = {
-  req: { storeId: number; formData: File };
+  req: { storeId: number | null; formData: File };
 };
 
 export const patchImage = ({ req }: ReqType) => {
