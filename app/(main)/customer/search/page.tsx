@@ -1,72 +1,56 @@
 'use client';
 import { useState } from 'react';
 import SearchBar from './_component/searchbar/Searchbar';
-import Sort from './_component/sort/Sort';
+import Sortoption from './_component/sort-option/SortOption';
 import ItemCard from './_component/Itemcard/Itemcard';
 import CustomerHeader from '@/app/_components/Header/CustomerHeader';
 import CustomerFooter from '@/app/_components/Footer/CustomerFooter';
+import { useAddress } from '@/app/_providers/AddressProvider';
+import useCoordinate from '@/app/_hooks/useCoordinate';
+import { axiosInstance } from '@/app/_services/apiClient';
+import { v4 as uuidv4 } from 'uuid';
 
 type ItemPropsTypes = {
-  id: number;
+  storeId: number;
   image: string;
-  distance: string;
-  storeName: string;
-  storeCloseTime: string;
+  name: string;
+  closeTime: string;
 };
 
 export default function Page() {
-  const [sortOption, setSortOption] = useState('distance');
-  const [items, setItems] = useState<ItemPropsTypes[]>([
-    {
-      id: 1,
-      image: 'app/_assets/images/donut.png',
-      distance: '100m',
-      storeName: '바보 떡볶이',
-      storeCloseTime: '10:20',
-    },
-    {
-      id: 1,
-      image: 'app/_assets/images/donut.png',
-      distance: '100m',
-      storeName: '바보 떡볶이',
-      storeCloseTime: '10:20',
-    },
-    {
-      id: 1,
-      image: 'app/_assets/images/donut.png',
-      distance: '100m',
-      storeName: '바보 떡볶이',
-      storeCloseTime: '10:20',
-    },
-    {
-      id: 1,
-      image: 'app/_assets/images/donut.png',
-      distance: '100m',
-      storeName: '바보 떡볶이',
-      storeCloseTime: '10:20',
-    },
-  ]);
-
-  const getItems = (val: ItemPropsTypes[]) => {
-    setItems(val);
-  };
-
-  const getsortOption = (val: string) => {
-    setSortOption(val);
-  };
+  const [sortBy, setSortBy] = useState('distance');
+  const [items, setItems] = useState<ItemPropsTypes[]>([]);
+  const [page, setPage] = useState(0);
+  const { address } = useAddress();
+  const { lat, lng } = useCoordinate(address);
   return (
     <>
       <CustomerHeader />
       <div className="flex flex-col items-center px-5">
-        <SearchBar getItems={getItems} sortOption={sortOption} />
-        <Sort getsortOption={getsortOption} />
+        <SearchBar
+          getItems={async (keyword: string) => {
+            const url = `/stores/search?x-coordinate=${lng}&y-coordinate=${lat}&keyword=${keyword}&sortBy=${sortBy}&size=5&page=${page}`;
+            const { data: storeInfoSliceRes } = await axiosInstance.get(url);
+            setItems(storeInfoSliceRes.storeInfoSliceRes);
+            setPage(page + 1);
+          }}
+        />
+        <Sortoption
+          getsortOption={(sortoption: string) => {
+            if (sortoption === '마감 시간순') {
+              setSortBy('deadline');
+            } else if (sortoption === '거리순') {
+              setSortBy('distance');
+            }
+          }}
+        />
         {items.map(item => (
           <ItemCard
-            key={item.id}
+            key={uuidv4()}
             image={item.image}
-            distance={item.distance}
-            storeName={item.storeName}
-            storeCloseTime={item.storeCloseTime}
+            name={item.name}
+            closeTime={item.closeTime}
+            storeId={item.storeId}
           />
         ))}
       </div>

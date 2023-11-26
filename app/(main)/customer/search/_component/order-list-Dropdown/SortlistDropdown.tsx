@@ -4,7 +4,7 @@ import polygon from '@/app/_assets/images/polygon.png';
 import reversePolygon from '@/app/_assets/images/reversePolygon.png';
 import { twMerge } from 'tailwind-merge';
 
-type DropDownTextType = '거리순' | '마감 시간순' | ' 리뷰 개수 순';
+type DropDownTextType = '거리순' | '마감 시간순';
 
 type SortPropTypes = {
   getsortOption: (val: string) => void;
@@ -55,12 +55,6 @@ const OrderListDropDown = ({ getsortOption }: SortPropTypes) => {
               className="cursor-pointer px-2 py-1 "
             >
               마감 시간순
-            </li>
-            <li
-              onClick={() => onClickOption(' 리뷰 개수 순')}
-              className="cursor-pointer px-2 py-1 "
-            >
-              리뷰 개수 순
             </li>
           </ul>
         </div>
