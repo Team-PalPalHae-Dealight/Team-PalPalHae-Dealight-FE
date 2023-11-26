@@ -1,7 +1,7 @@
 import { twMerge } from 'tailwind-merge';
 
 type PrimaryButtonPropsType = {
-  onClick: () => void;
+  onClick?: () => void;
 } & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
 const PrimaryButton = ({
@@ -11,7 +11,7 @@ const PrimaryButton = ({
   ...props
 }: PrimaryButtonPropsType) => {
   const primaryButtonDefaultStyles =
-    'h-12 w-full rounded-md bg-yellow text-base text-black';
+    'h-12 w-full rounded-md bg-yellow text-base';
 
   const classNames = twMerge(primaryButtonDefaultStyles, className);
 

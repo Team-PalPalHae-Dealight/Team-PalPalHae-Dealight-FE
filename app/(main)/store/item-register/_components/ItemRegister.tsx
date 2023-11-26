@@ -1,6 +1,5 @@
 'use client';
 
-import PrimaryButton from '@/app/_components/PrimaryButton/PrimaryButton';
 import ImageUpload from '@/app/_assets/images/image-upload.png';
 import Notification from '@/app/_assets/images/notification.png';
 import Image, { StaticImageData } from 'next/image';
@@ -8,28 +7,63 @@ import { useCreateItem } from '@/app/_hooks/query/item';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import pageRoute from '@/app/_constants/path';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import PrimaryButton from '@/app/_components/PrimaryButton/PrimaryButton';
+
+type ItemRegisterInputs = {
+  image: File;
+  itemName: string;
+  stock: number;
+  discountPrice: number;
+  originalPrice: number;
+  description: string;
+  previewImage: StaticImageData | string;
+};
 
 const ItemRegister = () => {
   const { mutate: createItem } = useCreateItem();
 
   const router = useRouter();
 
-  const [file, setFile] = useState<File>();
-  const [itemName, setItemName] = useState('');
-  const [stock, setStock] = useState<number>(0);
-  const [discountPrice, setDiscountPrice] = useState<number>(0);
-  const [originalPrice, setOriginalPrice] = useState<number>(0);
-  const [description, setDescription] = useState('');
+  const { register, handleSubmit, setValue } = useForm<ItemRegisterInputs>();
+
   const [previewImage, setPreviewImage] = useState<StaticImageData | string>(
     ImageUpload
   );
 
+  const onChangeImagePreview = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files || e.target.files.length === 0) return;
+
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    setValue('image', file);
+
+    reader.readAsDataURL(file);
+    reader.onload = e => {
+      if (!reader.result || !e.target) return;
+      if (typeof e.target.result !== 'string') return;
+
+      setPreviewImage(reader.result as string);
+    };
+  };
+
+  const onSubmit: SubmitHandler<ItemRegisterInputs> = registerItem => {
+    createItem(
+      { item: registerItem },
+      {
+        onSuccess: data => {
+          router.push(pageRoute.store.itemDetail(String(data.itemId)));
+        },
+      }
+    );
+  };
+
   return (
-    <div className="flex flex-col">
+    <form className="flex flex-col" onSubmit={handleSubmit(onSubmit)}>
       <h2 className="mb-3 text-lg font-bold">상품 등록</h2>
 
       <div className="mb-5 flex gap-4">
-        <div className="flex flex-col items-center justify-around gap-1.5">
+        <div className="flex flex-shrink-0 flex-col items-center justify-around gap-1.5">
           <div className="relative h-20 w-20">
             <Image
               src={previewImage}
@@ -38,50 +72,34 @@ const ItemRegister = () => {
               alt="미리보기 이미지"
             />
           </div>
-
-          <PrimaryButton
-            onClick={() => {}}
-            className="h-7 px-4 text-sm font-bold"
+          <label
+            htmlFor="imagePreview"
+            className="flex h-7  cursor-pointer items-center justify-center rounded-md bg-yellow px-4 text-sm font-bold"
           >
             이미지 불러오기
-          </PrimaryButton>
+          </label>
 
           <input
-            className="w-32"
+            id="imagePreview"
+            {...register('image')}
+            className="hidden"
             type="file"
             accept="image/*"
-            onChange={e => {
-              if (!e.target.files || e.target.files.length === 0) return;
-
-              const file = e.target.files[0];
-
-              setFile(file);
-              const reader = new FileReader();
-
-              reader.readAsDataURL(file);
-              reader.onload = e => {
-                if (!reader.result || !e.target) return;
-                if (typeof e.target.result !== 'string') return;
-
-                setPreviewImage(reader.result as string);
-              };
-            }}
+            onChange={onChangeImagePreview}
           />
         </div>
 
-        <div className="flex w-full flex-col gap-3">
+        <div className="mr-auto flex w-full flex-col gap-3">
           <input
-            className="rounded py-3.5 pl-3"
+            {...register('itemName')}
+            className="rounded border border-transparent py-3.5 pl-3 focus:border-yellow"
             placeholder="상품명"
-            value={itemName}
-            onChange={e => setItemName(e.currentTarget.value)}
           />
 
           <input
-            className="rounded py-3.5 pl-3"
-            placeholder="0"
-            value={stock}
-            onChange={e => setStock(Number(e.currentTarget.value))}
+            {...register('stock')}
+            className="rounded border border-transparent py-3.5 pl-3 focus:border-yellow"
+            placeholder="재고"
           />
         </div>
       </div>
@@ -107,71 +125,46 @@ const ItemRegister = () => {
             <label htmlFor="originalPrice" className="text-xs font-semibold">
               판매 가격
             </label>
+
             <input
               type="text"
               id="originalPrice"
+              {...register('originalPrice')}
               placeholder="0"
-              className="rounded py-3.5 pl-3"
-              value={originalPrice}
-              onChange={e => setOriginalPrice(Number(e.currentTarget.value))}
+              className="rounded border border-transparent py-3.5 pl-3 focus:border-yellow"
             />
           </div>
 
           <div className="flex flex-col">
-            <label htmlFor="originalPrice" className="text-xs font-semibold">
+            <label htmlFor="discountPrice" className="text-xs font-semibold">
               할인 가격
             </label>
             <input
               type="text"
-              id="originalPrice"
+              id="discountPrice"
+              {...register('discountPrice')}
               placeholder="0"
-              className="rounded py-3.5 pl-3"
-              value={discountPrice}
-              onChange={e => setDiscountPrice(Number(e.currentTarget.value))}
+              className="rounded border border-transparent py-3.5 pl-3 focus:border-yellow"
             />
           </div>
 
           <div className="flex flex-col">
-            <label htmlFor="originalPrice" className="text-xs font-semibold">
+            <label htmlFor="description" className="text-xs font-semibold">
               상품 설명
             </label>
             <input
               type="text"
-              id="originalPrice"
+              id="description"
+              {...register('description', { required: false })}
               placeholder="(선택 사항) 추가적인 상품 설명을 작성해주세요."
-              className="rounded py-9 pl-3"
-              value={description}
-              onChange={e => setDescription(e.currentTarget.value)}
+              className="rounded border border-transparent py-9 pl-3 focus:border-yellow"
             />
           </div>
         </div>
 
-        <PrimaryButton
-          onClick={() => {
-            createItem(
-              {
-                item: {
-                  itemName,
-                  stock,
-                  discountPrice,
-                  originalPrice,
-                  description,
-                  image: file!,
-                },
-              },
-              {
-                onSuccess: data => {
-                  const { itemId } = data;
-                  router.push(pageRoute.store.itemDetail(String(itemId)));
-                },
-              }
-            );
-          }}
-        >
-          등록하기
-        </PrimaryButton>
+        <PrimaryButton type="submit">등록하기</PrimaryButton>
       </div>
-    </div>
+    </form>
   );
 };
 

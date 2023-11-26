@@ -70,7 +70,7 @@ export const getMyStoreItems = async ({
 export const createItem = async ({
   item,
 }: {
-  item: ItmePropsType;
+  item: Omit<ItmePropsType, 'image'> & { image: File };
 }): Promise<ItemType> => {
   const { image, ...itemReq } = item;
 
@@ -81,7 +81,10 @@ export const createItem = async ({
     new Blob([JSON.stringify(itemReq)], { type: 'application/json' })
   );
 
-  formData.append('image', image ?? new Blob([], { type: 'image/jpeg' }));
+  formData.append(
+    'image',
+    image.size === undefined ? new Blob([], { type: 'image/jpeg' }) : image
+  );
 
   const response = await axiosInstance.post(`/items`, formData, {
     headers: { 'Content-Type': 'multipart/form-data' },

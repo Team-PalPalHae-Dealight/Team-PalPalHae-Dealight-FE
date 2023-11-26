@@ -6,6 +6,9 @@ import OrderList from '@/app/_assets/images/order-list.png';
 import ProductRegistration from '@/app/_assets/images/product-registration.png';
 import pageRoute from '@/app/_constants/path';
 import { useUserInfo } from '@/app/_providers/UserInfoProvider';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import CustomPopUp from '@/app/_components/pop-up/CustomPopUp';
 
 type HomeButtonPropsType = {
   status: '영업 중' | '영업 준비 중';
@@ -13,6 +16,9 @@ type HomeButtonPropsType = {
 
 const HomeButton = ({ status }: HomeButtonPropsType) => {
   const { providerId } = useUserInfo();
+  const router = useRouter();
+
+  const [popUp, setPopUp] = useState(false);
 
   return (
     <div className="mt-2.5 flex w-full gap-2">
@@ -32,12 +38,18 @@ const HomeButton = ({ status }: HomeButtonPropsType) => {
         />
       </Link>
 
-      <Link
-        className={'relative w-full rounded-lg bg-white p-3 shadow'}
-        href={status === '영업 중' ? pageRoute.store.itemRegister() : ''}
+      <button
+        className={
+          'relative flex w-full flex-col rounded-lg bg-white p-3 shadow'
+        }
+        onClick={() => {
+          status === '영업 중'
+            ? router.push(pageRoute.store.itemRegister())
+            : setPopUp(true);
+        }}
       >
         <b className="text-xl font-semibold">상품 등록</b>
-        <p className="mb-7 mt-2.5 text-xs">
+        <p className="mb-7 mt-2.5 text-start text-xs">
           원하는 <br /> 상품 등록하기
         </p>
         <Image
@@ -46,7 +58,15 @@ const HomeButton = ({ status }: HomeButtonPropsType) => {
           alt="product-registration"
           className="absolute bottom-2 right-2"
         />
-      </Link>
+      </button>
+
+      {popUp && (
+        <CustomPopUp
+          btnClick={() => setPopUp(false)}
+          btnText="확인"
+          mainText="영업 상태를 확인해주세요."
+        />
+      )}
     </div>
   );
 };
