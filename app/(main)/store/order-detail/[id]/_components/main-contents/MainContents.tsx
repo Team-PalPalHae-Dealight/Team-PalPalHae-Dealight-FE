@@ -22,6 +22,15 @@ type OrderResultPropsType = {
   status: string;
 };
 
+type OrderItem = {
+  itemId: number;
+  name: string;
+  quantity: number;
+  discountPrice: number;
+  originalPrice: number;
+  image: string;
+};
+
 const MainContents = () => {
   const [onPopUpCancel, setOnPopUpCancel] = useState(false);
   const [onPopUpConfirmed, setOnPopUpConfirmed] = useState(false);
@@ -40,9 +49,15 @@ const MainContents = () => {
 
     setData(res);
 
+    let totalItemCount = 0;
+    res.orderProductsRes.orderProducts.forEach((value: OrderItem) => {
+      const { quantity } = value;
+      totalItemCount += quantity;
+    });
+
     setOrder({
       storeName: res.storeName,
-      totalCount: res.orderProductsRes.orderProducts.length,
+      totalCount: String(totalItemCount),
       totalPrice: res.totalPrice,
       arriveTime: res.arrivalTime,
       useName: res.memberNickName,

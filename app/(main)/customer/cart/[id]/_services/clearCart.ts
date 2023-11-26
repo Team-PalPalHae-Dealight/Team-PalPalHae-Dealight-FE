@@ -3,6 +3,11 @@ import { axiosInstance } from '@/app/_services/apiClient';
 export const clearCart = () => {
   return axiosInstance
     .delete('/carts')
-    .then(() => window.location.reload())
-    .catch(error => console.log(error));
+    .then(function (response) {
+      return response;
+    })
+    .catch(function (error) {
+      console.log(error);
+      return error.response;
+    });
 };

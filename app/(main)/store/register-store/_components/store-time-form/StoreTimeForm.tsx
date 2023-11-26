@@ -18,6 +18,8 @@ import getReq from '../../_utils/getReq';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import CustomPopUp from '@/app/_components/pop-up/CustomPopUp';
+import { useAuth } from '@/app/_providers/AuthProvider';
+import pageRoute from '@/app/_constants/path';
 
 type initialValuesType = {
   storeOpenTime: string;
@@ -29,6 +31,14 @@ const StoreTimeForm = () => {
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState('');
+  const [url, setUrl] = useState('/');
+
+  const token = {
+    accessToken: LocalStorage.getItem('dealight-accessToken'),
+    refreshToken: LocalStorage.getItem('dealight-refreshToken'),
+  };
+
+  const { login } = useAuth();
 
   const schema = object().shape({
     storeOpenTime: isValidStoreOpenTime(),
@@ -53,8 +63,10 @@ const StoreTimeForm = () => {
     const res = await postStore({ req: req });
     if (res.status === 200) {
       setMessage('업체가 등록되었습니다.');
+      setUrl(pageRoute.store.home());
     } else {
       setMessage('오류가 발생했습니다.');
+      setUrl('/');
     }
     setOpen(true);
   };
@@ -267,7 +279,8 @@ const StoreTimeForm = () => {
           btnText="확인"
           btnClick={() => {
             setOpen(false);
-            router.push('/');
+            login(token);
+            router.push(url);
           }}
         />
       )}

@@ -11,5 +11,9 @@ export const sumTotalPrice = (props: { data: CartType[] | undefined }) => {
     count += item.quantity;
   });
 
-  return [sum, count];
+  const total = {
+    totalPrice: sum,
+    totalCount: count,
+  };
+  return total;
 };
