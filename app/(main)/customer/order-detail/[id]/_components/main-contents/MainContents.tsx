@@ -21,6 +21,15 @@ type OrderResultPropsType = {
   isReview: boolean;
 };
 
+type OrderItem = {
+  itemId: number;
+  name: string;
+  quantity: number;
+  discountPrice: number;
+  originalPrice: number;
+  image: string;
+};
+
 const MainContents = () => {
   const [data, setData] = useState();
   const [order, setOrder] = useState<OrderResultPropsType>();
@@ -30,9 +39,16 @@ const MainContents = () => {
     const res = await getOrder(Number(orderId.id));
 
     setData(res);
+
+    let totalItemCount = 0;
+    res.orderProductsRes.orderProducts.forEach((value: OrderItem) => {
+      const { quantity } = value;
+      totalItemCount += quantity;
+    });
+
     setOrder({
       storeName: res.storeName,
-      totalCount: res.orderProductsRes.orderProducts.length,
+      totalCount: String(totalItemCount),
       totalPrice: res.totalPrice,
       arriveTime: res.arrivalTime,
       useName: res.memberNickName,

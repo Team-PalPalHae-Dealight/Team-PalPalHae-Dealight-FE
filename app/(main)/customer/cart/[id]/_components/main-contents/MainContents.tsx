@@ -34,7 +34,7 @@ const MainContents = () => {
         <ResetButton />
       </div>
       {data ? (
-        <CartContent data={data} />
+        <CartContent data={data} setData={setData} />
       ) : (
         <div className=" flex h-80 w-full items-center justify-center">
           <Spinner />

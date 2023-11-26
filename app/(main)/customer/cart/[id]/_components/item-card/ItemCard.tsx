@@ -1,7 +1,13 @@
 'use client';
 
 import Image from 'next/image';
-import { useState } from 'react';
+import {
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useState,
+} from 'react';
 import PLUS_IMAGE from '@/app/_assets/images/plus.png';
 import MINUS_IMAGE from '@/app/_assets/images/minus.png';
 import PopUp from '@/app/_components/pop-up/PopUp';
@@ -10,25 +16,30 @@ import { useUserInfo } from '@/app/_providers/UserInfoProvider';
 import { patchCart } from '../../_services/patchCart';
 import { deleteCart } from '../../_services/deleteCart';
 import CustomPopUp from '@/app/_components/pop-up/CustomPopUp';
+import { CartType } from '../../_types/CartType';
 
 type ItemCardPropsType = {
-  itemId: number;
+  _id: number;
   image: string;
   title: string;
   price: number;
   stock: number;
   count: number;
+  setData: Dispatch<SetStateAction<CartType[] | undefined>>;
+  data: CartType[] | undefined;
 };
 
 const ItemCard = ({
-  itemId,
+  _id,
   image,
   title,
   price,
   stock,
   count,
+  setData,
+  data,
 }: ItemCardPropsType) => {
-  const [quantity, setQuantity] = useState(stock ? count : 0);
+  const [newQuantity, setNewQuantity] = useState(stock ? count : 0);
   const [open, setOpen] = useState(false);
   const [customOpen, setCustomOpen] = useState(false);
   const [message, setMessage] = useState('');
@@ -37,32 +48,85 @@ const ItemCard = ({
   const router = useRouter();
 
   const handlePlus = () => {
-    if (quantity < stock) {
-      setQuantity(prev => prev + 1);
-      changeQuantity();
+    if (newQuantity < stock) {
+      setNewQuantity(prev => prev + 1);
     }
   };
 
   const handleMinus = () => {
-    if (quantity > 1) {
-      setQuantity(prev => prev - 1);
-      changeQuantity();
+    if (newQuantity > 1) {
+      setNewQuantity(prev => prev - 1);
     }
   };
 
-  const changeQuantity = async () => {
+  const changeQuantity = useCallback(async () => {
     const res = await patchCart({
-      carts: [{ itemId: itemId, quantity: quantity }],
+      carts: [{ itemId: _id, quantity: newQuantity }],
     });
     if (res.status !== 200) {
       setCustomOpen(true);
       setMessage(res.message);
+    } else {
+      const newData = data?.map((value: CartType) => {
+        const {
+          cartId,
+          itemId,
+          storeId,
+          memberProviderId,
+          itemName,
+          stock,
+          discountPrice,
+          itemImage,
+          quantity,
+          storeName,
+          storeCloseTime,
+          expirationDateTime,
+        } = value;
+        if (itemId === _id) {
+          return {
+            cartId,
+            itemId,
+            storeId,
+            memberProviderId,
+            itemName,
+            stock,
+            discountPrice,
+            itemImage,
+            quantity: newQuantity,
+            storeName,
+            storeCloseTime,
+            expirationDateTime,
+          };
+        } else {
+          return {
+            cartId,
+            itemId,
+            storeId,
+            memberProviderId,
+            itemName,
+            stock,
+            discountPrice,
+            itemImage,
+            quantity,
+            storeName,
+            storeCloseTime,
+            expirationDateTime,
+          };
+        }
+      });
+
+      setData(newData);
     }
-  };
+    //eslint-disable-next-line
+  }, [_id, newQuantity]);
 
   const deleteCard = () => {
     setOpen(true);
   };
+
+  useEffect(() => {
+    changeQuantity();
+  }, [changeQuantity]);
 
   return (
     <div className="flex h-22.5 w-full justify-between rounded bg-white p-4 shadow-md">
@@ -85,7 +149,7 @@ const ItemCard = ({
               <button className="pointer-cursor" onClick={handleMinus}>
                 <Image src={MINUS_IMAGE} width={10} height={10} alt="plus" />
               </button>
-              <div className="px-2.5 text-sm font-semibold">{quantity}</div>
+              <div className="px-2.5 text-sm font-semibold">{newQuantity}</div>
               <button className="pointer-cursor" onClick={handlePlus}>
                 <Image src={PLUS_IMAGE} width={10} height={10} alt="plus" />
               </button>
@@ -105,7 +169,7 @@ const ItemCard = ({
           rightBtnText="삭제"
           rightBtnClick={async () => {
             setOpen(false);
-            await deleteCart(itemId);
+            await deleteCart(_id);
             window.location.reload();
           }}
         />

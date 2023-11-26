@@ -21,6 +21,6 @@ export const patchCart = ({ carts }: ReqType) => {
     })
     .catch(function (error) {
       console.log(error);
-      return error.response.data;
+      return error.response;
     });
 };

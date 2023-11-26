@@ -5,7 +5,7 @@ import PrimaryButton from '@/app/_components/PrimaryButton/PrimaryButton';
 import ItemList from '../item-list/ItemList';
 import OrderInformation from '../order-information/OrderInformation';
 import { CartType } from '../../_types/CartType';
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import { sumTotalPrice } from '../../_utils/sumTotalPrice';
 import { postOrder } from '../../_services/postOrder';
 import PopUp from '@/app/_components/pop-up/PopUp';
@@ -16,8 +16,9 @@ import pageRoute from '@/app/_constants/path';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useUserInfo } from '@/app/_providers/UserInfoProvider';
 
-type DataType = {
+type CartContentPropsType = {
   data: CartType[] | undefined;
+  setData: Dispatch<SetStateAction<CartType[] | undefined>>;
 };
 
 type InputType = {
@@ -26,7 +27,7 @@ type InputType = {
   request: string;
 };
 
-const CartContent = ({ data }: DataType) => {
+const CartContent = ({ data, setData }: CartContentPropsType) => {
   const [error, setError] = useState(false);
   const [open, setOpen] = useState(false);
   const [orderId, setOrderId] = useState<number>();
@@ -69,7 +70,7 @@ const CartContent = ({ data }: DataType) => {
 
   return (
     <div className="grid grid-cols-1 gap-y-5 pb-5">
-      <ItemList data={data} />
+      <ItemList data={data} setData={setData} />
       {data?.length ? (
         <>
           <FormProvider {...methods}>

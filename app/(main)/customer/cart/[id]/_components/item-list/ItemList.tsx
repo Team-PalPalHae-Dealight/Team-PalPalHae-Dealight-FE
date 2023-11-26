@@ -1,11 +1,17 @@
+import { Dispatch, SetStateAction } from 'react';
 import { CartType } from '../../_types/CartType';
 import ItemCard from '../item-card/ItemCard';
 
-const ItemList = (props: { data: CartType[] | undefined }) => {
+type ItemListPropsType = {
+  data: CartType[] | undefined;
+  setData: Dispatch<SetStateAction<CartType[] | undefined>>;
+};
+
+const ItemList = ({ data, setData }: ItemListPropsType) => {
   return (
     <div className="grid grid-cols-1 gap-y-2.5">
-      {props.data?.length
-        ? props.data.map(
+      {data?.length
+        ? data.map(
             ({
               itemId,
               itemImage,
@@ -16,12 +22,14 @@ const ItemList = (props: { data: CartType[] | undefined }) => {
             }: CartType) => (
               <ItemCard
                 key={itemId}
-                itemId={itemId}
+                _id={itemId}
                 image={itemImage}
                 title={itemName}
                 price={discountPrice}
                 stock={stock}
                 count={quantity}
+                setData={setData}
+                data={data}
               />
             )
           )
