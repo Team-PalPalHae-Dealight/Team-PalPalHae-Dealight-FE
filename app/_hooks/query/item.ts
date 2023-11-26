@@ -1,9 +1,12 @@
 import { axiosInstance } from '@/app/_services/apiClient';
 import { ItemType } from '@/app/_types/api/item';
 import { useMutation, useSuspenseQuery } from '@tanstack/react-query';
+import useInfiniteScroll from './useInfiniteScroll';
 
 export const itemKeys = {
   item: (itemId: string) => ['item', itemId] as const,
+  storeItem: (storeId: string) => ['store-item', storeId] as const,
+  myStoreItem: () => ['store-item'] as const,
 };
 
 type GetItemPropsType = {
@@ -15,10 +18,49 @@ type ItmePropsType = Omit<
   'itemId' | 'storeId' | 'storeName' | 'storeCloseTime' | 'storeAddress'
 >;
 
+type GetStoreItemsPropsType = {
+  storeId: string;
+  size: number;
+  page: number;
+};
+
 export const getItem = async ({
   itemId,
 }: GetItemPropsType): Promise<ItemType> => {
   const response = await axiosInstance.get(`/items/${itemId}`);
+
+  const data = response.data;
+
+  return data;
+};
+
+export const getStoreItems = async ({
+  storeId,
+  size,
+  page,
+}: GetStoreItemsPropsType): Promise<{
+  items: ItemType[];
+  hasNext: boolean;
+}> => {
+  const response = await axiosInstance.get(
+    `/items/stores/${storeId}?size=${size}&page=${page}`
+  );
+
+  const data = response.data;
+
+  return data;
+};
+
+export const getMyStoreItems = async ({
+  size,
+  page,
+}: Omit<GetStoreItemsPropsType, 'storeId'>): Promise<{
+  items: ItemType[];
+  hasNext: boolean;
+}> => {
+  const response = await axiosInstance.get(
+    `/items/stores?size=${size}&page=${page}`
+  );
 
   const data = response.data;
 
@@ -103,8 +145,30 @@ export const deleteItem = async ({ itemId }: GetItemPropsType) => {
 
 export const useGetItem = ({ itemId }: GetItemPropsType) => {
   return useSuspenseQuery({
-    queryKey: [itemKeys.item(itemId)],
+    queryKey: itemKeys.item(itemId),
     queryFn: () => getItem({ itemId }),
+  });
+};
+
+export const useGetStoreItems = ({
+  storeId,
+  size,
+}: {
+  storeId: string;
+  size: number;
+}) => {
+  return useInfiniteScroll({
+    queryKey: 'store-items',
+    fetchData: pageParam => getStoreItems({ page: pageParam, size, storeId }),
+  });
+};
+
+export const useGetMyStoreItems = ({
+  size,
+}: Pick<GetStoreItemsPropsType, 'size'>) => {
+  return useInfiniteScroll({
+    queryKey: 'my-store-items',
+    fetchData: pageParam => getMyStoreItems({ page: pageParam, size }),
   });
 };
 

@@ -8,7 +8,7 @@ export type ResponseItemTypes = {
   discountPrice: number;
   originalPrice: number;
   description: string;
-  image: string;
+  image: File | string;
   storeName: string;
   storeCloseTime: string;
   storeAddress: StoreAddressType;

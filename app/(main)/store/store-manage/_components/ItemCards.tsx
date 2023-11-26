@@ -1,10 +1,10 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { ResponseItemTypes } from '../../_services/getItemList';
+import { ItemType } from '@/app/_types/api/item';
 import pageRoute from '@/app/_constants/path';
 
 export type ItemTypes = {
-  items: ResponseItemTypes[];
+  items: ItemType[];
 };
 
 const ItemCards = ({ items }: ItemTypes) => {
@@ -32,9 +32,7 @@ const ItemCards = ({ items }: ItemTypes) => {
 
               <div className="flex w-full items-center">
                 <div className="flex flex-col gap-1">
-                  <div className=" w-20 overflow-hidden text-ellipsis whitespace-nowrap text-sm font-semibold">
-                    {item.itemName}
-                  </div>
+                  <div className="text-sm font-semibold">{item.itemName}</div>
                   <div className="flex gap-1 text-xs font-semibold">
                     <div>재고: </div>
                     <div className="text-red">{item.stock}개</div>
