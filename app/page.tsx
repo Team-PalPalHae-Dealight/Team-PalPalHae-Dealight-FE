@@ -19,8 +19,6 @@ export default async function Home() {
         <ServiceIntro />
 
         <div className="flex flex-col border border-sky-400 p-2">
-          <h2>로그인과 관련된 테스트</h2>
-
           <AuthTest />
         </div>
       </div>
