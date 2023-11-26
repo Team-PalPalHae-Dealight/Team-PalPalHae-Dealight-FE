@@ -12,9 +12,6 @@ type Story = StoryObj<typeof ToggleSwitch>;
 
 export const Primary: Story = {
   render: () => (
-    <ToggleSwitch
-      getToggleValue={toggle => console.log(toggle)}
-      setStatus={() => {}}
-    />
+    <ToggleSwitch status="영업 중" setStatus={() => console.log('영업 중')} />
   ),
 };

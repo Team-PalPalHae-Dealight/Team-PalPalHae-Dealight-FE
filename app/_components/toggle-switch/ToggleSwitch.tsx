@@ -1,54 +1,27 @@
 'use client';
 
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import PopUp from '../pop-up/PopUp';
 import { patchStatus } from '@/app/(main)/store/home/_services/patchStatus';
-import { getStatus } from '@/app/(main)/store/home/_services/getStatus';
+import { useUserInfo } from '@/app/_providers/UserInfoProvider';
 
 type ToggleSwitchPropsType = {
-  getToggleValue: (toggle: boolean) => void;
+  status: string;
   setStatus: Dispatch<SetStateAction<'영업 중' | '영업 준비 중'>>;
 };
 
-const ToggleSwitch = ({ getToggleValue, setStatus }: ToggleSwitchPropsType) => {
-  const [isOn, setIsOn] = useState(false);
+const ToggleSwitch = ({ status, setStatus }: ToggleSwitchPropsType) => {
   const [onPopUp, setOnPopUp] = useState(false);
+  const { storeId } = useUserInfo();
 
-  const onClickToggleSwitch = async () => {
-    if (isOn) {
+  const onClickToggle = async () => {
+    if (status === '영업 중') {
       setOnPopUp(true);
     } else {
-      setIsOn(true);
-      await patchStatus(1, '영업 중');
-      setStatus('영업 중');
+      const newStatus = await patchStatus(storeId, '영업 중');
+      setStatus(newStatus);
     }
-    setStoreStatus();
   };
-
-  const onClickLeftButton = () => {
-    setOnPopUp(false);
-    setIsOn(true);
-  };
-
-  const onClickRightButton = async () => {
-    setOnPopUp(false);
-    setIsOn(false);
-
-    await patchStatus(1, '영업 준비 중');
-    setStatus('영업 준비 중');
-    setStoreStatus();
-  };
-
-  const setStoreStatus = async () => {
-    const storeStatus = await getStatus(1);
-
-    if (storeStatus === '영업 준비 중') setIsOn(false);
-    else setIsOn(true);
-  };
-
-  useEffect(() => {
-    getToggleValue(isOn);
-  }, [getToggleValue, isOn]);
 
   return (
     <div className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden">
@@ -57,11 +30,11 @@ const ToggleSwitch = ({ getToggleValue, setStatus }: ToggleSwitchPropsType) => {
           <input
             type="checkbox"
             className="peer sr-only"
-            checked={isOn}
+            checked={status === '영업 중'}
             readOnly
           />
           <div
-            onClick={onClickToggleSwitch}
+            onClick={onClickToggle}
             className="peer h-6 w-11 rounded-full bg-dark-gray  after:absolute  after:left-[2px] after:top-0.5 after:h-5 after:w-5 after:rounded-full after:border after:border-dark-gray after:bg-white after:transition-all after:content-[''] peer-checked:bg-cyan peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:ring-cyan"
           ></div>
         </label>
@@ -72,8 +45,12 @@ const ToggleSwitch = ({ getToggleValue, setStatus }: ToggleSwitchPropsType) => {
           subText={'영업을 종료하시면 등록한 상품이 모두 삭제됩니다.'}
           leftBtnText={'아니요'}
           rightBtnText={'네'}
-          leftBtnClick={onClickLeftButton}
-          rightBtnClick={onClickRightButton}
+          leftBtnClick={() => setOnPopUp(false)}
+          rightBtnClick={async () => {
+            const newStatus = await patchStatus(storeId, '영업 준비 중');
+            setStatus(newStatus);
+            setOnPopUp(false);
+          }}
         />
       )}
     </div>
