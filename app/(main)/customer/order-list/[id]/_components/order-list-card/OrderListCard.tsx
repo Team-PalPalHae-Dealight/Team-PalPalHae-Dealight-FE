@@ -22,8 +22,9 @@ const OrderListCard = ({ items }: OrderListCardPropsType) => {
               style={{ boxShadow: '0px 0px 4px 0px rgb(0, 0, 0, 0.1)' }}
             >
               <div className="flex text-xs text-dark-gray">
-                <div className="flex justify-between">
+                <div className="flex justify-between gap-1">
                   <div>{item.createdAt.split(' ')[0]}</div>
+                  <div>{item.createdAt.split(' ')[1]}</div>
                 </div>
               </div>
               <div className="flex items-center gap-1 text-black">
