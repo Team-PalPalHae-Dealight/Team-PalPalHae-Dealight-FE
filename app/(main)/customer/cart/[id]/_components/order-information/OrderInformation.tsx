@@ -29,7 +29,7 @@ const OrderInformation = ({ data }: OrderInformationPropsType) => {
                   {data[0]?.storeName}
                 </span>
               </div>
-              <div>총 수량 : {total[1]} 개</div>
+              <div>총 수량 : {total.totalCount} 개</div>
             </div>
             <div className="pb-2.5">
               상품명 :{' '}
@@ -88,7 +88,7 @@ const OrderInformation = ({ data }: OrderInformationPropsType) => {
           </div>
           <div className="flex h-12 w-full justify-between rounded-b bg-yellow px-4 leading-12">
             <div>총 금액 : </div>
-            <div>{total[0]} 원</div>
+            <div>{total.totalPrice} 원</div>
           </div>
         </div>
       ) : null}

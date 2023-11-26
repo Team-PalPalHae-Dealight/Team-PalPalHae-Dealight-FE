@@ -55,7 +55,7 @@ const CartContent = ({ data, setData }: CartContentPropsType) => {
         storeId: data ? data[0].storeId : 0,
         demand: request,
         arrivalTime: `${hour}:${minute}`,
-        totalPrice: sumTotalPrice({ data })[0],
+        totalPrice: sumTotalPrice({ data }).totalPrice,
       },
     });
 
