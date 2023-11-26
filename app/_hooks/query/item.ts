@@ -2,6 +2,7 @@ import { axiosInstance } from '@/app/_services/apiClient';
 import { ItemType } from '@/app/_types/api/item';
 import { useMutation, useSuspenseQuery } from '@tanstack/react-query';
 import useInfiniteScroll from './useInfiniteScroll';
+import { convertUrlToFile } from '@/app/_utils/convert';
 
 export const itemKeys = {
   item: (itemId: string) => ['item', itemId] as const,
@@ -112,17 +113,7 @@ export const patchItem = async ({
   );
 
   if (typeof image === 'string') {
-    const url = image as string;
-    const filename = url.split('/').pop()!;
-
-    const response = await fetch(url);
-    const blob = await response.blob();
-
-    const convertedFile = new File(
-      [blob],
-      filename.includes('.png') ? filename : filename + '.png',
-      { type: blob.type }
-    );
+    const convertedFile = await convertUrlToFile(image);
 
     formData.append('image', convertedFile);
   } else {

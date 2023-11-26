@@ -6,9 +6,21 @@ import Notification from '@/app/_assets/images/notification.png';
 
 import PrimaryButton from '@/app/_components/PrimaryButton/PrimaryButton';
 import { useState } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import pageRoute from '@/app/_constants/path';
+import { useRouter } from 'next/navigation';
 
 type ItemEditPropsType = {
   itemId: string;
+};
+
+type ItemEditInputs = {
+  image: File | string;
+  itemName: string;
+  stock: number;
+  discountPrice: number;
+  originalPrice: number;
+  description: string;
 };
 
 const ItemEdit = ({ itemId }: ItemEditPropsType) => {
@@ -16,33 +28,62 @@ const ItemEdit = ({ itemId }: ItemEditPropsType) => {
 
   const { mutate: patchItem } = usePatchItem();
 
+  const router = useRouter();
+
   const { discountPrice, originalPrice, stock, itemName, image, description } =
     item;
 
-  const [previewImage, setPreviewImage] = useState<string>(String(image));
-  const [file, setFile] = useState<File>(image as File);
+  const { register, handleSubmit, setValue } = useForm<ItemEditInputs>({
+    defaultValues: {
+      itemName,
+      stock,
+      description,
+      discountPrice,
+      originalPrice,
+      image,
+    },
+  });
 
-  const onClickEdit = () => {
-    patchItem({
-      item: {
-        itemName: '수정 상품22',
-        description: '수정하겠습니다.',
-        discountPrice: 2000,
-        originalPrice: 3000,
-        image: file!,
-        stock: 3,
-      },
-      itemId,
-    });
+  const [previewImage, setPreviewImage] = useState<string>(String(image));
+
+  const onChangeImagePreview = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files || e.target.files.length === 0) return;
+
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    setValue('image', file);
+
+    reader.readAsDataURL(file);
+    reader.onload = e => {
+      if (!reader.result || !e.target) return;
+      if (typeof e.target.result !== 'string') return;
+
+      setPreviewImage(reader.result as string);
+    };
+  };
+
+  const onSubmit: SubmitHandler<ItemEditInputs> = editItem => {
+    if (confirm('수정')) {
+      console.log(editItem);
+
+      patchItem(
+        { item: editItem, itemId },
+        {
+          onSuccess: data => {
+            router.push(pageRoute.store.itemDetail(String(data.itemId)));
+          },
+        }
+      );
+    }
   };
 
   return (
-    <div className="flex flex-col">
+    <form className="flex flex-col" onSubmit={handleSubmit(onSubmit)}>
       <h2 className="mb-3 text-lg font-bold">상품 등록</h2>
 
       <div className="mb-5 flex gap-4">
-        <div className="flex flex-col items-center justify-around gap-1.5">
-          <div className="relative h-20 w-20">
+        <div className="flex flex-shrink-0 flex-col items-center justify-around gap-1.5">
+          <div className="relative h-20 w-20 overflow-hidden rounded">
             <Image
               src={previewImage}
               fill
@@ -51,44 +92,35 @@ const ItemEdit = ({ itemId }: ItemEditPropsType) => {
             />
           </div>
 
-          <PrimaryButton
-            onClick={() => {}}
-            className="h-7 px-4 text-sm font-bold"
+          <label
+            htmlFor="imagePreview"
+            className="flex h-7  cursor-pointer items-center justify-center rounded-md bg-yellow px-4 text-sm font-bold"
           >
             이미지 불러오기
-          </PrimaryButton>
+          </label>
+
           <input
-            className="w-32"
+            id="imagePreview"
+            {...register('image')}
+            className="hidden"
             type="file"
             accept="image/*"
-            onChange={e => {
-              if (!e.target.files || e.target.files.length === 0) return;
-
-              const file = e.target.files[0];
-
-              setFile(file);
-              const reader = new FileReader();
-
-              reader.readAsDataURL(file);
-              reader.onload = e => {
-                if (!reader.result || !e.target) return;
-                if (typeof e.target.result !== 'string') return;
-
-                setPreviewImage(reader.result as string);
-              };
-            }}
+            onChange={onChangeImagePreview}
           />
         </div>
 
-        <div>
-          <div className="flex flex-col gap-3">
-            <input className="rounded py-3.5 pl-3" placeholder={itemName} />
+        <div className="mr-auto flex w-full flex-col gap-3">
+          <input
+            {...register('itemName')}
+            className="rounded border border-transparent py-3.5 pl-3 focus:border-yellow"
+            placeholder="상품명"
+          />
 
-            <input
-              className="rounded py-3.5 pl-3"
-              placeholder={String(stock)}
-            />
-          </div>
+          <input
+            {...register('stock')}
+            className="rounded border border-transparent py-3.5 pl-3 focus:border-yellow"
+            placeholder="재고"
+          />
         </div>
       </div>
 
@@ -113,11 +145,13 @@ const ItemEdit = ({ itemId }: ItemEditPropsType) => {
             <label htmlFor="originalPrice" className="text-xs font-semibold">
               판매 가격
             </label>
+
             <input
               type="text"
               id="originalPrice"
-              placeholder={String(discountPrice)}
-              className="rounded py-3.5 pl-3"
+              {...register('originalPrice')}
+              placeholder="0"
+              className="rounded border border-transparent py-3.5 pl-3 focus:border-yellow"
             />
           </div>
 
@@ -125,11 +159,13 @@ const ItemEdit = ({ itemId }: ItemEditPropsType) => {
             <label htmlFor="originalPrice" className="text-xs font-semibold">
               할인 가격
             </label>
+
             <input
               type="text"
-              id="originalPrice"
-              placeholder={String(originalPrice)}
-              className="rounded py-3.5 pl-3"
+              id="discountPrice"
+              {...register('discountPrice')}
+              placeholder="0"
+              className="rounded border border-transparent py-3.5 pl-3 focus:border-yellow"
             />
           </div>
 
@@ -137,22 +173,20 @@ const ItemEdit = ({ itemId }: ItemEditPropsType) => {
             <label htmlFor="originalPrice" className="text-xs font-semibold">
               상품 설명
             </label>
+
             <input
               type="text"
-              id="originalPrice"
-              placeholder={
-                description === ''
-                  ? '(선택 사항) 추가적인 상품 설명을 작성해주세요.'
-                  : description
-              }
-              className="rounded py-9 pl-3"
+              id="description"
+              {...register('description', { required: false })}
+              placeholder="(선택 사항) 추가적인 상품 설명을 작성해주세요."
+              className="rounded border border-transparent py-9 pl-3 focus:border-yellow"
             />
           </div>
         </div>
 
-        <PrimaryButton onClick={onClickEdit}>수정하기</PrimaryButton>
+        <PrimaryButton type="submit">수정하기</PrimaryButton>
       </div>
-    </div>
+    </form>
   );
 };
 

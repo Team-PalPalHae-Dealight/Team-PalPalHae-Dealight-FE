@@ -17,7 +17,6 @@ type ItemRegisterInputs = {
   discountPrice: number;
   originalPrice: number;
   description: string;
-  previewImage: StaticImageData | string;
 };
 
 const ItemRegister = () => {
@@ -64,7 +63,7 @@ const ItemRegister = () => {
 
       <div className="mb-5 flex gap-4">
         <div className="flex flex-shrink-0 flex-col items-center justify-around gap-1.5">
-          <div className="relative h-20 w-20">
+          <div className="relative h-20 w-20 overflow-hidden rounded">
             <Image
               src={previewImage}
               fill
@@ -72,6 +71,7 @@ const ItemRegister = () => {
               alt="미리보기 이미지"
             />
           </div>
+
           <label
             htmlFor="imagePreview"
             className="flex h-7  cursor-pointer items-center justify-center rounded-md bg-yellow px-4 text-sm font-bold"
@@ -139,6 +139,7 @@ const ItemRegister = () => {
             <label htmlFor="discountPrice" className="text-xs font-semibold">
               할인 가격
             </label>
+
             <input
               type="text"
               id="discountPrice"
@@ -152,6 +153,7 @@ const ItemRegister = () => {
             <label htmlFor="description" className="text-xs font-semibold">
               상품 설명
             </label>
+
             <input
               type="text"
               id="description"
