@@ -1,4 +1,10 @@
-import { useCallback, useEffect, useState } from 'react';
+import {
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useState,
+} from 'react';
 import TodayDealightDropDown, {
   DropDownTextType,
 } from './TodayDealightDropDown';
@@ -12,6 +18,7 @@ type TodayDealightPropsType = {
   emptyWord: string;
   lat: number;
   lng: number;
+  setStoreLocation: Dispatch<SetStateAction<ResponseItemTypes[] | undefined>>;
 };
 
 const TodayDealight = ({
@@ -19,6 +26,7 @@ const TodayDealight = ({
   emptyWord,
   lat,
   lng,
+  setStoreLocation,
 }: TodayDealightPropsType) => {
   const [items, setItems] = useState<ResponseItemTypes[]>([]);
   const [page, setPage] = useState(1);
@@ -31,26 +39,26 @@ const TodayDealight = ({
   const delay = async (ms: number) => {
     await new Promise(resolve => setTimeout(resolve, ms));
   };
-
   const loadMoreItems = useCallback(async () => {
     setIsLoading(true);
     await delay(777);
 
-    /**@todo api 작업 시 fetch함수에 넘겨줄 파라미터 수정해야 함 ex)sortBy,x좌표,y좌표 등 */
-    const newItems =
-      (await fetchData({
-        xCoordinate: lat,
-        yCoordinate: lng,
-        sortBy,
-        page,
-      })) ?? [];
+    if (lat && lng) {
+      const newItems =
+        (await fetchData({
+          xCoordinate: lat,
+          yCoordinate: lng,
+          sortBy,
+          page,
+        })) ?? [];
+      if (newItems.length === 0) setIsEnded(true);
+      setStoreLocation(newItems);
 
-    if (newItems.length === 0) setIsEnded(true);
-
-    setItems((prevItems: ResponseItemTypes[]) => [...prevItems, ...newItems]);
-    setPage(prevPage => prevPage + 5);
-    setIsLoading(false);
-  }, [lat, lng, page, sortBy]);
+      setItems((prevItems: ResponseItemTypes[]) => [...prevItems, ...newItems]);
+      setPage(prevPage => prevPage + 5);
+      setIsLoading(false);
+    }
+  }, [lat, lng, page, sortBy, setStoreLocation]);
 
   useEffect(() => {
     if (inView && !isEnded && !isLoading) {

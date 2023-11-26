@@ -91,20 +91,20 @@ const MainContents = () => {
         {order?.status === '주문 접수' && (
           <>
             <PrimaryButton onClick={() => setOnPopUpConfirmed(true)}>
-              접수하기
+              주문 접수하기
             </PrimaryButton>
             <PrimaryButton onClick={() => setOnPopUpReject(true)}>
-              거절하기
+              주문 거절하기
             </PrimaryButton>
           </>
         )}
         {order?.status === '주문 완료' && (
-          <div className="mt-3 flex w-full items-center justify-center text-blue">
+          <div className="mb-16 flex h-12 w-full items-center justify-center rounded-md bg-light-gray text-base text-blue">
             <div>주문 완료</div>
           </div>
         )}
         {order?.status === '주문 취소' && (
-          <div className="mt-3 flex w-full items-center justify-center text-red">
+          <div className="mb-16 flex h-12 w-full items-center justify-center rounded-md bg-light-gray text-base text-red">
             <div>주문 취소</div>
           </div>
         )}
