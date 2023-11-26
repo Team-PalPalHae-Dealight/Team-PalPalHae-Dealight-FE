@@ -26,12 +26,7 @@ export default function Page() {
         </div>
 
         <div>
-          <TodayDealight
-            listName={'오늘의 딜라잇'}
-            emptyWord={'상품이 존재하지 않습니다.'}
-            lat={address.xCoordinate}
-            lng={address.yCoordinate}
-          />
+          <TodayDealight lng={address.xCoordinate} lat={address.yCoordinate} />
         </div>
       </div>
 

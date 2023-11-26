@@ -68,6 +68,31 @@ export const getMyStoreItems = async ({
   return data;
 };
 
+export const getMemberItems = async ({
+  xCoordinate,
+  yCoordinate,
+  sortBy,
+  size,
+  page,
+}: {
+  xCoordinate: number;
+  yCoordinate: number;
+  sortBy: string;
+  size: number;
+  page: number;
+}): Promise<{
+  items: ItemType[];
+  hasNext: boolean;
+}> => {
+  const response = await axiosInstance.get(
+    `/items/members?x-coordinate=${xCoordinate}&y-coordinate=${yCoordinate}&sort-by=${sortBy}&size=${size}&page=${page}`
+  );
+
+  const data = response.data;
+
+  return data;
+};
+
 export const createItem = async ({
   item,
 }: {
@@ -163,6 +188,30 @@ export const useGetMyStoreItems = ({
   return useInfiniteScroll({
     queryKey: 'my-store-items',
     fetchData: pageParam => getMyStoreItems({ page: pageParam, size }),
+  });
+};
+
+export const useGetMemberItems = ({
+  xCoordinate,
+  yCoordinate,
+  sortBy,
+  size,
+}: {
+  xCoordinate: number;
+  yCoordinate: number;
+  sortBy: string;
+  size: number;
+}) => {
+  return useInfiniteScroll({
+    queryKey: `member-items-${xCoordinate}-${yCoordinate}`,
+    fetchData: pageParam =>
+      getMemberItems({
+        page: pageParam,
+        size,
+        sortBy,
+        xCoordinate,
+        yCoordinate,
+      }),
   });
 };
 
