@@ -23,15 +23,12 @@ export default function Page() {
   const [page, setPage] = useState(0);
   const { address } = useAddress();
   const { lat, lng } = useCoordinate(address);
-  console.log(lat, lng);
   return (
     <>
       <CustomerHeader />
       <div className="flex flex-col items-center px-5">
         <SearchBar
           getItems={async (keyword: string) => {
-            const lng = 127.0221068;
-            const lat = 37.5912999;
             const url = `/stores/search?x-coordinate=${lng}&y-coordinate=${lat}&keyword=${keyword}&sortBy=${sortBy}&size=5&page=${page}`;
             const { data: storeInfoSliceRes } = await axiosInstance.get(url);
             setItems(storeInfoSliceRes.storeInfoSliceRes);
