@@ -1,20 +1,19 @@
 'use client';
 
-import { useUserInfo } from '@/app/_providers/UserInfoProvider';
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
-  const { role } = useUserInfo();
+  const providerId = useParams();
 
   useEffect(() => {
-    if (role === 'member') return;
+    if (providerId) return;
 
     router.push('/');
-  }, [role, router]);
+  }, [providerId, router]);
 
-  if (!role) {
+  if (!providerId) {
     return null;
   }
 

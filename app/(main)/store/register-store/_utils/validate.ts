@@ -1,5 +1,5 @@
 import { ERROR_MESSAGE } from '../../../../_constants/errorMessage';
-import { array, string } from 'yup';
+import { string, ref } from 'yup';
 
 export const isValidStoreName = () => {
   return string()
@@ -19,7 +19,9 @@ export const isValidStoreOpenTime = () => {
 };
 
 export const isValidStoreCloseTime = () => {
-  return string().required(ERROR_MESSAGE.STORE_REQUIRED);
+  return string()
+    .required(ERROR_MESSAGE.STORE_REQUIRED)
+    .notOneOf([ref('storeOpenTime')], ERROR_MESSAGE.STORE_TIME);
 };
 
 export const isValidStoreNumber = () => {
@@ -27,10 +29,4 @@ export const isValidStoreNumber = () => {
     .required(ERROR_MESSAGE.STORE_REQUIRED)
     .matches(/^[0-9]+$/, ERROR_MESSAGE.STORE_NUMBER)
     .length(10, ERROR_MESSAGE.STORE_LENGTH);
-};
-
-export const isValidStoreDayOff = () => {
-  return array()
-    .required(ERROR_MESSAGE.STORE_REQUIRED)
-    .min(1, ERROR_MESSAGE.STORE_ARRAY_MIN);
 };

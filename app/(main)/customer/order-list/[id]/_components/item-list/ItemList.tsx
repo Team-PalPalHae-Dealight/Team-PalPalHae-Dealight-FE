@@ -49,23 +49,19 @@ const ItemList = ({ status }: ItemListPropsType) => {
 
   return (
     <>
-      <div className="h-[72vh] overflow-y-scroll">
+      <div className="h-[72vh]  overflow-y-scroll">
         <OrderListCard items={items} />
         <div
-          className="col-span-1 flex h-full items-center justify-center sm:col-span-2 md:col-span-3"
+          className="col-span-1 flex items-center justify-center sm:col-span-2 md:col-span-3"
           ref={ref}
         >
           {isLoading && !isEnded ? (
             <Spinner />
-          ) : items.length ? (
-            <div className="flex items-center justify-center text-xs text-dark-gray">
+          ) : !items.length ? (
+            <div className="flex h-[72vh] items-center justify-center text-xs text-dark-gray">
               <p>주문 내역이 없습니다.</p>
             </div>
-          ) : (
-            <div className="flex items-center justify-center text-xs text-dark-gray">
-              <p>주문 내역이 없습니다.</p>
-            </div>
-          )}
+          ) : null}
         </div>
       </div>
     </>

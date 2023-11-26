@@ -3,6 +3,7 @@
 import { ReactNode, createContext, useContext, useState } from 'react';
 import LocalStorage from '../_utils/localstorage';
 import { useQueryClient } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
 
 type TokensType = {
   accessToken: string;
@@ -24,6 +25,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   );
 
   const queryClient = useQueryClient();
+  const router = useRouter();
 
   const login = async ({ accessToken, refreshToken }: TokensType) => {
     LocalStorage.setItem('dealight-accessToken', accessToken);
@@ -37,6 +39,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     LocalStorage.removeItem('dealight-accessToken');
     LocalStorage.removeItem('dealight-refreshToken');
     setIsLoggedIn(false);
+    router.push('/');
 
     queryClient.setQueryData(['user-info'], () => ({
       nickName: null,

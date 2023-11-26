@@ -1,4 +1,4 @@
-import StoreTimeForm from '../_components/store-time-form/StoreTimeForm';
+import StoreTimeForm from '../../_components/store-time-form/StoreTimeForm';
 
 const StoreTime = () => {
   return (

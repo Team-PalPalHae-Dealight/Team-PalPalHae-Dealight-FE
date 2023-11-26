@@ -84,8 +84,8 @@ const BottomButtons = ({ itemId }: ItemIdType) => {
       {customOpen && (
         <CustomPopUp
           mainText={message}
-          btnText="다른 상품 둘러보기"
-          btnClick={() => router.push(pageRoute.customer.home())}
+          btnText="확인"
+          btnClick={() => setCustomOpen(false)}
         />
       )}
       {open && (
@@ -95,7 +95,10 @@ const BottomButtons = ({ itemId }: ItemIdType) => {
           leftBtnText="취소"
           leftBtnClick={() => setOpen(false)}
           rightBtnText="담기"
-          rightBtnClick={clearCart}
+          rightBtnClick={() => {
+            clearCart();
+            setOpen(false);
+          }}
         />
       )}
     </div>

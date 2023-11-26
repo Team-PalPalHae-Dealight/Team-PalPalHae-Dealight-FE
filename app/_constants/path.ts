@@ -26,9 +26,10 @@ const pageRoute = {
     itemRegister: () => '/store/item-register',
     signup: () => '/store/signup',
     storeManage: () => `/store/store-manage`,
-    registerStoreNumber: () => '/store/register-store/store-number',
-    registerStoreInfo: () => '/store/register-store/store-info',
-    registerStoreTime: () => '/store/register-store/store-time',
+    registerStoreNumber: (id: string) =>
+      `/store/register-store/store-number/${id}`,
+    registerStoreInfo: (id: string) => `/store/register-store/store-info/${id}`,
+    registerStoreTime: (id: string) => `/store/register-store/store-time/${id}`,
     itemManage: (id: string) => `/store/item-manage/${id}`,
   },
 };
