@@ -29,8 +29,6 @@ const ItemDetail = ({ itemId }: ItemDetailType) => {
     storeName,
   } = item;
 
-  console.log(item);
-
   return (
     <>
       <div className="flex gap-5">

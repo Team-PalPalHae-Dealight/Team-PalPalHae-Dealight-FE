@@ -14,9 +14,7 @@ const ManageButton = () => {
       <Link
         className="flex w-full cursor-pointer flex-col items-start justify-center rounded-lg bg-white shadow"
         href={
-          providerId
-            ? pageRoute.store.storeManage(String(providerId))
-            : pageRoute.store.login()
+          providerId ? pageRoute.store.storeManage() : pageRoute.store.login()
         }
       >
         <button className="w-full">

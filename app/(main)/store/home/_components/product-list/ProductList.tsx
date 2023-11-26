@@ -1,69 +1,24 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
-import getItemList, { ResponseItemTypes } from '../../_services/getItemList';
-import { useInView } from 'react-intersection-observer';
-import ItemCards from './ItemCards';
-import Spinner from '@/app/_components/spinner/Spinner';
+import OpenStoreItems from './OpenStoreItems';
 
 type ProductListPropsType = {
   status: '영업 중' | '영업 준비 중';
 };
 
 const ProductList = ({ status }: ProductListPropsType) => {
-  const [items, setItems] = useState<ResponseItemTypes[]>([]);
-  const [page, setPage] = useState(1);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isEnded, setIsEnded] = useState(false);
-
-  const { ref, inView } = useInView();
-
-  const delay = async (ms: number) => {
-    await new Promise(resolve => setTimeout(resolve, ms));
-  };
-
-  const loadMoreItems = useCallback(async () => {
-    setIsLoading(true);
-    await delay(777);
-
-    const newItems = (await getItemList(page)) ?? [];
-
-    if (newItems.length === 0) setIsEnded(true);
-
-    setItems((prevItems: ResponseItemTypes[]) => [...prevItems, ...newItems]);
-    setPage(prevPage => prevPage + 5);
-    setIsLoading(false);
-  }, [page]);
-
-  useEffect(() => {
-    if (inView && !isEnded && !isLoading) {
-      loadMoreItems();
-    }
-  }, [inView, isEnded, loadMoreItems, isLoading]);
-
-  useEffect(() => {
-    if (status === '영업 준비 중') setItems([]);
-  }, [status]);
-
   return (
     <>
-      <div className="my-3 flex w-full items-center justify-start">
-        <h2 className="text-lg font-bold">상품 목록</h2>
-      </div>
-      <div className="h-[47vh] w-full overflow-y-scroll">
-        {status === '영업 중' && <ItemCards items={items} />}
-        <div
-          className="col-span-1 flex items-center justify-center sm:col-span-2 md:col-span-3"
-          ref={ref}
-        >
-          {isLoading && !isEnded ? (
-            <>
-              <Spinner />
-            </>
-          ) : status === '영업 중' && items.length ? null : (
-            <div className="flex h-[47vh] items-center justify-center text-xs text-dark-gray">
-              <p>등록한 상품이 없습니다.</p>
-            </div>
+      <div className="mt-3  flex w-full flex-col gap-2.5">
+        <h2 className="text-lg font-semibold">상품 목록</h2>
+
+        <div id="test" className="h-96 overflow-auto">
+          {status === '영업 중' && <OpenStoreItems />}
+
+          {status === '영업 준비 중' && (
+            <span className="flex items-center justify-center text-xs text-dark-gray">
+              등록한 상품이 없습니다.
+            </span>
           )}
         </div>
       </div>
