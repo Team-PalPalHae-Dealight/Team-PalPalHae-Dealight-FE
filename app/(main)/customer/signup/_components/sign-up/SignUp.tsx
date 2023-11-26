@@ -17,7 +17,7 @@ interface IFormInput {
 }
 
 export default function Signup() {
-  const [isNicknameValid, setisNicknameValid] = useState(false);
+  const [isNicknameValid, setIsNicknameValid] = useState(false);
   const { login } = useAuth();
   const router = useRouter();
   const schema = yup.object().shape({
@@ -51,11 +51,12 @@ export default function Signup() {
           realName: data.realname,
           nickName: data.nickName,
           phoneNumber: data.phoneNumber,
-          role: 'store',
+          role: 'customer',
         });
         login({ accessToken, refreshToken });
-        LocalStorage.removeItem('dealight-signup');
         alert('회원가입이 완료되었습니다!');
+
+        LocalStorage.removeItem('dealight-signup');
         if (LocalStorage.getItem('dealight-lastLoginPage') === 'customer') {
           router.push(pageRoute.customer.home());
           return;
@@ -78,7 +79,7 @@ export default function Signup() {
         nickName: watchNickName,
       });
       alert('닉네임 검사 통과');
-      setisNicknameValid(true);
+      setIsNicknameValid(true);
     } catch (error) {
       alert(error.message);
       console.error(error);
@@ -122,7 +123,7 @@ export default function Signup() {
             </div>
             <div className=" min-w-fit  px-1">
               <PrimaryButton type="button" onClick={handleNicknameCheck}>
-                <div className="text-xs font-normal">중복확인</div>
+                <div className="p-1 text-xs font-normal">중복확인</div>
               </PrimaryButton>
             </div>
           </div>
@@ -153,7 +154,7 @@ export default function Signup() {
         </div>
         <div className="py-10">
           <PrimaryButton type="submit" onClick={() => handleSubmit(onSubmit)}>
-            회원가입
+            <span className="font-normal">회원가입</span>
           </PrimaryButton>
         </div>
       </form>
