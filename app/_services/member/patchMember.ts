@@ -2,7 +2,7 @@ import { axiosInstance } from '@/app/_services/apiClient';
 
 type reqType = {
   req: {
-    nickname: string;
+    nickName: string;
     phoneNumber: string;
     address: {
       name: string;
@@ -15,7 +15,7 @@ type reqType = {
 export const patchMember = ({ req }: reqType) => {
   return axiosInstance
     .patch('/members/profiles', {
-      nickname: req.nickname,
+      nickname: req.nickName,
       phoneNumber: req.phoneNumber,
       address: req.address,
     })

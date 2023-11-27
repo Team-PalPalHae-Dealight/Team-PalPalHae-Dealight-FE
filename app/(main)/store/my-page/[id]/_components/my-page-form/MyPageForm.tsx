@@ -98,7 +98,7 @@ const MyPageForm = () => {
 
     await patchMember({
       req: {
-        nickname: nickName,
+        nickName,
         phoneNumber: userPhone ?? phoneNumber,
         address,
       },
