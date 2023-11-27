@@ -30,6 +30,7 @@ type InputType = {
 const CartContent = ({ data, setData }: CartContentPropsType) => {
   const [error, setError] = useState(false);
   const [open, setOpen] = useState(false);
+  const [errorOrder, setErrorOrder] = useState(false);
   const [orderId, setOrderId] = useState<number>();
   const [message, setMessage] = useState('');
 
@@ -63,7 +64,11 @@ const CartContent = ({ data, setData }: CartContentPropsType) => {
       setOpen(true);
       setOrderId(res.orderId);
     } else {
-      setError(true);
+      if (res.data.code === 'OR002') {
+        setErrorOrder(true);
+      } else {
+        setError(true);
+      }
       setMessage(res.data.message);
     }
   };
@@ -114,6 +119,13 @@ const CartContent = ({ data, setData }: CartContentPropsType) => {
               ? router.push(pageRoute.customer.orderDetail(String(orderId)))
               : router.push(pageRoute.customer.orderList(String(providerId)));
           }}
+        />
+      )}
+      {errorOrder && (
+        <CustomPopUp
+          mainText={message}
+          btnText="확인"
+          btnClick={() => setErrorOrder(false)}
         />
       )}
     </div>
