@@ -9,6 +9,8 @@ import { useRouter } from 'next/navigation';
 import pageRoute from '@/app/_constants/path';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import PrimaryButton from '@/app/_components/PrimaryButton/PrimaryButton';
+import ErrorMessage from '@/app/_components/erorr-message/ErrorMessage';
+import RegisterLoading from './RegisterLoading';
 
 type ItemRegisterInputs = {
   image: File;
@@ -20,11 +22,16 @@ type ItemRegisterInputs = {
 };
 
 const ItemRegister = () => {
-  const { mutate: createItem } = useCreateItem();
+  const { mutate: createItem, isPending } = useCreateItem();
 
   const router = useRouter();
 
-  const { register, handleSubmit, setValue } = useForm<ItemRegisterInputs>();
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm<ItemRegisterInputs>();
 
   const [previewImage, setPreviewImage] = useState<StaticImageData | string>(
     ImageUpload
@@ -52,6 +59,9 @@ const ItemRegister = () => {
       {
         onSuccess: data => {
           router.push(pageRoute.store.itemDetail(String(data.itemId)));
+        },
+        onError: err => {
+          alert(err.message);
         },
       }
     );
@@ -91,16 +101,26 @@ const ItemRegister = () => {
 
         <div className="mr-auto flex w-full flex-col gap-3">
           <input
-            {...register('itemName')}
+            {...register('itemName', { required: '값을 입력해주세요.' })}
             className="rounded border border-transparent py-3.5 pl-3 focus:border-yellow"
             placeholder="상품명"
           />
 
+          <ErrorMessage>{errors.itemName?.message}</ErrorMessage>
+
           <input
-            {...register('stock')}
+            {...register('stock', {
+              required: '값을 입력해주세요.',
+              validate: {
+                validateNumber: value =>
+                  !isNaN(Number(value)) || '숫자로 입력해주세요.',
+              },
+            })}
             className="rounded border border-transparent py-3.5 pl-3 focus:border-yellow"
             placeholder="재고"
           />
+
+          <ErrorMessage>{errors.stock?.message}</ErrorMessage>
         </div>
       </div>
 
@@ -121,7 +141,7 @@ const ItemRegister = () => {
         </div>
 
         <div className="mb-3 flex flex-col gap-2.5">
-          <div className="flex flex-col">
+          <div className="flex flex-col gap-2">
             <label htmlFor="originalPrice" className="text-xs font-semibold">
               판매 가격
             </label>
@@ -129,13 +149,21 @@ const ItemRegister = () => {
             <input
               type="text"
               id="originalPrice"
-              {...register('originalPrice')}
+              {...register('originalPrice', {
+                required: '값을 입력해주세요.',
+                validate: {
+                  validateNumber: value =>
+                    !isNaN(Number(value)) || '숫자로 입력해주세요.',
+                },
+              })}
               placeholder="0"
               className="rounded border border-transparent py-3.5 pl-3 focus:border-yellow"
             />
+
+            <ErrorMessage>{errors.originalPrice?.message}</ErrorMessage>
           </div>
 
-          <div className="flex flex-col">
+          <div className="flex flex-col gap-2">
             <label htmlFor="discountPrice" className="text-xs font-semibold">
               할인 가격
             </label>
@@ -143,10 +171,17 @@ const ItemRegister = () => {
             <input
               type="text"
               id="discountPrice"
-              {...register('discountPrice')}
+              {...register('discountPrice', {
+                required: '값을 입력해주세요.',
+                validate: {
+                  validateNumber: value =>
+                    !isNaN(Number(value)) || '숫자로 입력해주세요.',
+                },
+              })}
               placeholder="0"
               className="rounded border border-transparent py-3.5 pl-3 focus:border-yellow"
             />
+            <ErrorMessage>{errors.discountPrice?.message}</ErrorMessage>
           </div>
 
           <div className="flex flex-col">
@@ -154,17 +189,21 @@ const ItemRegister = () => {
               상품 설명
             </label>
 
-            <input
-              type="text"
+            <textarea
               id="description"
               {...register('description', { required: false })}
               placeholder="(선택 사항) 추가적인 상품 설명을 작성해주세요."
-              className="rounded border border-transparent py-9 pl-3 focus:border-yellow"
+              className="resize-none rounded border border-transparent px-3 py-2 outline-none focus:border-yellow"
             />
           </div>
         </div>
 
-        <PrimaryButton type="submit">등록하기</PrimaryButton>
+        <PrimaryButton
+          type="submit"
+          className="flex items-center justify-center"
+        >
+          {isPending ? <RegisterLoading /> : '등록하기'}
+        </PrimaryButton>
       </div>
     </form>
   );
