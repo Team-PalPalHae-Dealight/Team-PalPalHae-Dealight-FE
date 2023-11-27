@@ -64,9 +64,7 @@ export default function Signup() {
           return;
         }
       } catch (error) {
-        console.log(error.message);
         if (error.message === 'Request failed with status code 400') {
-          console.log(error.message);
           alert('닉네임이 중복되었습니다');
         }
       }
