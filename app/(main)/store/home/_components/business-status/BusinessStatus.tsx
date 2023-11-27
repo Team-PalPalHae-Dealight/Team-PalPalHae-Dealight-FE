@@ -1,7 +1,7 @@
 'use client';
 
-import ToggleSwitch from '@/app/_components/toggle-switch/ToggleSwitch';
 import { Dispatch, SetStateAction } from 'react';
+import ToggleSwitch from '../toggle-switch/ToggleSwitch';
 
 type BusinessStatusPropsType = {
   status: string;

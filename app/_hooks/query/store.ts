@@ -5,6 +5,7 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 export const storeKeys = {
   store: (storeId: string) => ['store', storeId] as const,
   myStore: () => ['store'] as const,
+  status: (storeId: string) => ['store-status', storeId] as const,
 };
 
 type GetStorePropsType = {
@@ -29,6 +30,19 @@ export const getMyStore = async (): Promise<StoreType> => {
   return data;
 };
 
+export const getStoreStatusInfo = async ({
+  storeId,
+}: GetStorePropsType): Promise<{
+  storeId: number;
+  storeStatus: '영업 중' | '영업 준비 중';
+}> => {
+  const response = await axiosInstance.get(`/stores/status/${storeId}`);
+
+  const data = response.data;
+
+  return data;
+};
+
 export const useGetStore = ({ storeId }: GetStorePropsType) => {
   return useSuspenseQuery({
     queryKey: storeKeys.store(storeId),
@@ -40,5 +54,12 @@ export const useGetMyStore = () => {
   return useSuspenseQuery({
     queryKey: storeKeys.myStore(),
     queryFn: getMyStore,
+  });
+};
+
+export const useGetStoreStatusInfo = ({ storeId }: GetStorePropsType) => {
+  return useSuspenseQuery({
+    queryKey: storeKeys.status(storeId),
+    queryFn: () => getStoreStatusInfo({ storeId }),
   });
 };

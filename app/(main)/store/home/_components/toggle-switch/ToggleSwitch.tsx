@@ -1,9 +1,9 @@
 'use client';
 
 import { Dispatch, SetStateAction, useState } from 'react';
-import PopUp from '../pop-up/PopUp';
 import { patchStatus } from '@/app/(main)/store/home/_services/patchStatus';
 import { useUserInfo } from '@/app/_providers/UserInfoProvider';
+import PopUp from '@/app/_components/pop-up/PopUp';
 
 type ToggleSwitchPropsType = {
   status: string;
