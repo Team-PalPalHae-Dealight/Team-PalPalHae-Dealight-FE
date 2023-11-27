@@ -22,7 +22,7 @@ const ItemDetail = ({ itemId }: ItemDetailType) => {
   return (
     <div className="mb-5 w-full">
       <div className="mb-5 flex gap-5">
-        <div className="relative h-24 w-32">
+        <div className="relative h-24 w-32 overflow-hidden rounded">
           <Image
             src={String(image)}
             alt="상품 이미지"
@@ -43,7 +43,7 @@ const ItemDetail = ({ itemId }: ItemDetailType) => {
       </div>
 
       <div className="mb-3 flex flex-col gap-5">
-        <div className="bg-white p-4">
+        <div className="rounded bg-white p-4">
           <h3 className="mb-2.5 text-lg font-bold">상품 설명</h3>
 
           <div className="mb-3 text-sm font-bold">

@@ -5,10 +5,10 @@ import Sortoption from './_component/sort-option/SortOption';
 import ItemCard from './_component/Itemcard/Itemcard';
 import CustomerHeader from '@/app/_components/Header/CustomerHeader';
 import CustomerFooter from '@/app/_components/Footer/CustomerFooter';
-import { useAddress } from '@/app/_providers/AddressProvider';
 import useCoordinate from '@/app/_hooks/useCoordinate';
 import { axiosInstance } from '@/app/_services/apiClient';
 import { v4 as uuidv4 } from 'uuid';
+import { useUserInfo } from '@/app/_providers/UserInfoProvider';
 
 type ItemPropsTypes = {
   storeId: number;
@@ -21,8 +21,10 @@ export default function Page() {
   const [sortBy, setSortBy] = useState('distance');
   const [items, setItems] = useState<ItemPropsTypes[]>([]);
   const [page, setPage] = useState(0);
-  const { address } = useAddress();
-  const { lat, lng } = useCoordinate(address);
+
+  const { address } = useUserInfo();
+  const { lat, lng } = useCoordinate(address.name);
+
   return (
     <>
       <CustomerHeader />

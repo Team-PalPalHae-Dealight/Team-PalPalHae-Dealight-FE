@@ -2,6 +2,7 @@ import { axiosInstance } from '@/app/_services/apiClient';
 import { ItemType } from '@/app/_types/api/item';
 import { useMutation, useSuspenseQuery } from '@tanstack/react-query';
 import useInfiniteScroll from './useInfiniteScroll';
+import { convertUrlToFile } from '@/app/_utils/convert';
 
 export const itemKeys = {
   item: (itemId: string) => ['item', itemId] as const,
@@ -67,10 +68,35 @@ export const getMyStoreItems = async ({
   return data;
 };
 
+export const getMemberItems = async ({
+  xCoordinate,
+  yCoordinate,
+  sortBy,
+  size,
+  page,
+}: {
+  xCoordinate: number;
+  yCoordinate: number;
+  sortBy: string;
+  size: number;
+  page: number;
+}): Promise<{
+  items: ItemType[];
+  hasNext: boolean;
+}> => {
+  const response = await axiosInstance.get(
+    `/items/members?x-coordinate=${xCoordinate}&y-coordinate=${yCoordinate}&sort-by=${sortBy}&size=${size}&page=${page}`
+  );
+
+  const data = response.data;
+
+  return data;
+};
+
 export const createItem = async ({
   item,
 }: {
-  item: ItmePropsType;
+  item: Omit<ItmePropsType, 'image'> & { image: File };
 }): Promise<ItemType> => {
   const { image, ...itemReq } = item;
 
@@ -81,7 +107,10 @@ export const createItem = async ({
     new Blob([JSON.stringify(itemReq)], { type: 'application/json' })
   );
 
-  formData.append('image', image ?? new Blob([], { type: 'image/jpeg' }));
+  formData.append(
+    'image',
+    image.size === undefined ? new Blob([], { type: 'image/jpeg' }) : image
+  );
 
   const response = await axiosInstance.post(`/items`, formData, {
     headers: { 'Content-Type': 'multipart/form-data' },
@@ -109,17 +138,7 @@ export const patchItem = async ({
   );
 
   if (typeof image === 'string') {
-    const url = image as string;
-    const filename = url.split('/').pop()!;
-
-    const response = await fetch(url);
-    const blob = await response.blob();
-
-    const convertedFile = new File(
-      [blob],
-      filename.includes('.png') ? filename : filename + '.png',
-      { type: blob.type }
-    );
+    const convertedFile = await convertUrlToFile(image);
 
     formData.append('image', convertedFile);
   } else {
@@ -169,6 +188,30 @@ export const useGetMyStoreItems = ({
   return useInfiniteScroll({
     queryKey: 'my-store-items',
     fetchData: pageParam => getMyStoreItems({ page: pageParam, size }),
+  });
+};
+
+export const useGetMemberItems = ({
+  xCoordinate,
+  yCoordinate,
+  sortBy,
+  size,
+}: {
+  xCoordinate: number;
+  yCoordinate: number;
+  sortBy: string;
+  size: number;
+}) => {
+  return useInfiniteScroll({
+    queryKey: `member-items-${xCoordinate}-${yCoordinate}`,
+    fetchData: pageParam =>
+      getMemberItems({
+        page: pageParam,
+        size,
+        sortBy,
+        xCoordinate,
+        yCoordinate,
+      }),
   });
 };
 

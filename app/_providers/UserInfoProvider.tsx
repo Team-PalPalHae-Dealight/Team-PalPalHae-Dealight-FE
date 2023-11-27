@@ -24,6 +24,20 @@ type DefaultContextType = {
 
 const UserInfoContext = createContext<DefaultContextType>(null);
 
+export const userInitialData = {
+  nickName: null,
+  role: null,
+  storeId: null,
+  providerId: null,
+  realName: null,
+  phoneNumber: null,
+  address: {
+    name: '강남역 2번 출구',
+    xCoordinate: 126.976372775,
+    yCoordinate: 37.571648599,
+  },
+};
+
 async function getUser(): Promise<DefaultContextType> {
   const data = await axiosInstance
     .get(`${process.env.NEXT_PUBLIC_API_URL}/members/profiles`)
@@ -65,19 +79,7 @@ export const UserInfoProvider = ({
   const { data: userInfo, isError } = useQuery({
     queryKey: ['user-info'],
     queryFn: getUser,
-    initialData: {
-      nickName: null,
-      role: null,
-      storeId: null,
-      providerId: null,
-      realName: null,
-      phoneNumber: null,
-      address: {
-        name: '강남역 2번출구',
-        xCoordinate: 126.976372775,
-        yCoordinate: 37.571648599,
-      },
-    },
+    initialData: userInitialData,
     enabled:
       !!LocalStorage.getItem('dealight-accessToken') ||
       !!LocalStorage.getItem('dealight-refreshToken'),
