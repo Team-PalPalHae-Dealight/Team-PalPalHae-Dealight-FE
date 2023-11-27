@@ -13,9 +13,9 @@ export type profileType = {
 };
 
 export type PatchProfileType = {
-  storeId: number;
+  storeId: number | null;
   telephone: string;
-  addressName: string;
+  addressName: string | undefined;
   xCoordinate: number;
   yCoordinate: number;
   openTime: string;

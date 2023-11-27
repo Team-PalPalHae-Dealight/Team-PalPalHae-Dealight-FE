@@ -11,124 +11,135 @@ import { useUserInfo } from '@/app/_providers/UserInfoProvider';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { object } from 'yup';
 import {
+  isValidAddress,
   isValidPhoneNumber,
-  isValidRequire,
   isValidStoreNumber,
 } from '../../_utils/validate';
 import { getMember } from '@/app/_services/member/getMember';
 import { profileType } from '../../_types/profileType';
 import ManageButton from '../manage-button/ManageButton';
 import { patchProfile } from '../../_services/patchProfile';
-import LocalStorage from '@/app/_utils/localstorage';
 import { patchMember } from '@/app/_services/member/patchMember';
 import LogoutButton from '@/app/_components/logout-button/LogoutButton';
+import Spinner from '@/app/_components/spinner/Spinner';
+import {
+  isValidStoreCloseTime,
+  isValidStoreOpenTime,
+} from '@/app/(main)/store/register-store/_utils/validate';
+import useCoordinate from '@/app/_hooks/useCoordinate';
+import { useRouter } from 'next/navigation';
+import pageRoute from '@/app/_constants/path';
+
+type MyPageInputType = {
+  userPhone: string;
+  telephone: string;
+  address: string;
+  openTime: string;
+  closeTime: string;
+  dayOff: boolean | string[];
+};
 
 const MyPageForm = () => {
-  const [profile, setProfile] = useState<profileType>({
-    addressName: '',
-    closeTime: '',
-    dayOff: [],
-    image: '',
-    name: '',
-    openTime: '',
-    storeNumber: '',
-    storeStatus: '',
-    telephone: '',
-    userPhone: '',
-    userName: '',
-  });
+  const router = useRouter();
 
   const schema = object().shape({
-    addressName: isValidRequire(),
-    closeTime: isValidRequire(),
-    image: isValidRequire(),
-    name: isValidRequire(),
-    openTime: isValidRequire(),
-    storeNumber: isValidStoreNumber(),
-    storeStatus: isValidRequire(),
-    telephone: isValidStoreNumber(),
     userPhone: isValidPhoneNumber(),
-    userName: isValidRequire(),
+    telephone: isValidStoreNumber(),
+    address: isValidAddress(),
+    openTime: isValidStoreOpenTime(),
+    closeTime: isValidStoreCloseTime(),
   });
 
-  const methods = useForm<profileType>({
+  //eslint-disable-next-line
+  const methods = useForm<MyPageInputType | any>({
     resolver: yupResolver(schema),
   });
-  const { storeId } = useUserInfo();
 
-  const onSubmit: SubmitHandler<profileType> = data => {
+  const { storeAddress } = methods.watch();
+
+  const [profile, setProfile] = useState<profileType>();
+
+  const { storeId } = useUserInfo();
+  const newCoords = useCoordinate(storeAddress);
+
+  const onSubmit: SubmitHandler<MyPageInputType> = data => {
     console.log('data = ', data);
+    changeProfile();
   };
 
   const getData = useCallback(async () => {
-    const res = await getProfile(storeId);
-    const { nickName, phoneNumber, address } = await getMember();
-    const data = {
-      addressName: address.name,
-      closeTime: res.closeTime,
-      dayOff: res.dayOff,
-      image: res.image,
-      name: res.name,
-      openTime: res.openTime,
-      storeNumber: res.storeNumber,
-      storeStatus: res.storeStatus,
-      telephone: res.telephone,
-      userPhone: phoneNumber,
-      userName: nickName,
-    };
+    if (storeId) {
+      const res = await getProfile(storeId);
+      const { nickName, phoneNumber } = await getMember();
+      const data = {
+        addressName: res.addressName,
+        closeTime: res.closeTime,
+        dayOff: res.dayOff,
+        image: res.image,
+        name: res.name,
+        openTime: res.openTime,
+        storeNumber: res.storeNumber,
+        storeStatus: res.storeStatus,
+        telephone: res.telephone,
+        userPhone: phoneNumber,
+        userName: nickName,
+      };
 
-    setProfile(data);
-    LocalStorage.setItem('dealight-address', profile.addressName);
-  }, [profile, storeId]);
+      setProfile(data);
+    }
+  }, [storeId]);
 
   const changeProfile = async () => {
-    const { userPhone, telephone, openTime, closeTime, dayOff } =
+    const { userPhone, telephone, storeAddress, openTime, closeTime, dayOff } =
       methods.watch();
-    const addressName = LocalStorage.getItem('dealight-address');
-    const coords = LocalStorage.getItem('dealight-coords');
-
-    const { address } = await getMember();
 
     await patchMember({
       req: {
-        nickName: profile.userName,
-        phoneNumber: userPhone ?? profile.userPhone,
-        address: address ?? {
-          name: addressName,
-          xCoordinate: coords.lat,
-          yCoordinate: coords.lng,
+        nickName: profile?.userName ?? '딜라잇',
+        phoneNumber: userPhone ?? profile?.userPhone,
+        address: {
+          name: storeAddress ?? profile?.addressName,
+          xCoordinate: newCoords.lat,
+          yCoordinate: newCoords.lng,
         },
       },
     });
 
     await patchProfile({
       req: {
-        storeId: storeId ?? 1,
-        telephone: telephone ?? profile.telephone,
-        addressName: addressName ?? profile.addressName,
-        xCoordinate: coords.lat,
-        yCoordinate: coords.lng,
-        openTime: openTime === closeTime ? profile.openTime : openTime,
-        closeTime: openTime === closeTime ? profile.closeTime : closeTime,
+        storeId,
+        telephone: telephone ?? profile?.telephone,
+        addressName: storeAddress ?? profile?.addressName,
+        xCoordinate: newCoords.lat,
+        yCoordinate: newCoords.lng,
+        openTime: openTime ?? profile?.openTime,
+        closeTime: closeTime ?? profile?.closeTime,
         dayOff: !dayOff ? ['연중 무휴'] : dayOff,
       },
     });
+
+    router.push(pageRoute.store.home());
   };
 
   useEffect(() => {
-    if (storeId) {
-      getData();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [storeId]);
+    getData();
+  }, [getData]);
 
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)}>
         <div className="flex w-full flex-col px-5 pt-5">
-          <ImageUploader />
-          <ProfileInformation data={profile} />
-          <StoreInformation data={profile} />
+          {profile ? (
+            <>
+              <ImageUploader storeImage={profile.image} />
+              <ProfileInformation data={profile} />
+              <StoreInformation data={profile} />
+            </>
+          ) : (
+            <div className="flex h-80 w-full items-center justify-center">
+              <Spinner />
+            </div>
+          )}
           <PrimaryButton className="mb-5" type="submit" onClick={changeProfile}>
             정보 수정하기
           </PrimaryButton>

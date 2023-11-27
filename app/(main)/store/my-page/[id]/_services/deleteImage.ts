@@ -2,19 +2,9 @@ import pageRoute from '@/app/_constants/path';
 import { axiosInstance } from '@/app/_services/apiClient';
 import { useRouter } from 'next/navigation';
 
-export const patchStatus = async (
-  storeId: number | null,
-  storeStatus: string
-) => {
-  return await axiosInstance
-    .patch(`/stores/status/${storeId}`, {
-      storeStatus: storeStatus,
-    })
-
-    .then(function (response) {
-      return response.data.storeStatus;
-    })
-
+export const deleteImage = (storeId: number | null) => {
+  return axiosInstance
+    .delete(`/stores/images/${storeId}`)
     .catch(function (error) {
       console.log(error);
 
