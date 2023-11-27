@@ -52,7 +52,7 @@ const MyPageContents = () => {
 
     const res = await patchMember({
       req: {
-        nickName: nickName,
+        nickname: nickName,
         phoneNumber: phoneNumber,
         address: {
           name: address,

@@ -69,8 +69,9 @@ const MyPageForm = () => {
 
   const getData = useCallback(async () => {
     if (storeId) {
-      const res = await getProfile(storeId);
+      const res = await getProfile();
       const { nickName, phoneNumber } = await getMember();
+
       const data = {
         addressName: res.addressName,
         closeTime: res.closeTime,
@@ -93,10 +94,13 @@ const MyPageForm = () => {
     const { userPhone, telephone, storeAddress, openTime, closeTime, dayOff } =
       methods.watch();
 
+    const { nickName, phoneNumber, address } = await getMember();
+
     await patchMember({
       req: {
-        nickName: profile?.userName ?? '딜라잇',
-        phoneNumber: userPhone ?? profile?.userPhone,
+        nickname: nickName,
+        phoneNumber: userPhone ?? phoneNumber,
+        address,
       },
     });
 
@@ -105,8 +109,8 @@ const MyPageForm = () => {
         storeId,
         telephone: telephone ?? profile?.telephone,
         addressName: storeAddress ?? profile?.addressName,
-        xCoordinate: newCoords.lat,
-        yCoordinate: newCoords.lng,
+        xCoordinate: newCoords.lng,
+        yCoordinate: newCoords.lat,
         openTime: openTime ?? profile?.openTime,
         closeTime: closeTime ?? profile?.closeTime,
         dayOff: !dayOff ? ['연중 무휴'] : dayOff,
@@ -135,7 +139,7 @@ const MyPageForm = () => {
               <Spinner />
             </div>
           )}
-          <PrimaryButton className="mb-5" type="submit" onClick={changeProfile}>
+          <PrimaryButton className="mb-5" type="submit" onClick={() => {}}>
             정보 수정하기
           </PrimaryButton>
           <ManageButton />
