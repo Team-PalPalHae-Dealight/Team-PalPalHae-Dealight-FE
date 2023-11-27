@@ -13,7 +13,7 @@ declare global {
 }
 
 export const metadata: Metadata = {
-  title: '🌱 즐거운 가격, 함께하는 맛의 기쁨 🌱 Dealight',
+  title: '즐거운 가격, 함께하는 맛의 기쁨 Dealight',
   description:
     '소상공인들의 당일 폐기 예정 식품의 할인 정보 공유 및 구매/판매 서비스',
   icons: {
