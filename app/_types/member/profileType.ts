@@ -1,6 +1,6 @@
 export type profileType = {
   address: {
-    name: string;
+    name: string | undefined;
     xCoordinate: number;
     yCoordinate: number;
   };

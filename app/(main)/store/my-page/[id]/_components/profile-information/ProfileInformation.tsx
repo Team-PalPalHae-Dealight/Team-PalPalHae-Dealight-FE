@@ -25,7 +25,7 @@ const ProfileInformation = (props: { data: profileType }) => {
         <div className="flex items-center pb-2.5">
           <span>대표자 전화번호 :</span>
           <input
-            className="ml-2 flex-1 border-1 border-solid border-dark-gray p-1.5 text-sm font-normal text-dark-gray outline-none"
+            className="ml-2 flex-1 border-1 border-solid border-dark-gray p-1.5 text-sm font-normal text-black outline-none"
             type="text"
             defaultValue={props.data.userPhone}
             {...register('userPhone')}

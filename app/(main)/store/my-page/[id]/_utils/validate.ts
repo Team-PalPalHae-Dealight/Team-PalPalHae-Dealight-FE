@@ -25,3 +25,9 @@ export const isValidPhoneNumber = () => {
     .matches(/^[0-9]+$/, ERROR_MESSAGE.STORE_NUMBER)
     .length(11, ERROR_MESSAGE.STORE_LENGTH);
 };
+
+export const isValidAddress = () => {
+  return string()
+    .required(ERROR_MESSAGE.STORE_REQUIRED)
+    .min(2, ERROR_MESSAGE.STORE_MIN);
+};
