@@ -99,8 +99,8 @@ const MyPageForm = () => {
         phoneNumber: userPhone ?? profile?.userPhone,
         address: {
           name: storeAddress ?? profile?.addressName,
-          xCoordinate: newCoords.lat,
-          yCoordinate: newCoords.lng,
+          xCoordinate: newCoords.lng,
+          yCoordinate: newCoords.lat,
         },
       },
     });
@@ -110,8 +110,8 @@ const MyPageForm = () => {
         storeId,
         telephone: telephone ?? profile?.telephone,
         addressName: storeAddress ?? profile?.addressName,
-        xCoordinate: newCoords.lat,
-        yCoordinate: newCoords.lng,
+        xCoordinate: newCoords.lng,
+        yCoordinate: newCoords.lat,
         openTime: openTime ?? profile?.openTime,
         closeTime: closeTime ?? profile?.closeTime,
         dayOff: !dayOff ? ['연중 무휴'] : dayOff,
