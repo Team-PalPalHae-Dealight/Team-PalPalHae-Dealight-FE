@@ -1,20 +1,21 @@
-import { profileType } from '@/app/_types/member/profileType';
 import { axiosInstance } from '@/app/_services/apiClient';
 
 type reqType = {
-  req: profileType;
+  req: {
+    address?: {
+      name: string;
+      xCoordinate: number;
+      yCoordinate: number;
+    };
+    nickName?: string;
+    phoneNumber?: string;
+  };
 };
 
 export const patchMember = ({ req }: reqType) => {
   return axiosInstance
     .patch('/members/profiles', {
-      nickname: req.nickName,
-      phoneNumber: req.phoneNumber,
-      address: {
-        name: req.address.name,
-        xCoordinate: req.address.xCoordinate,
-        yCoordinate: req.address.yCoordinate,
-      },
+      req,
     })
     .then(function (response) {
       return response;

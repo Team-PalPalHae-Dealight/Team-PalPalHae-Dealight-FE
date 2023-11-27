@@ -97,11 +97,6 @@ const MyPageForm = () => {
       req: {
         nickName: profile?.userName ?? '딜라잇',
         phoneNumber: userPhone ?? profile?.userPhone,
-        address: {
-          name: storeAddress ?? profile?.addressName,
-          xCoordinate: newCoords.lat,
-          yCoordinate: newCoords.lng,
-        },
       },
     });
 
