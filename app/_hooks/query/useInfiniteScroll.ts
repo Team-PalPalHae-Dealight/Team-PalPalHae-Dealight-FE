@@ -16,6 +16,7 @@ const useInfiniteScroll = <T>({
     data = { pages: [{ items: [], hasNext: false }] },
     hasNextPage,
     fetchNextPage,
+    isFetchingNextPage,
   } = useInfiniteQuery({
     queryKey: ['infinite', queryKey],
     queryFn: ({ pageParam }) => fetchData(pageParam),
@@ -55,8 +56,7 @@ const useInfiniteScroll = <T>({
     (acc, cur) => [...acc, ...cur.items],
     [] as T[]
   );
-
-  return { data: totalData, ref };
+  return { data: totalData, ref, isFetchingNextPage };
 };
 
 export default useInfiniteScroll;

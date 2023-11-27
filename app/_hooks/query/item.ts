@@ -203,7 +203,7 @@ export const useGetMemberItems = ({
   size: number;
 }) => {
   return useInfiniteScroll({
-    queryKey: `member-items-${xCoordinate}-${yCoordinate}`,
+    queryKey: `member-items-${xCoordinate}-${yCoordinate}-${sortBy}`,
     fetchData: pageParam =>
       getMemberItems({
         page: pageParam,
