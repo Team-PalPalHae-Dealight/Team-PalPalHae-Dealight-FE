@@ -14,7 +14,7 @@ type GetStorePropsType = {
 export const getStore = async ({
   storeId,
 }: GetStorePropsType): Promise<StoreType> => {
-  const response = await axiosInstance.get(`/stores/profiles/${storeId}`);
+  const response = await axiosInstance.get(`/stores/details/${storeId}`);
 
   const data = response.data;
 

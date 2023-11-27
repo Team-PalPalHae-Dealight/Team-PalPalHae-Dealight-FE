@@ -3,6 +3,8 @@ export type StoreType = {
   name: string;
   telephone: string;
   addressName: string;
+  xCoordinate: number;
+  yCoordinate: number;
   openTime: string;
   closeTime: string;
   dayOff: string[];
