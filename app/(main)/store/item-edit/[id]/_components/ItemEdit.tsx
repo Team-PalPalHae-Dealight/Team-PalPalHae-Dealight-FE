@@ -31,7 +31,6 @@ const ItemEdit = ({ itemId }: ItemEditPropsType) => {
   const { mutate: patchItem, isPending } = usePatchItem();
 
   const router = useRouter();
-  console.log(isPending);
 
   const { discountPrice, originalPrice, stock, itemName, image, description } =
     item;
@@ -76,7 +75,9 @@ const ItemEdit = ({ itemId }: ItemEditPropsType) => {
         { item: editItem, itemId },
         {
           onSuccess: data => {
-            router.push(pageRoute.store.itemDetail(String(data.itemId)));
+            router.push(pageRoute.store.itemDetail(String(data.itemId)), {
+              scroll: false,
+            });
           },
           onError: err => {
             alert(err.message);

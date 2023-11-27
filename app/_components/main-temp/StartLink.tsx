@@ -18,7 +18,8 @@ const StartLink = () => {
         className="relative w-full rounded-lg bg-white px-1.5 py-3.5 text-left shadow"
         onClick={() =>
           router.push(
-            loggedIn ? pageRoute.store.home() : pageRoute.store.login()
+            loggedIn ? pageRoute.store.home() : pageRoute.store.login(),
+            { scroll: false }
           )
         }
       >
@@ -37,6 +38,7 @@ const StartLink = () => {
       <Link
         className="relative w-full rounded-lg bg-white px-1.5 py-3.5 shadow"
         href={pageRoute.customer.home()}
+        scroll={false}
       >
         <b className="text-xl font-semibold">고객</b>
         <p className="mt-2.5 text-xs">
