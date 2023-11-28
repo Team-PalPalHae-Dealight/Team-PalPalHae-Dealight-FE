@@ -11,7 +11,7 @@ const OrderListModal = ({ onClose }: OrderListModalPropsType) => {
 
   return (
     <div
-      className="fixed left-0 top-0 flex h-full w-full items-center justify-center bg-black bg-opacity-50"
+      className="fixed left-0 top-0 z-[800] flex h-full w-full items-center justify-center bg-black bg-opacity-50"
       onClick={onClickOutSide}
     >
       <div className="w-60 rounded-2xl bg-white p-5">

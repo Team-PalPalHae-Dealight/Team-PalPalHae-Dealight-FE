@@ -3,17 +3,17 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { useEffect, useRef } from 'react';
 
-interface UseInfiniteScrollProps<T> {
-  fetchData: (pageParam: number) => Promise<{ items: T[]; hasNext: boolean }>;
+interface UseOrdersInfiniteScrollProps<T> {
+  fetchData: (pageParam: number) => Promise<{ orders: T[]; hasNext: boolean }>;
   queryKey: string;
 }
 
-const useInfiniteScroll = <T>({
+const useOrdersInfiniteScroll = <T>({
   fetchData,
   queryKey,
-}: UseInfiniteScrollProps<T>) => {
+}: UseOrdersInfiniteScrollProps<T>) => {
   const {
-    data = { pages: [{ items: [], hasNext: false }] },
+    data = { pages: [{ orders: [], hasNext: false }] },
     hasNextPage,
     fetchNextPage,
     isFetchingNextPage,
@@ -22,7 +22,7 @@ const useInfiniteScroll = <T>({
     queryFn: ({ pageParam }) => fetchData(pageParam),
     initialPageParam: 1,
     getNextPageParam: (lastPage, allPages) => {
-      return lastPage.items.length === 0 ? null : allPages.length + 1;
+      return lastPage.orders.length === 0 ? null : allPages.length + 1;
     },
   });
 
@@ -53,10 +53,10 @@ const useInfiniteScroll = <T>({
   }, [hasNextPage, fetchNextPage]);
 
   const totalData = data.pages.reduce(
-    (acc, cur) => [...acc, ...cur.items],
+    (acc, cur) => [...acc, ...cur.orders],
     [] as T[]
   );
   return { data: totalData, ref, isFetchingNextPage };
 };
 
-export default useInfiniteScroll;
+export default useOrdersInfiniteScroll;

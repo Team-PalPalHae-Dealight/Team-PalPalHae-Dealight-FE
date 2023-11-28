@@ -1,7 +1,7 @@
 import { axiosInstance } from '@/app/_services/apiClient';
 import { ItemType } from '@/app/_types/api/item';
 import { useMutation, useSuspenseQuery } from '@tanstack/react-query';
-import useInfiniteScroll from './useInfiniteScroll';
+import useItemsInfiniteScroll from './useItemsInfiniteScroll';
 import { convertUrlToFile } from '@/app/_utils/convert';
 import { customError } from '@/app/_utils/erorr';
 
@@ -185,7 +185,7 @@ export const useGetStoreItems = ({
   storeId: string;
   size: number;
 }) => {
-  return useInfiniteScroll({
+  return useItemsInfiniteScroll({
     queryKey: 'store-items',
     fetchData: pageParam => getStoreItems({ page: pageParam, size, storeId }),
   });
@@ -194,7 +194,7 @@ export const useGetStoreItems = ({
 export const useGetMyStoreItems = ({
   size,
 }: Pick<GetStoreItemsPropsType, 'size'>) => {
-  return useInfiniteScroll({
+  return useItemsInfiniteScroll({
     queryKey: 'my-store-items',
     fetchData: pageParam => getMyStoreItems({ page: pageParam, size }),
   });
@@ -211,7 +211,7 @@ export const useGetMemberItems = ({
   sortBy: string;
   size: number;
 }) => {
-  return useInfiniteScroll({
+  return useItemsInfiniteScroll({
     queryKey: `member-items-${xCoordinate}-${yCoordinate}-${sortBy}`,
     fetchData: pageParam =>
       getMemberItems({

@@ -27,13 +27,15 @@ const TodayDealight = ({
         <h2 className="text-lg font-bold">오늘의 딜라잇</h2>
         <TodayDealightDropDown sortBy={sortBy} setSortBy={setSortBy} />
       </div>
+      <div className="h-[40vh] overflow-y-scroll">
+        <ItemCards items={memberItems} />
 
-      <ItemCards items={memberItems} />
-      {isFetchingNextPage && (
-        <div className="my-1 flex items-center justify-center">
-          <Spinner />
-        </div>
-      )}
+        {isFetchingNextPage && (
+          <div className="my-1 flex items-center justify-center">
+            <Spinner />
+          </div>
+        )}
+      </div>
       <div ref={refNode} className="h-4" />
 
       {memberItems.length === 0 && (
