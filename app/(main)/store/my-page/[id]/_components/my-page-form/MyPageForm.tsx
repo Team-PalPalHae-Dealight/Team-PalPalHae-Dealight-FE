@@ -36,8 +36,8 @@ type MyPageInputType = {
   phoneNumber: string;
   storePhoneNumber: string;
   storeAddress: string;
-  openTime: string;
-  closeTime: string;
+  storeOpenTime: string;
+  storeCloseTime: string;
   dayOff: boolean | string[];
 };
 
@@ -65,8 +65,8 @@ const MyPageForm = () => {
     phoneNumber: isValidPhoneNumber(),
     storePhoneNumber: isValidStoreNumber(),
     storeAddress: isValidAddress(),
-    openTime: isValidStoreOpenTime(),
-    closeTime: isValidStoreCloseTime(),
+    storeOpenTime: isValidStoreOpenTime(),
+    storeCloseTime: isValidStoreCloseTime(),
   });
 
   //eslint-disable-next-line
@@ -76,8 +76,8 @@ const MyPageForm = () => {
       phoneNumber,
       storePhoneNumber: telephone,
       storeAddress: addressName,
-      openTime,
-      closeTime,
+      storeOpenTime: openTime,
+      storeCloseTime: closeTime,
       dayOff,
     },
   });
@@ -90,8 +90,8 @@ const MyPageForm = () => {
       phoneNumber,
       storePhoneNumber,
       storeAddress,
-      openTime,
-      closeTime,
+      storeOpenTime,
+      storeCloseTime,
       dayOff,
     } = methods.watch();
 
@@ -112,15 +112,15 @@ const MyPageForm = () => {
 
     patchStoreProfile(
       {
-        storeId,
+        storeId: storeId!,
         storeInfo: {
           telephone: storePhoneNumber,
           addressName: storeAddress,
           xCoordinate: lng,
           yCoordinate: lat,
-          openTime,
-          closeTime,
-          dayOff,
+          openTime: `${storeOpenTime}:00`,
+          closeTime: `${storeCloseTime}:00`,
+          dayOff: dayOff.length ? dayOff : ['연중 무휴'],
         },
       },
       {
@@ -136,11 +136,10 @@ const MyPageForm = () => {
     setOpen(true);
   };
 
-  const onSubmit: SubmitHandler<MyPageInputType> = data => {
+  const onSubmit: SubmitHandler<MyPageInputType> = () => {
     if (onClick) {
       changeStoreProfile();
     }
-    console.log(data);
   };
 
   return (
@@ -167,7 +166,7 @@ const MyPageForm = () => {
         <CustomPopUp
           mainText="프로필이 수정되었습니다."
           btnText="확인"
-          btnClick={() => router.push(pageRoute.customer.home())}
+          btnClick={() => router.push(pageRoute.store.home())}
         />
       )}
     </FormProvider>

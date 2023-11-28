@@ -10,7 +10,7 @@ export const storeKeys = {
   status: (storeId: string) => ['store-status', storeId] as const,
 };
 
-type GetStorePropsType = {
+type StoreIdType = {
   storeId: string;
 };
 
@@ -24,9 +24,13 @@ type PatchStoreProfilePropsType = {
   dayOff: string[];
 };
 
+type StoreImageType = {
+  imageUrl: string;
+};
+
 export const getStore = async ({
   storeId,
-}: GetStorePropsType): Promise<StoreType> => {
+}: StoreIdType): Promise<StoreType> => {
   const response = await axiosInstance.get(`/stores/details/${storeId}`);
 
   const data = response.data;
@@ -44,7 +48,7 @@ export const getMyStore = async (): Promise<MyStoreInfo> => {
 
 export const getStoreStatusInfo = async ({
   storeId,
-}: GetStorePropsType): Promise<{
+}: StoreIdType): Promise<{
   storeId: number;
   storeStatus: '영업 중' | '영업 준비 중';
 }> => {
@@ -55,23 +59,72 @@ export const getStoreStatusInfo = async ({
   return data;
 };
 
+export const patchStoreImage = async ({
+  storeId,
+  formData,
+}: {
+  storeId: number;
+  formData: File;
+}): Promise<StoreImageType> => {
+  try {
+    return await axiosInstance.patch(
+      `/stores/images/${storeId}`,
+      {
+        file: formData,
+      },
+      {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      }
+    );
+  } catch (error) {
+    throw new Error(customError(error));
+  }
+};
+
 export const patchStoreProfile = async ({
   storeId,
   storeInfo,
 }: {
   storeInfo: PatchStoreProfilePropsType;
-  storeId: number | null;
+  storeId: number;
 }): Promise<StoreType> => {
   try {
+    const {
+      telephone,
+      addressName,
+      xCoordinate,
+      yCoordinate,
+      openTime,
+      closeTime,
+      dayOff,
+    } = storeInfo;
     return await axiosInstance.patch(`/stores/profiles/${storeId}`, {
-      storeInfo,
+      telephone,
+      addressName,
+      xCoordinate,
+      yCoordinate,
+      openTime,
+      closeTime,
+      dayOff,
     });
   } catch (error) {
     throw new Error(customError(error));
   }
 };
 
-export const useGetStore = ({ storeId }: GetStorePropsType) => {
+export const deleteStoreImage = async ({
+  storeId,
+}: {
+  storeId: number;
+}): Promise<void> => {
+  try {
+    return axiosInstance.delete(`/stores/images/${storeId}`);
+  } catch (error) {
+    throw new Error(customError(error));
+  }
+};
+
+export const useGetStore = ({ storeId }: StoreIdType) => {
   return useSuspenseQuery({
     queryKey: storeKeys.store(storeId),
     queryFn: () => getStore({ storeId }),
@@ -85,15 +138,27 @@ export const useGetMyStore = () => {
   });
 };
 
-export const useGetStoreStatusInfo = ({ storeId }: GetStorePropsType) => {
+export const useGetStoreStatusInfo = ({ storeId }: StoreIdType) => {
   return useSuspenseQuery({
     queryKey: storeKeys.status(storeId),
     queryFn: () => getStoreStatusInfo({ storeId }),
   });
 };
 
+export const usePatchStoreImage = () => {
+  return useMutation({
+    mutationFn: patchStoreImage,
+  });
+};
+
 export const usePatchStoreProfile = () => {
   return useMutation({
     mutationFn: patchStoreProfile,
+  });
+};
+
+export const useDeleteStoreImage = () => {
+  return useMutation({
+    mutationFn: deleteStoreImage,
   });
 };

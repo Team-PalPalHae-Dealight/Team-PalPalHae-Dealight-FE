@@ -38,7 +38,7 @@ export const getMyProfile = async () => {
 
 export const useGetMyProfile = () => {
   return useSuspenseQuery({
-    queryKey: ['user-info'],
+    queryKey: ['my-profile'],
     queryFn: () => getMyProfile(),
   });
 };

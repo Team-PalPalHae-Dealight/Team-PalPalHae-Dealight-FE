@@ -53,7 +53,7 @@ const StoreInformation = ({ storeInfo }: StoreInformationPropsType) => {
         </div>
         <ErrorMessage
           errors={errors}
-          name="telephone"
+          name="storePhoneNumber"
           render={({ message }) => (
             <div className="w-full pb-1.5 text-left text-xs font-normal text-red">
               {message}
@@ -83,7 +83,7 @@ const StoreInformation = ({ storeInfo }: StoreInformationPropsType) => {
             <select
               className="h-8 w-full text-sm font-normal outline-none"
               defaultValue={openTime}
-              {...register('openTime')}
+              {...register('storeOpenTime')}
             >
               {TIME_LIST.map(time => (
                 <option key={time} value={time}>
@@ -99,7 +99,7 @@ const StoreInformation = ({ storeInfo }: StoreInformationPropsType) => {
             <select
               className="h-8 w-full text-sm font-normal outline-none"
               defaultValue={closeTime}
-              {...register('closeTime')}
+              {...register('storeCloseTime')}
             >
               {TIME_LIST.map(time => (
                 <option key={time} value={time}>
@@ -109,6 +109,15 @@ const StoreInformation = ({ storeInfo }: StoreInformationPropsType) => {
             </select>
           </div>
         </div>
+        <ErrorMessage
+          errors={errors}
+          name="storeCloseTime"
+          render={({ message }) => (
+            <div className="w-full pb-1.5 text-left text-xs font-normal text-red">
+              {message}
+            </div>
+          )}
+        />
         <div className="mt-5 w-full">
           <div className="mb-2 mt-5 text-xs font-semibold text-black">
             휴무일

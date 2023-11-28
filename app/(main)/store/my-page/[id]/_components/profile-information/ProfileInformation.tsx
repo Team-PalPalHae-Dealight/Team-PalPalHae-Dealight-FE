@@ -36,7 +36,7 @@ const ProfileInformation = ({
         <div className="flex items-center pb-2.5">
           <span>대표자 전화번호 :</span>
           <input
-            className="font-norma ml-2 flex-1 border-1 border-solid border-dark-gray p-1.5 text-sm outline-none"
+            className="ml-2 flex-1 border-1 border-solid border-dark-gray p-1.5 text-sm font-normal outline-none"
             type="text"
             defaultValue={phoneNumber}
             {...register('phoneNumber')}

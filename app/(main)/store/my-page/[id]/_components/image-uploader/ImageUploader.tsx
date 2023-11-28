@@ -2,10 +2,14 @@
 
 import Image from 'next/image';
 import { useRef, useState } from 'react';
-import { patchImage } from '../../_services/patchImage';
 import { useUserInfo } from '@/app/_providers/UserInfoProvider';
-import { deleteImage } from '../../_services/deleteImage';
 import PopUp from '@/app/_components/pop-up/PopUp';
+import {
+  storeKeys,
+  useDeleteStoreImage,
+  usePatchStoreImage,
+} from '@/app/_hooks/query/store';
+import { useQueryClient } from '@tanstack/react-query';
 
 type ImageUploaderPropsType = {
   storeImage: string;
@@ -14,21 +18,36 @@ type ImageUploaderPropsType = {
 const ImageUploader = ({ storeImage }: ImageUploaderPropsType) => {
   const [imageUrl, setImageUrl] = useState(storeImage);
   const [openDeleteImage, setOpenDeleteImage] = useState(false);
+
   const fileInput = useRef(null);
 
   const { storeId } = useUserInfo();
+
+  const { mutate: patchStoreImage } = usePatchStoreImage();
+  const { mutate: deleteStoreImage } = useDeleteStoreImage();
+
+  const queryClient = useQueryClient();
 
   const handleImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const target = e.target as HTMLInputElement;
     const file = target.files![0];
     if (!file) return;
 
-    await patchImage({
-      req: {
-        storeId,
-        formData: file,
-      },
-    });
+    if (storeId) {
+      patchStoreImage(
+        {
+          storeId: storeId!,
+          formData: file,
+        },
+        {
+          onSuccess: async () => {
+            await queryClient.invalidateQueries({
+              queryKey: storeKeys.myStore(),
+            });
+          },
+        }
+      );
+    }
 
     const reader = new FileReader();
 
@@ -41,8 +60,25 @@ const ImageUploader = ({ storeImage }: ImageUploaderPropsType) => {
     };
   };
 
-  const deleteStoreImage = () => {
+  const openDeletePopup = () => {
     setOpenDeleteImage(true);
+  };
+
+  const removeStoreImage = () => {
+    if (storeId) {
+      deleteStoreImage(
+        {
+          storeId: storeId!,
+        },
+        {
+          onSuccess: async () => {
+            await queryClient.invalidateQueries({
+              queryKey: storeKeys.myStore(),
+            });
+          },
+        }
+      );
+    }
   };
 
   return (
@@ -66,7 +102,7 @@ const ImageUploader = ({ storeImage }: ImageUploaderPropsType) => {
       />
       <button
         className="mt-2.5 h-12 w-full rounded-md bg-light-gray text-base text-red shadow"
-        onClick={deleteStoreImage}
+        onClick={openDeletePopup}
       >
         업체 사진 삭제하기
       </button>
@@ -77,11 +113,7 @@ const ImageUploader = ({ storeImage }: ImageUploaderPropsType) => {
           leftBtnText="아니요"
           leftBtnClick={() => setOpenDeleteImage(false)}
           rightBtnText="예"
-          rightBtnClick={async () => {
-            await deleteImage(storeId);
-            setOpenDeleteImage(false);
-            window.location.reload();
-          }}
+          rightBtnClick={removeStoreImage}
         />
       )}
     </>

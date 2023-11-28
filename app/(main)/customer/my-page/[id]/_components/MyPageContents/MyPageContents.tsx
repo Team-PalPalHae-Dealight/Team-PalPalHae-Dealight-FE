@@ -89,7 +89,9 @@ const MyPageContents = () => {
   };
 
   const onSubmit: SubmitHandler<initialValuesType> = () => {
-    if (onClick) changeProfile();
+    if (onClick) {
+      changeProfile();
+    }
   };
 
   return (
