@@ -38,7 +38,7 @@ const ProfileInformation = ({
           <input
             className="ml-2 flex-1 border-1 border-solid border-dark-gray p-1.5 text-sm font-normal outline-none"
             type="text"
-            defaultValue={phoneNumber}
+            defaultValue={phoneNumber!}
             {...register('phoneNumber')}
           />
         </div>

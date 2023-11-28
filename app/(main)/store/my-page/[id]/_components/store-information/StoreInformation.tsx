@@ -81,7 +81,7 @@ const StoreInformation = ({ storeInfo }: StoreInformationPropsType) => {
           <div className="pr-2">개장 시간 :</div>
           <div className="flex flex-1 items-center justify-center border-1 border-dark-gray">
             <select
-              className="h-8 w-full text-sm font-normal outline-none"
+              className="h-8 w-full pl-2 text-sm font-normal outline-none"
               defaultValue={openTime}
               {...register('storeOpenTime')}
             >
@@ -97,7 +97,7 @@ const StoreInformation = ({ storeInfo }: StoreInformationPropsType) => {
           <div className="pr-2">마감 시간 :</div>
           <div className="flex flex-1 items-center justify-center border-1 border-dark-gray">
             <select
-              className="h-8 w-full text-sm font-normal outline-none"
+              className="h-8 w-full pl-2 text-sm font-normal outline-none"
               defaultValue={closeTime}
               {...register('storeCloseTime')}
             >

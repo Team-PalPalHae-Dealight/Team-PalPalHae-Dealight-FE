@@ -7,47 +7,45 @@ import PopUp from '@/app/_components/pop-up/PopUp';
 import {
   storeKeys,
   useDeleteStoreImage,
+  useGetMyStore,
   usePatchStoreImage,
 } from '@/app/_hooks/query/store';
 import { useQueryClient } from '@tanstack/react-query';
 
-type ImageUploaderPropsType = {
-  storeImage: string;
-};
-
-const ImageUploader = ({ storeImage }: ImageUploaderPropsType) => {
-  const [imageUrl, setImageUrl] = useState(storeImage);
-  const [openDeleteImage, setOpenDeleteImage] = useState(false);
-
+const ImageUploader = () => {
   const fileInput = useRef(null);
 
   const { storeId } = useUserInfo();
+
+  const { data: storeInfo } = useGetMyStore();
+  const { image } = storeInfo;
 
   const { mutate: patchStoreImage } = usePatchStoreImage();
   const { mutate: deleteStoreImage } = useDeleteStoreImage();
 
   const queryClient = useQueryClient();
 
+  const [imageUrl, setImageUrl] = useState(image);
+  const [openDeleteImage, setOpenDeleteImage] = useState(false);
+
   const handleImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const target = e.target as HTMLInputElement;
     const file = target.files![0];
     if (!file) return;
 
-    if (storeId) {
-      patchStoreImage(
-        {
-          storeId: storeId!,
-          formData: file,
+    patchStoreImage(
+      {
+        storeId: storeId!,
+        formData: file,
+      },
+      {
+        onSuccess: async () => {
+          await queryClient.invalidateQueries({
+            queryKey: storeKeys.myStore(),
+          });
         },
-        {
-          onSuccess: async () => {
-            await queryClient.invalidateQueries({
-              queryKey: storeKeys.myStore(),
-            });
-          },
-        }
-      );
-    }
+      }
+    );
 
     const reader = new FileReader();
 
@@ -65,20 +63,21 @@ const ImageUploader = ({ storeImage }: ImageUploaderPropsType) => {
   };
 
   const removeStoreImage = () => {
-    if (storeId) {
-      deleteStoreImage(
-        {
-          storeId: storeId!,
+    deleteStoreImage(
+      {
+        storeId: storeId!,
+      },
+      {
+        onSuccess: async () => {
+          await queryClient.invalidateQueries({
+            queryKey: storeKeys.myStore(),
+          });
         },
-        {
-          onSuccess: async () => {
-            await queryClient.invalidateQueries({
-              queryKey: storeKeys.myStore(),
-            });
-          },
-        }
-      );
-    }
+      }
+    );
+
+    setOpenDeleteImage(false);
+    window.location.reload();
   };
 
   return (

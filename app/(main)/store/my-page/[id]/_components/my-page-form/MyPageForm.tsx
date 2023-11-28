@@ -21,7 +21,7 @@ import {
 } from '@/app/(main)/store/register-store/_utils/validate';
 import useCoordinate from '@/app/_hooks/useCoordinate';
 import { useRouter } from 'next/navigation';
-import { useGetMyProfile, usePatchMyProfile } from '@/app/_hooks/query/member';
+import { usePatchMyProfile } from '@/app/_hooks/query/member';
 import {
   storeKeys,
   useGetMyStore,
@@ -44,19 +44,16 @@ type MyPageInputType = {
 const MyPageForm = () => {
   const { storeId } = useUserInfo();
 
-  const { data: profile } = useGetMyProfile();
+  const { nickName, phoneNumber, address } = useUserInfo();
   const { data: storeInfo } = useGetMyStore();
 
-  const { mutate: patchMember } = usePatchMyProfile();
+  const { mutate: patchMyProfile } = usePatchMyProfile();
   const { mutate: patchStoreProfile } = usePatchStoreProfile();
 
   const router = useRouter();
   const queryClient = useQueryClient();
 
-  const { nickName, phoneNumber, address } = profile;
-
-  const { telephone, addressName, openTime, closeTime, dayOff, image } =
-    storeInfo;
+  const { telephone, addressName, openTime, closeTime, dayOff } = storeInfo;
 
   const [open, setOpen] = useState(false);
   const [onClick, setOnClick] = useState(false);
@@ -95,10 +92,10 @@ const MyPageForm = () => {
       dayOff,
     } = methods.watch();
 
-    patchMember(
+    patchMyProfile(
       {
-        req: {
-          nickName,
+        userInfo: {
+          nickName: nickName!,
           phoneNumber,
           address,
         },
@@ -132,8 +129,6 @@ const MyPageForm = () => {
         },
       }
     );
-
-    setOpen(true);
   };
 
   const onSubmit: SubmitHandler<MyPageInputType> = () => {
@@ -146,8 +141,15 @@ const MyPageForm = () => {
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)}>
         <div className="flex w-full flex-col pt-5">
-          <ImageUploader storeImage={image} />
-          <ProfileInformation profile={profile} storeInfo={storeInfo} />
+          <ImageUploader />
+          <ProfileInformation
+            profile={{
+              nickName: nickName!,
+              phoneNumber: phoneNumber!,
+              address,
+            }}
+            storeInfo={storeInfo}
+          />
           <StoreInformation storeInfo={storeInfo} />
           <PrimaryButton
             className="mb-5"

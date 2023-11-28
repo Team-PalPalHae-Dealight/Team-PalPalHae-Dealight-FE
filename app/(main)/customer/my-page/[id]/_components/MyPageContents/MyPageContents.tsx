@@ -16,7 +16,8 @@ import pageRoute from '@/app/_constants/path';
 import { useRouter } from 'next/navigation';
 import { isValidRequire } from '@/app/(main)/store/my-page/[id]/_utils/validate';
 import { useQueryClient } from '@tanstack/react-query';
-import { useGetMyProfile, usePatchMyProfile } from '@/app/_hooks/query/member';
+import { usePatchMyProfile } from '@/app/_hooks/query/member';
+import { useUserInfo } from '@/app/_providers/UserInfoProvider';
 
 type initialValuesType = {
   nickName: string;
@@ -25,13 +26,12 @@ type initialValuesType = {
 };
 
 const MyPageContents = () => {
-  const { data: profile } = useGetMyProfile();
-  const { mutate: patchMember } = usePatchMyProfile();
+  const { nickName, phoneNumber, address } = useUserInfo();
+
+  const { mutate: patchMyProfile } = usePatchMyProfile();
 
   const router = useRouter();
   const queryClient = useQueryClient();
-
-  const { nickName, phoneNumber, address } = profile;
 
   const [open, setOpen] = useState(false);
   const [onClick, setOnClick] = useState(false);
@@ -51,8 +51,8 @@ const MyPageContents = () => {
   } = useForm<initialValuesType>({
     resolver: yupResolver(schema),
     defaultValues: {
-      nickName,
-      phoneNumber,
+      nickName: nickName!,
+      phoneNumber: phoneNumber!,
       addressName: address.name,
     },
   });
@@ -67,9 +67,10 @@ const MyPageContents = () => {
 
   const changeProfile = async () => {
     const { nickName, phoneNumber, addressName } = watch();
-    patchMember(
+
+    patchMyProfile(
       {
-        req: {
+        userInfo: {
           nickName,
           phoneNumber,
           address: {
