@@ -5,3 +5,17 @@
 input {
   outline: none;
 }
+
+input,
+textarea {
+  appearance: none;
+
+  -webkit-appearance: none;
+  -webkit-border-radius: 0;
+}
+
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}

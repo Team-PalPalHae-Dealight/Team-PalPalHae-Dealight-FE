@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { object } from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { isValidNickName, isValidPhoneNumber } from '../../_utils/validate';
@@ -10,81 +10,90 @@ import AddressButton from '@/app/_components/AddressButton/AddressButton';
 import useCoordinate from '@/app/_hooks/useCoordinate';
 import { ErrorMessage } from '@hookform/error-message';
 import KakaoMap from '@/app/_components/KakaoMap/KakaoMap';
-import { profileType } from '../../../../../../_types/member/profileType';
-import { patchMember } from '@/app/_services/member/patchMember';
-import { getMember } from '@/app/_services/member/getMember';
 import LogoutButton from '@/app/_components/logout-button/LogoutButton';
 import CustomPopUp from '@/app/_components/pop-up/CustomPopUp';
 import pageRoute from '@/app/_constants/path';
 import { useRouter } from 'next/navigation';
+import { isValidRequire } from '@/app/(main)/store/my-page/[id]/_utils/validate';
+import { useQueryClient } from '@tanstack/react-query';
+import { usePatchMyProfile } from '@/app/_hooks/query/member';
+import { useUserInfo } from '@/app/_providers/UserInfoProvider';
 
 type initialValuesType = {
   nickName: string;
   phoneNumber: string;
+  addressName: string;
 };
 
 const MyPageContents = () => {
-  const [profile, setProfile] = useState<profileType>();
-  const [address, setAddress] = useState('');
-  const [open, setOpen] = useState(false);
-  const [click, setClick] = useState(false);
+  const { nickName, phoneNumber, address } = useUserInfo();
 
-  const coords = useCoordinate(address);
+  const { mutate: patchMyProfile } = usePatchMyProfile();
+
   const router = useRouter();
+  const queryClient = useQueryClient();
+
+  const [open, setOpen] = useState(false);
+  const [onClick, setOnClick] = useState(false);
 
   const schema = object().shape({
     nickName: isValidNickName(),
     phoneNumber: isValidPhoneNumber(),
+    addressName: isValidRequire(),
   });
 
   const {
     register,
     handleSubmit,
+    setValue,
     watch,
     formState: { errors },
   } = useForm<initialValuesType>({
     resolver: yupResolver(schema),
-    defaultValues: async () => await getMember(),
+    defaultValues: {
+      nickName: nickName!,
+      phoneNumber: phoneNumber!,
+      addressName: address.name,
+    },
   });
 
-  const changeProfile = async () => {
-    const { nickName, phoneNumber } = watch();
+  const { addressName } = watch();
+  const { lat, lng, changeCoords } = useCoordinate(addressName ?? address.name);
 
-    const res = await patchMember({
-      req: {
-        nickName: nickName,
-        phoneNumber: phoneNumber,
-        address: {
-          name: address,
-          xCoordinate: coords.lat,
-          yCoordinate: coords.lng,
+  const handleAddressButton = (address: string) => {
+    setValue('addressName', address);
+    changeCoords(address);
+  };
+
+  const changeProfile = async () => {
+    const { nickName, phoneNumber, addressName } = watch();
+
+    patchMyProfile(
+      {
+        userInfo: {
+          nickName,
+          phoneNumber,
+          address: {
+            name: addressName,
+            xCoordinate: lng,
+            yCoordinate: lat,
+          },
         },
       },
-    });
-
-    if (res.status === 200) {
-      setOpen(true);
-    }
+      {
+        onSuccess: async () => {
+          await queryClient.invalidateQueries({ queryKey: ['user-info'] });
+          setOpen(true);
+        },
+      }
+    );
   };
 
   const onSubmit: SubmitHandler<initialValuesType> = () => {
-    setClick(true);
-    console.log(click, profile);
+    if (onClick) {
+      changeProfile();
+    }
   };
-
-  const handleAddressButton = (address: string) => {
-    setAddress(address);
-  };
-
-  const getData = async () => {
-    const profileData = await getMember();
-    setProfile(profileData);
-    setAddress(profileData.address.name);
-  };
-
-  useEffect(() => {
-    getData();
-  }, []);
 
   return (
     <form className="w-full pt-5" onSubmit={handleSubmit(onSubmit)}>
@@ -127,18 +136,19 @@ const MyPageContents = () => {
       </div>
 
       <label className="text-xs font-semibold">주소</label>
-      <div className="flex gap-x-2 pb-2.5">
-        <div
-          className={
-            'base-2/5 h-12 w-full rounded bg-white py-3 pl-3 text-sm outline-none'
-          }
-        >
-          {address}
-        </div>
+      <div className="flex w-full items-center justify-between pb-2.5">
+        <input
+          className={`h-12 w-full flex-1 overflow-auto text-ellipsis rounded bg-light-gray text-sm ${
+            errors.addressName ? 'border-red' : 'border-yellow'
+          } cursor-pointer pl-3 outline-none focus:border-2`}
+          type="text"
+          disabled
+          {...register('addressName')}
+        />
         <AddressButton
           type="button"
           getAddress={handleAddressButton}
-          className="base-3/5 h-12 min-w-fit rounded bg-yellow px-1 text-sm"
+          className="ml-2.5 min-w-fit rounded bg-yellow p-1.5 px-1 text-sm font-normal"
         >
           주소찾기
         </AddressButton>
@@ -149,13 +159,19 @@ const MyPageContents = () => {
           onClickCurrentPosition={() => {}}
           onClickPosition={() => {}}
           currentPosition={{
-            lat: coords.lat,
-            lng: coords.lng,
+            lat,
+            lng,
             title: '',
           }}
         />
       </div>
-      <PrimaryButton type="button" className="mb-5" onClick={changeProfile}>
+      <PrimaryButton
+        type="submit"
+        className="mb-5"
+        onClick={() => {
+          setOnClick(true);
+        }}
+      >
         정보 수정하기
       </PrimaryButton>
       <LogoutButton />

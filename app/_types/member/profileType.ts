@@ -1,12 +1,12 @@
-export type profileType = {
+export type MyProfileType = {
+  providerId?: number;
+  role?: string;
+  realName?: string;
+  nickName: string | null;
+  phoneNumber: string | null;
   address: {
-    name: string | undefined;
+    name: string;
     xCoordinate: number;
     yCoordinate: number;
   };
-  nickName: string;
-  phoneNumber: string;
-  providerId?: number;
-  realName?: string;
-  role?: string;
 };

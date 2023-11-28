@@ -33,7 +33,6 @@ const StoreDetail = ({ storeId }: StoreDetailPropsType) => {
     openTime,
     telephone,
     image,
-    addressName,
     xCoordinate,
     yCoordinate,
   } = store;
@@ -67,7 +66,7 @@ const StoreDetail = ({ storeId }: StoreDetailPropsType) => {
           currentPosition={{
             lng: xCoordinate,
             lat: yCoordinate,
-            title: addressName,
+            title: '',
           }}
         />
       </div>
