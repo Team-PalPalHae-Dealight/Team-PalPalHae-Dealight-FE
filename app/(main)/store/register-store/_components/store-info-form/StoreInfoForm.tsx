@@ -59,8 +59,8 @@ const StoreInfoForm = () => {
 
   const handleAddressButton = (address: string) => {
     LocalStorage.setItem('dealight-storeAddress', address);
-    LocalStorage.setItem('dealight-coords-x', coords.lat);
-    LocalStorage.setItem('dealight-coords-y', coords.lng);
+    LocalStorage.setItem('dealight-coords-x', coords.lng);
+    LocalStorage.setItem('dealight-coords-y', coords.lat);
 
     setAddress(address);
     setAddressError(false);

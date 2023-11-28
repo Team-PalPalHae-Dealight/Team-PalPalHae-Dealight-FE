@@ -47,16 +47,23 @@ const OrderListDropDown = ({
         {toggleMenu === 'CONFIRMED' && '주문 확인'}
         {toggleMenu === 'COMPLETED' && '주문 완료'}
         {toggleMenu === 'CANCELED' && '주문 취소'}
-        {isMenuOpen ? (
-          <Image
-            src={reversePolygon}
-            width={10}
-            height={10}
-            alt="reversePolygon"
-          />
-        ) : (
-          <Image src={polygon} width={10} height={10} alt="polygon" />
-        )}
+        <div className="relative h-2.5 w-2.5">
+          {isMenuOpen ? (
+            <Image
+              src={reversePolygon}
+              fill
+              sizes="(max-width: 768px) 100vw"
+              alt="reversePolygon"
+            />
+          ) : (
+            <Image
+              src={polygon}
+              fill
+              sizes="(max-width: 768px) 100vw"
+              alt="polygon"
+            />
+          )}
+        </div>
       </button>
       {isMenuOpen && (
         <div className="border-gray-300 absolute right-0 mt-2 w-14 rounded border bg-white text-xs shadow-lg">

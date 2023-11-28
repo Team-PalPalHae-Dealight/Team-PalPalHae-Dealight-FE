@@ -53,7 +53,9 @@ const ItemDetail = ({ itemId }: ItemDetailType) => {
           </div>
 
           <PrimaryButton
-            onClick={() => router.push(pageRoute.customer.storeDetail('1'))}
+            onClick={() =>
+              router.push(pageRoute.customer.storeDetail(String(item.storeId)))
+            }
             className="h-7"
           >
             업체 정보

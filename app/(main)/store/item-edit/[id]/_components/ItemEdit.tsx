@@ -9,6 +9,8 @@ import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import pageRoute from '@/app/_constants/path';
 import { useRouter } from 'next/navigation';
+import ErrorMessage from '@/app/_components/erorr-message/ErrorMessage';
+import EditLoading from './EditLoading';
 
 type ItemEditPropsType = {
   itemId: string;
@@ -26,14 +28,19 @@ type ItemEditInputs = {
 const ItemEdit = ({ itemId }: ItemEditPropsType) => {
   const { data: item } = useGetItem({ itemId });
 
-  const { mutate: patchItem } = usePatchItem();
+  const { mutate: patchItem, isPending } = usePatchItem();
 
   const router = useRouter();
 
   const { discountPrice, originalPrice, stock, itemName, image, description } =
     item;
 
-  const { register, handleSubmit, setValue } = useForm<ItemEditInputs>({
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm<ItemEditInputs>({
     defaultValues: {
       itemName,
       stock,
@@ -63,14 +70,17 @@ const ItemEdit = ({ itemId }: ItemEditPropsType) => {
   };
 
   const onSubmit: SubmitHandler<ItemEditInputs> = editItem => {
-    if (confirm('수정')) {
-      console.log(editItem);
-
+    if (confirm('수정하시겠습니까?')) {
       patchItem(
         { item: editItem, itemId },
         {
           onSuccess: data => {
-            router.push(pageRoute.store.itemDetail(String(data.itemId)));
+            router.push(pageRoute.store.itemDetail(String(data.itemId)), {
+              scroll: false,
+            });
+          },
+          onError: err => {
+            alert(err.message);
           },
         }
       );
@@ -111,16 +121,26 @@ const ItemEdit = ({ itemId }: ItemEditPropsType) => {
 
         <div className="mr-auto flex w-full flex-col gap-3">
           <input
-            {...register('itemName')}
+            {...register('itemName', { required: '값을 입력해주세요.' })}
             className="rounded border border-transparent py-3.5 pl-3 focus:border-yellow"
             placeholder="상품명"
           />
 
+          <ErrorMessage>{errors.itemName?.message}</ErrorMessage>
+
           <input
-            {...register('stock')}
+            {...register('stock', {
+              required: '값을 입력해주세요.',
+              validate: {
+                validateNumber: value =>
+                  !isNaN(Number(value)) || '숫자로 입력해주세요.',
+              },
+            })}
             className="rounded border border-transparent py-3.5 pl-3 focus:border-yellow"
             placeholder="재고"
           />
+
+          <ErrorMessage>{errors.stock?.message}</ErrorMessage>
         </div>
       </div>
 
@@ -141,7 +161,7 @@ const ItemEdit = ({ itemId }: ItemEditPropsType) => {
         </div>
 
         <div className="mb-3 flex flex-col gap-2.5">
-          <div className="flex flex-col">
+          <div className="flex flex-col gap-2">
             <label htmlFor="originalPrice" className="text-xs font-semibold">
               판매 가격
             </label>
@@ -149,10 +169,18 @@ const ItemEdit = ({ itemId }: ItemEditPropsType) => {
             <input
               type="text"
               id="originalPrice"
-              {...register('originalPrice')}
+              {...register('originalPrice', {
+                required: '값을 입력해주세요.',
+                validate: {
+                  validateNumber: value =>
+                    !isNaN(Number(value)) || '숫자로 입력해주세요.',
+                },
+              })}
               placeholder="0"
               className="rounded border border-transparent py-3.5 pl-3 focus:border-yellow"
             />
+
+            <ErrorMessage>{errors.originalPrice?.message}</ErrorMessage>
           </div>
 
           <div className="flex flex-col">
@@ -163,10 +191,18 @@ const ItemEdit = ({ itemId }: ItemEditPropsType) => {
             <input
               type="text"
               id="discountPrice"
-              {...register('discountPrice')}
+              {...register('discountPrice', {
+                required: '값을 입력해주세요.',
+                validate: {
+                  validateNumber: value =>
+                    !isNaN(Number(value)) || '숫자로 입력해주세요.',
+                },
+              })}
               placeholder="0"
               className="rounded border border-transparent py-3.5 pl-3 focus:border-yellow"
             />
+
+            <ErrorMessage>{errors.discountPrice?.message}</ErrorMessage>
           </div>
 
           <div className="flex flex-col">
@@ -184,7 +220,12 @@ const ItemEdit = ({ itemId }: ItemEditPropsType) => {
           </div>
         </div>
 
-        <PrimaryButton type="submit">수정하기</PrimaryButton>
+        <PrimaryButton
+          type="submit"
+          className="flex items-center justify-center"
+        >
+          {isPending ? <EditLoading /> : '수정하기'}
+        </PrimaryButton>
       </div>
     </form>
   );

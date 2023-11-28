@@ -7,6 +7,7 @@ import {
 } from '@tanstack/react-query';
 import ItemEdit from './_components/ItemEdit';
 import { Suspense } from 'react';
+import StoreFooter from '@/app/_components/Footer/StoreFooter';
 
 const ItemDetailEdit = async ({ params }: { params: { id: string } }) => {
   const { id: itemId } = params;
@@ -29,6 +30,8 @@ const ItemDetailEdit = async ({ params }: { params: { id: string } }) => {
           </Suspense>
         </HydrationBoundary>
       </div>
+
+      <StoreFooter />
     </>
   );
 };
