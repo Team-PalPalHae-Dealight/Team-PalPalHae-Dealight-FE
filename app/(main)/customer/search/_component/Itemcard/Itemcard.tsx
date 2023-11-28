@@ -31,15 +31,9 @@ const ItemCard = ({ image, name, closeTime, storeId }: ItemCardPropTypes) => {
           />
         </div>
 
-        <div className="flex w-28 items-center">
-          <div className="items- flex flex-col gap-1">
-            <div className="w-20 overflow-hidden text-ellipsis whitespace-nowrap text-sm font-semibold">
-              {name}
-            </div>
-
-            <div className="w-28 text-ellipsis whitespace-nowrap text-xs text-dark-gray">
-              현재 거리로부터 100m
-            </div>
+        <div className="flex w-28 items-center ">
+          <div className="mb-auto w-20 overflow-hidden text-ellipsis whitespace-nowrap text-sm font-semibold">
+            {name}
           </div>
         </div>
 

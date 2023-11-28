@@ -26,7 +26,8 @@ export default function Signup() {
     phoneNumber: yup
       .string()
       .required('-을 제외한 11개의 숫자를 입력해주세요')
-      .matches(/^[0-9]{11}$/i, '-을 제외한 11개의 숫자를 입력해주세요'),
+      .matches(/^[0-9]{11}$/i, '-을 제외한 11개의 숫자를 입력해주세요')
+      .length(11, '11개의 숫자를 입력해주세요'),
   });
   const {
     register,

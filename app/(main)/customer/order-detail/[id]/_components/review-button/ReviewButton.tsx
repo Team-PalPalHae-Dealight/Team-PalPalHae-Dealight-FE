@@ -6,32 +6,26 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import PopUp from '@/app/_components/pop-up/PopUp';
 import ReviewWriteButton from './ReviewWriteButton';
-
 type ReviewButtonPropsType = {
   status: string;
   isReview: boolean;
   orderId: number;
 };
-
 const ReviewButton = ({ status, isReview, orderId }: ReviewButtonPropsType) => {
   const { providerId } = useUserInfo();
   const router = useRouter();
   const [open, setOpen] = useState(false);
-
   const openPopup = () => {
     setOpen(true);
   };
-
   const cancel = async () => {
     await cancelOrder(orderId);
-
     router.push(
       providerId
         ? pageRoute.customer.orderList(String(providerId))
         : pageRoute.customer.login()
     );
   };
-
   return (
     <>
       {status === '주문 취소' ? (
@@ -39,7 +33,7 @@ const ReviewButton = ({ status, isReview, orderId }: ReviewButtonPropsType) => {
           주문 취소
         </div>
       ) : status === '주문 완료' ? (
-        <ReviewWriteButton isReview={isReview} />
+        <ReviewWriteButton isReview={isReview} orderId={orderId} />
       ) : (
         <PrimaryButton className="mb-16" onClick={openPopup}>
           주문 취소하기
@@ -57,5 +51,4 @@ const ReviewButton = ({ status, isReview, orderId }: ReviewButtonPropsType) => {
     </>
   );
 };
-
 export default ReviewButton;

@@ -4,7 +4,7 @@ import polygon from '@/app/_assets/images/polygon.png';
 import reversePolygon from '@/app/_assets/images/reversePolygon.png';
 import { twMerge } from 'tailwind-merge';
 
-type DropDownTextType = '거리순' | '마감 시간순';
+type DropDownTextType = '거리순' | '마감 시간순' | '상품 할인율순';
 
 type SortPropTypes = {
   getsortOption: (val: string) => void;
@@ -27,7 +27,7 @@ const OrderListDropDown = ({ getsortOption }: SortPropTypes) => {
   const buttonClasses = twMerge(`flex items-center gap-2 rounded text-xs`);
 
   return (
-    <div className="relative inline-block">
+    <div className="inline-block">
       <button onClick={onClickToggleMenu} className={buttonClasses}>
         {toggleMenu}
         {isMenuOpen ? (
@@ -42,7 +42,7 @@ const OrderListDropDown = ({ getsortOption }: SortPropTypes) => {
         )}
       </button>
       {isMenuOpen && (
-        <div className="border-gray-300 absolute mt-2 w-20 rounded border bg-white text-xs shadow-lg">
+        <div className="border-gray-300 absolute right-0.5 mt-2 w-24 rounded border bg-white text-xs shadow-lg ">
           <ul>
             <li
               onClick={() => onClickOption('거리순')}
@@ -55,6 +55,12 @@ const OrderListDropDown = ({ getsortOption }: SortPropTypes) => {
               className="cursor-pointer px-2 py-1 "
             >
               마감 시간순
+            </li>
+            <li
+              onClick={() => onClickOption('상품 할인율순')}
+              className="cursor-pointer px-2 py-1 "
+            >
+              상품 할인율순
             </li>
           </ul>
         </div>
