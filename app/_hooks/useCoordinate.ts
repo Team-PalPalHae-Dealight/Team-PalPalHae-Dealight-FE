@@ -15,7 +15,6 @@ const useCoordinate = (address: string) => {
       address,
       (result: Document[], status: 'OK' | 'ZERO_RESULT' | 'ERROR') => {
         if (status === window.kakao.maps.services.Status.OK) {
-          console.log(address, Number(result[0].y), Number(result[0].x));
           setCoords({ lat: Number(result[0].y), lng: Number(result[0].x) });
         }
       }
