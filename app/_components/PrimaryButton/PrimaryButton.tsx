@@ -10,8 +10,7 @@ const PrimaryButton = ({
   className,
   ...props
 }: PrimaryButtonPropsType) => {
-  const primaryButtonDefaultStyles =
-    'h-12 w-full rounded-md bg-yellow text-base';
+  const primaryButtonDefaultStyles = 'h-12 w-full rounded-md bg-yellow text-sm';
 
   const classNames = twMerge(primaryButtonDefaultStyles, className);
 
