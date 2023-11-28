@@ -26,10 +26,7 @@ export default function Signup() {
     phoneNumber: yup
       .string()
       .required('-을 제외한 11개의 숫자를 입력해주세요')
-      .matches(
-        /^(\+\d{1,2}\s?)?1?\.?\s?\(?\d{3}\)?[\s.-]?\d{4}[\s.-]?\d{4}$/,
-        '-을 제외한 11개의 숫자를 입력해주세요'
-      ),
+      .matches(/^[0-9]{11}$/i, '-을 제외한 11개의 숫자를 입력해주세요'),
   });
   const {
     register,
@@ -39,6 +36,7 @@ export default function Signup() {
   } = useForm<IFormInput>({ resolver: yupResolver(schema) });
 
   const onSubmit: SubmitHandler<IFormInput> = async data => {
+    if (isNicknameValid === false) alert('닉네임 중복 검사 하세요');
     if (isNicknameValid === true) {
       const { provider, providerId } = LocalStorage.getItem('dealight-signup');
 
@@ -66,8 +64,9 @@ export default function Signup() {
           return;
         }
       } catch (error) {
-        if (error) alert(error);
-        console.error(error);
+        if (error.message === 'Request failed with status code 400') {
+          alert('닉네임이 중복되었습니다');
+        }
       }
     }
   };
@@ -81,8 +80,9 @@ export default function Signup() {
       alert('닉네임 검사 통과');
       setIsNicknameValid(true);
     } catch (error) {
-      alert(error.message);
-      console.error(error);
+      if (error.message === 'Request failed with status code 400') {
+        alert('닉네임이 중복되었습니다');
+      }
     }
   };
 
