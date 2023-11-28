@@ -27,9 +27,9 @@ const StoreInformation = ({ storeInfo }: StoreInformationPropsType) => {
   const { storeAddress } = watch();
   const { changeCoords } = useCoordinate(storeAddress ?? addressName);
 
-  const handleAddressButton = (addr: string) => {
-    setValue('storeAddress', addr);
-    changeCoords(addr);
+  const handleAddressButton = (address: string) => {
+    setValue('storeAddress', address);
+    changeCoords(address);
   };
 
   return (

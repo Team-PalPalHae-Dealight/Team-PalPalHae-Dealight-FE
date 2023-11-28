@@ -34,10 +34,7 @@ const ImageUploader = () => {
     if (!file) return;
 
     patchStoreImage(
-      {
-        storeId: storeId!,
-        formData: file,
-      },
+      { storeId: storeId!, formData: file },
       {
         onSuccess: async () => {
           await queryClient.invalidateQueries({
@@ -64,9 +61,7 @@ const ImageUploader = () => {
 
   const removeStoreImage = () => {
     deleteStoreImage(
-      {
-        storeId: storeId!,
-      },
+      { storeId: storeId! },
       {
         onSuccess: async () => {
           await queryClient.invalidateQueries({

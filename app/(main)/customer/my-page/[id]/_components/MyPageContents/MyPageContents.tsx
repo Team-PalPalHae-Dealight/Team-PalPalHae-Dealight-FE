@@ -60,9 +60,9 @@ const MyPageContents = () => {
   const { addressName } = watch();
   const { lat, lng, changeCoords } = useCoordinate(addressName ?? address.name);
 
-  const handleAddressButton = (addr: string) => {
-    setValue('addressName', addr);
-    changeCoords(addr);
+  const handleAddressButton = (address: string) => {
+    setValue('addressName', address);
+    changeCoords(address);
   };
 
   const changeProfile = async () => {
