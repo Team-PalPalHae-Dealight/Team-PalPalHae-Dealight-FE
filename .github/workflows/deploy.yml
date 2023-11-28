@@ -21,6 +21,14 @@ jobs:
         with:
           path: build/storybook
 
+      - name: publish to chromatic
+        id: chromatic
+        uses: chromaui/action@v1
+        with:
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          onlyChanged: true
+
   Deploy-Production:
     runs-on: ubuntu-latest
     steps:
