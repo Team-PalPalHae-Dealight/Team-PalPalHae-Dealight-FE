@@ -30,6 +30,7 @@ const HomeButton = ({ status }: HomeButtonPropsType) => {
             : ''
         }
         onClick={() => status === '영업 준비 중' && setOnPopUp(true)}
+        scroll={false}
       >
         <b className="text-xl font-semibold">주문내역</b>
         <p className=" mb-7 mt-2.5 text-xs">
@@ -49,7 +50,7 @@ const HomeButton = ({ status }: HomeButtonPropsType) => {
         }
         onClick={() => {
           status === '영업 중'
-            ? router.push(pageRoute.store.itemRegister())
+            ? router.push(pageRoute.store.itemRegister(), { scroll: false })
             : setOnPopUp(true);
         }}
       >

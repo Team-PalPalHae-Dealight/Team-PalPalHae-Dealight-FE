@@ -5,23 +5,32 @@ import { ErrorMessage } from '@hookform/error-message';
 import Notification from '@/app/_assets/svgs/notification.svg';
 import { useFormContext } from 'react-hook-form';
 import { TIME_LIST } from '@/app/(main)/store/register-store/_constants/time';
-import { profileType } from '../../_types/profileType';
 import { DAY_LIST, checkboxClassName } from '../../_constants/day';
+import { MyStoreInfo } from '@/app/_types/store/storeType';
+import useCoordinate from '@/app/_hooks/useCoordinate';
 
 type StoreInformationPropsType = {
-  data: profileType;
+  storeInfo: MyStoreInfo;
 };
 
-const StoreInformation = ({ data }: StoreInformationPropsType) => {
-  const handleAddressButton = (address: string) => {
-    setValue('storeAddress', address);
-  };
+const StoreInformation = ({ storeInfo }: StoreInformationPropsType) => {
+  const { storeNumber, telephone, addressName, openTime, closeTime, dayOff } =
+    storeInfo;
 
   const {
     register,
+    watch,
     setValue,
     formState: { errors },
   } = useFormContext();
+
+  const { storeAddress } = watch();
+  const { changeCoords } = useCoordinate(storeAddress ?? addressName);
+
+  const handleAddressButton = (addr: string) => {
+    setValue('storeAddress', addr);
+    changeCoords(addr);
+  };
 
   return (
     <div className="min-h-64 mb-2.5 w-full rounded bg-white text-sm font-semibold text-black">
@@ -30,7 +39,7 @@ const StoreInformation = ({ data }: StoreInformationPropsType) => {
         <div className="flex justify-between pb-2.5 pr-5">
           <div>
             사업자 등록번호 :{' '}
-            <span className="font-normal text-black">{data.storeNumber}</span>
+            <span className="font-normal text-black">{storeNumber}</span>
           </div>
         </div>
         <div className="flex items-center pb-2.5">
@@ -38,8 +47,8 @@ const StoreInformation = ({ data }: StoreInformationPropsType) => {
           <input
             className="ml-2 flex-1 border-1 border-solid border-dark-gray p-1.5 text-sm font-normal text-black outline-none"
             type="text"
-            defaultValue={data.telephone}
-            {...register('telephone')}
+            defaultValue={telephone}
+            {...register('storePhoneNumber')}
           />
         </div>
         <ErrorMessage
@@ -57,7 +66,7 @@ const StoreInformation = ({ data }: StoreInformationPropsType) => {
             className="ml-2 flex-1 overflow-auto text-ellipsis border-1 border-solid border-dark-gray p-1.5 text-sm font-normal text-black outline-none"
             type="text"
             disabled
-            defaultValue={data.addressName}
+            defaultValue={addressName}
             {...register('storeAddress')}
           />
           <AddressButton
@@ -73,7 +82,7 @@ const StoreInformation = ({ data }: StoreInformationPropsType) => {
           <div className="flex flex-1 items-center justify-center border-1 border-dark-gray">
             <select
               className="h-8 w-full text-sm font-normal outline-none"
-              defaultValue={data.openTime}
+              defaultValue={openTime}
               {...register('openTime')}
             >
               {TIME_LIST.map(time => (
@@ -89,7 +98,7 @@ const StoreInformation = ({ data }: StoreInformationPropsType) => {
           <div className="flex flex-1 items-center justify-center border-1 border-dark-gray">
             <select
               className="h-8 w-full text-sm font-normal outline-none"
-              defaultValue={data.closeTime}
+              defaultValue={closeTime}
               {...register('closeTime')}
             >
               {TIME_LIST.map(time => (
@@ -117,7 +126,7 @@ const StoreInformation = ({ data }: StoreInformationPropsType) => {
             className="grid w-full grid-flow-row grid-cols-7 gap-1.5 font-normal"
           >
             {DAY_LIST.map((day: string) =>
-              data.dayOff && data.dayOff.includes(day) ? (
+              dayOff && dayOff.includes(day) ? (
                 <div className="h-12 w-full bg-white" key={day}>
                   <input
                     type="checkbox"

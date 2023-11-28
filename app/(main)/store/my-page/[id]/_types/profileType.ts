@@ -11,14 +11,3 @@ export type profileType = {
   userPhone: string;
   userName: string;
 };
-
-export type PatchProfileType = {
-  storeId: number | null;
-  telephone: string;
-  addressName: string | undefined;
-  xCoordinate: number;
-  yCoordinate: number;
-  openTime: string;
-  closeTime: string;
-  dayOff?: string[];
-};

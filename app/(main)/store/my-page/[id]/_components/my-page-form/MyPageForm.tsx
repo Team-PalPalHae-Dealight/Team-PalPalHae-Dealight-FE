@@ -4,10 +4,8 @@ import { useForm, FormProvider, SubmitHandler } from 'react-hook-form';
 import ImageUploader from '../image-uploader/ImageUploader';
 import ProfileInformation from '../profile-information/ProfileInformation';
 import PrimaryButton from '@/app/_components/PrimaryButton/PrimaryButton';
-import { useCallback, useEffect, useState } from 'react';
+import { useState } from 'react';
 import StoreInformation from '../store-information/StoreInformation';
-import { getProfile } from '../../_services/getProfile';
-import { useUserInfo } from '@/app/_providers/UserInfoProvider';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { object } from 'yup';
 import {
@@ -15,37 +13,58 @@ import {
   isValidPhoneNumber,
   isValidStoreNumber,
 } from '../../_utils/validate';
-import { getMember } from '@/app/_services/member/getMember';
-import { profileType } from '../../_types/profileType';
 import ManageButton from '../manage-button/ManageButton';
-import { patchProfile } from '../../_services/patchProfile';
-import { patchMember } from '@/app/_services/member/patchMember';
 import LogoutButton from '@/app/_components/logout-button/LogoutButton';
-import Spinner from '@/app/_components/spinner/Spinner';
 import {
   isValidStoreCloseTime,
   isValidStoreOpenTime,
 } from '@/app/(main)/store/register-store/_utils/validate';
 import useCoordinate from '@/app/_hooks/useCoordinate';
 import { useRouter } from 'next/navigation';
+import { useGetMyProfile, usePatchMyProfile } from '@/app/_hooks/query/member';
+import {
+  storeKeys,
+  useGetMyStore,
+  usePatchStoreProfile,
+} from '@/app/_hooks/query/store';
+import { useQueryClient } from '@tanstack/react-query';
+import { useUserInfo } from '@/app/_providers/UserInfoProvider';
+import CustomPopUp from '@/app/_components/pop-up/CustomPopUp';
 import pageRoute from '@/app/_constants/path';
 
 type MyPageInputType = {
-  userPhone: string;
-  telephone: string;
-  address: string;
+  phoneNumber: string;
+  storePhoneNumber: string;
+  storeAddress: string;
   openTime: string;
   closeTime: string;
   dayOff: boolean | string[];
 };
 
 const MyPageForm = () => {
+  const { storeId } = useUserInfo();
+
+  const { data: profile } = useGetMyProfile();
+  const { data: storeInfo } = useGetMyStore();
+
+  const { mutate: patchMember } = usePatchMyProfile();
+  const { mutate: patchStoreProfile } = usePatchStoreProfile();
+
   const router = useRouter();
+  const queryClient = useQueryClient();
+
+  const { nickName, phoneNumber, address } = profile;
+
+  const { telephone, addressName, openTime, closeTime, dayOff, image } =
+    storeInfo;
+
+  const [open, setOpen] = useState(false);
+  const [onClick, setOnClick] = useState(false);
 
   const schema = object().shape({
-    userPhone: isValidPhoneNumber(),
-    telephone: isValidStoreNumber(),
-    address: isValidAddress(),
+    phoneNumber: isValidPhoneNumber(),
+    storePhoneNumber: isValidStoreNumber(),
+    storeAddress: isValidAddress(),
     openTime: isValidStoreOpenTime(),
     closeTime: isValidStoreCloseTime(),
   });
@@ -53,101 +72,105 @@ const MyPageForm = () => {
   //eslint-disable-next-line
   const methods = useForm<MyPageInputType | any>({
     resolver: yupResolver(schema),
+    defaultValues: {
+      phoneNumber,
+      storePhoneNumber: telephone,
+      storeAddress: addressName,
+      openTime,
+      closeTime,
+      dayOff,
+    },
   });
 
   const { storeAddress } = methods.watch();
+  const { lat, lng } = useCoordinate(storeAddress ?? addressName);
 
-  const [profile, setProfile] = useState<profileType>();
+  const changeStoreProfile = async () => {
+    const {
+      phoneNumber,
+      storePhoneNumber,
+      storeAddress,
+      openTime,
+      closeTime,
+      dayOff,
+    } = methods.watch();
 
-  const { storeId } = useUserInfo();
-  const newCoords = useCoordinate(storeAddress);
+    patchMember(
+      {
+        req: {
+          nickName,
+          phoneNumber,
+          address,
+        },
+      },
+      {
+        onSuccess: async () => {
+          await queryClient.invalidateQueries({ queryKey: ['user-info'] });
+        },
+      }
+    );
+
+    patchStoreProfile(
+      {
+        storeId,
+        storeInfo: {
+          telephone: storePhoneNumber,
+          addressName: storeAddress,
+          xCoordinate: lng,
+          yCoordinate: lat,
+          openTime,
+          closeTime,
+          dayOff,
+        },
+      },
+      {
+        onSuccess: async () => {
+          await queryClient.invalidateQueries({
+            queryKey: storeKeys.myStore(),
+          });
+          setOpen(true);
+        },
+      }
+    );
+
+    setOpen(true);
+  };
 
   const onSubmit: SubmitHandler<MyPageInputType> = data => {
-    console.log('data = ', data);
-    changeProfile();
-  };
-
-  const getData = useCallback(async () => {
-    if (storeId) {
-      const res = await getProfile();
-      const { nickName, phoneNumber } = await getMember();
-
-      const data = {
-        addressName: res.addressName,
-        closeTime: res.closeTime,
-        dayOff: res.dayOff,
-        image: res.image,
-        name: res.name,
-        openTime: res.openTime,
-        storeNumber: res.storeNumber,
-        storeStatus: res.storeStatus,
-        telephone: res.telephone,
-        userPhone: phoneNumber,
-        userName: nickName,
-      };
-
-      setProfile(data);
+    if (onClick) {
+      changeStoreProfile();
     }
-  }, [storeId]);
-
-  const changeProfile = async () => {
-    const { userPhone, telephone, storeAddress, openTime, closeTime, dayOff } =
-      methods.watch();
-
-    const { nickName, phoneNumber, address } = await getMember();
-
-    await patchMember({
-      req: {
-        nickName,
-        phoneNumber: userPhone ?? phoneNumber,
-        address,
-      },
-    });
-
-    await patchProfile({
-      req: {
-        storeId,
-        telephone: telephone ?? profile?.telephone,
-        addressName: storeAddress ?? profile?.addressName,
-        xCoordinate: newCoords.lng,
-        yCoordinate: newCoords.lat,
-        openTime: openTime ?? profile?.openTime,
-        closeTime: closeTime ?? profile?.closeTime,
-        dayOff: !dayOff ? ['연중 무휴'] : dayOff,
-      },
-    });
-
-    router.push(pageRoute.store.home());
+    console.log(data);
   };
-
-  useEffect(() => {
-    getData();
-  }, [getData]);
 
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)}>
-        <div className="flex w-full flex-col px-5 pt-5">
-          {profile ? (
-            <>
-              <ImageUploader storeImage={profile.image} />
-              <ProfileInformation data={profile} />
-              <StoreInformation data={profile} />
-            </>
-          ) : (
-            <div className="flex h-80 w-full items-center justify-center">
-              <Spinner />
-            </div>
-          )}
-          <PrimaryButton className="mb-5" type="submit" onClick={() => {}}>
+        <div className="flex w-full flex-col pt-5">
+          <ImageUploader storeImage={image} />
+          <ProfileInformation profile={profile} storeInfo={storeInfo} />
+          <StoreInformation storeInfo={storeInfo} />
+          <PrimaryButton
+            className="mb-5"
+            type="submit"
+            onClick={() => {
+              setOnClick(true);
+            }}
+          >
             정보 수정하기
           </PrimaryButton>
           <ManageButton />
           <LogoutButton />
         </div>
       </form>
+      {open && (
+        <CustomPopUp
+          mainText="프로필이 수정되었습니다."
+          btnText="확인"
+          btnClick={() => router.push(pageRoute.customer.home())}
+        />
+      )}
     </FormProvider>
   );
 };
-
 export default MyPageForm;

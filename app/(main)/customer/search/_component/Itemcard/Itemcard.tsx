@@ -18,27 +18,33 @@ const ItemCard = ({ image, name, closeTime, storeId }: ItemCardPropTypes) => {
       className="w-full"
     >
       <div
-        className=" item-between mb-3 flex w-full flex-row gap-3 rounded-md bg-white p-2"
+        className="mb-2 flex items-center gap-2 rounded bg-white p-4"
         style={{ boxShadow: '0px 0px 4px 0px rgb(0, 0, 0, 0.1)' }}
       >
-        <div className="relative h-24 w-32">
+        <div className="relative h-14 w-14 overflow-hidden rounded">
           <Image
-            src={`/${image}`}
-            alt="상품 이미지"
             priority
             fill
+            alt={name}
+            src={String(image)}
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
         </div>
 
-        <div className="flex flex-col">
-          <div className="font-inter font-semibold text-black">{name}</div>
-          <div className="w-32 text-left text-xs font-semibold leading-normal text-dark-gray">
-            <span>현재 위치로부터 100m</span>
+        <div className="flex w-28 items-center">
+          <div className="items- flex flex-col gap-1">
+            <div className="w-20 overflow-hidden text-ellipsis whitespace-nowrap text-sm font-semibold">
+              {name}
+            </div>
+
+            <div className="w-28 text-ellipsis whitespace-nowrap text-xs text-dark-gray">
+              현재 거리로부터 100m
+            </div>
           </div>
         </div>
-        <div className="font-inter ml-16 mt-16 flex text-right text-xs font-semibold leading-normal text-dark-gray">
-          <p>마감 시간:{closeTime}</p>
+
+        <div className="ml-auto mt-auto flex flex-col justify-end  gap-1 text-xs text-dark-gray">
+          <div> 마감 시간 : {closeTime}</div>
         </div>
       </div>
     </Link>

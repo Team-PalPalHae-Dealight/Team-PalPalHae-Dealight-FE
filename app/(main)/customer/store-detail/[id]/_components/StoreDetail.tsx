@@ -26,8 +26,16 @@ const StoreDetail = ({ storeId }: StoreDetailPropsType) => {
       'https://picsum.photos/id/95/200/300.jpg',
   };
 
-  const { closeTime, dayOff, name, openTime, telephone, image, addressName } =
-    store;
+  const {
+    closeTime,
+    dayOff,
+    name,
+    openTime,
+    telephone,
+    image,
+    xCoordinate,
+    yCoordinate,
+  } = store;
   const dayOffText = dayOff.join(' ');
 
   return (
@@ -56,9 +64,9 @@ const StoreDetail = ({ storeId }: StoreDetailPropsType) => {
         <h2 className="pb-2.5 text-lg font-semibold">업체 위치</h2>
         <KakaoMap
           currentPosition={{
-            lng: 126.570667,
-            lat: 33.450701,
-            title: addressName,
+            lng: xCoordinate,
+            lat: yCoordinate,
+            title: '',
           }}
         />
       </div>

@@ -7,14 +7,14 @@ import {
   dehydrate,
 } from '@tanstack/react-query';
 import { Suspense } from 'react';
-import { getMember } from '@/app/_services/member/getMember';
+import { getMyProfile } from '@/app/_hooks/query/member';
 
 const Page = async () => {
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery({
     queryKey: ['user-info'],
-    queryFn: () => getMember(),
+    queryFn: () => getMyProfile(),
   });
 
   return (

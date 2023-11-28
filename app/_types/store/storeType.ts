@@ -1,5 +1,5 @@
-export type StoreType = {
-  storeNumber: string;
+export type MyStoreInfo = {
+  storeNumber: number;
   name: string;
   telephone: string;
   addressName: string;

@@ -39,7 +39,7 @@ const ReviewButton = ({ status, isReview, orderId }: ReviewButtonPropsType) => {
           주문 취소
         </div>
       ) : status === '주문 완료' ? (
-        <ReviewWriteButton isReview={isReview} />
+        <ReviewWriteButton isReview={isReview} orderId={orderId} />
       ) : (
         <PrimaryButton className="mb-16" onClick={openPopup}>
           주문 취소하기

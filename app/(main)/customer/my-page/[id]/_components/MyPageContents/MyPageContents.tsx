@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
+import { useState } from 'react';
 import { object } from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { isValidNickName, isValidPhoneNumber } from '../../_utils/validate';
@@ -14,9 +14,9 @@ import LogoutButton from '@/app/_components/logout-button/LogoutButton';
 import CustomPopUp from '@/app/_components/pop-up/CustomPopUp';
 import pageRoute from '@/app/_constants/path';
 import { useRouter } from 'next/navigation';
-import { useGetMember, usePatchMember } from '@/app/_hooks/query/member';
 import { isValidRequire } from '@/app/(main)/store/my-page/[id]/_utils/validate';
 import { useQueryClient } from '@tanstack/react-query';
+import { useGetMyProfile, usePatchMyProfile } from '@/app/_hooks/query/member';
 
 type initialValuesType = {
   nickName: string;
@@ -25,8 +25,8 @@ type initialValuesType = {
 };
 
 const MyPageContents = () => {
-  const { data: profile } = useGetMember();
-  const { mutate: patchMember } = usePatchMember();
+  const { data: profile } = useGetMyProfile();
+  const { mutate: patchMember } = usePatchMyProfile();
 
   const router = useRouter();
   const queryClient = useQueryClient();
@@ -65,7 +65,7 @@ const MyPageContents = () => {
     changeCoords(addr);
   };
 
-  const changeProfile = useCallback(async () => {
+  const changeProfile = async () => {
     const { nickName, phoneNumber, addressName } = watch();
     patchMember(
       {
@@ -86,17 +86,11 @@ const MyPageContents = () => {
         },
       }
     );
-  }, [patchMember, queryClient, watch, lng, lat]);
-
-  const onSubmit: SubmitHandler<initialValuesType> = data => {
-    console.log(data);
   };
 
-  useEffect(() => {
-    if (!onClick) return;
-
-    changeProfile();
-  }, [changeProfile, onClick]);
+  const onSubmit: SubmitHandler<initialValuesType> = () => {
+    if (onClick) changeProfile();
+  };
 
   return (
     <form className="w-full pt-5" onSubmit={handleSubmit(onSubmit)}>

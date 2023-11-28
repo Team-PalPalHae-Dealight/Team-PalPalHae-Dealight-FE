@@ -1,5 +1,4 @@
 import { axiosInstance } from '@/app/_services/apiClient';
-import { getMember } from '@/app/_services/member/getMember';
 import { patchMember } from '@/app/_services/member/patchMember';
 import { useMutation, useSuspenseQuery } from '@tanstack/react-query';
 
@@ -29,17 +28,25 @@ export const updateMemberAddress = async ({
   return data;
 };
 
+export const getMyProfile = async () => {
+  const response = await axiosInstance.get('/members/profiles');
+
+  const data = response.data;
+
+  return data;
+};
+
+export const useGetMyProfile = () => {
+  return useSuspenseQuery({
+    queryKey: ['user-info'],
+    queryFn: () => getMyProfile(),
+  });
+};
+
 export const useUpdateMemberAddress = () => {
   return useMutation({ mutationFn: updateMemberAddress });
 };
 
-export const useGetMember = () => {
-  return useSuspenseQuery({
-    queryKey: ['user-info'],
-    queryFn: () => getMember(),
-  });
-};
-
-export const usePatchMember = () => {
+export const usePatchMyProfile = () => {
   return useMutation({ mutationFn: patchMember });
 };
