@@ -51,7 +51,7 @@ const CustomerHeader = () => {
         </Link>
       </div>
 
-      <div className="absolute left-1/2 top-1/2 mx-auto flex -translate-x-1/2 -translate-y-1/2 items-center">
+      <div className="mx-auto flex items-center">
         <AddressButton
           getAddress={addressValue => {
             changeCoords(addressValue);
@@ -59,7 +59,7 @@ const CustomerHeader = () => {
             setAddressChange(true);
           }}
         >
-          <div className="flex flex-row">
+          <div className="absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 flex-row">
             <div className=" w-28 overflow-hidden text-ellipsis whitespace-nowrap">
               {address.name}
             </div>
