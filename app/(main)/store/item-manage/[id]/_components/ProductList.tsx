@@ -29,7 +29,7 @@ const ProductList = () => {
         <div className="h-4" ref={ref} />
 
         {isFetchingNextPage && (
-          <div className="my-1 flex items-center justify-center">
+          <div className="mb-3 flex items-center justify-center">
             <Spinner />
           </div>
         )}

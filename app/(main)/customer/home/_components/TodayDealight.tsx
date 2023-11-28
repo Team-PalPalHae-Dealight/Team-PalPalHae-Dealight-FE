@@ -30,13 +30,14 @@ const TodayDealight = ({
       <div className="h-[40vh] overflow-y-scroll">
         <ItemCards items={memberItems} />
 
+        <div ref={refNode} className="h-4" />
+
         {isFetchingNextPage && (
-          <div className="my-1 flex items-center justify-center">
+          <div className="mb-1 flex items-center justify-center">
             <Spinner />
           </div>
         )}
       </div>
-      <div ref={refNode} className="h-4" />
 
       {memberItems.length === 0 && (
         <span className="flex h-[38vh] items-center justify-center text-xs text-dark-gray">
