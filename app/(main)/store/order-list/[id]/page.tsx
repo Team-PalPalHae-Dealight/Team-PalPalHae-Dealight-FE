@@ -1,6 +1,6 @@
 import OrderList from './_components/order-list/OrderList';
 
-const page = () => {
+const Page = () => {
   return (
     <>
       <OrderList />
@@ -8,4 +8,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

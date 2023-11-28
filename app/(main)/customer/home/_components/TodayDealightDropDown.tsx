@@ -34,16 +34,23 @@ const TodayDealightDropDown = ({
         {sortBy === 'distance' && '거리순'}
         {sortBy === 'deadline' && '마감 입박순'}
         {sortBy === 'discount-rate' && '할인율순'}
-        {isMenuOpen ? (
-          <Image
-            src={reversePolygon}
-            width={10}
-            height={10}
-            alt="reversePolygon"
-          />
-        ) : (
-          <Image src={polygon} width={10} height={10} alt="polygon" />
-        )}
+        <div className="relative h-1.5 w-2.5">
+          {isMenuOpen ? (
+            <Image
+              src={reversePolygon}
+              fill
+              sizes="(max-width: 768px) 100vw"
+              alt="reversePolygon"
+            />
+          ) : (
+            <Image
+              src={polygon}
+              fill
+              sizes="(max-width: 768px) 100vw"
+              alt="polygon"
+            />
+          )}
+        </div>
       </button>
       {isMenuOpen && (
         <div className="border-gray-300 absolute mt-2 w-[67px] rounded border bg-white text-xs shadow-lg">
