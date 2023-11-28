@@ -1,9 +1,8 @@
 'use client';
 
-import Image from 'next/image';
 import Link from 'next/link';
-import ShopMain from '@/app/_assets/images/shop-main.png';
-import UserMain from '@/app/_assets/images/user-main.png';
+import Customer from '@/app/_assets/svgs/customer-icon.svg';
+import Store from '@/app/_assets/svgs/store-icon.svg';
 import pageRoute from '@/app/_constants/path';
 import { useAuth } from '@/app/_providers/AuthProvider';
 import { useRouter } from 'next/navigation';
@@ -15,7 +14,7 @@ const StartLink = () => {
   return (
     <div className="mt-2.5 flex w-full gap-2">
       <button
-        className="relative w-full rounded-lg bg-white px-1.5 py-3.5 text-left shadow"
+        className="relative w-full rounded-lg bg-white p-3.5 text-left shadow"
         onClick={() =>
           router.push(
             loggedIn ? pageRoute.store.home() : pageRoute.store.login(),
@@ -27,16 +26,13 @@ const StartLink = () => {
         <p className="mt-2.5 text-xs">
           사장님으로 <br /> 활동하기
         </p>
-        <Image
-          src={ShopMain}
-          priority
-          alt="shop main"
-          className="absolute bottom-0 right-0"
-        />
+        <div className="absolute bottom-0 right-0">
+          <Store />
+        </div>
       </button>
 
       <Link
-        className="relative w-full rounded-lg bg-white px-1.5 py-3.5 shadow"
+        className="relative w-full rounded-lg bg-white p-3.5 shadow"
         href={pageRoute.customer.home()}
         scroll={false}
       >
@@ -44,12 +40,9 @@ const StartLink = () => {
         <p className="mt-2.5 text-xs">
           고객님으로 <br /> 활동하기
         </p>
-        <Image
-          src={UserMain}
-          priority
-          alt="user main"
-          className="absolute bottom-0 right-0"
-        />
+        <div className="absolute bottom-0 right-0">
+          <Customer />
+        </div>
       </Link>
     </div>
   );

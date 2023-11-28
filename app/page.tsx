@@ -11,7 +11,7 @@ export default async function Home() {
       <Header />
 
       <div className="flex flex-col items-center px-5 pt-4">
-        <div className="relative h-44 w-full">
+        <div className="relative flex h-44 w-full justify-center">
           <Banner fill="true" />
         </div>
 
