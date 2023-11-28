@@ -20,7 +20,7 @@ type ItemPropsTypes = {
 export default function Page() {
   const [sortBy, setSortBy] = useState('distance');
   const [items, setItems] = useState<ItemPropsTypes[]>([]);
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
 
   const { address } = useUserInfo();
   const { lat, lng } = useCoordinate(address.name);
