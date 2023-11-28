@@ -31,7 +31,14 @@ const OrderList = () => {
       <div className="my-3 flex items-center justify-between bg-gray px-5">
         <div className="flex items-center gap-1" onClick={onClickOrderList}>
           <label className="text-xl	font-semibold text-black">주문 내역</label>
-          <Image src={notification} className="h-4 w-4" alt="notification" />
+          <div className="relative h-4 w-4">
+            <Image
+              src={notification}
+              fill
+              sizes="(max-width: 768px) 100vw"
+              alt="notification"
+            />
+          </div>
         </div>
 
         <div>

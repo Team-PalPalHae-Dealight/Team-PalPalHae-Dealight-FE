@@ -1,6 +1,11 @@
 import Header from '@/app/_components/Header/Header';
 import StoreFooter from '@/app/_components/Footer/StoreFooter';
-import MainContents from './_components/main-contents/MainContents';
+import dynamic from 'next/dynamic';
+
+const MainContents = dynamic(
+  () => import('./_components/main-contents/MainContents'),
+  { loading: () => <>client loading...</>, ssr: false }
+);
 
 export default function Page() {
   return (

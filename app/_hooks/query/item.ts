@@ -3,6 +3,7 @@ import { ItemType } from '@/app/_types/api/item';
 import { useMutation, useSuspenseQuery } from '@tanstack/react-query';
 import useInfiniteScroll from './useInfiniteScroll';
 import { convertUrlToFile } from '@/app/_utils/convert';
+import { customError } from '@/app/_utils/erorr';
 
 export const itemKeys = {
   item: (itemId: string) => ['item', itemId] as const,
@@ -98,27 +99,31 @@ export const createItem = async ({
 }: {
   item: Omit<ItmePropsType, 'image'> & { image: File };
 }): Promise<ItemType> => {
-  const { image, ...itemReq } = item;
+  try {
+    const { image, ...itemReq } = item;
 
-  const formData = new FormData();
+    const formData = new FormData();
 
-  formData.append(
-    'itemReq',
-    new Blob([JSON.stringify(itemReq)], { type: 'application/json' })
-  );
+    formData.append(
+      'itemReq',
+      new Blob([JSON.stringify(itemReq)], { type: 'application/json' })
+    );
 
-  formData.append(
-    'image',
-    image.size === undefined ? new Blob([], { type: 'image/jpeg' }) : image
-  );
+    formData.append(
+      'image',
+      image.size === undefined ? new Blob([], { type: 'image/jpeg' }) : image
+    );
 
-  const response = await axiosInstance.post(`/items`, formData, {
-    headers: { 'Content-Type': 'multipart/form-data' },
-  });
+    const response = await axiosInstance.post(`/items`, formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    });
 
-  const data = response.data;
+    const data = response.data;
 
-  return data;
+    return data;
+  } catch (err) {
+    throw new Error(customError(err));
+  }
 };
 
 export const patchItem = async ({
@@ -128,30 +133,34 @@ export const patchItem = async ({
   item: ItmePropsType;
   itemId: string;
 }): Promise<ItemType> => {
-  const { image, ...itemReq } = item;
+  try {
+    const { image, ...itemReq } = item;
 
-  const formData = new FormData();
+    const formData = new FormData();
 
-  formData.append(
-    'itemReq',
-    new Blob([JSON.stringify(itemReq)], { type: 'application/json' })
-  );
+    formData.append(
+      'itemReq',
+      new Blob([JSON.stringify(itemReq)], { type: 'application/json' })
+    );
 
-  if (typeof image === 'string') {
-    const convertedFile = await convertUrlToFile(image);
+    if (typeof image === 'string') {
+      const convertedFile = await convertUrlToFile(image);
 
-    formData.append('image', convertedFile);
-  } else {
-    formData.append('image', image ?? new Blob([], { type: 'image/jpeg' }));
+      formData.append('image', convertedFile);
+    } else {
+      formData.append('image', image ?? new Blob([], { type: 'image/jpeg' }));
+    }
+
+    const response = await axiosInstance.patch(`/items/${itemId}`, formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    });
+
+    const data = response.data;
+
+    return data;
+  } catch (err) {
+    throw new Error(customError(err));
   }
-
-  const response = await axiosInstance.patch(`/items/${itemId}`, formData, {
-    headers: { 'Content-Type': 'multipart/form-data' },
-  });
-
-  const data = response.data;
-
-  return data;
 };
 
 export const deleteItem = async ({ itemId }: GetItemPropsType) => {
