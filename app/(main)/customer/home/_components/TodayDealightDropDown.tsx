@@ -1,7 +1,5 @@
-import Image from 'next/image';
 import { useState } from 'react';
-import polygon from '@/app/_assets/images/polygon.png';
-import reversePolygon from '@/app/_assets/images//reversePolygon.png';
+import Polygon from '@/app/_assets/svgs/polygon.svg';
 
 export type DropDownTextType = 'distance' | 'deadline' | 'discount-rate';
 
@@ -34,22 +32,12 @@ const TodayDealightDropDown = ({
         {sortBy === 'distance' && '거리순'}
         {sortBy === 'deadline' && '마감 입박순'}
         {sortBy === 'discount-rate' && '할인율순'}
-        <div className="relative h-1.5 w-2.5">
-          {isMenuOpen ? (
-            <Image
-              src={reversePolygon}
-              fill
-              sizes="(max-width: 768px) 100vw"
-              alt="reversePolygon"
-            />
-          ) : (
-            <Image
-              src={polygon}
-              fill
-              sizes="(max-width: 768px) 100vw"
-              alt="polygon"
-            />
-          )}
+        <div
+          className={`relative flex h-2.5 w-2.5 items-center transition ${
+            isMenuOpen ? 'rotate-0' : '-rotate-180'
+          }`}
+        >
+          <Polygon />
         </div>
       </button>
       {isMenuOpen && (

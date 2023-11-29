@@ -42,6 +42,7 @@ export default function Page() {
       <Link
         href="/"
         className="mt-28 text-xs font-semibold text-dark-gray underline"
+        scroll={false}
       >
         시작 페이지로 돌아가기
       </Link>

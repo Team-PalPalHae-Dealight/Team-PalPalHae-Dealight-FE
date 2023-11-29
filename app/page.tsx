@@ -1,9 +1,10 @@
-import StartLink from './_components/main-temp/StartLink';
-import Banner from './_assets/svgs/banner.svg';
-import ServiceIntro from './_components/main-temp/ServiceIntro';
+import Banner from './_assets/images/banner.png';
 
 import Header from './_components/Header/Header';
-import AuthTest from './_components/main-temp/AuthTest';
+import Image from 'next/image';
+import StartLink from './_components/main/StartLink';
+import ServiceIntro from './_components/main/ServiceIntro';
+import AuthTest from './_components/main/AuthTest';
 
 export default async function Home() {
   return (
@@ -11,9 +12,7 @@ export default async function Home() {
       <Header />
 
       <div className="flex flex-col items-center px-5 pt-4">
-        <div className="relative h-44 w-full">
-          <Banner fill="true" />
-        </div>
+        <Image src={Banner} alt="배너" priority />
 
         <StartLink />
         <ServiceIntro />

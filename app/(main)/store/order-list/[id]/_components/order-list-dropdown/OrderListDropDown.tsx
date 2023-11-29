@@ -1,8 +1,6 @@
-import Image from 'next/image';
 import { Dispatch, SetStateAction, useState } from 'react';
-import polygon from '@/app/_assets/images/polygon.png';
-import reversePolygon from '@/app/_assets/images//reversePolygon.png';
 import { DropDownTextType } from '../order-list/OrderList';
+import Polygon from '@/app/_assets/svgs/polygon.svg';
 
 type OrderListPropsType = {
   toggleMenu: string;
@@ -47,22 +45,13 @@ const OrderListDropDown = ({
         {toggleMenu === 'CONFIRMED' && '주문 확인'}
         {toggleMenu === 'COMPLETED' && '주문 완료'}
         {toggleMenu === 'CANCELED' && '주문 취소'}
-        <div className="relative h-1.5 w-2.5">
-          {isMenuOpen ? (
-            <Image
-              src={polygon}
-              fill
-              sizes="(max-width: 768px) 100vw"
-              alt="polygon"
-            />
-          ) : (
-            <Image
-              src={reversePolygon}
-              fill
-              sizes="(max-width: 768px) 100vw"
-              alt="reversePolygon"
-            />
-          )}
+
+        <div
+          className={`relative flex h-2.5 w-2.5 items-center transition ${
+            isMenuOpen ? 'rotate-0' : '-rotate-180'
+          }`}
+        >
+          <Polygon />
         </div>
       </button>
       {isMenuOpen && (

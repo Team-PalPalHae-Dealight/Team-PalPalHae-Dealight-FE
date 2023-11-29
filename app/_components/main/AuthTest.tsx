@@ -36,7 +36,7 @@ export default function AuthTest() {
   console.log(userInfo);
 
   return (
-    <div className="flex flex-col gap-4 text-center">
+    <div className="flex gap-4 text-center">
       <div className="flex flex-col gap-4 border border-indigo-300">
         <h3>나는 업체</h3>
         <button onClick={onClickStoreSignup} className="bg-teal-300">
@@ -51,7 +51,7 @@ export default function AuthTest() {
         </button>
       </div>
 
-      <div className="flex flex-col border border-rose-300">
+      <div className="flex flex-col gap-4 border border-rose-300">
         <h3>나는 로그아웃</h3>
 
         <button onClick={logout} className="bg-teal-300">

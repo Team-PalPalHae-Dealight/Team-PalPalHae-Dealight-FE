@@ -18,6 +18,10 @@ const AddressButton = ({
     setOpen(prev => !prev);
   };
 
+  const onCLickClose = () => {
+    setOpen(false);
+  };
+
   return (
     <>
       <button
@@ -29,8 +33,8 @@ const AddressButton = ({
         {children}
       </button>
       {open && (
-        <div>
-          <SearchAddress getAddress={setData} />
+        <div className="relative w-full">
+          <SearchAddress getAddress={setData} onClose={onCLickClose} />
         </div>
       )}
     </>
