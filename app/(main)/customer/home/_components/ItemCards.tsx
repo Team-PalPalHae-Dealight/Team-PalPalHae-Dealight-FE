@@ -13,7 +13,7 @@ const ItemCards = ({ items }: ItemCardsPropsType) => {
   return (
     <>
       {items.map(item => {
-        return (
+        return item.stock ? (
           <Link
             key={item.itemId}
             href={pageRoute.customer.itemDetail(String(item.itemId))}
@@ -71,7 +71,7 @@ const ItemCards = ({ items }: ItemCardsPropsType) => {
               </div>
             </div>
           </Link>
-        );
+        ) : null;
       })}
     </>
   );
