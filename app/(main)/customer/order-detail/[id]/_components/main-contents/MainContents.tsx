@@ -54,7 +54,7 @@ const MainContents = () => {
       useName: res.memberNickName,
       comments: res.demand,
       status: res.status,
-      isReview: res.isReview,
+      isReview: res.reviewContains,
     });
   }, [orderId]);
 
