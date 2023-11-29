@@ -6,6 +6,9 @@ import CustomerHeader from '@/app/_components/Header/CustomerHeader';
 import DeligitEmoji from 'app/(main)/customer/review-write/assets/delight-emoji.svg';
 import { axiosInstance } from '@/app/_services/apiClient';
 import { useParams } from 'next/navigation';
+import pageRoute from '@/app/_constants/path';
+import { useRouter } from 'next/navigation';
+
 export default function Page() {
   const orderId = useParams();
   const [good, setIsGood] = useState(false);
@@ -13,6 +16,7 @@ export default function Page() {
   const [same, setIsSame] = useState(false);
   const [special, setIsSpecial] = useState(false);
   const [cheap, setIsCheap] = useState(false);
+  const router = useRouter();
 
   return (
     <>
@@ -112,6 +116,8 @@ export default function Page() {
                 messages: [...data],
               });
               alert('리뷰 등록에 성공하였습니다');
+              router.push(pageRoute.customer.home());
+              /*경로 추가*/
             } catch (error) {
               if (
                 error?.response?.data?.message ===
