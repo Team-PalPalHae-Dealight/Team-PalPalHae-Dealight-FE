@@ -19,7 +19,7 @@ const ProductList = () => {
   });
 
   return (
-    <div className="h-[76vh]">
+    <div className="h-[7vh]">
       <div className="my-3 flex w-full items-center justify-start">
         <h2 className="text-lg font-bold">상품 목록</h2>
       </div>
