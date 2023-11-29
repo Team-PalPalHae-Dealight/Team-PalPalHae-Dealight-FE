@@ -24,6 +24,7 @@ export default function Page() {
   const { address } = useUserInfo();
   const { lat, lng } = useCoordinate(address.name);
   const [word, setWord] = useState<string>('');
+
   useEffect(() => {
     if (word === '') return;
     const getData = async () => {

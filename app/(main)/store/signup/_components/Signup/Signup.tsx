@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation';
 import LocalStorage from '@/app/_utils/localstorage';
 import pageRoute from '@/app/_constants/path';
 import { useAuth } from '@/app/_providers/AuthProvider';
+import CustomPopUp from '@/app/_components/pop-up/CustomPopUp';
 
 interface IFormInput {
   realname: string;
@@ -17,7 +18,12 @@ interface IFormInput {
 }
 
 export default function Signup() {
-  const [isNicknameValid, setisNicknameValid] = useState(false);
+  const [isNicknameValid, setIsNicknameValid] = useState(false);
+  const [doCheck, setDoCheck] = useState(false);
+  const [dobuleCheck, setIsDoubleCheck] = useState(false);
+  const [dobuleCheckfail, setIsDbuleCheckfail] = useState(false);
+  const [success, setIsSuccess] = useState(false);
+  const [notEmpty, setIsnotEmpty] = useState(false);
   const { login } = useAuth();
   const router = useRouter();
   const schema = yup.object().shape({
@@ -37,7 +43,10 @@ export default function Signup() {
   } = useForm<IFormInput>({ resolver: yupResolver(schema) });
 
   const onSubmit: SubmitHandler<IFormInput> = async data => {
-    if (isNicknameValid === false) alert('닉네임 중복 검사 하세요');
+    if (isNicknameValid === false) {
+      alert('닉네임 중복 검사 하세요');
+      setDoCheck(true);
+    }
     if (isNicknameValid === true) {
       const { provider, providerId } = LocalStorage.getItem('dealight-signup');
 
@@ -54,7 +63,7 @@ export default function Signup() {
         });
         login({ accessToken, refreshToken });
         LocalStorage.removeItem('dealight-signup');
-        alert('회원가입이 완료되었습니다!');
+        setIsSuccess(true);
         if (LocalStorage.getItem('dealight-lastLoginPage') === 'customer') {
           router.push(pageRoute.customer.home());
           return;
@@ -77,17 +86,69 @@ export default function Signup() {
       await axiosInstance.post('auth/duplicate', {
         nickName: watchNickName,
       });
-      alert('닉네임 검사 통과');
-      setisNicknameValid(true);
+      //  alert('닉네임 검사 통과');
+      setIsNicknameValid(true);
+      setIsDoubleCheck(true);
     } catch (error) {
       if (error.message === 'Request failed with status code 400') {
-        alert('닉네임이 중복되었습니다');
+        // alert('닉네임이 중복되었습니다');
+        setIsDbuleCheckfail(true);
       }
     }
   };
 
   return (
     <>
+      {doCheck && (
+        <CustomPopUp
+          mainText={'닉네임 중복 검사하세요'}
+          subText={''}
+          btnText={'확인'}
+          btnClick={() => {
+            setDoCheck(false);
+          }}
+        />
+      )}
+      {dobuleCheck && (
+        <CustomPopUp
+          mainText={'닉네임 검사 통과'}
+          subText={''}
+          btnText={'확인'}
+          btnClick={() => {
+            setIsDoubleCheck(false);
+          }}
+        />
+      )}
+      {success && (
+        <CustomPopUp
+          mainText={'회원가입이 완료되었습니다!'}
+          subText={''}
+          btnText={'확인'}
+          btnClick={() => {
+            setIsSuccess(false);
+          }}
+        />
+      )}
+      {dobuleCheckfail && (
+        <CustomPopUp
+          mainText={'닉네임이 중복되었습니다'}
+          subText={''}
+          btnText={'확인'}
+          btnClick={() => {
+            setIsDbuleCheckfail(false);
+          }}
+        />
+      )}
+      {notEmpty && (
+        <CustomPopUp
+          mainText={'닉네임 빈값은 안됩니다'}
+          subText={''}
+          btnText={'확인'}
+          btnClick={() => {
+            setIsnotEmpty(false);
+          }}
+        />
+      )}
       <form className="flex w-full flex-col" onSubmit={handleSubmit(onSubmit)}>
         <div>
           <label>
