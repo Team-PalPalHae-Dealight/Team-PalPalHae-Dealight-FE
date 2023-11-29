@@ -35,7 +35,7 @@ export default function Page() {
       <CustomerHeader />
 
       <div className="mx-5">
-        <div className="my-3 rounded">
+        <div className="my-4 rounded">
           <KakaoMap
             currentPosition={{
               lng: address.xCoordinate,

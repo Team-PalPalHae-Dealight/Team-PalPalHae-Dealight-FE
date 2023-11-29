@@ -19,7 +19,7 @@ const ItemCards = ({ items }: ItemCardsPropsType) => {
             href={pageRoute.customer.itemDetail(String(item.itemId))}
           >
             <div
-              className="mb-2 flex items-center gap-2 rounded bg-white p-4"
+              className="mb-2 flex items-center gap-2 rounded bg-white px-4 py-2"
               style={{ boxShadow: '0px 0px 4px 0px rgb(0, 0, 0, 0.1)' }}
             >
               <div className="relative h-14 w-14 overflow-hidden rounded">
@@ -34,7 +34,7 @@ const ItemCards = ({ items }: ItemCardsPropsType) => {
 
               <div className="flex w-full items-center">
                 <div className="ml-1 flex flex-col gap-1">
-                  <div className="w-20 overflow-hidden text-ellipsis whitespace-nowrap text-sm font-semibold">
+                  <div className="w-28 overflow-hidden text-ellipsis whitespace-nowrap text-sm font-semibold">
                     {item.itemName}
                   </div>
 
