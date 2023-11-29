@@ -1,10 +1,11 @@
 'use client';
 
+import pageRoute from '@/app/_constants/path';
 import { useUserInfo } from '@/app/_providers/UserInfoProvider';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 
-export default function OnlyNotUserLayout({
+export default function OnlyUserLayout({
   children,
 }: {
   children: React.ReactNode;
@@ -13,12 +14,12 @@ export default function OnlyNotUserLayout({
   const { role } = useUserInfo();
 
   useEffect(() => {
-    if (!role) return;
+    if (role === 'member' || role === 'store') return;
 
-    router.push('/');
+    router.push(pageRoute.customer.home());
   }, [role, router]);
 
-  if (role === 'member' || role === 'store') {
+  if (!role) {
     return null;
   }
 

@@ -19,8 +19,6 @@ const SearchBar = ({ getItems }: SearchBarPropTypes) => {
         <button
           onClick={e => {
             e.preventDefault();
-            console.log(word);
-            setWord('');
             getItems(word);
           }}
         >
@@ -29,7 +27,7 @@ const SearchBar = ({ getItems }: SearchBarPropTypes) => {
         <input
           value={word}
           onChange={handleChange}
-          className=" h-full w-4/5 p-1 outline-none"
+          className=" h-full w-4/5 bg-white p-1 outline-none"
         />
       </form>
     </>
