@@ -1,6 +1,5 @@
 import CustomerHeader from '@/app/_components/Header/CustomerHeader';
 import StoreDetail from './_components/StoreDetail';
-import Footer from '@/app/_components/Footer/Footer';
 import { Suspense } from 'react';
 import {
   HydrationBoundary,
@@ -9,6 +8,7 @@ import {
 } from '@tanstack/react-query';
 import { getStore, storeKeys } from '@/app/_hooks/query/store';
 import { getStoreReviews, reviewKeys } from '@/app/_hooks/query/review';
+import CustomerFooter from '@/app/_components/Footer/CustomerFooter';
 
 export default async function Page({ params }: { params: { id: string } }) {
   const queryClient = new QueryClient();
@@ -35,7 +35,7 @@ export default async function Page({ params }: { params: { id: string } }) {
         </HydrationBoundary>
       </div>
 
-      <Footer />
+      <CustomerFooter />
     </>
   );
 }

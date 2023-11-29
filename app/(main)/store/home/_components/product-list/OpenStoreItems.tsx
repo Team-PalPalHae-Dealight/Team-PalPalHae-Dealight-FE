@@ -16,13 +16,14 @@ const OpenStoreItems = () => {
           <Spinner />
         </div>
       )}
-      <div ref={ref} className="h-4" />
 
       {storeItems.length === 0 && (
-        <span className="flex h-[40vh] items-center justify-center text-xs text-dark-gray">
+        <span className="flex h-[36vh] items-center justify-center text-xs text-dark-gray">
           등록한 상품이 없습니다.
         </span>
       )}
+
+      <div ref={ref} className="h-4" />
     </>
   );
 };

@@ -19,14 +19,12 @@ const ProductList = () => {
   });
 
   return (
-    <div className="h-[79vh]">
+    <div className="h-[7vh]">
       <div className="my-3 flex w-full items-center justify-start">
         <h2 className="text-lg font-bold">상품 목록</h2>
       </div>
       <div className="h-[63vh] w-full overflow-y-scroll">
         <ItemCards items={items} />
-
-        <div className="h-4" ref={ref} />
 
         {isFetchingNextPage && (
           <div className="mb-3 flex items-center justify-center">
@@ -35,13 +33,17 @@ const ProductList = () => {
         )}
 
         {items.length === 0 && (
-          <div className="flex h-[63vh] items-center justify-center text-xs text-dark-gray">
+          <div className="flex h-[60vh] items-center justify-center text-xs text-dark-gray">
             <p>등록한 상품이 없습니다.</p>
           </div>
         )}
+
+        <div className="h-4" ref={ref} />
       </div>
       <PrimaryButton
-        onClick={() => router.push(pageRoute.store.itemRegister())}
+        onClick={() =>
+          router.push(pageRoute.store.itemRegister(), { scroll: false })
+        }
       >
         등록하기
       </PrimaryButton>
