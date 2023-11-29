@@ -34,6 +34,9 @@ const StoreInfoForm = () => {
     storePhone: isValidStorePhone(),
   });
 
+  const memoryStoreName = LocalStorage.getItem('dealight-storeName');
+  const memoryStorePhone = LocalStorage.getItem('dealight-storePhone');
+
   const {
     register,
     handleSubmit,
@@ -80,9 +83,10 @@ const StoreInfoForm = () => {
           </label>
           <input
             type="text"
-            className={`h-12 w-full rounded text-base text-black ${
+            className={`h-12 w-full rounded text-base text-xs text-black ${
               errors.storeName ? 'border-red' : 'border-yellow'
             } cursor-pointer bg-white pl-3 outline-none focus:border-2`}
+            defaultValue={memoryStoreName ?? ''}
             placeholder="업체명"
             {...register('storeName')}
           />
@@ -103,9 +107,10 @@ const StoreInfoForm = () => {
           </label>
           <input
             type="text"
-            className={`h-12 w-full rounded text-base text-black ${
+            className={`h-12 w-full rounded text-base text-xs text-black ${
               errors.storePhone ? 'border-red' : 'border-yellow'
             } cursor-pointer bg-white pl-3 outline-none focus:border-2`}
+            defaultValue={memoryStorePhone ?? ''}
             placeholder="0311234567"
             {...register('storePhone')}
           />
@@ -123,7 +128,9 @@ const StoreInfoForm = () => {
           </label>
           <div className="flex gap-x-2">
             <div
-              className={`base-2/5 h-12 w-full truncate rounded bg-white py-3 pl-3 text-base text-black outline-none`}
+              className={
+                'base-2/5 h-12 w-full truncate rounded bg-white py-3 pl-3 text-xs text-black outline-none'
+              }
             >
               {address}
             </div>

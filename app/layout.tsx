@@ -34,9 +34,7 @@ export default function RootLayout({
             <body
               className={`${pretendardRegular.className} mx-auto min-h-screen w-full max-w-[480px] text-black`}
             >
-              <main className="min-h-screen w-full bg-gray pb-20">
-                {children}
-              </main>
+              <main className="min-h-screen w-full bg-gray">{children}</main>
             </body>
           </UserInfoProvider>
         </AuthProvider>
