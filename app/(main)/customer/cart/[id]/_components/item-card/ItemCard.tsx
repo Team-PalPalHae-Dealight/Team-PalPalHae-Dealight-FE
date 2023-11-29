@@ -128,7 +128,7 @@ const ItemCard = ({
     if (stock) {
       changeQuantity();
     }
-  }, [stock, changeQuantity]);
+  }, [newQuantity, stock, changeQuantity]);
 
   return (
     <div className="flex h-22.5 w-full justify-between rounded bg-white p-2 shadow-sm">
