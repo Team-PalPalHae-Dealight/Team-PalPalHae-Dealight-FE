@@ -10,6 +10,7 @@ import {
 import ItemDetail from './_components/ItemDetail';
 import { Suspense } from 'react';
 import { getItem, itemKeys } from '@/app/_hooks/query/item';
+import Spinner from '@/app/_components/spinner/Spinner';
 
 export default async function Page({ params }: { params: { id: string } }) {
   const queryClient = new QueryClient();
@@ -22,9 +23,9 @@ export default async function Page({ params }: { params: { id: string } }) {
   return (
     <>
       <CustomerHeader />
-      <div className="flex flex-col items-center gap-5 px-5 pt-7">
+      <div className="flex flex-col items-center gap-5 px-5 pb-20 pt-7">
         <HydrationBoundary state={dehydrate(queryClient)}>
-          <Suspense fallback={<div>server render</div>}>
+          <Suspense fallback={<Spinner />}>
             <ItemDetail itemId={params.id} />
           </Suspense>
         </HydrationBoundary>

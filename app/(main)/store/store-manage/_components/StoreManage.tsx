@@ -119,7 +119,7 @@ const StoreManage = () => {
 
           {myStoreReview.reviews.length === 0 && (
             <span className="text-center text-xs text-dark-gray">
-              응원의 메시지를 작성해주세요.
+              등록된 응원의 메시지가 없습니다.
             </span>
           )}
         </div>
