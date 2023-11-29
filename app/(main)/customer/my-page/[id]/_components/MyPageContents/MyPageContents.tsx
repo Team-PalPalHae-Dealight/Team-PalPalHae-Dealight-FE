@@ -105,7 +105,7 @@ const MyPageContents = () => {
           닉네임
         </label>
         <input
-          className={`h-12 w-full rounded bg-light-gray text-sm ${
+          className={`h-12 w-full rounded bg-light-gray text-xs ${
             errors.nickName ? 'border-red' : 'border-yellow'
           } cursor-pointer pl-3 outline-none focus:border-2`}
           {...register('nickName')}
@@ -121,7 +121,7 @@ const MyPageContents = () => {
           전화번호
         </label>
         <input
-          className={`h-12 w-full rounded bg-light-gray text-sm ${
+          className={`h-12 w-full rounded bg-light-gray text-xs ${
             errors.phoneNumber ? 'border-red' : 'border-yellow'
           } cursor-pointer pl-3 outline-none focus:border-2`}
           {...register('phoneNumber')}
@@ -138,7 +138,7 @@ const MyPageContents = () => {
       <label className="text-xs font-semibold">주소</label>
       <div className="flex w-full items-center justify-between pb-2.5">
         <input
-          className={`h-12 w-full flex-1 overflow-auto text-ellipsis rounded bg-light-gray text-sm ${
+          className={`h-12 w-full flex-1 overflow-auto text-ellipsis rounded bg-white text-xs ${
             errors.addressName ? 'border-red' : 'border-yellow'
           } cursor-pointer pl-3 outline-none focus:border-2`}
           type="text"
@@ -148,7 +148,7 @@ const MyPageContents = () => {
         <AddressButton
           type="button"
           getAddress={handleAddressButton}
-          className="ml-2.5 min-w-fit rounded bg-yellow p-1.5 px-1 text-sm font-normal"
+          className="ml-2.5 min-w-fit rounded bg-yellow px-3 py-2.5 text-xs font-normal"
         >
           주소찾기
         </AddressButton>

@@ -1,15 +1,17 @@
 'use client';
 
-import { useParams, useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+import pageRoute from '@/app/_constants/path';
+import LocalStorage from '@/app/_utils/localstorage';
+import { useRouter } from 'next/navigation';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
-  const providerId = useParams();
+  const token = LocalStorage.getItem('dealight-accessToken');
 
-  useEffect(() => {
-    if (!providerId.id) router.push('/');
-  }, [providerId, router]);
+  if (!token) {
+    router.push(pageRoute.customer.login());
+    return null;
+  }
 
   return <section>{children}</section>;
 }

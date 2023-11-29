@@ -26,17 +26,17 @@ const ProfileInformation = ({
   return (
     <div className="min-h-64 my-5 w-full rounded bg-white text-sm font-semibold">
       <div className="p-4">
-        <div className="pb-4 text-lg">프로필 관리</div>
+        <div className="pb-4 text-xl">프로필 관리</div>
         <div className="pb-2.5">
           상호명 : <span className="font-normal">{name}</span>
         </div>
         <div className="pb-2.5">
           대표자명 : <span className="font-normal">{nickName}</span>
         </div>
-        <div className="flex items-center pb-2.5">
-          <span>대표자 전화번호 :</span>
+        <div className="flex flex-col pb-1.5">
+          <div className="pb-1.5 text-xs font-semibold">대표자 전화번호 :</div>
           <input
-            className="ml-2 flex-1 border-1 border-solid border-dark-gray p-1.5 text-sm font-normal outline-none"
+            className="flex-1 border-1 border-solid border-dark-gray p-1.5 pl-1 text-sm font-normal outline-none"
             type="text"
             defaultValue={phoneNumber!}
             {...register('phoneNumber')}
@@ -46,7 +46,7 @@ const ProfileInformation = ({
           errors={errors}
           name="phoneNumber"
           render={({ message }) => (
-            <div className="w-full pb-1.5 text-left text-xs font-normal text-red">
+            <div className="w-full pb-2.5 text-left text-xs font-normal text-red">
               {message}
             </div>
           )}
