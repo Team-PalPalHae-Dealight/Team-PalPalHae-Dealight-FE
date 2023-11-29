@@ -4,7 +4,6 @@ import AddressButton from '@/app/_components/AddressButton/AddressButton';
 import { ErrorMessage } from '@hookform/error-message';
 import Notification from '@/app/_assets/images/notification.png';
 import { useFormContext } from 'react-hook-form';
-import { TIME_LIST } from '@/app/(main)/store/register-store/_constants/time';
 import { DAY_LIST, checkboxClassName } from '../../_constants/day';
 import { MyStoreInfo } from '@/app/_types/store/storeType';
 import useCoordinate from '@/app/_hooks/useCoordinate';
@@ -83,33 +82,27 @@ const StoreInformation = ({ storeInfo }: StoreInformationPropsType) => {
         <div className="flex items-center justify-between pb-2.5">
           <div className="pr-2">개장 시간 :</div>
           <div className="flex flex-1 items-center justify-center border-1 border-dark-gray">
-            <select
-              className="h-8 w-full pl-2 text-sm font-normal outline-none"
+            <input
+              type="time"
               defaultValue={openTime}
+              className={`h-12 w-full cursor-pointer rounded text-xs font-normal text-black ${
+                errors.storeOpenTime ? 'border-red' : 'border-yellow'
+              } bg-white pl-3 outline-none focus:border-2`}
               {...register('storeOpenTime')}
-            >
-              {TIME_LIST.map(time => (
-                <option key={time} value={time}>
-                  {time}
-                </option>
-              ))}
-            </select>
+            />
           </div>
         </div>
         <div className="flex items-center justify-between pb-1.5">
           <div className="pr-2">마감 시간 :</div>
           <div className="flex flex-1 items-center justify-center border-1 border-dark-gray">
-            <select
-              className="h-8 w-full pl-2 text-sm font-normal outline-none"
+            <input
+              type="time"
               defaultValue={closeTime}
+              className={`h-12 w-full cursor-pointer rounded text-xs font-normal text-black ${
+                errors.storeOpenTime ? 'border-red' : 'border-yellow'
+              } bg-white pl-3 outline-none focus:border-2`}
               {...register('storeCloseTime')}
-            >
-              {TIME_LIST.map(time => (
-                <option key={time} value={time}>
-                  {time}
-                </option>
-              ))}
-            </select>
+            />
           </div>
         </div>
         <ErrorMessage

@@ -2,7 +2,6 @@
 
 import { ErrorMessage } from '@hookform/error-message';
 import { object } from 'yup';
-import { TIME_LIST } from '../../_constants/time';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import Notification from '@/app/_assets/images/notification.png';
 import Image from 'next/image';
@@ -46,6 +45,9 @@ const StoreTimeForm = () => {
     storeCloseTime: isValidStoreCloseTime(),
   });
 
+  const memoryOpenTime = LocalStorage.getItem('dealight-storeOpenTime');
+  const memoryCloseTime = LocalStorage.getItem('dealight-storeCloseTime');
+
   const onSubmit: SubmitHandler<initialValuesType> = async () => {
     const { storeOpenTime, storeCloseTime, storeDayOff } = watch();
 
@@ -86,18 +88,14 @@ const StoreTimeForm = () => {
         <label className="w text-xs font-semibold">영업시간</label>
         <div className="flex w-full">
           <div className="base-1/3 w-full">
-            <select
+            <input
+              type="time"
               className={`h-12 w-full cursor-pointer rounded text-xs text-black ${
                 errors.storeOpenTime ? 'border-red' : 'border-yellow'
               } bg-white pl-3 outline-none focus:border-2`}
               {...register('storeOpenTime')}
-            >
-              {TIME_LIST.map(time => (
-                <option key={time} value={time}>
-                  {time}
-                </option>
-              ))}
-            </select>
+              defaultValue={memoryOpenTime}
+            />
             <ErrorMessage
               errors={errors}
               name="storeOpenTime"
@@ -112,18 +110,14 @@ const StoreTimeForm = () => {
             ~
           </div>
           <div className="base-1/3 w-full">
-            <select
+            <input
+              type="time"
               className={`h-12 w-full cursor-pointer rounded text-xs text-black ${
-                errors.storeCloseTime ? 'border-red' : 'border-yellow'
+                errors.storeOpenTime ? 'border-red' : 'border-yellow'
               } bg-white pl-3 outline-none focus:border-2`}
               {...register('storeCloseTime')}
-            >
-              {TIME_LIST.map(time => (
-                <option key={time} value={time}>
-                  {time}
-                </option>
-              ))}
-            </select>
+              defaultValue={memoryCloseTime}
+            />
           </div>
         </div>
         <ErrorMessage

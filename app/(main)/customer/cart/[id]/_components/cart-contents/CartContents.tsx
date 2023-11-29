@@ -22,8 +22,7 @@ type CartContentPropsType = {
 };
 
 type InputType = {
-  hour: string;
-  minute: string;
+  arriveTime: string;
   request: string;
 };
 
@@ -39,7 +38,7 @@ const CartContent = ({ data, setData }: CartContentPropsType) => {
   const methods = useForm<InputType>();
 
   const submitOrder = async () => {
-    const { hour, minute, request } = methods.watch();
+    const { arriveTime, request } = methods.watch();
 
     const itemList = data?.map(item => {
       return {
@@ -55,7 +54,7 @@ const CartContent = ({ data, setData }: CartContentPropsType) => {
         },
         storeId: data ? data[0].storeId : 0,
         demand: request,
-        arrivalTime: `${hour}:${minute}`,
+        arrivalTime: `${arriveTime}:00`,
         totalPrice: sumTotalPrice({ data }).totalPrice,
       },
     });
