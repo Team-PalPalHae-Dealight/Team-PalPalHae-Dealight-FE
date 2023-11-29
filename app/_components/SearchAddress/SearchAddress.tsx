@@ -20,7 +20,7 @@ const SearchAddress = ({ getAddress, onClose }: propsType) => {
       </button>
       <DaumPostcode
         className="fixed left-0 top-10"
-        style={{ width: '100vw', height: '90vh', zIndex: '500' }}
+        style={{ width: '100vw', height: '100vh', zIndex: '500' }}
         autoClose
         onComplete={handleComplete}
       />

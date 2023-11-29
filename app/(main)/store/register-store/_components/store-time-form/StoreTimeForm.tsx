@@ -139,7 +139,11 @@ const StoreTimeForm = () => {
             휴무일
           </div>
           <div className="flex w-full">
-            <Image className="h-3 w-3" src={Notification} alt="notification" />
+            <Image
+              className="mr-1 mt-0.5 h-5 w-5"
+              src={Notification}
+              alt="notification"
+            />
             <p className="mb-2 text-xs text-dark-gray">
               (복수선택가능) 휴무일 설정은 매주를 기준으로 하며, 선택하지 않을
               경우 연중 무휴로 인지됩니다.
