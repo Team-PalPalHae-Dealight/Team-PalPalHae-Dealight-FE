@@ -1,7 +1,6 @@
 'use client';
 
 import { useFormContext } from 'react-hook-form';
-import { HOUR_LIST, MINUTE_LIST } from '../../_constants/time';
 import { CartType } from '../../_types/CartType';
 import { useUserInfo } from '@/app/_providers/UserInfoProvider';
 import { sumTotalPrice } from '../../_utils/sumTotalPrice';
@@ -11,7 +10,10 @@ type OrderInformationPropsType = {
 };
 
 const OrderInformation = ({ data }: OrderInformationPropsType) => {
-  const { register } = useFormContext();
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext();
 
   const { nickName } = useUserInfo();
   const total = sumTotalPrice({ data });
@@ -49,36 +51,16 @@ const OrderInformation = ({ data }: OrderInformationPropsType) => {
                 {data[0].storeCloseTime}
               </span>
             </div>
-            <div className="flex pb-2.5">
+            <div className="flex w-full justify-between pb-2.5">
               도착 예정 시간{' '}
-              <div className="flex justify-between pl-2 ">
-                <div className="mr-3 border-1 border-solid border-dark-gray">
-                  <select
-                    className="w-12 text-center text-xs font-normal outline-none"
-                    defaultValue=""
-                    {...register('hour')}
-                  >
-                    {HOUR_LIST.map(time => (
-                      <option key={time} value={time}>
-                        {time}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                :
-                <div className="ml-3 border-1 border-solid border-dark-gray">
-                  <select
-                    className="w-12 text-center text-xs font-normal outline-none"
-                    defaultValue=""
-                    {...register('minute')}
-                  >
-                    {MINUTE_LIST.map(time => (
-                      <option key={time} value={time}>
-                        {time}
-                      </option>
-                    ))}
-                  </select>
-                </div>
+              <div className="flex-1 pl-2">
+                <input
+                  type="time"
+                  className={`h-12 w-full cursor-pointer border-1 border-dark-gray text-xs font-normal text-black ${
+                    errors.arriveTime ? 'border-red' : 'border-dark-gray'
+                  } bg-white pl-3 outline-none`}
+                  {...register('arriveTime')}
+                />
               </div>
             </div>
             <div className="flex w-full">
