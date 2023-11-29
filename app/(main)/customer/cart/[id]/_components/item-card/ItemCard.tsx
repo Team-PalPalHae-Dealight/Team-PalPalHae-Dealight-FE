@@ -131,11 +131,13 @@ const ItemCard = ({
   }, [stock, changeQuantity]);
 
   return (
-    <div className="flex h-22.5 w-full justify-between rounded bg-white p-4 shadow-md">
-      <div className="flex">
+    <div className="flex h-22.5 w-full justify-between rounded bg-white p-2 shadow-sm">
+      <div className="flex w-full">
         <Image src={image} width={60} height={60} alt="item" />
-        <div className="flex flex-col justify-between pl-2">
-          <div className="text-sm font-semibold">{title}</div>
+        <div className="flex flex-col items-start justify-between pl-2">
+          <div className="w-2/4 max-w-[200px] overflow-hidden text-ellipsis whitespace-nowrap text-sm font-semibold">
+            {title}
+          </div>
           <div className="text-xs font-semibold">{`${price} 원`}</div>
           <div className="text-xs">{stock ? `최대 ${stock}개` : '품절'}</div>
         </div>
@@ -147,7 +149,7 @@ const ItemCard = ({
         </button>
         <div>
           {stock ? (
-            <div className="flex justify-around">
+            <div className="flex justify-around pr-2">
               <button className="pointer-cursor" onClick={handleMinus}>
                 <Image src={MINUS_IMAGE} width={10} height={10} alt="plus" />
               </button>
