@@ -1,21 +1,21 @@
 'use client';
 
 import Link from 'next/link';
-import { ResponseItemType } from '../../_services/getOrderList';
 import pageRoute from '@/app/_constants/path';
+import { OrdersType } from '@/app/_types/api/order';
 
 export type OrderListCardPropsType = {
-  items: ResponseItemType[] | [];
+  orders: OrdersType[];
 };
 
-const OrderListCard = ({ items }: OrderListCardPropsType) => {
+const OrderListCard = ({ orders }: OrderListCardPropsType) => {
   return (
     <>
-      {items.map(item => {
+      {orders.map(order => {
         return (
           <Link
-            key={item.orderId}
-            href={pageRoute.customer.orderDetail(String(item.orderId))}
+            key={order.orderId}
+            href={pageRoute.customer.orderDetail(String(order.orderId))}
           >
             <div
               className=" mb-3 rounded-md bg-white p-2"
@@ -23,35 +23,35 @@ const OrderListCard = ({ items }: OrderListCardPropsType) => {
             >
               <div className="flex text-xs text-dark-gray">
                 <div className="flex justify-between gap-1">
-                  <div>{item.createdAt.split(' ')[0]}</div>
-                  <div>{item.createdAt.split(' ')[1]}</div>
+                  <div>{order.createdAt.split(' ')[0]}</div>
+                  <div>{order.createdAt.split(' ')[1]}</div>
                 </div>
               </div>
               <div className="flex items-center gap-1 text-black">
-                {item.orderProductsRes.orderProducts.length > 1 ? (
+                {order.orderProductsRes.orderProducts.length > 1 ? (
                   <div className="text-sm">
-                    {item.orderProductsRes.orderProducts[0].name} 외
-                    {item.orderProductsRes.orderProducts.length - 1}개
+                    {order.orderProductsRes.orderProducts[0].name} 외
+                    {order.orderProductsRes.orderProducts.length - 1}개
                   </div>
                 ) : (
                   <div className="text-sm">
-                    {item.orderProductsRes.orderProducts[0].name}
+                    {order.orderProductsRes.orderProducts[0].name}
                   </div>
                 )}
-                <div className=" text-xs">{item.totalPrice} 원</div>
+                <div className=" text-xs">{order.totalPrice} 원</div>
               </div>
               <div className="flex items-center text-black">
-                {item.status === '주문 접수' && (
-                  <div className="text-sm text-green">{item.status}</div>
+                {order.status === '주문 접수' && (
+                  <div className="text-sm text-green">{order.status}</div>
                 )}
-                {item.status === '주문 확인' && (
-                  <div className="text-sm text-orange">{item.status}</div>
+                {order.status === '주문 확인' && (
+                  <div className="text-sm text-orange">{order.status}</div>
                 )}
-                {item.status === '주문 완료' && (
-                  <div className="text-sm text-blue">{item.status}</div>
+                {order.status === '주문 완료' && (
+                  <div className="text-sm text-blue">{order.status}</div>
                 )}
-                {item.status === '주문 취소' && (
-                  <div className="text-sm text-red">{item.status}</div>
+                {order.status === '주문 취소' && (
+                  <div className="text-sm text-red">{order.status}</div>
                 )}
               </div>
             </div>

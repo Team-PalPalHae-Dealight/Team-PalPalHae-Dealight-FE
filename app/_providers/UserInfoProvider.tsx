@@ -18,7 +18,7 @@ type DefaultContextType = {
   nickName: string | null;
   role: 'store' | 'member' | null;
   realName: string | null;
-  phoneNumber: number | null;
+  phoneNumber: string | null;
   address: AddressPropstype;
 } | null;
 

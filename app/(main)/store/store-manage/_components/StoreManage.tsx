@@ -29,7 +29,6 @@ const StoreManage = () => {
     openTime,
     telephone,
     image,
-    addressName,
     xCoordinate,
     yCoordinate,
   } = myStore;
@@ -63,7 +62,7 @@ const StoreManage = () => {
           currentPosition={{
             lng: xCoordinate,
             lat: yCoordinate,
-            title: addressName,
+            title: '',
           }}
         />
       </div>

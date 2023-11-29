@@ -43,7 +43,7 @@ const ItemCards = ({ items }: ItemCardsPropsType) => {
                     <div className="text-red">{item.stock}개</div>
                   </div>
 
-                  <div className="w-28 text-ellipsis whitespace-nowrap text-xs text-dark-gray">
+                  <div className="w-32 overflow-hidden text-ellipsis whitespace-nowrap text-xs text-dark-gray">
                     {item.storeAddress.name}
                   </div>
                 </div>

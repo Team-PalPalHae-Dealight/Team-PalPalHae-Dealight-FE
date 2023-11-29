@@ -1,14 +1,13 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { ResponseItemTypes } from '../_services/getItemList';
 import pageRoute from '@/app/_constants/path';
+import { ItemType } from '@/app/_types/api/item';
 
-export type ItemTypes = {
-  items?: ResponseItemTypes[] | [];
+type ItemCardsPropsType = {
+  items: ItemType[];
 };
 
-const ItemCards = ({ items }: ItemTypes) => {
-  // 리스트 카드
+const ItemCards = ({ items }: ItemCardsPropsType) => {
   return (
     <>
       {items ? (
@@ -22,8 +21,14 @@ const ItemCards = ({ items }: ItemTypes) => {
                 className="mb-2 flex h-20 items-center justify-between rounded bg-white p-4"
                 style={{ boxShadow: '0px 0px 4px 0px rgb(0, 0, 0, 0.1)' }}
               >
-                <div>
-                  <Image width={60} height={60} src={item.image} alt="donut" />
+                <div className="relative h-14 w-14 overflow-hidden rounded">
+                  <Image
+                    priority
+                    fill
+                    alt={item.itemName}
+                    src={String(item.image)}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  />
                 </div>
                 <div className="flex w-full items-center justify-between">
                   <div className="ml-4 flex flex-col gap-1">

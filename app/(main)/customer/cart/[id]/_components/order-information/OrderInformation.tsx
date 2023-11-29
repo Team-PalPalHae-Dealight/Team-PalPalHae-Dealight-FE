@@ -43,6 +43,12 @@ const OrderInformation = ({ data }: OrderInformationPropsType) => {
               주문자 :{' '}
               <span className="font-normal text-dark-gray">{nickName}</span>
             </div>
+            <div className="pb-2.5">
+              마감 시간 :{' '}
+              <span className="font-normal text-dark-gray">
+                {data[0].storeCloseTime}
+              </span>
+            </div>
             <div className="flex pb-2.5">
               도착 예정 시간 :{' '}
               <div className="flex justify-between pl-2 ">

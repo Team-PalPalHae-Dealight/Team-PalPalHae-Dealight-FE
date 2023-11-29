@@ -1,8 +1,21 @@
 import CustomerHeader from '@/app/_components/Header/CustomerHeader';
-import MyPageContents from './_components/MyPageContents/MyPageContents';
 import CustomerFooter from '@/app/_components/Footer/CustomerFooter';
+import dynamic from 'next/dynamic';
+import Spinner from '@/app/_components/spinner/Spinner';
 
-export default function Page() {
+const MyPageContents = dynamic(
+  () => import('./_components/MyPageContents/MyPageContents'),
+  {
+    loading: () => (
+      <div className="flex h-60 items-center justify-center">
+        <Spinner />
+      </div>
+    ),
+    ssr: false,
+  }
+);
+
+const Page = async () => {
   return (
     <div className="flex flex-col items-center">
       <CustomerHeader />
@@ -12,4 +25,6 @@ export default function Page() {
       <CustomerFooter />
     </div>
   );
-}
+};
+
+export default Page;

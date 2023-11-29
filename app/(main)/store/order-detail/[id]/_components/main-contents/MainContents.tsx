@@ -95,18 +95,18 @@ const MainContents = () => {
       <div className="mt-2 flex gap-3">
         {order?.status === '주문 확인' && (
           <>
-            <PrimaryButton onClick={() => setOnPopUpCancel(true)}>
-              주문 취소하기
-            </PrimaryButton>
             <PrimaryButton onClick={() => setOnPopUpCompleted(true)}>
               주문 완료하기
+            </PrimaryButton>
+            <PrimaryButton onClick={() => setOnPopUpCancel(true)}>
+              주문 취소하기
             </PrimaryButton>
           </>
         )}
         {order?.status === '주문 접수' && (
           <>
             <PrimaryButton onClick={() => setOnPopUpConfirmed(true)}>
-              주문 접수하기
+              주문 승인하기
             </PrimaryButton>
             <PrimaryButton onClick={() => setOnPopUpReject(true)}>
               주문 거절하기
