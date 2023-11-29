@@ -25,7 +25,7 @@ const OrderListDropDown = ({ getsortOption }: SortPropTypes) => {
   const buttonClasses = twMerge(`flex items-center gap-2 rounded text-xs`);
 
   return (
-    <div className="inline-block">
+    <div className="relative inline-block">
       <button onClick={onClickToggleMenu} className={buttonClasses}>
         {toggleMenu}
 
