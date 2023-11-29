@@ -24,7 +24,7 @@ const ItemDetailEdit = async ({ params }: { params: { id: string } }) => {
     <>
       <Header />
 
-      <div className="px-5 pt-7">
+      <div className="px-5 pb-20 pt-7">
         <HydrationBoundary state={dehydrate(queryClient)}>
           <Suspense fallback={<Spinner />}>
             <ItemEdit itemId={itemId} />

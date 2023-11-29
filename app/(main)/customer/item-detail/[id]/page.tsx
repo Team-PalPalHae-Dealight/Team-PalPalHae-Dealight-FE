@@ -23,7 +23,7 @@ export default async function Page({ params }: { params: { id: string } }) {
   return (
     <>
       <CustomerHeader />
-      <div className="flex flex-col items-center gap-5 px-5 pt-7">
+      <div className="flex flex-col items-center gap-5 px-5 pb-20 pt-7">
         <HydrationBoundary state={dehydrate(queryClient)}>
           <Suspense fallback={<Spinner />}>
             <ItemDetail itemId={params.id} />

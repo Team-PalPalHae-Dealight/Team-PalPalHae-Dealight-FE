@@ -7,7 +7,7 @@ export default function Page() {
     <>
       <Header />
 
-      <div className="px-5 pt-7">
+      <div className="px-5 pb-20 pt-7">
         <ItemRegister />
       </div>
 
