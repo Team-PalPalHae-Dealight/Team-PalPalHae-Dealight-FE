@@ -44,7 +44,6 @@ const ItemCards = ({ items }: ItemCardsPropsType) => {
                     </div>
                     <div className="flex items-center justify-end gap-2">
                       <div className="text-sm font-semibold text-red">
-                        할인
                         {(
                           ((item.originalPrice - item.discountPrice) /
                             item.originalPrice) *
