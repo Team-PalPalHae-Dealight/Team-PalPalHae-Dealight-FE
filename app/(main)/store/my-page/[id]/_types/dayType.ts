@@ -1,30 +1,30 @@
 export type dayType = {
   [index: string]: { input: string; label: string };
-  월요일: {
+  월: {
     input: string;
     label: string;
   };
-  화요일: {
+  화: {
     input: string;
     label: string;
   };
-  수요일: {
+  수: {
     input: string;
     label: string;
   };
-  목요일: {
+  목: {
     input: string;
     label: string;
   };
-  금요일: {
+  금: {
     input: string;
     label: string;
   };
-  토요일: {
+  토: {
     input: string;
     label: string;
   };
-  일요일: {
+  일: {
     input: string;
     label: string;
   };
