@@ -8,6 +8,7 @@ import {
 import ItemEdit from './_components/ItemEdit';
 import { Suspense } from 'react';
 import StoreFooter from '@/app/_components/Footer/StoreFooter';
+import Spinner from '@/app/_components/spinner/Spinner';
 
 const ItemDetailEdit = async ({ params }: { params: { id: string } }) => {
   const { id: itemId } = params;
@@ -25,7 +26,7 @@ const ItemDetailEdit = async ({ params }: { params: { id: string } }) => {
 
       <div className="px-5 pt-7">
         <HydrationBoundary state={dehydrate(queryClient)}>
-          <Suspense fallback={<div>server render</div>}>
+          <Suspense fallback={<Spinner />}>
             <ItemEdit itemId={itemId} />
           </Suspense>
         </HydrationBoundary>

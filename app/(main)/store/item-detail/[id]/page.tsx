@@ -8,6 +8,7 @@ import {
 } from '@tanstack/react-query';
 import { getItem, itemKeys } from '@/app/_hooks/query/item';
 import StoreFooter from '@/app/_components/Footer/StoreFooter';
+import Spinner from '@/app/_components/spinner/Spinner';
 
 const Page = async ({ params }: { params: { id: string } }) => {
   const queryClient = new QueryClient();
@@ -23,7 +24,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
 
       <div className="flex flex-col items-center px-5 pt-7">
         <HydrationBoundary state={dehydrate(queryClient)}>
-          <Suspense fallback={<div>server render</div>}>
+          <Suspense fallback={<Spinner />}>
             <ItemDetail itemId={params.id} />
           </Suspense>
         </HydrationBoundary>
