@@ -33,7 +33,7 @@ const AddressButton = ({
         {children}
       </button>
       {open && (
-        <div className="relative w-full">
+        <div className="relative z-50 w-full">
           <SearchAddress getAddress={setData} onClose={onCLickClose} />
         </div>
       )}

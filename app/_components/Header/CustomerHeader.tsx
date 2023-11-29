@@ -44,9 +44,9 @@ const CustomerHeader = () => {
   }, [updateAddress, addressChange]);
 
   return (
-    <div className="align-center text-l sticky top-0 z-50 box-border flex h-16 w-full justify-between border-b-1 border-dark-gray/30 bg-light-gray px-3 py-4 font-semibold text-black">
+    <div className="align-center text-l sticky top-0 z-40 box-border flex h-16 w-full justify-between border-b-1 border-dark-gray/30 bg-light-gray px-3 py-4 font-semibold text-black">
       <div className="flex flex-row items-center">
-        <Link href="/" className="relative h-7 w-7" scroll={false}>
+        <Link href="/" className="h-7 w-7" scroll={false}>
           <Image src={MemberHeaderIcon} alt="딜라이트 로고" />
         </Link>
       </div>
@@ -71,14 +71,18 @@ const CustomerHeader = () => {
       </div>
 
       <div className="flex items-center">
-        <Link className="mr-3" href={pageRoute.customer.search('')}>
-          <div className="flex h-4 w-4 items-center justify-center rounded-full">
+        <Link
+          className="mr-3"
+          href={pageRoute.customer.search('')}
+          scroll={false}
+        >
+          <div className="flex items-center justify-center rounded-full">
             <SearchIcon />
           </div>
         </Link>
 
-        <Link href={pageRoute.customer.cart('1')}>
-          <div className="flex h-4 w-4 items-center justify-center rounded-full">
+        <Link href={pageRoute.customer.cart('1')} scroll={false}>
+          <div className="flex items-center justify-center rounded-full">
             <CartIcon />
           </div>
         </Link>
