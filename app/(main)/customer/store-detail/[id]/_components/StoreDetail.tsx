@@ -98,9 +98,7 @@ const StoreDetail = ({ storeId }: StoreDetailPropsType) => {
               className="flex items-center rounded bg-white p-3 text-xs font-semibold shadow"
             >
               <div className="mr-auto flex gap-2.5">
-                <div className="relative h-4 w-7 overflow-hidden rounded">
-                  <DelightEmoji />
-                </div>
+                <DelightEmoji />
 
                 <span>&quot;{review.content}&quot;</span>
               </div>
