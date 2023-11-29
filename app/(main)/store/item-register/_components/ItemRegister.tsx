@@ -105,7 +105,7 @@ const ItemRegister = () => {
           <div className="flex w-full max-w-[280px] flex-col gap-3">
             <input
               {...register('itemName', { required: '값을 입력해주세요.' })}
-              className="max-w-[180px] rounded border border-transparent py-3.5 pl-3 focus:border-yellow"
+              className="max-w-[150px] rounded border border-transparent py-3.5 pl-3 focus:border-yellow"
               placeholder="상품명"
             />
 
@@ -119,7 +119,7 @@ const ItemRegister = () => {
                     !isNaN(Number(value)) || '숫자로 입력해주세요.',
                 },
               })}
-              className="max-w-[180px] rounded border border-transparent py-3.5 pl-3 focus:border-yellow"
+              className="max-w-[150px] rounded border border-transparent py-3.5 pl-3 focus:border-yellow"
               placeholder="재고"
             />
 
