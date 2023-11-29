@@ -102,7 +102,7 @@ const ItemRegister = () => {
             />
           </div>
 
-          <div className="mr-auto flex flex-1 flex-col gap-3">
+          <div className="flex flex-col gap-3">
             <input
               {...register('itemName', { required: '값을 입력해주세요.' })}
               className="rounded border border-transparent py-3.5 pl-3 focus:border-yellow"
