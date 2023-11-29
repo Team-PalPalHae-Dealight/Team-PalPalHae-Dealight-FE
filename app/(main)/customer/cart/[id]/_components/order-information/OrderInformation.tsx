@@ -23,7 +23,7 @@ const OrderInformation = ({ data }: OrderInformationPropsType) => {
           <div className="p-4">
             <div className="pb-4 text-lg">주문 정보</div>
             <div className="flex justify-between pb-2.5 pr-5">
-              <div>
+              <div className="w-72 overflow-hidden text-ellipsis whitespace-nowrap">
                 가게명 :{' '}
                 <span className="font-normal text-dark-gray">
                   {data[0]?.storeName}
@@ -31,7 +31,7 @@ const OrderInformation = ({ data }: OrderInformationPropsType) => {
               </div>
               <div>총 수량 : {total.totalCount} 개</div>
             </div>
-            <div className="pb-2.5">
+            <div className="w-full overflow-hidden text-ellipsis whitespace-nowrap pb-2.5">
               상품명 :{' '}
               <span className="font-normal text-dark-gray">
                 {data.length === 1
@@ -54,7 +54,7 @@ const OrderInformation = ({ data }: OrderInformationPropsType) => {
               <div className="flex justify-between pl-2 ">
                 <div className="mr-3 border-1 border-solid border-dark-gray">
                   <select
-                    className="w-12 text-xs font-normal outline-none"
+                    className="w-12 text-center text-xs font-normal outline-none"
                     defaultValue=""
                     {...register('hour')}
                   >
@@ -68,7 +68,7 @@ const OrderInformation = ({ data }: OrderInformationPropsType) => {
                 :
                 <div className="ml-3 border-1 border-solid border-dark-gray">
                   <select
-                    className="w-12 text-xs font-normal"
+                    className="w-12 text-center text-xs font-normal outline-none"
                     defaultValue=""
                     {...register('minute')}
                   >

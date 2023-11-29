@@ -14,10 +14,10 @@ const OrderResult = (props: { data: OrderResultPropsType }) => {
   return (
     <div className="min-h-64 my-5 w-full rounded bg-white text-sm font-semibold text-black">
       <div className="p-4">
-        <div className="pb-4 text-lg">주문 정보</div>
-        <div className="flex justify-between pb-2.5 pr-5">
-          <div>
-            가게명 : <span className="font-normal text-black">{storeName}</span>
+        <div className="pb-4 text-xl">주문 정보</div>
+        <div className="flex justify-between pb-2.5">
+          <div className="w-4/6 overflow-hidden text-ellipsis whitespace-nowrap font-semibold text-black">
+            가게명 : <span className="font-normal">{storeName}</span>
           </div>
           <div>총 수량 : {totalCount} 개</div>
         </div>
