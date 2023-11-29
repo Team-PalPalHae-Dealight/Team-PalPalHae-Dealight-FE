@@ -21,7 +21,6 @@ export default function Page() {
   const [sortBy, setSortBy] = useState('distance');
   const [items, setItems] = useState<ItemPropsTypes[]>([]);
   const [page, setPage] = useState(1);
-
   const { address } = useUserInfo();
   const { lat, lng } = useCoordinate(address.name);
 
@@ -43,6 +42,8 @@ export default function Page() {
               setSortBy('deadline');
             } else if (sortoption === '거리순') {
               setSortBy('distance');
+            } else if (sortoption === '상품 할인율순') {
+              setSortBy('discount-rate');
             }
           }}
         />

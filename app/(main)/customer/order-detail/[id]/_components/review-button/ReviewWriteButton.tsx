@@ -1,7 +1,6 @@
 import PrimaryButton from '@/app/_components/PrimaryButton/PrimaryButton';
 import pageRoute from '@/app/_constants/path';
 import Link from 'next/link';
-
 type IsReviewType = {
   isReview: boolean;
   orderId: number;
@@ -26,5 +25,4 @@ const ReviewWriteButton = ({ isReview, orderId }: IsReviewType) => {
     </>
   );
 };
-
 export default ReviewWriteButton;
