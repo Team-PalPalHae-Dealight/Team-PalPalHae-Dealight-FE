@@ -1,6 +1,5 @@
 import Notification from '@/app/_components/notification/Notification';
 import BottomButtons from './_components/BottomButtons';
-import Footer from '@/app/_components/Footer/Footer';
 import CustomerHeader from '@/app/_components/Header/CustomerHeader';
 import {
   HydrationBoundary,
@@ -10,6 +9,7 @@ import {
 import ItemDetail from './_components/ItemDetail';
 import { Suspense } from 'react';
 import { getItem, itemKeys } from '@/app/_hooks/query/item';
+import CustomerFooter from '@/app/_components/Footer/CustomerFooter';
 
 export default async function Page({ params }: { params: { id: string } }) {
   const queryClient = new QueryClient();
@@ -35,7 +35,7 @@ export default async function Page({ params }: { params: { id: string } }) {
         </Notification>
         <BottomButtons itemId={params.id} />
       </div>
-      <Footer />
+      <CustomerFooter />
     </>
   );
 }
