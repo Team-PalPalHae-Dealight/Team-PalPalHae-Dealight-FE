@@ -105,7 +105,7 @@ const ItemEdit = ({ itemId }: ItemEditPropsType) => {
 
             <label
               htmlFor="imagePreview"
-              className="flex h-7  cursor-pointer items-center justify-center rounded-md bg-yellow px-4 text-sm font-bold"
+              className="flex h-7 cursor-pointer items-center justify-center rounded-md bg-yellow px-4 text-sm font-bold"
             >
               이미지 불러오기
             </label>
@@ -120,7 +120,7 @@ const ItemEdit = ({ itemId }: ItemEditPropsType) => {
             />
           </div>
 
-          <div className="flex w-full flex-col gap-3">
+          <div className="flex flex-1 flex-col gap-3">
             <input
               {...register('itemName', { required: '값을 입력해주세요.' })}
               className="rounded border border-transparent py-3.5 pl-3 focus:border-yellow"
