@@ -31,7 +31,7 @@ const ItemCards = ({ items }: ItemCardsPropsType) => {
                 />
               </div>
 
-              <div className="flex w-full items-center">
+              <div className="ml-1 flex w-full items-center">
                 <div className="flex flex-col gap-1">
                   <div className="w-20 overflow-hidden text-ellipsis whitespace-nowrap text-sm font-semibold">
                     {item.itemName}
@@ -50,7 +50,6 @@ const ItemCards = ({ items }: ItemCardsPropsType) => {
 
                   <div className="flex items-center justify-end gap-2">
                     <div className="text-sm font-semibold text-red">
-                      할인
                       {(
                         ((item.originalPrice - item.discountPrice) /
                           item.originalPrice) *

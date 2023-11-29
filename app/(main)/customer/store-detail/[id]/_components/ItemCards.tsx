@@ -15,6 +15,7 @@ const ItemCards = ({ items }: ItemTypes) => {
           <Link
             key={item.itemId}
             href={pageRoute.customer.itemDetail(String(item.itemId))}
+            scroll={false}
           >
             <div
               className="mb-2 flex h-20 items-center gap-2 rounded bg-white p-4"
@@ -32,7 +33,9 @@ const ItemCards = ({ items }: ItemTypes) => {
 
               <div className="flex w-full items-center">
                 <div className="flex flex-col gap-1">
-                  <div className="text-sm font-semibold">{item.itemName}</div>
+                  <div className="w-20 overflow-hidden text-ellipsis text-sm font-semibold">
+                    {item.itemName}
+                  </div>
                   <div className="flex gap-1 text-xs font-semibold">
                     <div>재고: </div>
                     <div className="text-red">{item.stock}개</div>

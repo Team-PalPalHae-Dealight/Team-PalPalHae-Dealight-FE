@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { MessageCard } from '../_component/messagecard/MessageCard';
 import { axiosInstance } from '@/app/_services/apiClient';
 import { useParams } from 'next/navigation';
+import CustomerFooter from '@/app/_components/Footer/CustomerFooter';
 export default function Page() {
   const [good, setIsGood] = useState(false);
   const [kind, setIsKind] = useState(false);
@@ -54,6 +55,7 @@ export default function Page() {
           same={same}
         />
       </div>
+      <CustomerFooter />
     </>
   );
 }

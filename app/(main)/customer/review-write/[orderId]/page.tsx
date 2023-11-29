@@ -8,6 +8,8 @@ import { axiosInstance } from '@/app/_services/apiClient';
 import { useParams } from 'next/navigation';
 import pageRoute from '@/app/_constants/path';
 import { useRouter } from 'next/navigation';
+import CustomerFooter from '@/app/_components/Footer/CustomerFooter';
+import CustomPopUp from '@/app/_components/pop-up/CustomPopUp';
 
 export default function Page() {
   const orderId = useParams();
@@ -16,10 +18,32 @@ export default function Page() {
   const [same, setIsSame] = useState(false);
   const [special, setIsSpecial] = useState(false);
   const [cheap, setIsCheap] = useState(false);
+  const [popup, setPopup] = useState(false);
+  const [reviewed, setReviewed] = useState(false);
   const router = useRouter();
 
   return (
     <>
+      {popup && (
+        <CustomPopUp
+          mainText={'리뷰 등록에 성공하였습니다'}
+          subText={''}
+          btnText={'확인'}
+          btnClick={() => {
+            setPopup(false);
+          }}
+        />
+      )}
+      {reviewed && (
+        <CustomPopUp
+          mainText={'주문에 대한 리뷰가 이미 존재합니다.'}
+          subText={''}
+          btnText={'확인'}
+          btnClick={() => {
+            setReviewed(false);
+          }}
+        />
+      )}
       <CustomerHeader />
       <div className="flex flex-col items-center px-5 ">
         <div className="m-4 w-full text-lg font-semibold leading-normal">
@@ -115,15 +139,15 @@ export default function Page() {
               await axiosInstance.post(url, {
                 messages: [...data],
               });
-              alert('리뷰 등록에 성공하였습니다');
+              //alert('리뷰 등록에 성공하였습니다');
+              setPopup(true);
               router.push(pageRoute.customer.home());
-              /*경로 추가*/
             } catch (error) {
               if (
                 error?.response?.data?.message ===
                 '주문에 대한 리뷰가 이미 존재합니다.'
               ) {
-                alert('주문에 대한 리뷰가 이미 존재합니다.');
+                setReviewed(true);
               } else if (
                 error.response.data.message === '존재하지 않는 주문입니다'
               ) {
@@ -137,6 +161,7 @@ export default function Page() {
           제출하기
         </PrimaryButton>
       </div>
+      <CustomerFooter />
     </>
   );
 }

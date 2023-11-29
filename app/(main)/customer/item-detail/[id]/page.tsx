@@ -1,6 +1,5 @@
 import Notification from '@/app/_components/notification/Notification';
 import BottomButtons from './_components/BottomButtons';
-import Footer from '@/app/_components/Footer/Footer';
 import CustomerHeader from '@/app/_components/Header/CustomerHeader';
 import {
   HydrationBoundary,
@@ -10,6 +9,8 @@ import {
 import ItemDetail from './_components/ItemDetail';
 import { Suspense } from 'react';
 import { getItem, itemKeys } from '@/app/_hooks/query/item';
+import CustomerFooter from '@/app/_components/Footer/CustomerFooter';
+import Spinner from '@/app/_components/spinner/Spinner';
 
 export default async function Page({ params }: { params: { id: string } }) {
   const queryClient = new QueryClient();
@@ -22,9 +23,9 @@ export default async function Page({ params }: { params: { id: string } }) {
   return (
     <>
       <CustomerHeader />
-      <div className="flex flex-col items-center gap-5 px-5 pt-7">
+      <div className="flex flex-col items-center gap-5 px-5 pb-20 pt-7">
         <HydrationBoundary state={dehydrate(queryClient)}>
-          <Suspense fallback={<div>server render</div>}>
+          <Suspense fallback={<Spinner />}>
             <ItemDetail itemId={params.id} />
           </Suspense>
         </HydrationBoundary>
@@ -35,7 +36,7 @@ export default async function Page({ params }: { params: { id: string } }) {
         </Notification>
         <BottomButtons itemId={params.id} />
       </div>
-      <Footer />
+      <CustomerFooter />
     </>
   );
 }

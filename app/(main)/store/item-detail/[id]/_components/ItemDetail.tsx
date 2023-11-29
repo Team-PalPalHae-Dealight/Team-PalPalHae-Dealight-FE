@@ -6,6 +6,8 @@ import { useRouter } from 'next/navigation';
 import pageRoute from '@/app/_constants/path';
 import Notification from '@/app/_components/notification/Notification';
 import { useDeleteItem, useGetItem } from '@/app/_hooks/query/item';
+import { useState } from 'react';
+import PopUp from '@/app/_components/pop-up/PopUp';
 
 type ItemDetailType = {
   itemId: string;
@@ -19,8 +21,10 @@ const ItemDetail = ({ itemId }: ItemDetailType) => {
     item;
   const rounter = useRouter();
 
+  const [deletePopUp, setDeletePopUp] = useState(false);
+
   return (
-    <div className="mb-5 w-full">
+    <div className="w-full">
       <div className="mb-5 flex gap-5">
         <div className="relative h-24 w-32 overflow-hidden rounded">
           <Image
@@ -70,9 +74,15 @@ const ItemDetail = ({ itemId }: ItemDetailType) => {
         >
           수정하기
         </PrimaryButton>
-        <PrimaryButton
-          onClick={() => {
-            if (confirm('상품을 삭제하시겠습니까?')) {
+        <PrimaryButton onClick={() => setDeletePopUp(true)}>
+          삭제하기
+        </PrimaryButton>
+        {deletePopUp && (
+          <PopUp
+            mainText="상품을 삭제하시겠습니까?"
+            leftBtnText="예"
+            rightBtnText="아니오"
+            leftBtnClick={() => {
               deleteItem(
                 { itemId },
                 {
@@ -81,11 +91,10 @@ const ItemDetail = ({ itemId }: ItemDetailType) => {
                   },
                 }
               );
-            }
-          }}
-        >
-          삭제하기
-        </PrimaryButton>
+            }}
+            rightBtnClick={() => setDeletePopUp(false)}
+          />
+        )}
       </div>
     </div>
   );

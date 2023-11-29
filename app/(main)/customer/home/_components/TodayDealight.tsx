@@ -27,23 +27,23 @@ const TodayDealight = ({
         <h2 className="text-lg font-bold">오늘의 딜라잇</h2>
         <TodayDealightDropDown sortBy={sortBy} setSortBy={setSortBy} />
       </div>
-      <div className="h-[40vh] overflow-y-scroll">
+      <div className="h-[37vh] overflow-y-scroll">
         <ItemCards items={memberItems} />
-
-        <div ref={refNode} className="h-4" />
 
         {isFetchingNextPage && (
           <div className="mb-1 flex items-center justify-center">
             <Spinner />
           </div>
         )}
-      </div>
 
-      {memberItems.length === 0 && (
-        <span className="flex h-[38vh] items-center justify-center text-xs text-dark-gray">
-          등록한 상품이 없습니다.
-        </span>
-      )}
+        {memberItems.length === 0 && (
+          <span className="flex h-[34vh] items-center justify-center text-xs text-dark-gray">
+            등록한 상품이 없습니다.
+          </span>
+        )}
+
+        <div ref={refNode} className="h-4" />
+      </div>
     </>
   );
 };

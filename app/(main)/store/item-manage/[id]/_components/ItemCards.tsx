@@ -16,6 +16,7 @@ const ItemCards = ({ items }: ItemCardsPropsType) => {
             <Link
               key={item.itemId}
               href={pageRoute.store.itemDetail(String(item.itemId))}
+              scroll={false}
             >
               <div
                 className="mb-2 flex h-20 items-center justify-between rounded bg-white p-4"
@@ -44,7 +45,6 @@ const ItemCards = ({ items }: ItemCardsPropsType) => {
                     </div>
                     <div className="flex items-center justify-end gap-2">
                       <div className="text-sm font-semibold text-red">
-                        할인
                         {(
                           ((item.originalPrice - item.discountPrice) /
                             item.originalPrice) *

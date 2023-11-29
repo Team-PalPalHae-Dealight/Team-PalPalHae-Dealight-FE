@@ -7,20 +7,12 @@ import { formatPhoneNumber } from '@/app/_utils/number';
 import { useGetMyStoreReviews } from '@/app/_hooks/query/review';
 import { useGetMyStore } from '@/app/_hooks/query/store';
 import { useGetMyStoreItems } from '@/app/_hooks/query/item';
+import DelightEmoji from '@/app/_assets/svgs/dealight-emoji.svg';
 
 const StoreManage = () => {
   const { data: myStore } = useGetMyStore();
   const { data: myStoreReview } = useGetMyStoreReviews();
   const { data: storeItems, ref } = useGetMyStoreItems({ size: 5 });
-
-  const reviewImage = {
-    '상품 상태가 좋아요': 'https://picsum.photos/id/75/200/300.jpg',
-    '사장님이 친절해요': 'https://picsum.photos/id/80/200/300.jpg',
-    '특별한 상품이 있어요': 'https://picsum.photos/id/85/200/300.jpg',
-    '가격이 저렴해요': 'https://picsum.photos/id/90/200/300.jpg',
-    '게시된 설명이 자세하고 실제 상품과 동일해요':
-      'https://picsum.photos/id/95/200/300.jpg',
-  };
 
   const {
     closeTime,
@@ -101,15 +93,7 @@ const StoreManage = () => {
               className="flex items-center rounded bg-white p-3 text-xs font-semibold shadow"
             >
               <div className="mr-auto flex gap-2.5">
-                <div className="relative h-4 w-7 overflow-hidden rounded">
-                  <Image
-                    priority
-                    fill
-                    alt={'리뷰 이미지'}
-                    src={reviewImage[review.content]}
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  />
-                </div>
+                <DelightEmoji />
 
                 <span>&quot;{review.content}&quot;</span>
               </div>
@@ -119,7 +103,7 @@ const StoreManage = () => {
 
           {myStoreReview.reviews.length === 0 && (
             <span className="text-center text-xs text-dark-gray">
-              응원의 메시지를 작성해주세요.
+              등록된 응원의 메시지가 없습니다.
             </span>
           )}
         </div>

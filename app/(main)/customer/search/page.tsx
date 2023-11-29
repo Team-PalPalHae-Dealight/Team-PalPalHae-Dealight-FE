@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import SearchBar from './_component/searchbar/Searchbar';
 import Sortoption from './_component/sort-option/SortOption';
 import ItemCard from './_component/Itemcard/Itemcard';
@@ -23,7 +23,19 @@ export default function Page() {
   const [page, setPage] = useState(1);
   const { address } = useUserInfo();
   const { lat, lng } = useCoordinate(address.name);
+  const [word, setWord] = useState<string>('');
 
+  useEffect(() => {
+    if (word === '') return;
+    const getData = async () => {
+      const url = `/stores/search?x-coordinate=${lng}&y-coordinate=${lat}&keyword=${word}&sortBy=${sortBy}&size=5&page=${page}`;
+      const { data: storeInfoSliceRes } = await axiosInstance.get(url);
+      setItems(storeInfoSliceRes.storeInfoSliceRes);
+      setPage(page + 1);
+    };
+    getData();
+    // eslint-disable-next-line
+  }, [sortBy]);
   return (
     <>
       <CustomerHeader />
@@ -34,6 +46,7 @@ export default function Page() {
             const { data: storeInfoSliceRes } = await axiosInstance.get(url);
             setItems(storeInfoSliceRes.storeInfoSliceRes);
             setPage(page + 1);
+            setWord(keyword);
           }}
         />
         <Sortoption
@@ -46,6 +59,7 @@ export default function Page() {
               setSortBy('discount-rate');
             }
           }}
+          sortBy={sortBy}
         />
         {items.map(item => (
           <ItemCard
