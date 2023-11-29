@@ -73,7 +73,7 @@ const ItemRegister = () => {
     <form className="flex flex-col" onSubmit={handleSubmit(onSubmit)}>
       <h2 className="mb-3 text-lg font-bold">상품 등록</h2>
 
-      <div className="mb-5 flex gap-4">
+      <div className="mb-5 flex w-full gap-4">
         <div className="flex flex-shrink-0 flex-col items-center justify-around gap-1.5">
           <div className="relative h-20 w-20 overflow-hidden rounded">
             <Image
@@ -133,12 +133,11 @@ const ItemRegister = () => {
           <Image
             src={Notification}
             alt="notification"
-            className="flex h-[13px] w-[13px] flex-shrink-0"
+            className="mt-1 flex h-[13px] w-[13px] flex-shrink-0"
           />
           <p className="flex-shrink text-xs text-dark-gray">
-            판매 가격에 상품 원가를, 할인 가격에 할인된 가격을 작성하시면,
-            <br />
-            할인 가격으로 상품이 등록됩니다.
+            판매 가격에 상품 원가를, 할인 가격에 할인된 가격을 작성하시면, 할인
+            가격으로 상품이 등록됩니다.
           </p>
         </div>
 
@@ -178,6 +177,9 @@ const ItemRegister = () => {
                 validate: {
                   validateNumber: value =>
                     !isNaN(Number(value)) || '숫자로 입력해주세요.',
+                  validateDiscount: (value, values) =>
+                    value <= values.originalPrice ||
+                    '할인된 상품을 등록해주세요.',
                 },
               })}
               placeholder="0"
