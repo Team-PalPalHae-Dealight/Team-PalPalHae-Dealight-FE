@@ -24,7 +24,6 @@ export default function Page() {
 
   return (
     <>
-      {' '}
       {popup && (
         <CustomPopUp
           mainText={'리뷰 등록에 성공하였습니다'}
