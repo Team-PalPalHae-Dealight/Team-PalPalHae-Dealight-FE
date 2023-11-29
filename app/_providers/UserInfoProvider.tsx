@@ -33,8 +33,8 @@ export const userInitialData = {
   phoneNumber: null,
   address: {
     name: '강남역 2번 출구',
-    xCoordinate: 126.976372775,
-    yCoordinate: 37.571648599,
+    xCoordinate: 127.028307900881,
+    yCoordinate: 37.4981646510326,
   },
 };
 
