@@ -11,20 +11,20 @@ const SearchAddress = ({ getAddress, onClose }: propsType) => {
   };
 
   return (
-    <>
+    <div className="fixed left-0 top-0 z-50 flex w-full flex-col items-center justify-center">
       <button
         onClick={onClose}
-        className="fixed left-0 top-0 h-10 w-full border-b-1 border-b-black bg-light-gray text-center"
+        className="z-auto h-10 w-full max-w-[480px] border-b-1 border-b-black bg-light-gray text-center"
       >
         닫기
       </button>
       <DaumPostcode
-        className="fixed left-0 top-10"
-        style={{ maxWidth: '100vw', height: '100vh', zIndex: 500 }}
+        className="w-full max-w-[480px]"
+        style={{ width: '100vw', height: '100vh', zIndex: 500 }}
         autoClose
         onComplete={handleComplete}
       />
-    </>
+    </div>
   );
 };
 
