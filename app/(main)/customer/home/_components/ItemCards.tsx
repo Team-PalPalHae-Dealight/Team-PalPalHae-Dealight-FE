@@ -33,7 +33,7 @@ const ItemCards = ({ items }: ItemCardsPropsType) => {
               </div>
 
               <div className="flex w-full items-center">
-                <div className="flex flex-col gap-1">
+                <div className="ml-1 flex flex-col gap-1">
                   <div className="w-20 overflow-hidden text-ellipsis whitespace-nowrap text-sm font-semibold">
                     {item.itemName}
                   </div>
@@ -41,10 +41,6 @@ const ItemCards = ({ items }: ItemCardsPropsType) => {
                   <div className="flex gap-1 text-xs font-semibold">
                     <div>재고: </div>
                     <div className="text-red">{item.stock}개</div>
-                  </div>
-
-                  <div className="w-32 overflow-hidden text-ellipsis whitespace-nowrap text-xs text-dark-gray">
-                    {item.storeAddress.name}
                   </div>
                 </div>
 
@@ -54,7 +50,6 @@ const ItemCards = ({ items }: ItemCardsPropsType) => {
                   </div>
                   <div className="flex w-28 items-center justify-end gap-2">
                     <div className="text-sm font-semibold text-red">
-                      할인
                       {(
                         ((item.originalPrice - item.discountPrice) /
                           item.originalPrice) *
@@ -65,7 +60,7 @@ const ItemCards = ({ items }: ItemCardsPropsType) => {
                     <div className="text-xs">{item.discountPrice} 원</div>
                   </div>
                   <div className="flex justify-end text-xs text-dark-gray">
-                    <div>마감 시간 : {item.storeCloseTime}</div>
+                    <div>마감 {item.storeCloseTime}</div>
                   </div>
                 </div>
               </div>
