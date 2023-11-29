@@ -1,5 +1,4 @@
 import Banner from './_assets/images/banner.png';
-
 import Header from './_components/Header/Header';
 import Image from 'next/image';
 import StartLink from './_components/main/StartLink';

@@ -88,14 +88,15 @@ export default function Signup() {
 
   return (
     <>
-      <form className="flex w-5/6 flex-col " onSubmit={handleSubmit(onSubmit)}>
+      <form className="flex w-full flex-col" onSubmit={handleSubmit(onSubmit)}>
         <div>
           <label>
-            <div className="pt-3 text-xs font-normal">이름</div>
+            <div className="pt-3 text-xs font-semibold">이름</div>
             <div className="h-12  rounded  border-white bg-white">
               <input
                 {...register('realname')}
-                className={`h-12 w-full rounded bg-light-gray text-xs text-dark-gray ${
+                placeholder="이름"
+                className={`h-12 w-full rounded bg-light-gray text-xs font-normal ${
                   errors.realname ? 'border-red' : 'border-yellow'
                 } cursor-pointer pl-3 outline-none focus:border-2`}
               />
@@ -109,21 +110,22 @@ export default function Signup() {
           )}
         </div>
       </form>
-      <form className="flex w-5/6 flex-col " onSubmit={handleSubmit(onSubmit)}>
+      <form className="flex w-full flex-col " onSubmit={handleSubmit(onSubmit)}>
         <label>
-          <div className="pt-3 text-xs font-normal">닉네임</div>
-          <div className="flex flex-row ">
-            <div className="flex  h-12  w-full   flex-row rounded border-white bg-white">
+          <div className="pt-3 text-xs font-semibold">닉네임</div>
+          <div className="flex gap-x-2">
+            <div className="flex  h-12 w-full flex-row gap-2 rounded border-white bg-white">
               <input
                 {...register('nickName')}
-                className={`base-2/5 h-12 w-full  rounded bg-light-gray text-xs text-dark-gray ${
+                placeholder="딜라잇"
+                className={`base-2/5 h-12 w-full rounded  bg-light-gray text-xs font-normal ${
                   errors.nickName ? 'border-red' : 'border-yellow'
                 } cursor-pointer pl-3 outline-none focus:border-2`}
               />
             </div>
-            <div className=" min-w-fit  px-1">
+            <div className="min-w-fit">
               <PrimaryButton type="button" onClick={handleNicknameCheck}>
-                <div className="text-xs font-normal">중복확인</div>
+                <div className="px-2 text-xs font-normal">중복확인</div>
               </PrimaryButton>
             </div>
           </div>
@@ -134,12 +136,13 @@ export default function Signup() {
         {!isNicknameValid && errors.nickName && (
           <span className=" text-xs text-red">중복확인해주세요!</span>
         )}
-        <div>
-          <label className="mt-3 text-xs font-normal">전화번호</label>
-          <div className="h-12  rounded  border-white bg-white">
+        <div className="w-full pt-3">
+          <label className="text-xs font-semibold">전화번호</label>
+          <div className="h-12 w-full rounded  border-white bg-white">
             <input
               {...register('phoneNumber')}
-              className={`h-12 w-full rounded bg-light-gray text-xs text-dark-gray ${
+              placeholder="01012345678"
+              className={`h-12 w-full rounded bg-light-gray text-xs font-normal ${
                 errors.phoneNumber ? 'border-red' : 'border-yellow'
               } cursor-pointer pl-3 outline-none focus:border-2`}
             />
