@@ -58,6 +58,7 @@ export default function Page() {
               setSortBy('discount-rate');
             }
           }}
+          sortBy={sortBy}
         />
         {items.map(item => (
           <ItemCard

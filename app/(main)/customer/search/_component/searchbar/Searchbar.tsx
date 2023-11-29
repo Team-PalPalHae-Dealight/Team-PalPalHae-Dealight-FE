@@ -19,7 +19,6 @@ const SearchBar = ({ getItems }: SearchBarPropTypes) => {
         <button
           onClick={e => {
             e.preventDefault();
-            setWord('');
             getItems(word);
           }}
         >
