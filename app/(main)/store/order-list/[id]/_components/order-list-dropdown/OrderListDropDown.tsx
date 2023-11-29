@@ -55,7 +55,7 @@ const OrderListDropDown = ({
         </div>
       </button>
       {isMenuOpen && (
-        <div className="border-gray-300 absolute right-0 mt-2 w-14 rounded border bg-white text-xs shadow-lg">
+        <div className="border-gray-300 absolute right-0 mt-2 w-20 rounded border bg-white text-xs shadow-lg">
           <ul>
             <li
               onClick={() => onClickOption('ALL')}

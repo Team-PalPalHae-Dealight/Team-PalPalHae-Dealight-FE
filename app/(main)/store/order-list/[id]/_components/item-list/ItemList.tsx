@@ -16,7 +16,7 @@ const ItemList = ({
 }: ItemListPropsType) => {
   return (
     <>
-      <div className="h-[72vh] overflow-y-scroll">
+      <div className="h-[68vh] overflow-y-scroll">
         <OrderListCard orders={orders} />
 
         {isFetchingNextPage && (
@@ -28,7 +28,7 @@ const ItemList = ({
         <div className="h-4" ref={refNode} />
 
         {orders.length === 0 && (
-          <div className="flex h-[72vh] items-center justify-center text-xs text-dark-gray">
+          <div className="flex h-[64vh] items-center justify-center text-xs text-dark-gray">
             <p>주문 내역이 없습니다.</p>
           </div>
         )}
