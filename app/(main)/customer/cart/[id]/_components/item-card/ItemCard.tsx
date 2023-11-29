@@ -125,8 +125,10 @@ const ItemCard = ({
   };
 
   useEffect(() => {
-    changeQuantity();
-  }, [changeQuantity]);
+    if (stock) {
+      changeQuantity();
+    }
+  }, [stock, changeQuantity]);
 
   return (
     <div className="flex h-22.5 w-full justify-between rounded bg-white p-4 shadow-md">

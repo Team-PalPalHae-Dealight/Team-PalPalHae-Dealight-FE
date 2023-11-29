@@ -43,8 +43,13 @@ const OrderList = () => {
 
       <div className="px-5">
         <div className="flex h-14 items-center justify-between">
-          <div className="flex items-center gap-1" onClick={onClickOrderList}>
-            <label className="text-xl	font-semibold">주문 내역</label>
+          <div
+            className="flex cursor-pointer items-center gap-1"
+            onClick={onClickOrderList}
+          >
+            <label className="cursor-pointer text-xl font-semibold">
+              주문 내역
+            </label>
             <div className="relative h-4 w-4">
               <Image
                 src={notification}

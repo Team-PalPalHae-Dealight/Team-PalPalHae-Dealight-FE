@@ -1,10 +1,8 @@
-import Image from 'next/image';
 import { useState } from 'react';
-import polygon from '@/app/_assets/images/polygon.png';
-import reversePolygon from '@/app/_assets/images/reversePolygon.png';
 import { twMerge } from 'tailwind-merge';
+import Polygon from '@/app/_assets/svgs/polygon.svg';
 
-type DropDownTextType = '거리순' | '마감 시간순';
+type DropDownTextType = '거리순' | '마감 시간순' | '상품 할인율순';
 
 type SortPropTypes = {
   getsortOption: (val: string) => void;
@@ -27,22 +25,20 @@ const OrderListDropDown = ({ getsortOption }: SortPropTypes) => {
   const buttonClasses = twMerge(`flex items-center gap-2 rounded text-xs`);
 
   return (
-    <div className="relative inline-block">
+    <div className="inline-block">
       <button onClick={onClickToggleMenu} className={buttonClasses}>
         {toggleMenu}
-        {isMenuOpen ? (
-          <Image
-            src={reversePolygon}
-            width={10}
-            height={10}
-            alt="reversePolygon"
-          />
-        ) : (
-          <Image src={polygon} width={10} height={10} alt="polygon" />
-        )}
+
+        <div
+          className={`relative flex h-2.5 w-2.5 items-center transition ${
+            isMenuOpen ? 'rotate-0' : '-rotate-180'
+          }`}
+        >
+          <Polygon />
+        </div>
       </button>
       {isMenuOpen && (
-        <div className="border-gray-300 absolute mt-2 w-20 rounded border bg-white text-xs shadow-lg">
+        <div className="border-gray-300 absolute right-0.5 mt-2 w-24 rounded border bg-white text-xs shadow-lg ">
           <ul>
             <li
               onClick={() => onClickOption('거리순')}
@@ -55,6 +51,12 @@ const OrderListDropDown = ({ getsortOption }: SortPropTypes) => {
               className="cursor-pointer px-2 py-1 "
             >
               마감 시간순
+            </li>
+            <li
+              onClick={() => onClickOption('상품 할인율순')}
+              className="cursor-pointer px-2 py-1 "
+            >
+              상품 할인율순
             </li>
           </ul>
         </div>

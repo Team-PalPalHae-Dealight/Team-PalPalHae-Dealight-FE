@@ -1,4 +1,5 @@
 'use client';
+
 import GuideText from './_components/guide-text/GuideText';
 import Header from '@/app/_components/Header/Header';
 import Signup from './_components/sign-up/SignUp';
