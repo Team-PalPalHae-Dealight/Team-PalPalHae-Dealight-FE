@@ -23,7 +23,7 @@ const OrderInformation = ({ data }: OrderInformationPropsType) => {
           <div className="p-4">
             <div className="pb-4 text-lg">주문 정보</div>
             <div className="flex justify-between pb-2.5 pr-5">
-              <div className="w-72 overflow-hidden text-ellipsis whitespace-nowrap">
+              <div className="w-3/5 max-w-[200px] overflow-hidden text-ellipsis whitespace-nowrap">
                 가게명 :{' '}
                 <span className="font-normal text-dark-gray">
                   {data[0]?.storeName}
@@ -31,7 +31,7 @@ const OrderInformation = ({ data }: OrderInformationPropsType) => {
               </div>
               <div>총 수량 : {total.totalCount} 개</div>
             </div>
-            <div className="w-full overflow-hidden text-ellipsis whitespace-nowrap pb-2.5">
+            <div className="w-64 overflow-hidden text-ellipsis whitespace-nowrap pb-2.5">
               상품명 :{' '}
               <span className="font-normal text-dark-gray">
                 {data.length === 1
@@ -50,7 +50,7 @@ const OrderInformation = ({ data }: OrderInformationPropsType) => {
               </span>
             </div>
             <div className="flex pb-2.5">
-              도착 예정 시간 :{' '}
+              도착 예정 시간{' '}
               <div className="flex justify-between pl-2 ">
                 <div className="mr-3 border-1 border-solid border-dark-gray">
                   <select
@@ -81,12 +81,12 @@ const OrderInformation = ({ data }: OrderInformationPropsType) => {
                 </div>
               </div>
             </div>
-            <div className="flex">
-              <span>요청 사항 :</span>
+            <div className="flex w-full">
+              <span>요청 사항</span>
               <input
                 className="ml-2 min-h-[40px] flex-1 border-1 border-solid border-dark-gray p-1.5 text-xs font-normal outline-none"
                 type="text"
-                placeholder="(선택 사항) 요청사항을 작성해주세요"
+                placeholder="선택 사항입니다."
                 defaultValue=""
                 {...register('request')}
               />

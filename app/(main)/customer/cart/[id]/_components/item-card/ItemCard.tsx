@@ -132,10 +132,10 @@ const ItemCard = ({
 
   return (
     <div className="flex h-22.5 w-full justify-between rounded bg-white p-2 shadow-sm">
-      <div className="flex">
+      <div className="flex w-full">
         <Image src={image} width={60} height={60} alt="item" />
-        <div className="flex flex-col justify-center pl-2">
-          <div className="w-72 flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-sm font-semibold">
+        <div className="flex flex-col items-start justify-between pl-2">
+          <div className="w-2/4 max-w-[200px] overflow-hidden text-ellipsis whitespace-nowrap text-sm font-semibold">
             {title}
           </div>
           <div className="text-xs font-semibold">{`${price} 원`}</div>

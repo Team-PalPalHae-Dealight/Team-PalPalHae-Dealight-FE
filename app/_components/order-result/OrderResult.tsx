@@ -15,9 +15,9 @@ const OrderResult = (props: { data: OrderResultPropsType }) => {
     <div className="min-h-64 my-5 w-full rounded bg-white text-sm font-semibold text-black">
       <div className="p-4">
         <div className="pb-4 text-xl">주문 정보</div>
-        <div className="flex justify-between pb-2.5">
-          <div className="w-4/6 overflow-hidden text-ellipsis whitespace-nowrap font-semibold text-black">
-            가게명 : <span className="font-normal">{storeName}</span>
+        <div className="flex w-full justify-between pb-2.5 pr-5 ">
+          <div className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap">
+            가게명 : <span className="font-normal text-black">{storeName}</span>
           </div>
           <div>총 수량 : {totalCount} 개</div>
         </div>
@@ -34,7 +34,9 @@ const OrderResult = (props: { data: OrderResultPropsType }) => {
         </div>
         <div className="flex">
           <span>요청 사항 :</span>
-          <span className="pl-2 font-normal text-black">{comments}</span>
+          <span className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap pl-2 font-normal text-black">
+            {comments}
+          </span>
         </div>
       </div>
     </div>
