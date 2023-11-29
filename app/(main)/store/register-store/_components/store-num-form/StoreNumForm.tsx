@@ -23,6 +23,8 @@ const StoreNumForm = () => {
     storeNumber: isValidStoreNumber(),
   });
 
+  const memoryStoreNumber = LocalStorage.getItem('dealight-storeNumber');
+
   const onSubmit: SubmitHandler<initialValuesType> = () => {
     const { storeNumber } = watch();
     LocalStorage.setItem('dealight-storeNumber', storeNumber);
@@ -49,10 +51,11 @@ const StoreNumForm = () => {
         </label>
         <input
           type="text"
-          className={`h-12 w-full rounded ${
+          className={`h-12 w-full rounded text-xs ${
             errors.storeNumber ? 'border-red' : 'border-yellow'
           } cursor-pointer bg-white pl-3 outline-none focus:border-2`}
           placeholder="1007999997"
+          defaultValue={memoryStoreNumber ?? ''}
           {...register('storeNumber')}
         />
         <ErrorMessage

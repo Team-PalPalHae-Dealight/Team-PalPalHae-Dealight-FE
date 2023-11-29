@@ -29,6 +29,7 @@ type initialValuesType = {
 
 const StoreTimeForm = () => {
   const router = useRouter();
+
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState('');
   const [url, setUrl] = useState('/');
@@ -86,8 +87,7 @@ const StoreTimeForm = () => {
         <div className="flex w-full">
           <div className="base-1/3 w-full">
             <select
-              defaultValue=""
-              className={`h-12 w-full cursor-pointer rounded text-base text-black ${
+              className={`h-12 w-full cursor-pointer rounded text-xs text-black ${
                 errors.storeOpenTime ? 'border-red' : 'border-yellow'
               } bg-white pl-3 outline-none focus:border-2`}
               {...register('storeOpenTime')}
@@ -108,13 +108,12 @@ const StoreTimeForm = () => {
               )}
             />
           </div>
-          <div className="base-1/3 h-12 w-full pt-3 text-center text-base text-black">
+          <div className="base-1/3 h-12 w-full pt-3 text-center text-xs text-black">
             ~
           </div>
           <div className="base-1/3 w-full">
             <select
-              defaultValue=""
-              className={`h-12 w-full cursor-pointer rounded text-base text-black ${
+              className={`h-12 w-full cursor-pointer rounded text-xs text-black ${
                 errors.storeCloseTime ? 'border-red' : 'border-yellow'
               } bg-white pl-3 outline-none focus:border-2`}
               {...register('storeCloseTime')}
@@ -152,7 +151,7 @@ const StoreTimeForm = () => {
           <div
             role="group"
             aria-labelledby="checkbox-group"
-            className="grid w-full grid-flow-row grid-cols-4 gap-2.5"
+            className="grid w-full grid-flow-row grid-cols-4 gap-2.5 text-xs"
           >
             <div className="h-12 w-full bg-white">
               <input
