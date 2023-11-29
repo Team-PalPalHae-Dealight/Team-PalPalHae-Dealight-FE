@@ -21,7 +21,7 @@ const MainContents = () => {
   return (
     <>
       <BusinessStatus status={status} setStatus={setStatus} />
-      <HomeButton status={status} />
+      <HomeButton />
       <ProductList status={status} />
     </>
   );

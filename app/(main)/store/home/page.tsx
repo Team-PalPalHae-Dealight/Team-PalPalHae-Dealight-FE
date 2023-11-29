@@ -12,7 +12,7 @@ export default function Page() {
     <>
       <Header />
 
-      <div className="mt-2 flex flex-col items-center px-5">
+      <div className="mt-2 flex h-[76vh] flex-col items-center px-5">
         <MainContents />
       </div>
 
