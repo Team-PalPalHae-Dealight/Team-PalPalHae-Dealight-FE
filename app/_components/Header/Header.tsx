@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import DelightEmoji from './assets/dealight-emoji.svg';
+import DelightEmoji from '@/app/_assets/svgs/dealight-emoji.svg';
 
 const Header = () => {
   return (

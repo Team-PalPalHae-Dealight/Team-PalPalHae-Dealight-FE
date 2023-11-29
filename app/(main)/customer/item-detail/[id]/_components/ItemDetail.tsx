@@ -54,7 +54,10 @@ const ItemDetail = ({ itemId }: ItemDetailType) => {
 
           <PrimaryButton
             onClick={() =>
-              router.push(pageRoute.customer.storeDetail(String(item.storeId)))
+              router.push(
+                pageRoute.customer.storeDetail(String(item.storeId)),
+                { scroll: false }
+              )
             }
             className="h-7"
           >
@@ -80,7 +83,7 @@ const ItemDetail = ({ itemId }: ItemDetailType) => {
           currentPosition={{
             lng: storeAddress.xCoordinate,
             lat: storeAddress.yCoordinate,
-            title: storeAddress.name,
+            title: '',
           }}
         />
       </div>
