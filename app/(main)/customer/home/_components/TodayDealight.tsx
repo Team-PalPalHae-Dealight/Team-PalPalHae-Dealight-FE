@@ -37,7 +37,7 @@ const TodayDealight = ({
         )}
 
         {memberItems.length === 0 && (
-          <span className="flex h-full items-center justify-center text-xs text-dark-gray">
+          <span className="flex h-[34vh] items-center justify-center text-xs text-dark-gray">
             등록한 상품이 없습니다.
           </span>
         )}
