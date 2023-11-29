@@ -24,7 +24,7 @@ const ItemDetail = ({ itemId }: ItemDetailType) => {
   const [deletePopUp, setDeletePopUp] = useState(false);
 
   return (
-    <div className="mb-5 w-full">
+    <div className="w-full">
       <div className="mb-5 flex gap-5">
         <div className="relative h-24 w-32 overflow-hidden rounded">
           <Image

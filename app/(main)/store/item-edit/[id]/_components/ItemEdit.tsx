@@ -88,7 +88,7 @@ const ItemEdit = ({ itemId }: ItemEditPropsType) => {
   };
 
   return (
-    <>
+    <div className="w-full">
       <form className="flex flex-col" onSubmit={handleSubmit(onSubmit)}>
         <h2 className="mb-3 text-lg font-bold">상품 등록</h2>
 
@@ -239,7 +239,7 @@ const ItemEdit = ({ itemId }: ItemEditPropsType) => {
           btnText="확인"
         />
       )}
-    </>
+    </div>
   );
 };
 
