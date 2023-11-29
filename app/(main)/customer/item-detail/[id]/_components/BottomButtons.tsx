@@ -83,7 +83,7 @@ const BottomButtons = ({ itemId }: ItemIdType) => {
   };
 
   return (
-    <div className="flex w-full gap-5">
+    <div className="flex w-full gap-5 pb-24">
       <PrimaryButton onClick={putCart}>장바구니 담기</PrimaryButton>
       <PrimaryButton onClick={orderCart}>주문하기</PrimaryButton>
       {customOpen && (

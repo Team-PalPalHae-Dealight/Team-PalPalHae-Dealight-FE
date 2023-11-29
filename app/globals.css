@@ -4,11 +4,13 @@
 
 input {
   outline: none;
+  background-color: white;
 }
 
 input,
 textarea {
   appearance: none;
+  background-color: white;
 
   -webkit-appearance: none;
   -webkit-border-radius: 0;

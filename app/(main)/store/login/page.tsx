@@ -38,7 +38,11 @@ export default function Page() {
         카카오 로그인
       </PrimaryButton>
 
-      <Link href="/" className="mt-28 text-xs text-dark-gray underline">
+      <Link
+        href="/"
+        className="mt-28 text-xs text-dark-gray underline"
+        scroll={false}
+      >
         시작 페이지로 돌아가기
       </Link>
     </div>

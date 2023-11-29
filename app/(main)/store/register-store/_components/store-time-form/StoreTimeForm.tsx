@@ -29,6 +29,7 @@ type initialValuesType = {
 
 const StoreTimeForm = () => {
   const router = useRouter();
+
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState('');
   const [url, setUrl] = useState('/');
@@ -86,8 +87,7 @@ const StoreTimeForm = () => {
         <div className="flex w-full">
           <div className="base-1/3 w-full">
             <select
-              defaultValue=""
-              className={`h-12 w-full cursor-pointer rounded text-base text-black ${
+              className={`h-12 w-full cursor-pointer rounded text-xs text-black ${
                 errors.storeOpenTime ? 'border-red' : 'border-yellow'
               } bg-white pl-3 outline-none focus:border-2`}
               {...register('storeOpenTime')}
@@ -108,13 +108,12 @@ const StoreTimeForm = () => {
               )}
             />
           </div>
-          <div className="base-1/3 h-12 w-full pt-3 text-center text-base text-black">
+          <div className="base-1/3 h-12 w-full pt-3 text-center text-xs text-black">
             ~
           </div>
           <div className="base-1/3 w-full">
             <select
-              defaultValue=""
-              className={`h-12 w-full cursor-pointer rounded text-base text-black ${
+              className={`h-12 w-full cursor-pointer rounded text-xs text-black ${
                 errors.storeCloseTime ? 'border-red' : 'border-yellow'
               } bg-white pl-3 outline-none focus:border-2`}
               {...register('storeCloseTime')}
@@ -139,16 +138,19 @@ const StoreTimeForm = () => {
             휴무일
           </div>
           <div className="flex w-full">
-            <Image className="h-3 w-3" src={Notification} alt="notification" />
+            <Image
+              className="mr-1 mt-0.5 h-5 w-5"
+              src={Notification}
+              alt="notification"
+            />
             <p className="mb-2 text-xs text-dark-gray">
-              (복수선택가능) 휴무일 설정은 매주를 기준으로 하며, 선택하지 않을
-              경우 연중 무휴로 인지됩니다.
+              매주를 기준으로 하며, 선택하지 않을 경우 연중 무휴로 설정됩니다.
             </p>
           </div>
           <div
             role="group"
             aria-labelledby="checkbox-group"
-            className="grid w-full grid-flow-row grid-cols-4 gap-2.5"
+            className="grid w-full grid-flow-row grid-cols-4 gap-2.5 text-xs"
           >
             <div className="h-12 w-full bg-white">
               <input

@@ -13,7 +13,7 @@ export default async function Page() {
     <>
       <Header />
 
-      <div className="flex flex-col items-center gap-5 px-5 pt-7">
+      <div className="flex flex-col items-center gap-5 px-5 pb-20 pt-7">
         <StoreManage />
       </div>
 
