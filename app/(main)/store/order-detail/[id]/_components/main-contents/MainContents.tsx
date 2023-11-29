@@ -76,7 +76,8 @@ const MainContents = () => {
     router.push(
       providerId
         ? pageRoute.store.orderList(String(providerId))
-        : pageRoute.store.login()
+        : pageRoute.store.login(),
+      { scroll: false }
     );
   };
 

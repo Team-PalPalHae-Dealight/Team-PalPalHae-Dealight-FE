@@ -14,6 +14,7 @@ const OrderListCard = ({ orders }: OrderListCardPropsType) => {
           <Link
             key={order.orderId}
             href={pageRoute.store.orderDetail(String(order.orderId))}
+            scroll={false}
           >
             <div
               className=" mb-3 rounded-md bg-white p-2"

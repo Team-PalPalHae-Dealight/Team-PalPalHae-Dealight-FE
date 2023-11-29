@@ -17,6 +17,7 @@ const ItemCards = ({ items }: ItemCardsPropsType) => {
           <Link
             key={item.itemId}
             href={pageRoute.customer.itemDetail(String(item.itemId))}
+            scroll={false}
           >
             <div
               className="mb-2 flex items-center gap-2 rounded bg-white px-4 py-2"

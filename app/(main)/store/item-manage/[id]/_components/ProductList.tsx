@@ -26,8 +26,6 @@ const ProductList = () => {
       <div className="h-[63vh] w-full overflow-y-scroll">
         <ItemCards items={items} />
 
-        <div className="h-4" ref={ref} />
-
         {isFetchingNextPage && (
           <div className="mb-3 flex items-center justify-center">
             <Spinner />
@@ -39,9 +37,13 @@ const ProductList = () => {
             <p>등록한 상품이 없습니다.</p>
           </div>
         )}
+
+        <div className="h-4" ref={ref} />
       </div>
       <PrimaryButton
-        onClick={() => router.push(pageRoute.store.itemRegister())}
+        onClick={() =>
+          router.push(pageRoute.store.itemRegister(), { scroll: false })
+        }
       >
         등록하기
       </PrimaryButton>
