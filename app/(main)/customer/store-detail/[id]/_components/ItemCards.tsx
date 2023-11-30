@@ -33,7 +33,7 @@ const ItemCards = ({ items }: ItemTypes) => {
 
               <div className="flex w-full items-center">
                 <div className="flex flex-col gap-1">
-                  <div className="w-20 overflow-hidden text-ellipsis text-sm font-semibold">
+                  <div className="w-20 overflow-hidden text-ellipsis whitespace-nowrap text-sm font-semibold">
                     {item.itemName}
                   </div>
                   <div className="flex gap-1 text-xs font-semibold">

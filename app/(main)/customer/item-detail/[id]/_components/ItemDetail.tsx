@@ -43,7 +43,7 @@ const ItemDetail = ({ itemId }: ItemDetailType) => {
         </div>
 
         <div className="flex w-full min-w-0 grow flex-col gap-3">
-          <span className="overflow-hidden text-ellipsis text-xl font-semibold">
+          <span className="overflow-hidden text-ellipsis whitespace-nowrap text-xl font-semibold">
             {itemName}
           </span>
 
