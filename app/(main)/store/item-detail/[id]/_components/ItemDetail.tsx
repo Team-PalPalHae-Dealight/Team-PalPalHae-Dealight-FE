@@ -25,8 +25,8 @@ const ItemDetail = ({ itemId }: ItemDetailType) => {
 
   return (
     <div className="w-full">
-      <div className="mb-5 flex gap-5">
-        <div className="relative h-24 w-32 overflow-hidden rounded">
+      <div className="mb-5 flex w-full gap-5">
+        <div className="relative h-24 w-32 flex-shrink-0 overflow-hidden rounded">
           <Image
             src={String(image)}
             alt="상품 이미지"
@@ -36,8 +36,10 @@ const ItemDetail = ({ itemId }: ItemDetailType) => {
           />
         </div>
 
-        <div className="mt-3 flex flex-col gap-4">
-          <h2 className="text-xl font-bold">{itemName}</h2>
+        <div className="mt-3 flex min-w-0 grow flex-col gap-4">
+          <span className="overflow-hidden text-ellipsis whitespace-nowrap text-xl font-bold">
+            {itemName}
+          </span>
 
           <div className="text-lg font-bold">
             <span className="mr-5">재고:</span>

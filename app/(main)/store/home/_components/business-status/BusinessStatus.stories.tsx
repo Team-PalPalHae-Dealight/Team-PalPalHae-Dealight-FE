@@ -11,12 +11,5 @@ export default meta;
 type Story = StoryObj<typeof BusinessStatus>;
 
 export const Primary: Story = {
-  render: () => (
-    <BusinessStatus
-      status="영업 중"
-      setStatus={() => {
-        console.log('영업 중');
-      }}
-    />
-  ),
+  render: () => <BusinessStatus status="영업 중" />,
 };

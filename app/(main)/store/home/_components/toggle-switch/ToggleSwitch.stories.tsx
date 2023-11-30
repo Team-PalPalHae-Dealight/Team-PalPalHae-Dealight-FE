@@ -11,7 +11,5 @@ export default meta;
 type Story = StoryObj<typeof ToggleSwitch>;
 
 export const Primary: Story = {
-  render: () => (
-    <ToggleSwitch status="영업 중" setStatus={() => console.log('영업 중')} />
-  ),
+  render: () => <ToggleSwitch status="영업 중" />,
 };

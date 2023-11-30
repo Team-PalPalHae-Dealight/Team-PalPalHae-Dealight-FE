@@ -89,7 +89,7 @@ const ItemRegister = () => {
 
             <label
               htmlFor="imagePreview"
-              className="flex h-7  cursor-pointer items-center justify-center rounded-md bg-yellow px-4 text-sm font-bold"
+              className="flex h-7 cursor-pointer items-center justify-center whitespace-nowrap rounded-md bg-yellow px-4 text-sm font-bold"
             >
               이미지 불러오기
             </label>
@@ -181,7 +181,7 @@ const ItemRegister = () => {
                     validateNumber: value =>
                       !isNaN(Number(value)) || '숫자로 입력해주세요.',
                     validateDiscount: (value, values) =>
-                      Number(value) <= Number(values.originalPrice) ||
+                      Number(value) < Number(values.originalPrice) ||
                       '할인된 상품을 등록해주세요.',
                   },
                 })}
