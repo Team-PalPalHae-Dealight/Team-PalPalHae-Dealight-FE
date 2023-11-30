@@ -11,6 +11,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import PrimaryButton from '@/app/_components/PrimaryButton/PrimaryButton';
 import ErrorMessage from '@/app/_components/erorr-message/ErrorMessage';
 import RegisterLoading from './RegisterLoading';
+import CustomPopUp from '@/app/_components/pop-up/CustomPopUp';
 
 type ItemRegisterInputs = {
   image: File;
@@ -36,6 +37,7 @@ const ItemRegister = () => {
   const [previewImage, setPreviewImage] = useState<StaticImageData | string>(
     ImageUpload
   );
+  const [errorPopUp, setErrorPopUp] = useState('');
 
   const onChangeImagePreview = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files || e.target.files.length === 0) return;
@@ -63,7 +65,7 @@ const ItemRegister = () => {
           });
         },
         onError: err => {
-          alert(err.message);
+          setErrorPopUp(err.message);
         },
       }
     );
@@ -75,7 +77,7 @@ const ItemRegister = () => {
         <h2 className="mb-3 text-lg font-bold">상품 등록</h2>
 
         <div className="mb-5 flex w-full gap-4">
-          <div className="flex flex-shrink-0 flex-col items-center justify-around gap-1.5">
+          <div className="flex flex-col items-center justify-around gap-1.5">
             <div className="relative h-20 w-20 overflow-hidden rounded">
               <Image
                 src={previewImage}
@@ -102,10 +104,10 @@ const ItemRegister = () => {
             />
           </div>
 
-          <div className="flex w-full max-w-[280px] flex-col gap-3">
+          <div className="flex min-w-0 grow flex-col gap-3">
             <input
               {...register('itemName', { required: '값을 입력해주세요.' })}
-              className="max-w-[150px] rounded border border-transparent py-3.5 pl-3 focus:border-yellow"
+              className="rounded border border-transparent py-3.5 pl-3 focus:border-yellow"
               placeholder="상품명"
             />
 
@@ -119,7 +121,7 @@ const ItemRegister = () => {
                     !isNaN(Number(value)) || '숫자로 입력해주세요.',
                 },
               })}
-              className="max-w-[150px] rounded border border-transparent py-3.5 pl-3 focus:border-yellow"
+              className="rounded border border-transparent py-3.5 pl-3 focus:border-yellow"
               placeholder="재고"
             />
 
@@ -179,7 +181,7 @@ const ItemRegister = () => {
                     validateNumber: value =>
                       !isNaN(Number(value)) || '숫자로 입력해주세요.',
                     validateDiscount: (value, values) =>
-                      value <= values.originalPrice ||
+                      Number(value) <= Number(values.originalPrice) ||
                       '할인된 상품을 등록해주세요.',
                   },
                 })}
@@ -211,6 +213,14 @@ const ItemRegister = () => {
           </PrimaryButton>
         </div>
       </form>
+
+      {errorPopUp && (
+        <CustomPopUp
+          btnClick={() => setErrorPopUp('')}
+          mainText={errorPopUp}
+          btnText="확인"
+        />
+      )}
     </div>
   );
 };
