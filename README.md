@@ -14,7 +14,9 @@
   <img src="https://img.shields.io/badge/typescript-3178C6?style=for-the-badge&logo=typescript&logoColor=white">
   <img src="https://img.shields.io/badge/axios-5A29E4?style=for-the-badge&logo=axios&logoColor=white">
   <img src="https://img.shields.io/badge/reactquery-FF4154?style=for-the-badge&logo=reactquery&logoColor=white">
-  <img src="https://img.shields.io/badge/sass-CC6699?style=for-the-badge&logo=sass&logoColor=white">
+  <img src="https://img.shields.io/badge/reactrouter-CA4245?style=for-the-badge&logo=reactrouter&logoColor=white">
+  <img src="https://img.shields.io/badge/reacthookform-EC5990?style=for-the-badge&logo=reacthookform&logoColor=white">
+  <img src="https://img.shields.io/badge/tailwindcss-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white">
   <img src="https://img.shields.io/badge/storybook-FF4785?style=for-the-badge&logo=storybook&logoColor=white">
   <img src="https://img.shields.io/badge/figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white">
 </div>
@@ -26,13 +28,18 @@
 - [배포 링크](https://dev-dealight.vercel.app/)
 - [스토리북](https://team-palpalhae-dealight.github.io/Team-PalPalHae-Dealight-FE/?path=/docs/components-itemcard--docs)
 
-<h2>
+<!--<h2>
   📄 프로젝트 문서
-</h2>
+</h2>-->
 
 <h2>
   👨🏻‍💻 팀원 소개
 </h2>
+
+| [이종현](https://github.com/jonghyunlee95) | [이종길](https://github.com/jgjgill) | [이범진](https://github.com/euan-lee) | [임지선](https://github.com/Lim-JiSeon) |
+|:---------------------------------------:|:---------------------------------------:|:---------------------------------------:|:----------------------------------------:|
+| <img src="https://avatars.githubusercontent.com/u/108605838?v=4" width="100" /> | <img src="https://avatars.githubusercontent.com/u/79239852?v=4" width="100" /> | <img src="https://avatars.githubusercontent.com/u/62791913?v=4" width="100" /> | <img src="https://avatars.githubusercontent.com/u/83554018?v=4" width="100" /> |
+
 
 
 <h2>
@@ -52,7 +59,6 @@
 <h2>
   💪🏻 핵심 기능
 </h2>
-
 
   - 마트 및 가게에서 당일 폐기 예정 상품을 할인 가격으로 등록/판매합니다.
 
@@ -84,9 +90,6 @@
 
 <img src="https://github.com/Team-PalPalHae-Dealight/Team-PalPalHae-Dealight-FE/assets/108605838/9891a5ff-8bdd-4b8b-84df-5ed3bec03056" width="900px" height="400px" />
 
-<h2>
-  ERD
-</h2>
 
 <h2>
   🗂️ 폴더 구조
