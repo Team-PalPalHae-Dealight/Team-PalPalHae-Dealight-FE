@@ -26,12 +26,16 @@ const OrderListCard = ({ orders }: OrderListCardPropsType) => {
               </div>
               <div className="flex items-center gap-1 text-black">
                 {order.orderProductsRes.orderProducts.length > 1 ? (
-                  <div className="text-sm">
-                    {order.orderProductsRes.orderProducts[0].name} 외
-                    {order.orderProductsRes.orderProducts.length - 1}개
-                  </div>
+                  <>
+                    <div className="max-w-[80px] overflow-hidden text-ellipsis whitespace-nowrap text-sm">
+                      {order.orderProductsRes.orderProducts[0].name}
+                    </div>
+                    <div>
+                      외{order.orderProductsRes.orderProducts.length - 1}개
+                    </div>
+                  </>
                 ) : (
-                  <div className="text-sm">
+                  <div className="max-w-[80px] overflow-hidden text-ellipsis whitespace-nowrap text-sm">
                     {order.orderProductsRes.orderProducts[0].name}
                   </div>
                 )}
