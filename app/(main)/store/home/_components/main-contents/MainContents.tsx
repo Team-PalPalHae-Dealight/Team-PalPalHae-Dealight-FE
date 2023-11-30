@@ -1,6 +1,5 @@
 'use client';
 
-import { useState } from 'react';
 import BusinessStatus from '../business-status/BusinessStatus';
 import HomeButton from '../home-buttons/HomeButton';
 import ProductList from '../product-list/ProductList';
@@ -14,15 +13,11 @@ const MainContents = () => {
     storeId: String(storeId!),
   });
 
-  const [status, setStatus] = useState<'영업 중' | '영업 준비 중'>(
-    storeStatusInfo.storeStatus
-  );
-
   return (
     <>
-      <BusinessStatus status={status} setStatus={setStatus} />
+      <BusinessStatus status={storeStatusInfo.storeStatus} />
       <HomeButton />
-      <ProductList status={status} />
+      <ProductList status={storeStatusInfo.storeStatus} />
     </>
   );
 };

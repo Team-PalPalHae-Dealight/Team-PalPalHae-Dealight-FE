@@ -1,25 +1,31 @@
 'use client';
 
-import { Dispatch, SetStateAction, useState } from 'react';
+import { useState } from 'react';
 import { patchStatus } from '@/app/(main)/store/home/_services/patchStatus';
 import { useUserInfo } from '@/app/_providers/UserInfoProvider';
 import PopUp from '@/app/_components/pop-up/PopUp';
+import { storeKeys } from '@/app/_hooks/query/store';
+import { useQueryClient } from '@tanstack/react-query';
 
 type ToggleSwitchPropsType = {
   status: string;
-  setStatus: Dispatch<SetStateAction<'영업 중' | '영업 준비 중'>>;
 };
 
-const ToggleSwitch = ({ status, setStatus }: ToggleSwitchPropsType) => {
+const ToggleSwitch = ({ status }: ToggleSwitchPropsType) => {
   const [onPopUp, setOnPopUp] = useState(false);
   const { storeId } = useUserInfo();
+
+  const queryClient = useQueryClient();
 
   const onClickToggle = async () => {
     if (status === '영업 중') {
       setOnPopUp(true);
     } else {
-      const newStatus = await patchStatus(storeId, '영업 중');
-      setStatus(newStatus);
+      await patchStatus(storeId, '영업 중').then(async () => {
+        await queryClient.invalidateQueries({
+          queryKey: storeKeys.status(String(storeId)),
+        });
+      });
     }
   };
 
@@ -47,8 +53,12 @@ const ToggleSwitch = ({ status, setStatus }: ToggleSwitchPropsType) => {
           rightBtnText={'네'}
           leftBtnClick={() => setOnPopUp(false)}
           rightBtnClick={async () => {
-            const newStatus = await patchStatus(storeId, '영업 준비 중');
-            setStatus(newStatus);
+            await patchStatus(storeId, '영업 준비 중').then(async () => {
+              await queryClient.invalidateQueries({
+                queryKey: storeKeys.status(String(storeId)),
+              });
+            });
+
             setOnPopUp(false);
           }}
         />
