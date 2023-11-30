@@ -1,6 +1,8 @@
-# 🌱 즐거운 가격, 함께하는 맛의 기쁨 Dealight
 <p align="middle">
 <img src="https://github.com/Team-PalPalHae-Dealight/Team-PalPalHae-Dealight-FE/assets/108605838/87a79f68-fb41-4752-be4b-fb3ea572b351" width="550px" height="300px" />
+  <h2 align="middle">
+    🌱 즐거운 가격, 함께하는 맛의 기쁨 Dealight
+  </p>
 </p>
 
 <p align="middle">
