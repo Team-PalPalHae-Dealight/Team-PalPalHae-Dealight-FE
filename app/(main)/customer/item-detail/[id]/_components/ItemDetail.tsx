@@ -31,7 +31,7 @@ const ItemDetail = ({ itemId }: ItemDetailType) => {
 
   return (
     <>
-      <div className="flex gap-5">
+      <div className="flex w-full gap-5">
         <div className="relative h-24 w-32">
           <Image
             src={String(image)}
@@ -42,8 +42,8 @@ const ItemDetail = ({ itemId }: ItemDetailType) => {
           />
         </div>
 
-        <div className="flex flex-col gap-3">
-          <span className="text-xl font-semibold">{itemName}</span>
+        <div className="flex min-w-0 grow flex-col gap-3">
+          <span className="w-2/3 text-xl font-semibold">{itemName}</span>
 
           <div className="flex items-center gap-3">
             <div className="text-lg font-semibold">재고:</div>

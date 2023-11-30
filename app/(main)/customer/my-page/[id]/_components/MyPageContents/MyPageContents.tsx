@@ -30,8 +30,6 @@ const MyPageContents = () => {
 
   const { mutate: patchMyProfile } = usePatchMyProfile();
 
-  console.log(nickName, phoneNumber, address);
-
   const router = useRouter();
   const queryClient = useQueryClient();
 
