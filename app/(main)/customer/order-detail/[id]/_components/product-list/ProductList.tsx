@@ -32,8 +32,8 @@ const ProductList = ({
   items: ProductListPropsType | undefined;
 }) => {
   return (
-    <div className="mb-2 max-h-[35vh]">
-      <div className="h-full w-full overflow-y-scroll">
+    <div className="mb-2 max-h-[35vh] overflow-y-scroll">
+      <div className="h-full w-full">
         {items?.orderProductsRes.orderProducts.map(item => {
           return (
             <div
@@ -46,7 +46,9 @@ const ProductList = ({
               </div>
               <div className="flex w-full items-center justify-between">
                 <div className="ml-2 flex flex-col gap-1 font-semibold">
-                  <div className="text-sm">{item.name}</div>
+                  <div className="w-20 overflow-hidden text-ellipsis whitespace-nowrap text-sm">
+                    {item.name}
+                  </div>
                   <div className="text-xs">{item.discountPrice} 원</div>
                 </div>
                 <div className="flex h-full items-end text-sm">
