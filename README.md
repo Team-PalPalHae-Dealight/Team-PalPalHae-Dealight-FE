@@ -11,13 +11,18 @@
 
 <div align="middle">
   <img src="https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=next.js&logoColor=white">
-  <img src="https://img.shields.io/badge/typescript-3178C6?style=for-the-badge&logo=typescript&logoColor=white">
-  <img src="https://img.shields.io/badge/axios-5A29E4?style=for-the-badge&logo=axios&logoColor=white">
+  <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=white">
+  <img src="https://img.shields.io/badge/typescript-3178C6?style=for-the-badge&logo=typescript&logoColor=white"> <br/>
+  
   <img src="https://img.shields.io/badge/reactquery-FF4154?style=for-the-badge&logo=reactquery&logoColor=white">
   <img src="https://img.shields.io/badge/reactrouter-CA4245?style=for-the-badge&logo=reactrouter&logoColor=white">
-  <img src="https://img.shields.io/badge/reacthookform-EC5990?style=for-the-badge&logo=reacthookform&logoColor=white">
+  <img src="https://img.shields.io/badge/reacthookform-EC5990?style=for-the-badge&logo=reacthookform&logoColor=white"> <br/>
+  
+  <img src="https://img.shields.io/badge/axios-5A29E4?style=for-the-badge&logo=axios&logoColor=white">
+  <img src="https://img.shields.io/badge/vercel-000000?style=for-the-badge&logo=vercel&logoColor=white">
+  <img src="https://img.shields.io/badge/storybook-FF4785?style=for-the-badge&logo=storybook&logoColor=white"> <br/>
+  
   <img src="https://img.shields.io/badge/tailwindcss-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white">
-  <img src="https://img.shields.io/badge/storybook-FF4785?style=for-the-badge&logo=storybook&logoColor=white">
   <img src="https://img.shields.io/badge/figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white">
 </div>
 
@@ -25,7 +30,7 @@
    🔗 배포 링크 
 </h2>
 
-- [배포 링크](https://dev-dealight.vercel.app/)
+- [🌱 즐거운 가격, 함께하는 맛의 기쁨 Dealight](https://dev-dealight.vercel.app/)
 - [스토리북](https://team-palpalhae-dealight.github.io/Team-PalPalHae-Dealight-FE/?path=/docs/components-itemcard--docs)
 
 <!--<h2>
@@ -52,9 +57,6 @@
   🛠️ 기술 스택
 </h2>
 
-<h2>
-  🛠️ 시스템 구조
-</h2>
 
 <h2>
   💪🏻 핵심 기능
@@ -92,9 +94,7 @@
 
 
 <h2>
-  🗂️ 폴더 구조
-</h2>
-
-<h2>
   🎯 주요 기능
 </h2>
+
+- 시연 영상 촬영 후 삽입
