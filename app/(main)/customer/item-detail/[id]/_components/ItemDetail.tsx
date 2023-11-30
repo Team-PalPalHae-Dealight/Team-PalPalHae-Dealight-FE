@@ -32,7 +32,7 @@ const ItemDetail = ({ itemId }: ItemDetailType) => {
   return (
     <>
       <div className="flex w-full gap-5">
-        <div className="relative h-24 w-32">
+        <div className="relative h-24 w-32 flex-none">
           <Image
             src={String(image)}
             alt="상품 이미지"
@@ -42,8 +42,10 @@ const ItemDetail = ({ itemId }: ItemDetailType) => {
           />
         </div>
 
-        <div className="flex min-w-0 grow flex-col gap-3">
-          <span className="w-2/3 text-xl font-semibold">{itemName}</span>
+        <div className="flex w-full min-w-0 grow flex-col gap-3">
+          <span className=" overflow-hidden text-ellipsis text-xl font-semibold">
+            {itemName}
+          </span>
 
           <div className="flex items-center gap-3">
             <div className="text-lg font-semibold">재고:</div>
@@ -103,9 +105,11 @@ const ItemDetail = ({ itemId }: ItemDetailType) => {
           </div>
         </div>
 
-        <div className="flex gap-1">
-          <div className="font-semibold">상품명 :</div>
-          <span className="text-dark-gray">{itemName}</span>
+        <div className="flex w-full gap-1">
+          <div className="min-w-fit font-semibold">상품명 :</div>
+          <span className="overflow-hidden text-ellipsis text-dark-gray">
+            {itemName}
+          </span>
         </div>
 
         <div className="flex gap-1">

@@ -30,7 +30,7 @@ const TodayDealightDropDown = ({
         className="flex items-center gap-2 rounded text-xs "
       >
         {sortBy === 'distance' && '거리순'}
-        {sortBy === 'deadline' && '마감 입박순'}
+        {sortBy === 'deadline' && '마감 임박순'}
         {sortBy === 'discount-rate' && '할인율순'}
         <div
           className={`relative flex h-2.5 w-2.5 items-center transition ${

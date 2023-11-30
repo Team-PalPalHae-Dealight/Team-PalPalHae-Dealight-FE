@@ -107,7 +107,7 @@ const StoreDetail = ({ storeId }: StoreDetailPropsType) => {
           ))}
 
           {storeReview.reviews.length === 0 && (
-            <span className="text-center text-xs text-dark-gray">
+            <span className="my-10 text-center text-xs text-dark-gray">
               등록된 응원의 메시지가 없습니다.
             </span>
           )}
