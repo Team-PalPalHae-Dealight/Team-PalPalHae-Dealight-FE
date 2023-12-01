@@ -51,8 +51,8 @@ const ProductList = ({
               />
             </div>
 
-            <div className="flex w-full items-center justify-between">
-              <div className="ml-2 flex flex-col gap-1 font-semibold">
+            <div className="ml-3 flex w-full items-center justify-between">
+              <div className="flex flex-col gap-1 font-semibold">
                 <div className="w-32 overflow-hidden text-ellipsis whitespace-nowrap text-sm">
                   {item.name}
                 </div>

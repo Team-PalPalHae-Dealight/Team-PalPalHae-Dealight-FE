@@ -31,18 +31,19 @@ const ItemDetail = ({ itemId }: ItemDetailType) => {
 
   return (
     <>
-      <div className="flex w-full gap-5">
-        <div className="relative h-24 w-32 flex-none">
+      <div className="flex w-full flex-col justify-center gap-5">
+        <div className="relative h-32 w-full flex-none overflow-hidden rounded">
           <Image
             src={String(image)}
             alt="상품 이미지"
             priority
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            objectFit="contain"
           />
         </div>
 
-        <div className="flex w-full min-w-0 grow flex-col gap-3">
+        <div className="flex w-full min-w-0 grow flex-col items-center gap-3 rounded bg-white pb-4">
           <span className="overflow-hidden text-ellipsis whitespace-nowrap text-xl font-semibold">
             {itemName}
           </span>
