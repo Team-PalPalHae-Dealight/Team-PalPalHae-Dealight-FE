@@ -27,8 +27,14 @@ export default function Signup() {
   const { login } = useAuth();
   const router = useRouter();
   const schema = yup.object().shape({
-    realname: yup.string().required('이름을 입력해주세요'),
-    nickName: yup.string().required('닉네임을 입력해주세요'),
+    realname: yup
+      .string()
+      .required('이름을 입력해주세요')
+      .matches(/^[^\s]*$/i, '공백은 안됩니다'),
+    nickName: yup
+      .string()
+      .required('닉네임을 입력해주세요')
+      .matches(/^[^\s]*$/i, '공백은 안됩니다'),
     phoneNumber: yup
       .string()
       .required('-을 제외한 11개의 숫자를 입력해주세요')
@@ -79,19 +85,16 @@ export default function Signup() {
       }
     }
   };
-
   const handleNicknameCheck = async () => {
     try {
       const watchNickName = watch('nickName');
       await axiosInstance.post('auth/duplicate', {
         nickName: watchNickName,
       });
-      //  alert('닉네임 검사 통과');
       setIsNicknameValid(true);
       setIsDoubleCheck(true);
     } catch (error) {
       if (error.message === 'Request failed with status code 400') {
-        // alert('닉네임이 중복되었습니다');
         setIsDbuleCheckfail(true);
       }
     }
@@ -195,7 +198,7 @@ export default function Signup() {
           <span className=" text-xs text-red">닉네임을 입력해주세요</span>
         )}
         {!isNicknameValid && errors.nickName && (
-          <span className=" text-xs text-red">중복확인해주세요!</span>
+          <span className=" text-xs text-red"> {errors.nickName.message}</span>
         )}
         <div className="w-full pt-3">
           <label className="text-xs font-semibold">전화번호</label>

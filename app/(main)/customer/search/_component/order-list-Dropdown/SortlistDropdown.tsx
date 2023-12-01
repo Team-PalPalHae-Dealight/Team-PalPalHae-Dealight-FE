@@ -38,7 +38,7 @@ const OrderListDropDown = ({ getsortOption }: SortPropTypes) => {
         </div>
       </button>
       {isMenuOpen && (
-        <div className="border-gray-300 absolute right-0.5 mt-2 w-24 rounded border bg-white text-xs shadow-lg ">
+        <div className="border-gray-300 absolute right-0.5 mt-2 w-28 rounded border bg-white text-xs shadow-lg ">
           <ul>
             <li
               onClick={() => onClickOption('거리순')}
