@@ -44,8 +44,9 @@ const ItemDetail = ({ itemId }: ItemDetailType) => {
         </div>
 
         <div className="flex w-full min-w-0 grow flex-col items-center gap-3 rounded bg-white p-4">
-          <span className="truncate text-xl font-semibold">{itemName}</span>
-
+          <span className="w-full truncate text-center text-xl font-semibold">
+            {itemName}
+          </span>
           <div className="flex items-center gap-3">
             <div className="text-lg font-semibold">재고:</div>
             <div className="font-semibold tracking-widest text-red">
