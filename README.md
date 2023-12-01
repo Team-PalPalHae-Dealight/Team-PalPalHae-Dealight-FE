@@ -1,8 +1,8 @@
 <p align="middle">
 <img src="https://github.com/Team-PalPalHae-Dealight/Team-PalPalHae-Dealight-FE/assets/108605838/87a79f68-fb41-4752-be4b-fb3ea572b351" width="550px" height="300px" />
-  <h2 align="middle">
+  <h1 align="middle">
     🌱 즐거운 가격, 함께하는 맛의 기쁨 Dealight
-  </p>
+  </h1>
 </p>
 
 <p align="middle">
@@ -53,6 +53,8 @@
 <h2>
   🛠️ 기술 스택
 </h2>
+
+<img src="https://github.com/Team-PalPalHae-Dealight/Team-PalPalHae-Dealight-FE/assets/108605838/0573c273-b89b-48bf-90e0-41b1eca5dc7f" width="650px" height="400px"/>
 
 <h2>
   💪🏻 핵심 기능
