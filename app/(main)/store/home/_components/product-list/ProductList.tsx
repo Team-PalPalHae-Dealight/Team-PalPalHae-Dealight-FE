@@ -16,10 +16,11 @@ const ProductList = ({ status }: ProductListPropsType) => {
           {status === '영업 중' && <OpenStoreItems />}
 
           {status === '영업 준비 중' && (
-            <span className="flex h-full items-center justify-center overflow-hidden text-xs text-dark-gray">
+            <span className="flex h-[35vh] items-center justify-center overflow-hidden text-xs text-dark-gray">
               등록한 상품이 없습니다.
             </span>
           )}
+          <div className="h-4" />
         </div>
       </div>
     </>
