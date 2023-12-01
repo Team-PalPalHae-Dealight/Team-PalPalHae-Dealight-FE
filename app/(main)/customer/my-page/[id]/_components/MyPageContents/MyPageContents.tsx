@@ -138,7 +138,7 @@ const MyPageContents = () => {
       <label className="text-xs font-semibold">주소</label>
       <div className="flex w-full items-center justify-between pb-2.5">
         <input
-          className={`h-12 w-full flex-1 overflow-auto text-ellipsis rounded bg-white text-xs ${
+          className={`h-12 w-full flex-1 truncate rounded bg-white text-xs ${
             errors.addressName ? 'border-red' : 'border-yellow'
           } cursor-pointer pl-3 outline-none focus:border-2`}
           type="text"

@@ -140,11 +140,11 @@ const ItemCard = ({
             alt={image}
             src={String(image)}
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            objectFit="cover"
+            className="object-cover"
           />
         </div>
         <div className="flex flex-col items-start justify-between pl-3">
-          <div className="w-3/4 max-w-[200px] flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-sm font-semibold">
+          <div className="w-3/4 max-w-[200px] flex-1 truncate text-sm font-semibold">
             {title}
           </div>
           <div className="text-xs font-semibold">{`${price} 원`}</div>

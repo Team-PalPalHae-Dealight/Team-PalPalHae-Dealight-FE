@@ -27,7 +27,7 @@ const ItemCards = ({ items }: ItemTypes) => {
                   alt={item.itemName}
                   src={String(item.image)}
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  objectFit="cover"
+                  className="object-cover"
                 />
               </div>
 

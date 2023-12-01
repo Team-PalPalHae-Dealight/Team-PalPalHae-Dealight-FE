@@ -25,12 +25,12 @@ const OrderInformation = ({ data }: OrderInformationPropsType) => {
           <div className="p-4">
             <div className="pb-4 text-xl">주문 정보</div>
             <div className="flex justify-between pb-2.5 pr-5">
-              <div className="w-3/5 max-w-[400px] overflow-hidden text-ellipsis whitespace-nowrap">
+              <div className="w-3/5 max-w-[400px] truncate">
                 가게명 : <span>{data[0]?.storeName}</span>
               </div>
               <div>총 수량 : {total.totalCount} 개</div>
             </div>
-            <div className="w-64 overflow-hidden text-ellipsis whitespace-nowrap pb-2.5">
+            <div className="w-64 truncate pb-2.5">
               상품명 :{' '}
               <span>
                 {data.length === 1

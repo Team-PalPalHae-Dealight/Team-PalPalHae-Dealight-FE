@@ -39,14 +39,12 @@ const ItemDetail = ({ itemId }: ItemDetailType) => {
             priority
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            objectFit="contain"
+            className="object-contain"
           />
         </div>
 
-        <div className="flex w-full min-w-0 grow flex-col items-center gap-3 rounded bg-white pb-4">
-          <span className="overflow-hidden text-ellipsis whitespace-nowrap text-xl font-semibold">
-            {itemName}
-          </span>
+        <div className="flex w-full min-w-0 grow flex-col items-center gap-3 rounded bg-white p-4">
+          <span className="truncate text-xl font-semibold">{itemName}</span>
 
           <div className="flex items-center gap-3">
             <div className="text-lg font-semibold">재고:</div>
@@ -108,9 +106,7 @@ const ItemDetail = ({ itemId }: ItemDetailType) => {
 
         <div className="flex w-full gap-1">
           <div className="min-w-fit font-semibold">상품명 :</div>
-          <span className="overflow-hidden text-ellipsis text-dark-gray">
-            {itemName}
-          </span>
+          <span className="truncate text-dark-gray">{itemName}</span>
         </div>
 
         <div className="flex gap-1">

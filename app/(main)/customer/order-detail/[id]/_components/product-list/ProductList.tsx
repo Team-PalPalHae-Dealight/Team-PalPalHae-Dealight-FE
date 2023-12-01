@@ -48,14 +48,12 @@ const ProductList = ({
                   alt={item.image}
                   src={String(item.image)}
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  objectFit="cover"
+                  className="object-cover"
                 />
               </div>
               <div className="ml-3 flex w-full items-center justify-between">
                 <div className="flex flex-col gap-1 font-semibold">
-                  <div className="w-20 overflow-hidden text-ellipsis whitespace-nowrap text-sm">
-                    {item.name}
-                  </div>
+                  <div className="w-20 truncate text-sm">{item.name}</div>
                   <div className="text-xs">{item.discountPrice} 원</div>
                 </div>
                 <div className="flex h-full items-end text-sm">

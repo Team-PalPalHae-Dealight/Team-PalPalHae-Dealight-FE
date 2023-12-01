@@ -42,7 +42,7 @@ const StoreDetail = ({ storeId }: StoreDetailPropsType) => {
               alt={name}
               src={image}
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              objectFit="contain"
+              className="object-contain"
             />
           )}
         </div>

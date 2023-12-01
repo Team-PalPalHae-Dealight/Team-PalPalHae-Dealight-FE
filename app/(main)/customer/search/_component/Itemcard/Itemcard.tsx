@@ -28,12 +28,12 @@ const ItemCard = ({ image, name, closeTime, storeId }: ItemCardPropTypes) => {
             alt={name}
             src={String(image)}
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            objectFit="cover"
+            className="object-cover"
           />
         </div>
 
         <div className="flex w-28 items-center ">
-          <div className="mb-auto w-20 overflow-hidden text-ellipsis whitespace-nowrap text-sm font-semibold">
+          <div className="mb-auto w-20 truncate text-sm font-semibold">
             {name}
           </div>
         </div>

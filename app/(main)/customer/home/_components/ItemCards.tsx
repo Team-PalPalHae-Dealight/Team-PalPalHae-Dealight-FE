@@ -30,13 +30,13 @@ const ItemCards = ({ items }: ItemCardsPropsType) => {
                   alt={item.itemName}
                   src={String(item.image)}
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  objectFit="cover"
+                  className="object-cover"
                 />
               </div>
 
               <div className="flex w-full items-center">
                 <div className="ml-1 flex flex-col gap-1">
-                  <div className="w-28 overflow-hidden text-ellipsis whitespace-nowrap text-sm font-semibold">
+                  <div className="w-28 truncate text-sm font-semibold">
                     {item.itemName}
                   </div>
 
