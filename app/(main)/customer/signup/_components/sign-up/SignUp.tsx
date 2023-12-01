@@ -26,8 +26,14 @@ export default function Signup() {
   const { login } = useAuth();
   const router = useRouter();
   const schema = yup.object().shape({
-    realname: yup.string().required('이름을 입력해주세요'),
-    nickName: yup.string().required('닉네임을 입력해주세요'),
+    realname: yup
+      .string()
+      .required('이름을 입력해주세요')
+      .matches(/^[^\s]*$/i, '공백은 안됩니다'),
+    nickName: yup
+      .string()
+      .required('닉네임을 입력해주세요')
+      .matches(/^[^\s]*$/i, '공백은 안됩니다'),
     phoneNumber: yup
       .string()
       .required('-을 제외한 11개의 숫자를 입력해주세요')
@@ -39,12 +45,11 @@ export default function Signup() {
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<IFormInput>({ resolver: yupResolver(schema) });
+  } = useForm<IFormInput>({ resolver: yupResolver(schema), mode: 'onChange' });
 
   const onSubmit: SubmitHandler<IFormInput> = async data => {
     if (isNicknameValid === false) {
       setDoCheck(true);
-      //alert('닉네임 중복 검사 하세요');
     }
     if (isNicknameValid === true) {
       const { provider, providerId } = LocalStorage.getItem('dealight-signup');
@@ -79,6 +84,7 @@ export default function Signup() {
     }
   };
 
+  console.log(errors);
   const handleNicknameCheck = async () => {
     const watchNickName = watch('nickName');
     if (watchNickName === '') {
@@ -89,14 +95,13 @@ export default function Signup() {
       await axiosInstance.post('auth/duplicate', {
         nickName: watchNickName,
       });
-      //alert('닉네임 검사 통과');
       setIsDoubleCheck(true);
       setIsNicknameValid(true);
     } catch (error) {
       setIsDbuleCheckfail(true);
     }
   };
-
+  console.log('rendered');
   return (
     <>
       {doCheck && (
@@ -195,7 +200,7 @@ export default function Signup() {
           <span className=" text-xs text-red">닉네임을 입력해주세요</span>
         )}
         {!isNicknameValid && errors.nickName && (
-          <span className=" text-xs text-red">중복확인해주세요!</span>
+          <span className=" text-xs text-red"> {errors.nickName.message}</span>
         )}
         <div className="w-full pt-3">
           <label className="text-xs font-semibold">전화번호</label>
