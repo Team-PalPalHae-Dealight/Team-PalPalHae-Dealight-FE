@@ -132,9 +132,18 @@ const ItemCard = ({
 
   return (
     <div className="flex h-22.5 w-full justify-between rounded bg-white p-2 shadow-sm">
-      <div className="flex w-full">
-        <Image src={image} width={60} height={60} alt="item" />
-        <div className="flex flex-col items-start justify-between pl-2">
+      <div className="flex w-full items-center">
+        <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded">
+          <Image
+            priority
+            fill
+            alt={image}
+            src={String(image)}
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            objectFit="cover"
+          />
+        </div>
+        <div className="flex flex-col items-start justify-between pl-3">
           <div className="w-3/4 max-w-[200px] flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-sm font-semibold">
             {title}
           </div>

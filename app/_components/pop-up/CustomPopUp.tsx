@@ -22,7 +22,7 @@ const CustomPopUp = ({
         </div>
         <div className="flex w-full border-t-1 border-dark-gray text-sm">
           <button
-            className="w-full rounded-br border-l-1 border-dark-gray px-4 py-3 active:bg-yellow"
+            className="w-full rounded-br border-dark-gray px-4 py-3 active:bg-yellow"
             onClick={btnClick}
           >
             {btnText}
