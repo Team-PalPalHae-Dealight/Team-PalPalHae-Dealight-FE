@@ -33,12 +33,17 @@ const BottomButtons = ({ itemId }: ItemIdType) => {
     if (res.status !== 200) {
       if (res.data.code === 'CT003' || res.data.code === 'CT005') {
         setClearOpen(true);
+        setMessage(res.data.message);
       } else if (res.data.code === 'CT007' || res.data.code === 'CT008') {
         setDeleteOpen(true);
+        setMessage(res.data.message);
+      } else if (res.data.code === 'AUTH006') {
+        setMessage('로그인이 필요합니다.');
+        setCustomOpen(true);
       } else {
         setCustomOpen(true);
+        setMessage(res.data.message);
       }
-      setMessage(res.data.message);
     } else {
       setMessage('해당 상품이 장바구니에 담겼습니다.');
       setCustomOpen(true);
@@ -52,6 +57,7 @@ const BottomButtons = ({ itemId }: ItemIdType) => {
         cartAdditionType: 'clear',
       },
     });
+
     console.log(res);
 
     setMessage('해당 상품이 장바구니에 담겼습니다.');

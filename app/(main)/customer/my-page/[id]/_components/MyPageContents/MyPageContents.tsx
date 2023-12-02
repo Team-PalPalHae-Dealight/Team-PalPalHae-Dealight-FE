@@ -16,7 +16,10 @@ import pageRoute from '@/app/_constants/path';
 import { useRouter } from 'next/navigation';
 import { isValidRequire } from '@/app/(main)/store/my-page/[id]/_utils/validate';
 import { useQueryClient } from '@tanstack/react-query';
-import { usePatchMyProfile } from '@/app/_hooks/query/member';
+import {
+  usePatchMyProfile,
+  usePostDuplicateNickName,
+} from '@/app/_hooks/query/member';
 import { useUserInfo } from '@/app/_providers/UserInfoProvider';
 
 type initialValuesType = {
@@ -29,12 +32,15 @@ const MyPageContents = () => {
   const { nickName, phoneNumber, address } = useUserInfo();
 
   const { mutate: patchMyProfile } = usePatchMyProfile();
+  const { mutate: postDuplicateNickName } = usePostDuplicateNickName();
 
   const router = useRouter();
   const queryClient = useQueryClient();
 
   const [open, setOpen] = useState(false);
   const [onClick, setOnClick] = useState(false);
+  const [duplicateClick, setDuplicateClick] = useState(false);
+  const [notDuplicate, setNotDuplicate] = useState(true);
 
   const schema = object().shape({
     nickName: isValidNickName(),
@@ -65,30 +71,54 @@ const MyPageContents = () => {
     changeCoords(address);
   };
 
+  const checkNickName = async () => {
+    const { nickName: nickname } = watch();
+
+    setDuplicateClick(true);
+
+    if (nickname !== nickName) {
+      postDuplicateNickName(
+        { nickName: nickname },
+        {
+          onSuccess: res => {
+            if (res.status === 204) {
+              setNotDuplicate(true);
+              setOnClick(false);
+            }
+          },
+          onError: () => {
+            setNotDuplicate(false);
+            setOnClick(false);
+          },
+        }
+      );
+    }
+  };
+
   const changeProfile = async () => {
-    const { nickName, phoneNumber, addressName } = watch();
+    const { nickName: nickname, phoneNumber, addressName } = watch();
 
-    console.log(nickName);
-
-    patchMyProfile(
-      {
-        userInfo: {
-          nickName,
-          phoneNumber,
-          address: {
-            name: addressName,
-            xCoordinate: lng,
-            yCoordinate: lat,
+    if (notDuplicate) {
+      patchMyProfile(
+        {
+          userInfo: {
+            nickName: nickname ?? nickName,
+            phoneNumber,
+            address: {
+              name: addressName,
+              xCoordinate: lng,
+              yCoordinate: lat,
+            },
           },
         },
-      },
-      {
-        onSuccess: async () => {
-          await queryClient.invalidateQueries({ queryKey: ['user-info'] });
-          setOpen(true);
-        },
-      }
-    );
+        {
+          onSuccess: async () => {
+            await queryClient.invalidateQueries({ queryKey: ['user-info'] });
+            setOpen(true);
+          },
+        }
+      );
+    }
   };
 
   const onSubmit: SubmitHandler<initialValuesType> = () => {
@@ -106,12 +136,34 @@ const MyPageContents = () => {
         <label className="w-full text-xs font-semibold" htmlFor="nickName">
           닉네임
         </label>
-        <input
-          className={`h-12 w-full rounded bg-light-gray text-xs ${
-            errors.nickName ? 'border-red' : 'border-yellow'
-          } cursor-pointer pl-3 outline-none focus:border-2`}
-          {...register('nickName')}
-        />
+        <div className="flex justify-between gap-2">
+          <input
+            className={`h-12 w-full rounded bg-light-gray text-xs ${
+              errors.nickName ? 'border-red' : 'border-yellow'
+            } cursor-pointer pl-3 outline-none focus:border-2`}
+            {...register('nickName')}
+          />
+          <button
+            className="min-w-fit rounded bg-yellow px-2"
+            onClick={checkNickName}
+          >
+            중복 검사
+          </button>
+        </div>
+        {duplicateClick && (
+          <div>
+            {notDuplicate ? (
+              <div className="w-full text-xs text-blue">
+                사용가능한 닉네임입니다.
+              </div>
+            ) : (
+              <div className="w-full text-xs text-red">
+                사용 불가능한 닉네임입니다.
+              </div>
+            )}
+          </div>
+        )}
+
         <ErrorMessage
           errors={errors}
           name="nickName"
