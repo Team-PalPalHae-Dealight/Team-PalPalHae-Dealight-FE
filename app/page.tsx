@@ -3,7 +3,7 @@ import Header from './_components/Header/Header';
 import Image from 'next/image';
 import StartLink from './_components/main/StartLink';
 import ServiceIntro from './_components/main/ServiceIntro';
-// import AuthTest from './_components/main/AuthTest';
+import AuthTest from './_components/main/AuthTest';
 
 export default async function Home() {
   return (
@@ -16,9 +16,9 @@ export default async function Home() {
         <StartLink />
         <ServiceIntro />
 
-        {/* <div className="flex flex-col border border-sky-400 p-2">
+        <div className="flex flex-col border border-sky-400 p-2">
           <AuthTest />
-        </div> */}
+        </div>
       </div>
     </>
   );
