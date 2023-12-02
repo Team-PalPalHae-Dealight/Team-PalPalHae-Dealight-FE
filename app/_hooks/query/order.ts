@@ -1,6 +1,18 @@
 import { OrdersType } from '@/app/_types/api/order';
 import { axiosInstance } from '@/app/_services/apiClient';
 import useOrdersInfiniteScroll from './useOrdersInfiniteScroll';
+import { AxiosResponse } from 'axios';
+import { useMutation } from '@tanstack/react-query';
+
+type OrderType = {
+  orderProductsReq: {
+    orderProducts: { itemId: number; quantity: number }[] | undefined;
+  };
+  storeId: number;
+  demand: string;
+  arrivalTime: string;
+  totalPrice: number;
+};
 
 export const getMemberOrders = async ({
   status,
@@ -68,6 +80,16 @@ export const getStoreOrders = async ({
   return data;
 };
 
+export const postOrder = async ({
+  order,
+}: {
+  order: OrderType;
+}): Promise<AxiosResponse> => {
+  const response = await axiosInstance.post('/orders', order);
+
+  return response;
+};
+
 export const useGetStoreOrders = ({
   storeId,
   status,
@@ -87,4 +109,8 @@ export const useGetStoreOrders = ({
         page: pageParam,
       }),
   });
+};
+
+export const usePostOrder = () => {
+  return useMutation({ mutationFn: postOrder });
 };

@@ -1,134 +1,87 @@
 'use client';
 
 import Image from 'next/image';
-import {
-  Dispatch,
-  SetStateAction,
-  useCallback,
-  useEffect,
-  useState,
-} from 'react';
+import { useState } from 'react';
 import PLUS_IMAGE from '@/app/_assets/images/plus.png';
 import MINUS_IMAGE from '@/app/_assets/images/minus.png';
 import PopUp from '@/app/_components/pop-up/PopUp';
 import { useRouter } from 'next/navigation';
 import { useUserInfo } from '@/app/_providers/UserInfoProvider';
-import { patchCart } from '../../_services/patchCart';
-import { deleteCart } from '../../_services/deleteCart';
-import CustomPopUp from '@/app/_components/pop-up/CustomPopUp';
-import { CartType } from '../../_types/CartType';
+import { useDeleteCart, usePatchCart } from '@/app/_hooks/query/cart';
+import { useQueryClient } from '@tanstack/react-query';
 
 type ItemCardPropsType = {
-  _id: number;
+  itemId: number;
   image: string;
   title: string;
   price: number;
   stock: number;
   count: number;
-  setData: Dispatch<SetStateAction<CartType[] | undefined>>;
-  data: CartType[] | undefined;
+};
+
+type QuantityType = {
+  itemId: number;
+  quantity: number;
 };
 
 const ItemCard = ({
-  _id,
+  itemId,
   image,
   title,
   price,
   stock,
   count,
-  setData,
-  data,
 }: ItemCardPropsType) => {
   const [newQuantity, setNewQuantity] = useState(stock ? count : 0);
   const [open, setOpen] = useState(false);
-  const [customOpen, setCustomOpen] = useState(false);
-  const [message, setMessage] = useState('');
 
   const { providerId } = useUserInfo();
+  const { mutate: patchCart } = usePatchCart();
+  const { mutate: deleteCart } = useDeleteCart();
+
+  const queryClient = useQueryClient();
   const router = useRouter();
 
   const handlePlus = () => {
     if (newQuantity < stock) {
       setNewQuantity(prev => prev + 1);
+      changeCart({ itemId, quantity: newQuantity + 1 });
     }
   };
 
   const handleMinus = () => {
     if (newQuantity > 1) {
       setNewQuantity(prev => prev - 1);
+      changeCart({ itemId, quantity: newQuantity - 1 });
     }
   };
 
-  const changeQuantity = useCallback(async () => {
-    const res = await patchCart({
-      carts: [{ itemId: _id, quantity: newQuantity }],
-    });
-    if (res.status !== 200) {
-      setCustomOpen(true);
-      setMessage(res.message);
-    } else {
-      const newData = data?.map((value: CartType) => {
-        const {
-          cartId,
-          itemId,
-          storeId,
-          memberProviderId,
-          itemName,
-          stock,
-          discountPrice,
-          itemImage,
-          quantity,
-          storeName,
-          storeCloseTime,
-          expirationDateTime,
-        } = value;
-        if (itemId === _id) {
-          return {
-            cartId,
-            itemId,
-            storeId,
-            memberProviderId,
-            itemName,
-            stock,
-            discountPrice,
-            itemImage,
-            quantity: newQuantity,
-            storeName,
-            storeCloseTime,
-            expirationDateTime,
-          };
-        } else {
-          return {
-            cartId,
-            itemId,
-            storeId,
-            memberProviderId,
-            itemName,
-            stock,
-            discountPrice,
-            itemImage,
-            quantity,
-            storeName,
-            storeCloseTime,
-            expirationDateTime,
-          };
-        }
-      });
-
-      setData(newData);
-    }
-    //eslint-disable-next-line
-  }, [_id, newQuantity]);
+  const changeCart = async ({ itemId, quantity }: QuantityType) => {
+    patchCart(
+      { cartItem: { carts: [{ itemId, quantity }] } },
+      {
+        onSuccess: async () => {
+          await queryClient.invalidateQueries({ queryKey: ['cart'] });
+        },
+      }
+    );
+  };
 
   const deleteCard = () => {
     setOpen(true);
   };
 
-  useEffect(() => {
-    if (stock) {
-      changeQuantity();
-    }
-  }, [newQuantity, stock, changeQuantity]);
+  const popupRightBtnClick = async () => {
+    setOpen(false);
+    await deleteCart(
+      { itemId },
+      {
+        onSuccess: async () => {
+          await queryClient.invalidateQueries({ queryKey: ['cart'] });
+        },
+      }
+    );
+  };
 
   return (
     <div className="flex h-22.5 w-full justify-between rounded bg-white p-2 shadow-sm">
@@ -180,18 +133,7 @@ const ItemCard = ({
             providerId ? setOpen(false) : router.push('/');
           }}
           rightBtnText="삭제"
-          rightBtnClick={async () => {
-            setOpen(false);
-            await deleteCart(_id);
-            window.location.reload();
-          }}
-        />
-      )}
-      {customOpen && (
-        <CustomPopUp
-          mainText={message}
-          btnText="확인"
-          btnClick={() => window.location.reload()}
+          rightBtnClick={popupRightBtnClick}
         />
       )}
     </div>

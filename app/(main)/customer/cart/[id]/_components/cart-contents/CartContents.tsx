@@ -4,10 +4,8 @@ import Notification from '@/app/_components/notification/Notification';
 import PrimaryButton from '@/app/_components/PrimaryButton/PrimaryButton';
 import ItemList from '../item-list/ItemList';
 import OrderInformation from '../order-information/OrderInformation';
-import { CartType } from '../../_types/CartType';
-import { Dispatch, SetStateAction, useState } from 'react';
+import { useState } from 'react';
 import { sumTotalPrice } from '../../_utils/sumTotalPrice';
-import { postOrder } from '../../_services/postOrder';
 import PopUp from '@/app/_components/pop-up/PopUp';
 import { clearCart } from '../../_services/clearCart';
 import CustomPopUp from '@/app/_components/pop-up/CustomPopUp';
@@ -15,18 +13,15 @@ import { useRouter } from 'next/navigation';
 import pageRoute from '@/app/_constants/path';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useUserInfo } from '@/app/_providers/UserInfoProvider';
+import { useGetCart } from '@/app/_hooks/query/cart';
+import { usePostOrder } from '@/app/_hooks/query/order';
 
-type CartContentPropsType = {
-  data: CartType[] | undefined;
-  setData: Dispatch<SetStateAction<CartType[] | undefined>>;
-};
-
-type InputType = {
+type CartInputType = {
   arriveTime: string;
   request: string;
 };
 
-const CartContent = ({ data, setData }: CartContentPropsType) => {
+const CartContent = () => {
   const [error, setError] = useState(false);
   const [open, setOpen] = useState(false);
   const [errorOrder, setErrorOrder] = useState(false);
@@ -35,51 +30,53 @@ const CartContent = ({ data, setData }: CartContentPropsType) => {
 
   const router = useRouter();
   const { providerId } = useUserInfo();
-  const methods = useForm<InputType>();
+  const { mutate: postOrder } = usePostOrder();
+
+  const methods = useForm<CartInputType>();
+
+  const { data: data } = useGetCart();
 
   const submitOrder = async () => {
     const { arriveTime, request } = methods.watch();
 
-    const itemList = data?.map(item => {
-      return {
-        itemId: item.itemId,
-        quantity: item.quantity,
-      };
-    });
-
-    const res = await postOrder({
-      req: {
-        orderProductsReq: {
-          orderProducts: itemList,
+    postOrder(
+      {
+        order: {
+          orderProductsReq: {
+            orderProducts: data.carts,
+          },
+          storeId: data.carts[0].storeId,
+          demand: request,
+          arrivalTime: `${arriveTime}`,
+          totalPrice: sumTotalPrice(data.carts).totalPrice,
         },
-        storeId: data ? data[0].storeId : 0,
-        demand: request,
-        arrivalTime: `${arriveTime}`,
-        totalPrice: sumTotalPrice({ data }).totalPrice,
       },
-    });
-
-    if (res.status === 201 || res.status === 200) {
-      setOpen(true);
-      setOrderId(res.orderId);
-    } else {
-      if (res.data.code === 'OR002') {
-        setErrorOrder(true);
-      } else {
-        setError(true);
+      {
+        onSuccess: res => {
+          if (res.status === 201 || res.status === 200) {
+            setOpen(true);
+            setOrderId(res.data.orderId);
+          } else {
+            if (res.data.code === 'OR002') {
+              setErrorOrder(true);
+            } else {
+              setError(true);
+            }
+            setMessage(res.data.message);
+          }
+        },
       }
-      setMessage(res.data.message);
-    }
+    );
   };
 
   return (
     <div className="grid grid-cols-1 gap-y-5 pb-5">
-      <ItemList data={data} setData={setData} />
-      {data?.length ? (
+      {data.carts.length ? (
         <>
+          <ItemList />
           <FormProvider {...methods}>
             <form>
-              <OrderInformation data={data} />
+              <OrderInformation />
             </form>
           </FormProvider>
           <Notification>

@@ -46,9 +46,9 @@ export const patchMyProfile = async ({
   try {
     const { nickName, phoneNumber, address } = userInfo;
     return await axiosInstance.patch('/members/profiles', {
-      nickname: nickName,
-      phoneNumber: phoneNumber,
-      address: address,
+      nickName,
+      phoneNumber,
+      address,
     });
   } catch (error) {
     throw new Error(customError(error));

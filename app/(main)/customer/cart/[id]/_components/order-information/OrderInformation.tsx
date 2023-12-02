@@ -1,48 +1,47 @@
 'use client';
 
 import { useFormContext } from 'react-hook-form';
-import { CartType } from '../../_types/CartType';
 import { useUserInfo } from '@/app/_providers/UserInfoProvider';
 import { sumTotalPrice } from '../../_utils/sumTotalPrice';
+import { useGetCart } from '@/app/_hooks/query/cart';
 
-type OrderInformationPropsType = {
-  data: CartType[];
-};
-
-const OrderInformation = ({ data }: OrderInformationPropsType) => {
+const OrderInformation = () => {
   const {
     register,
     formState: { errors },
   } = useFormContext();
 
   const { nickName } = useUserInfo();
-  const total = sumTotalPrice({ data });
+  const { data: data } = useGetCart();
+  const total = sumTotalPrice(data.carts);
+
+  const { storeName, itemName, storeCloseTime } = data.carts[0];
 
   return (
     <>
-      {data ? (
+      {data.carts ? (
         <div className="min-h-64 w-full rounded bg-white text-sm font-semibold text-black">
           <div className="p-4">
             <div className="pb-4 text-xl">주문 정보</div>
             <div className="flex justify-between pb-2.5 pr-5">
-              <div className="w-3/5 max-w-[400px] truncate">
-                가게명 : <span>{data[0]?.storeName}</span>
+              <div className="w-3/5 max-w-[400px] overflow-hidden text-ellipsis whitespace-nowrap">
+                가게명 : <span>{storeName}</span>
               </div>
               <div>총 수량 : {total.totalCount} 개</div>
             </div>
             <div className="w-64 truncate pb-2.5">
               상품명 :{' '}
               <span>
-                {data.length === 1
-                  ? data[0]?.itemName
-                  : `${data[0]?.itemName} 외 ${data.length - 1} 개`}
+                {data.carts.length === 1
+                  ? itemName
+                  : `${itemName} 외 ${data.carts.length - 1} 개`}
               </span>
             </div>
             <div className="pb-2.5">
               주문자 : <span>{nickName}</span>
             </div>
             <div className="pb-2.5">
-              마감 시간 : <span>{data[0].storeCloseTime}</span>
+              마감 시간 : <span>{storeCloseTime}</span>
             </div>
             <div className="flex w-full flex-col pb-2.5">
               <label className="w-full text-xs font-semibold">

@@ -8,6 +8,7 @@ import Notification from '@/app/_components/notification/Notification';
 import { useDeleteItem, useGetItem } from '@/app/_hooks/query/item';
 import { useState } from 'react';
 import PopUp from '@/app/_components/pop-up/PopUp';
+import { defaultImg } from '@/app/_constants/img';
 
 type ItemDetailType = {
   itemId: string;
@@ -23,22 +24,37 @@ const ItemDetail = ({ itemId }: ItemDetailType) => {
 
   const [deletePopUp, setDeletePopUp] = useState(false);
 
+  console.log(String(image));
+
   return (
     <div className="w-full">
-      <div className="mb-5 flex w-full gap-5">
-        <div className="relative h-24 w-32 flex-shrink-0 overflow-hidden rounded">
-          <Image
-            src={String(image)}
-            alt="상품 이미지"
-            priority
-            fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            className="object-cover"
-          />
-        </div>
+      <div className="mb-5 flex w-full flex-col gap-5">
+        {String(image) === defaultImg ? (
+          <div className="relative h-32 w-full flex-shrink-0 overflow-hidden rounded">
+            <Image
+              src={defaultImg}
+              alt="상품 이미지"
+              priority
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              className="object-contain"
+            />
+          </div>
+        ) : (
+          <div className="relative h-44 w-full flex-shrink-0 overflow-hidden rounded">
+            <Image
+              src={String(image)}
+              alt="상품 이미지"
+              priority
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              className="object-cover"
+            />
+          </div>
+        )}
 
-        <div className="mt-3 flex min-w-0 grow flex-col gap-4">
-          <span className="truncate text-xl font-bold">{itemName}</span>
+        <div className="flex min-w-0 grow flex-col items-center gap-4 rounded bg-white p-4">
+          <div className="truncate text-xl font-bold">{itemName}</div>
 
           <div className="text-lg font-bold">
             <span className="mr-5">재고:</span>

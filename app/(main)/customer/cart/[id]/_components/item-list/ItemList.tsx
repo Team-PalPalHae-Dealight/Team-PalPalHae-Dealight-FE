@@ -1,17 +1,14 @@
-import { Dispatch, SetStateAction } from 'react';
 import { CartType } from '../../_types/CartType';
 import ItemCard from '../item-card/ItemCard';
+import { useGetCart } from '@/app/_hooks/query/cart';
 
-type ItemListPropsType = {
-  data: CartType[] | undefined;
-  setData: Dispatch<SetStateAction<CartType[] | undefined>>;
-};
+const ItemList = () => {
+  const { data: data } = useGetCart();
 
-const ItemList = ({ data, setData }: ItemListPropsType) => {
   return (
     <div className="grid grid-cols-1 gap-y-2.5">
-      {data?.length
-        ? data.map(
+      {data.carts.length
+        ? data.carts.map(
             ({
               itemId,
               itemImage,
@@ -22,14 +19,12 @@ const ItemList = ({ data, setData }: ItemListPropsType) => {
             }: CartType) => (
               <ItemCard
                 key={itemId}
-                _id={itemId}
+                itemId={itemId}
                 image={itemImage}
                 title={itemName}
                 price={discountPrice}
                 stock={stock}
                 count={quantity}
-                setData={setData}
-                data={data}
               />
             )
           )
