@@ -54,6 +54,8 @@ const ItemRegister = () => {
   };
 
   const onSubmit: SubmitHandler<ItemRegisterInputs> = registerItem => {
+    if (isPending) return;
+
     createItem(
       { item: registerItem },
       {
@@ -73,6 +75,7 @@ const ItemRegister = () => {
     <div className="flex w-full flex-col">
       <form onSubmit={handleSubmit(onSubmit)}>
         <h2 className="mb-3 text-lg font-bold">상품 등록</h2>
+
 
         <div className="mb-5 flex w-full flex-col gap-4">
           <div className="flex flex-col items-center justify-around gap-1.5">

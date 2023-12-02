@@ -73,6 +73,8 @@ const ItemEdit = ({ itemId }: ItemEditPropsType) => {
   };
 
   const onSubmit: SubmitHandler<ItemEditInputs> = editItem => {
+    if (isPending) return;
+
     patchItem(
       { item: editItem, itemId },
       {
