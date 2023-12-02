@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import pageRoute from '@/app/_constants/path';
 import { useGetItem } from '@/app/_hooks/query/item';
 import { useUserInfo } from '@/app/_providers/UserInfoProvider';
+import { defaultImg } from '@/app/_constants/img';
 
 type ItemDetailType = {
   itemId: string;
@@ -32,16 +33,29 @@ const ItemDetail = ({ itemId }: ItemDetailType) => {
   return (
     <>
       <div className="flex w-full flex-col justify-center gap-5">
-        <div className="relative h-32 w-full flex-none overflow-hidden rounded">
-          <Image
-            src={String(image)}
-            alt="상품 이미지"
-            priority
-            fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            className="object-contain"
-          />
-        </div>
+        {String(image) === defaultImg ? (
+          <div className="relative h-32 w-full flex-shrink-0 overflow-hidden rounded">
+            <Image
+              src={defaultImg}
+              alt="상품 이미지"
+              priority
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              className="object-contain"
+            />
+          </div>
+        ) : (
+          <div className="relative h-44 w-full flex-shrink-0 overflow-hidden rounded">
+            <Image
+              src={String(image)}
+              alt="상품 이미지"
+              priority
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              className="object-cover"
+            />
+          </div>
+        )}
 
         <div className="flex w-full min-w-0 grow flex-col items-center gap-3 rounded bg-white p-4">
           <span className="w-full truncate text-center text-xl font-semibold">
@@ -53,18 +67,6 @@ const ItemDetail = ({ itemId }: ItemDetailType) => {
               {stock}개
             </div>
           </div>
-
-          <PrimaryButton
-            onClick={() =>
-              router.push(
-                pageRoute.customer.storeDetail(String(item.storeId)),
-                { scroll: false }
-              )
-            }
-            className="h-7"
-          >
-            업체 정보
-          </PrimaryButton>
         </div>
       </div>
 
@@ -78,6 +80,16 @@ const ItemDetail = ({ itemId }: ItemDetailType) => {
 
         <p className="text-xs">{description}</p>
       </div>
+
+      <PrimaryButton
+        onClick={() =>
+          router.push(pageRoute.customer.storeDetail(String(item.storeId)), {
+            scroll: false,
+          })
+        }
+      >
+        업체 정보
+      </PrimaryButton>
 
       <div className="min-h-42.5 w-full rounded bg-white p-4">
         <h2 className="pb-2.5 text-lg font-semibold">업체 위치</h2>

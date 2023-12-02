@@ -34,9 +34,7 @@ const ItemRegister = () => {
     formState: { errors },
   } = useForm<ItemRegisterInputs>();
 
-  const [previewImage, setPreviewImage] = useState<StaticImageData | string>(
-    ImageUpload
-  );
+  const [previewImage, setPreviewImage] = useState<StaticImageData | string>();
   const [errorPopUp, setErrorPopUp] = useState('');
 
   const onChangeImagePreview = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -72,25 +70,37 @@ const ItemRegister = () => {
   };
 
   return (
-    <div>
-      <form className="flex flex-col" onSubmit={handleSubmit(onSubmit)}>
+    <div className="flex w-full flex-col">
+      <form onSubmit={handleSubmit(onSubmit)}>
         <h2 className="mb-3 text-lg font-bold">상품 등록</h2>
 
-        <div className="mb-5 flex w-full gap-4">
+        <div className="mb-5 flex w-full flex-col gap-4">
           <div className="flex flex-col items-center justify-around gap-1.5">
-            <div className="relative h-20 w-20 overflow-hidden rounded">
-              <Image
-                src={previewImage}
-                fill
-                sizes="(max-width: 768px) 100vw"
-                alt="미리보기 이미지"
-                className="object-cover"
-              />
-            </div>
+            {previewImage ? (
+              <div className="relative h-44 w-full overflow-hidden rounded">
+                <Image
+                  src={previewImage}
+                  fill
+                  sizes="(max-width: 768px) 100vw"
+                  alt="미리보기 이미지"
+                  className="object-cover"
+                />
+              </div>
+            ) : (
+              <div className="relative my-10 h-20 w-20 overflow-hidden rounded">
+                <Image
+                  src={ImageUpload}
+                  fill
+                  sizes="(max-width: 768px) 100vw"
+                  alt="미리보기 이미지"
+                  className="object-contain"
+                />
+              </div>
+            )}
 
             <label
               htmlFor="imagePreview"
-              className="flex h-7 cursor-pointer items-center justify-center whitespace-nowrap rounded-md bg-yellow px-4 text-sm font-bold"
+              className="flex h-12 w-full cursor-pointer items-center justify-center whitespace-nowrap rounded-md bg-yellow px-4 text-sm"
             >
               이미지 불러오기
             </label>
@@ -105,7 +115,11 @@ const ItemRegister = () => {
             />
           </div>
 
-          <div className="flex min-w-0 grow flex-col gap-3">
+          <div className="flex min-w-0 grow flex-col gap-2">
+            <label htmlFor="itemName" className="text-xs font-semibold">
+              상품명
+            </label>
+
             <input
               {...register('itemName', { required: '값을 입력해주세요.' })}
               className="rounded border border-transparent py-3.5 pl-3 focus:border-yellow"
@@ -113,6 +127,10 @@ const ItemRegister = () => {
             />
 
             <ErrorMessage>{errors.itemName?.message}</ErrorMessage>
+
+            <label htmlFor="stock" className="text-xs font-semibold">
+              상품 재고
+            </label>
 
             <input
               {...register('stock', {
