@@ -85,9 +85,12 @@ export const postOrder = async ({
 }: {
   order: OrderType;
 }): Promise<AxiosResponse> => {
-  const response = await axiosInstance.post('/orders', order);
-
-  return response;
+  try {
+    const response = await axiosInstance.post('/orders', order);
+    return response;
+  } catch (error) {
+    return error.response;
+  }
 };
 
 export const useGetStoreOrders = ({

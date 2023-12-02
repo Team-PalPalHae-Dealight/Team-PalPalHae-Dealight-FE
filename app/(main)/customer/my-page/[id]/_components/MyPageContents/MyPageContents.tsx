@@ -68,6 +68,8 @@ const MyPageContents = () => {
   const changeProfile = async () => {
     const { nickName, phoneNumber, addressName } = watch();
 
+    console.log(nickName);
+
     patchMyProfile(
       {
         userInfo: {
