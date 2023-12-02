@@ -1,10 +1,10 @@
 import { CartType } from '../_types/CartType';
 
-export const sumTotalPrice = (props: { data: CartType[] | undefined }) => {
+export const sumTotalPrice = (data: CartType[]) => {
   let sum = 0;
   let count = 0;
 
-  props.data?.map((item: CartType) => {
+  data.map((item: CartType) => {
     const price = item.discountPrice * item.quantity;
 
     sum += price;

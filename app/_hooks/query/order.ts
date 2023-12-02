@@ -2,6 +2,16 @@ import { OrdersType } from '@/app/_types/api/order';
 import { axiosInstance } from '@/app/_services/apiClient';
 import useOrdersInfiniteScroll from './useOrdersInfiniteScroll';
 
+// type OrderType = {
+//   orderProductsReq: {
+//     orderProducts: { itemId: number; quantity: number }[] | undefined;
+//   };
+//   storeId: number;
+//   demand: string;
+//   arrivalTime: string;
+//   totalPrice: number;
+// };
+
 export const getMemberOrders = async ({
   status,
   size,

@@ -4,8 +4,7 @@ import Notification from '@/app/_components/notification/Notification';
 import PrimaryButton from '@/app/_components/PrimaryButton/PrimaryButton';
 import ItemList from '../item-list/ItemList';
 import OrderInformation from '../order-information/OrderInformation';
-import { CartType } from '../../_types/CartType';
-import { Dispatch, SetStateAction, useState } from 'react';
+import { useState } from 'react';
 import { sumTotalPrice } from '../../_utils/sumTotalPrice';
 import { postOrder } from '../../_services/postOrder';
 import PopUp from '@/app/_components/pop-up/PopUp';
@@ -15,18 +14,15 @@ import { useRouter } from 'next/navigation';
 import pageRoute from '@/app/_constants/path';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useUserInfo } from '@/app/_providers/UserInfoProvider';
-
-type CartContentPropsType = {
-  data: CartType[] | undefined;
-  setData: Dispatch<SetStateAction<CartType[] | undefined>>;
-};
+//import { testOrder } from '@/app/_hooks/query/order';
+import { useGetCart } from '@/app/_hooks/query/cart';
 
 type InputType = {
   arriveTime: string;
   request: string;
 };
 
-const CartContent = ({ data, setData }: CartContentPropsType) => {
+const CartContent = () => {
   const [error, setError] = useState(false);
   const [open, setOpen] = useState(false);
   const [errorOrder, setErrorOrder] = useState(false);
@@ -37,25 +33,37 @@ const CartContent = ({ data, setData }: CartContentPropsType) => {
   const { providerId } = useUserInfo();
   const methods = useForm<InputType>();
 
+  const { data: data } = useGetCart();
+
   const submitOrder = async () => {
     const { arriveTime, request } = methods.watch();
 
-    const itemList = data?.map(item => {
-      return {
-        itemId: item.itemId,
-        quantity: item.quantity,
-      };
-    });
+    // await testOrder({
+    //   order: {
+    //     orderProductsReq: {
+    //       orderProducts: [
+    //         {
+    //           itemId: 1,
+    //           quantity: 3,
+    //         },
+    //       ],
+    //     },
+    //     storeId: 1,
+    //     demand: request,
+    //     arrivalTime: arriveTime,
+    //     totalPrice: 30000,
+    //   },
+    // });
 
     const res = await postOrder({
       req: {
         orderProductsReq: {
-          orderProducts: itemList,
+          orderProducts: data.carts,
         },
-        storeId: data ? data[0].storeId : 0,
+        storeId: data.carts[0].storeId,
         demand: request,
         arrivalTime: `${arriveTime}`,
-        totalPrice: sumTotalPrice({ data }).totalPrice,
+        totalPrice: sumTotalPrice(data.carts).totalPrice,
       },
     });
 
@@ -74,12 +82,12 @@ const CartContent = ({ data, setData }: CartContentPropsType) => {
 
   return (
     <div className="grid grid-cols-1 gap-y-5 pb-5">
-      <ItemList data={data} setData={setData} />
-      {data?.length ? (
+      {data.carts.length ? (
         <>
+          <ItemList />
           <FormProvider {...methods}>
             <form>
-              <OrderInformation data={data} />
+              <OrderInformation />
             </form>
           </FormProvider>
           <Notification>
