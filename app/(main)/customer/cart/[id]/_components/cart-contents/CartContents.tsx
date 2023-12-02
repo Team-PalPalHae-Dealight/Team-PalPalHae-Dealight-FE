@@ -7,13 +7,12 @@ import OrderInformation from '../order-information/OrderInformation';
 import { useState } from 'react';
 import { sumTotalPrice } from '../../_utils/sumTotalPrice';
 import PopUp from '@/app/_components/pop-up/PopUp';
-import { clearCart } from '../../_services/clearCart';
 import CustomPopUp from '@/app/_components/pop-up/CustomPopUp';
 import { useRouter } from 'next/navigation';
 import pageRoute from '@/app/_constants/path';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useUserInfo } from '@/app/_providers/UserInfoProvider';
-import { useGetCart } from '@/app/_hooks/query/cart';
+import { useClearCart, useGetCart } from '@/app/_hooks/query/cart';
 import { usePostOrder } from '@/app/_hooks/query/order';
 
 type CartInputType = {
@@ -31,6 +30,7 @@ const CartContent = () => {
   const router = useRouter();
   const { providerId } = useUserInfo();
   const { mutate: postOrder } = usePostOrder();
+  const { mutate: clearCart } = useClearCart();
 
   const methods = useForm<CartInputType>();
 
@@ -56,6 +56,7 @@ const CartContent = () => {
           if (res.status === 201 || res.status === 200) {
             setOpen(true);
             setOrderId(res.data.orderId);
+            clearCart();
           } else {
             if (res.data.code === 'OR002') {
               setErrorOrder(true);
@@ -102,7 +103,7 @@ const CartContent = () => {
           }}
           rightBtnText="초기화"
           rightBtnClick={async () => {
-            await clearCart();
+            clearCart();
             setError(false);
           }}
         />

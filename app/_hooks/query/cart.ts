@@ -65,6 +65,14 @@ export const deleteCart = async ({
   }
 };
 
+export const clearCart = async (): Promise<void> => {
+  try {
+    await axiosInstance.delete(`/carts`);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const useGetCart = () => {
   return useSuspenseQuery({
     queryKey: ['cart'],
@@ -81,5 +89,11 @@ export const usePatchCart = () => {
 export const useDeleteCart = () => {
   return useMutation({
     mutationFn: deleteCart,
+  });
+};
+
+export const useClearCart = () => {
+  return useMutation({
+    mutationFn: clearCart,
   });
 };
