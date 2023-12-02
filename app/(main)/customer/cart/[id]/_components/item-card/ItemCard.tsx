@@ -73,7 +73,7 @@ const ItemCard = ({
 
   const popupRightBtnClick = async () => {
     setOpen(false);
-    await deleteCart(
+    deleteCart(
       { itemId },
       {
         onSuccess: async () => {
