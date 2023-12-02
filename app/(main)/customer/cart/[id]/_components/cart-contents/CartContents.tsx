@@ -6,7 +6,6 @@ import ItemList from '../item-list/ItemList';
 import OrderInformation from '../order-information/OrderInformation';
 import { useState } from 'react';
 import { sumTotalPrice } from '../../_utils/sumTotalPrice';
-import { postOrder } from '../../_services/postOrder';
 import PopUp from '@/app/_components/pop-up/PopUp';
 import { clearCart } from '../../_services/clearCart';
 import CustomPopUp from '@/app/_components/pop-up/CustomPopUp';
@@ -14,10 +13,10 @@ import { useRouter } from 'next/navigation';
 import pageRoute from '@/app/_constants/path';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useUserInfo } from '@/app/_providers/UserInfoProvider';
-//import { testOrder } from '@/app/_hooks/query/order';
 import { useGetCart } from '@/app/_hooks/query/cart';
+import { usePostOrder } from '@/app/_hooks/query/order';
 
-type InputType = {
+type CartInputType = {
   arriveTime: string;
   request: string;
 };
@@ -31,53 +30,43 @@ const CartContent = () => {
 
   const router = useRouter();
   const { providerId } = useUserInfo();
-  const methods = useForm<InputType>();
+  const { mutate: postOrder } = usePostOrder();
+
+  const methods = useForm<CartInputType>();
 
   const { data: data } = useGetCart();
 
   const submitOrder = async () => {
     const { arriveTime, request } = methods.watch();
 
-    // await testOrder({
-    //   order: {
-    //     orderProductsReq: {
-    //       orderProducts: [
-    //         {
-    //           itemId: 1,
-    //           quantity: 3,
-    //         },
-    //       ],
-    //     },
-    //     storeId: 1,
-    //     demand: request,
-    //     arrivalTime: arriveTime,
-    //     totalPrice: 30000,
-    //   },
-    // });
-
-    const res = await postOrder({
-      req: {
-        orderProductsReq: {
-          orderProducts: data.carts,
+    postOrder(
+      {
+        order: {
+          orderProductsReq: {
+            orderProducts: data.carts,
+          },
+          storeId: data.carts[0].storeId,
+          demand: request,
+          arrivalTime: `${arriveTime}`,
+          totalPrice: sumTotalPrice(data.carts).totalPrice,
         },
-        storeId: data.carts[0].storeId,
-        demand: request,
-        arrivalTime: `${arriveTime}`,
-        totalPrice: sumTotalPrice(data.carts).totalPrice,
       },
-    });
-
-    if (res.status === 201 || res.status === 200) {
-      setOpen(true);
-      setOrderId(res.orderId);
-    } else {
-      if (res.data.code === 'OR002') {
-        setErrorOrder(true);
-      } else {
-        setError(true);
+      {
+        onSuccess: res => {
+          if (res.status === 201 || res.status === 200) {
+            setOpen(true);
+            setOrderId(res.data.orderId);
+          } else {
+            if (res.data.code === 'OR002') {
+              setErrorOrder(true);
+            } else {
+              setError(true);
+            }
+            setMessage(res.data.message);
+          }
+        },
       }
-      setMessage(res.data.message);
-    }
+    );
   };
 
   return (
