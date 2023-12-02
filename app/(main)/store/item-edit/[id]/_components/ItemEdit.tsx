@@ -12,6 +12,7 @@ import { useRouter } from 'next/navigation';
 import ErrorMessage from '@/app/_components/erorr-message/ErrorMessage';
 import EditLoading from './EditLoading';
 import CustomPopUp from '@/app/_components/pop-up/CustomPopUp';
+import { defaultImg } from '@/app/_constants/img';
 
 type ItemEditPropsType = {
   itemId: string;
@@ -92,21 +93,35 @@ const ItemEdit = ({ itemId }: ItemEditPropsType) => {
       <form className="flex flex-col" onSubmit={handleSubmit(onSubmit)}>
         <h2 className="mb-3 text-lg font-bold">상품 등록</h2>
 
-        <div className="mb-5 flex gap-4">
+        <div className="mb-5 flex flex-col gap-4">
           <div className="flex flex-col items-center justify-around gap-1.5">
-            <div className="relative h-20 w-20 overflow-hidden rounded">
-              <Image
-                src={previewImage}
-                fill
-                sizes="(max-width: 768px) 100vw"
-                alt="미리보기 이미지"
-                className="object-cover"
-              />
-            </div>
+            {previewImage === defaultImg ? (
+              <div className="relative h-32 w-full flex-shrink-0 overflow-hidden rounded">
+                <Image
+                  src={defaultImg}
+                  alt="상품 이미지"
+                  priority
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  className="object-contain"
+                />
+              </div>
+            ) : (
+              <div className="relative h-44 w-full flex-shrink-0 overflow-hidden rounded">
+                <Image
+                  src={previewImage}
+                  alt="상품 이미지"
+                  priority
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  className="object-cover"
+                />
+              </div>
+            )}
 
             <label
               htmlFor="imagePreview"
-              className="flex h-7 cursor-pointer items-center justify-center whitespace-nowrap rounded-md bg-yellow px-4 text-sm font-bold"
+              className="flex h-12 w-full cursor-pointer items-center justify-center whitespace-nowrap rounded-md bg-yellow px-4 text-sm"
             >
               이미지 불러오기
             </label>
@@ -121,7 +136,11 @@ const ItemEdit = ({ itemId }: ItemEditPropsType) => {
             />
           </div>
 
-          <div className="flex min-w-0 grow flex-col gap-3">
+          <div className="flex min-w-0 grow flex-col gap-2">
+            <label htmlFor="itemName" className="text-xs font-semibold">
+              상품명
+            </label>
+
             <input
               {...register('itemName', { required: '값을 입력해주세요.' })}
               className="rounded border border-transparent py-3.5 pl-3 focus:border-yellow"
@@ -129,6 +148,10 @@ const ItemEdit = ({ itemId }: ItemEditPropsType) => {
             />
 
             <ErrorMessage>{errors.itemName?.message}</ErrorMessage>
+
+            <label htmlFor="stock" className="text-xs font-semibold">
+              상품 재고
+            </label>
 
             <input
               {...register('stock', {
