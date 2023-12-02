@@ -1,6 +1,7 @@
 import { axiosInstance } from '@/app/_services/apiClient';
 import { customError } from '@/app/_utils/erorr';
 import { useMutation } from '@tanstack/react-query';
+import { AxiosResponse } from 'axios';
 
 export const reviewKeys = {
   member: () => ['user-info'] as const,
@@ -38,6 +39,21 @@ export const updateMemberAddress = async ({
   return data;
 };
 
+export const postDuplicateNickName = async ({
+  nickName,
+}: {
+  nickName: string;
+}): Promise<AxiosResponse> => {
+  try {
+    const response = axiosInstance.post('/auth/duplicate', {
+      nickName,
+    });
+    return response;
+  } catch (error) {
+    return error.response;
+  }
+};
+
 export const patchMyProfile = async ({
   userInfo,
 }: {
@@ -61,4 +77,8 @@ export const useUpdateMemberAddress = () => {
 
 export const usePatchMyProfile = () => {
   return useMutation({ mutationFn: patchMyProfile });
+};
+
+export const usePostDuplicateNickName = () => {
+  return useMutation({ mutationFn: postDuplicateNickName });
 };

@@ -24,7 +24,7 @@ const StartLink = () => {
       >
         <b className="text-xl font-semibold">사장</b>
         <p className="mt-2.5 text-xs">
-          사장님으로 <br /> 활동하기
+          딜라잇 <br /> 사장님 광장
         </p>
         <div className="absolute bottom-0 right-0">
           <Store />
@@ -38,7 +38,7 @@ const StartLink = () => {
       >
         <b className="text-xl font-semibold">고객</b>
         <p className="mt-2.5 text-xs">
-          고객님으로 <br /> 활동하기
+          딜라잇 <br /> 고객님 광장
         </p>
         <div className="absolute bottom-0 right-0">
           <Customer />
