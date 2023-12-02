@@ -36,18 +36,24 @@ const ProductList = ({
       {items?.orderProductsRes.orderProducts.map(item => {
         return (
           <div
-            className="mb-2 flex h-20 rounded bg-white p-4"
+            className="mb-2 flex h-20 items-center rounded bg-white p-4"
             style={{ boxShadow: '0px 0px 4px 0px rgb(0, 0, 0, 0.1)' }}
             key={item.itemId}
           >
-            <div>
-              <Image width={60} height={60} src={item.image} alt="item" />
+            <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded">
+              <Image
+                priority
+                fill
+                alt={item.image}
+                src={String(item.image)}
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                className="object-cover"
+              />
             </div>
-            <div className="flex w-full items-center justify-between">
-              <div className="ml-2 flex flex-col gap-1 font-semibold">
-                <div className="w-32 overflow-hidden text-ellipsis whitespace-nowrap text-sm">
-                  {item.name}
-                </div>
+
+            <div className="ml-3 flex w-full items-center justify-between">
+              <div className="flex flex-col gap-1 font-semibold">
+                <div className="w-32 truncate text-sm">{item.name}</div>
                 <div className="text-xs">{item.discountPrice} 원</div>
               </div>
               <div className="flex h-full items-end text-sm">

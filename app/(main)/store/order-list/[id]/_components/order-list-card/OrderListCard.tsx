@@ -27,7 +27,7 @@ const OrderListCard = ({ orders }: OrderListCardPropsType) => {
               <div className="flex items-center gap-1 text-black">
                 {order.orderProductsRes.orderProducts.length > 1 ? (
                   <>
-                    <div className="max-w-[80px] overflow-hidden text-ellipsis whitespace-nowrap text-sm">
+                    <div className="max-w-[80px] truncate text-sm">
                       {order.orderProductsRes.orderProducts[0].name}
                     </div>
                     <div>
@@ -35,7 +35,7 @@ const OrderListCard = ({ orders }: OrderListCardPropsType) => {
                     </div>
                   </>
                 ) : (
-                  <div className="max-w-[80px] overflow-hidden text-ellipsis whitespace-nowrap text-sm">
+                  <div className="max-w-[80px] truncate text-sm">
                     {order.orderProductsRes.orderProducts[0].name}
                   </div>
                 )}

@@ -82,7 +82,7 @@ const MainContents = () => {
   };
 
   return (
-    <div className="px-5">
+    <div className="min-h-screen px-5">
       <ProductList items={data} />
       {order ? (
         <>

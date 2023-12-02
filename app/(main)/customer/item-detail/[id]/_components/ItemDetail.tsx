@@ -31,22 +31,22 @@ const ItemDetail = ({ itemId }: ItemDetailType) => {
 
   return (
     <>
-      <div className="flex w-full gap-5">
-        <div className="relative h-24 w-32 flex-none">
+      <div className="flex w-full flex-col justify-center gap-5">
+        <div className="relative h-32 w-full flex-none overflow-hidden rounded">
           <Image
             src={String(image)}
             alt="상품 이미지"
             priority
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className="object-contain"
           />
         </div>
 
-        <div className="flex w-full min-w-0 grow flex-col gap-3">
-          <span className="overflow-hidden text-ellipsis whitespace-nowrap text-xl font-semibold">
+        <div className="flex w-full min-w-0 grow flex-col items-center gap-3 rounded bg-white p-4">
+          <span className="w-full truncate text-center text-xl font-semibold">
             {itemName}
           </span>
-
           <div className="flex items-center gap-3">
             <div className="text-lg font-semibold">재고:</div>
             <div className="font-semibold tracking-widest text-red">
@@ -107,9 +107,7 @@ const ItemDetail = ({ itemId }: ItemDetailType) => {
 
         <div className="flex w-full gap-1">
           <div className="min-w-fit font-semibold">상품명 :</div>
-          <span className="overflow-hidden text-ellipsis text-dark-gray">
-            {itemName}
-          </span>
+          <span className="truncate text-dark-gray">{itemName}</span>
         </div>
 
         <div className="flex gap-1">

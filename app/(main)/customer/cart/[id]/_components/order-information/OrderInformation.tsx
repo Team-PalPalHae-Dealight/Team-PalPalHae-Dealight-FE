@@ -29,7 +29,7 @@ const OrderInformation = () => {
               </div>
               <div>총 수량 : {total.totalCount} 개</div>
             </div>
-            <div className="w-64 overflow-hidden text-ellipsis whitespace-nowrap pb-2.5">
+            <div className="w-64 truncate pb-2.5">
               상품명 :{' '}
               <span>
                 {data.carts.length === 1

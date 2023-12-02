@@ -78,8 +78,16 @@ const ImageUploader = () => {
   return (
     <>
       <div className="relative mb-2.5 h-44 w-full rounded bg-white">
-        <Image src={imageUrl} fill alt="프로필 이미지" className="rounded" />
+        <Image
+          priority
+          fill
+          alt={imageUrl}
+          src={imageUrl}
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          className="object-contain"
+        />
       </div>
+
       <label htmlFor="input-file">
         <div className="flex h-12 w-full cursor-pointer items-center justify-center rounded-md bg-yellow text-base text-black shadow">
           업체 사진 변경하기

@@ -60,9 +60,7 @@ const CustomerHeader = () => {
           }}
         >
           <div className="absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 flex-row">
-            <div className=" w-28 overflow-hidden text-ellipsis whitespace-nowrap">
-              {address.name}
-            </div>
+            <div className=" w-28 truncate">{address.name}</div>
             <div>
               <Triangle className="h-6 w-6 px-1 py-1.5" />
             </div>

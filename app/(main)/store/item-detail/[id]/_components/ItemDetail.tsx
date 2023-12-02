@@ -33,13 +33,12 @@ const ItemDetail = ({ itemId }: ItemDetailType) => {
             priority
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className="object-cover"
           />
         </div>
 
         <div className="mt-3 flex min-w-0 grow flex-col gap-4">
-          <span className="overflow-hidden text-ellipsis whitespace-nowrap text-xl font-bold">
-            {itemName}
-          </span>
+          <span className="truncate text-xl font-bold">{itemName}</span>
 
           <div className="text-lg font-bold">
             <span className="mr-5">재고:</span>

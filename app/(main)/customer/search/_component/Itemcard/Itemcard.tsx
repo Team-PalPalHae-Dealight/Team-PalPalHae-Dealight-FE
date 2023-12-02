@@ -21,18 +21,19 @@ const ItemCard = ({ image, name, closeTime, storeId }: ItemCardPropTypes) => {
         className="mb-2 flex items-center gap-2 rounded bg-white p-4"
         style={{ boxShadow: '0px 0px 4px 0px rgb(0, 0, 0, 0.1)' }}
       >
-        <div className="relative h-14 w-14 overflow-hidden rounded">
+        <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded">
           <Image
             priority
             fill
             alt={name}
             src={String(image)}
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className="object-cover"
           />
         </div>
 
         <div className="flex w-28 items-center ">
-          <div className="mb-auto w-20 overflow-hidden text-ellipsis whitespace-nowrap text-sm font-semibold">
+          <div className="mb-auto w-20 truncate text-sm font-semibold">
             {name}
           </div>
         </div>

@@ -64,7 +64,7 @@ const StoreInformation = ({ storeInfo }: StoreInformationPropsType) => {
           <div className="pb-1.5 text-xs">업체 주소 : </div>
           <div className="flex items-center justify-between">
             <input
-              className="flex-1 overflow-auto text-ellipsis border-1 border-solid border-dark-gray p-1.5 text-sm font-normal text-black outline-none"
+              className="flex-1 truncate border-1 border-solid border-dark-gray p-1.5 text-sm font-normal text-black outline-none"
               type="text"
               disabled
               defaultValue={addressName}

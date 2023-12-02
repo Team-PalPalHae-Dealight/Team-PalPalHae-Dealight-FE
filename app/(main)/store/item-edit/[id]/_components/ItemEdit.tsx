@@ -100,6 +100,7 @@ const ItemEdit = ({ itemId }: ItemEditPropsType) => {
                 fill
                 sizes="(max-width: 768px) 100vw"
                 alt="미리보기 이미지"
+                className="object-cover"
               />
             </div>
 
