@@ -75,12 +75,17 @@ const BottomButtons = ({ itemId }: ItemIdType) => {
     if (res.status !== 200) {
       if (res.data.code === 'CT003' || res.data.code === 'CT005') {
         setClearOpen(true);
+        setMessage(res.data.message);
       } else if (res.data.code === 'CT007' || res.data.code === 'CT008') {
         setDeleteOpen(true);
+        setMessage(res.data.message);
+      } else if (res.data.code === 'AUTH006') {
+        setCustomOpen(true);
+        setMessage('로그인이 필요합니다.');
       } else {
         setCustomOpen(true);
+        setMessage(res.data.message);
       }
-      setMessage(res.data.message);
     } else {
       router.push(
         providerId ? pageRoute.customer.cart(String(providerId)) : '/'

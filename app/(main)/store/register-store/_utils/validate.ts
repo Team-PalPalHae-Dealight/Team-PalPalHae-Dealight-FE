@@ -11,7 +11,8 @@ export const isValidStorePhone = () => {
   return string()
     .required(ERROR_MESSAGE.STORE_REQUIRED)
     .matches(/^[0-9]+$/, ERROR_MESSAGE.STORE_NUMBER)
-    .length(10, ERROR_MESSAGE.STORE_LENGTH);
+    .min(9, ERROR_MESSAGE.STORE_LENGTH)
+    .max(10, ERROR_MESSAGE.STORE_LENGTH);
 };
 
 export const isValidStoreOpenTime = () => {
