@@ -29,5 +29,5 @@ export const isValidStoreNumber = () => {
   return string()
     .required(ERROR_MESSAGE.STORE_REQUIRED)
     .matches(/^[0-9]+$/, ERROR_MESSAGE.STORE_NUMBER)
-    .length(10, ERROR_MESSAGE.STORE_LENGTH);
+    .length(10, ERROR_MESSAGE.STORE_REGISTER);
 };
