@@ -1,5 +1,4 @@
 import Notification from '@/app/_components/notification/Notification';
-import BottomButtons from './_components/BottomButtons';
 import CustomerHeader from '@/app/_components/Header/CustomerHeader';
 import {
   HydrationBoundary,
@@ -11,6 +10,16 @@ import { Suspense } from 'react';
 import { getItem, itemKeys } from '@/app/_hooks/query/item';
 import CustomerFooter from '@/app/_components/Footer/CustomerFooter';
 import Spinner from '@/app/_components/spinner/Spinner';
+import dynamic from 'next/dynamic';
+
+const BottomButtons = dynamic(() => import('./_components/BottomButtons'), {
+  loading: () => (
+    <div className="flex h-60 items-center justify-center">
+      <Spinner />
+    </div>
+  ),
+  ssr: false,
+});
 
 export default async function Page({ params }: { params: { id: string } }) {
   const queryClient = new QueryClient();

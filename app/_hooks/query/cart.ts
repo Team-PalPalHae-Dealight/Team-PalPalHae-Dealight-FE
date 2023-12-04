@@ -1,5 +1,6 @@
 import { axiosInstance } from '@/app/_services/apiClient';
 import { useMutation, useSuspenseQuery } from '@tanstack/react-query';
+import { AxiosResponse } from 'axios';
 
 type CartListType = {
   carts: CartType[];
@@ -35,6 +36,23 @@ export const getCart = async (): Promise<CartListType> => {
   const data = response.data;
 
   return data;
+};
+
+export const postCart = async ({
+  itemId,
+  cartAdditionType,
+}: {
+  itemId: number;
+  cartAdditionType: 'check' | 'clear';
+}): Promise<AxiosResponse> => {
+  try {
+    const response = await axiosInstance.post(
+      `/carts/items?id=${itemId}&type=${cartAdditionType}`
+    );
+    return response;
+  } catch (error) {
+    return error.response;
+  }
 };
 
 export const patchCart = async ({
@@ -77,6 +95,12 @@ export const useGetCart = () => {
   return useSuspenseQuery({
     queryKey: ['cart'],
     queryFn: getCart,
+  });
+};
+
+export const usePostCart = () => {
+  return useMutation({
+    mutationFn: postCart,
   });
 };
 

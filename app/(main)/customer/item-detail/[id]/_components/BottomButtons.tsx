@@ -6,8 +6,9 @@ import pageRoute from '@/app/_constants/path';
 import PopUp from '@/app/_components/pop-up/PopUp';
 import { useUserInfo } from '@/app/_providers/UserInfoProvider';
 import { useState } from 'react';
-import { postCart } from '../../../cart/[id]/_services/postCart';
 import CustomPopUp from '@/app/_components/pop-up/CustomPopUp';
+import { usePostCart } from '@/app/_hooks/query/cart';
+import { useQueryClient } from '@tanstack/react-query';
 
 type ItemIdType = {
   itemId: string;
@@ -20,77 +21,93 @@ const BottomButtons = ({ itemId }: ItemIdType) => {
   const [message, setMessage] = useState('');
 
   const router = useRouter();
+  const queryClient = useQueryClient();
+
   const { providerId } = useUserInfo();
+  const { mutate: postCart } = usePostCart();
 
   const putCart = async () => {
-    const res = await postCart({
-      req: {
+    postCart(
+      {
         itemId: Number(itemId),
         cartAdditionType: 'check',
       },
-    });
-
-    if (res.status !== 200) {
-      if (res.data.code === 'CT003' || res.data.code === 'CT005') {
-        setClearOpen(true);
-        setMessage(res.data.message);
-      } else if (res.data.code === 'CT007' || res.data.code === 'CT008') {
-        setDeleteOpen(true);
-        setMessage(res.data.message);
-      } else if (res.data.code === 'AUTH006') {
-        setMessage('로그인이 필요합니다.');
-        setCustomOpen(true);
-      } else {
-        setCustomOpen(true);
-        setMessage(res.data.message);
+      {
+        onSuccess: async res => {
+          if (res.status !== 200) {
+            if (res.data.code === 'CT003' || res.data.code === 'CT005') {
+              setClearOpen(true);
+              setMessage(res.data.message);
+            } else if (res.data.code === 'CT007' || res.data.code === 'CT008') {
+              setDeleteOpen(true);
+              setMessage(res.data.message);
+            } else if (res.data.code === 'AUTH006') {
+              setMessage('로그인이 필요합니다.');
+              setCustomOpen(true);
+            } else {
+              setCustomOpen(true);
+              setMessage(res.data.message);
+            }
+          } else {
+            setMessage('해당 상품이 장바구니에 담겼습니다.');
+            setCustomOpen(true);
+          }
+          await queryClient.invalidateQueries({ queryKey: ['cart'] });
+        },
       }
-    } else {
-      setMessage('해당 상품이 장바구니에 담겼습니다.');
-      setCustomOpen(true);
-    }
+    );
   };
 
   const clearCart = async () => {
-    const res = await postCart({
-      req: {
+    postCart(
+      {
         itemId: Number(itemId),
         cartAdditionType: 'clear',
       },
-    });
-
-    console.log(res);
-
-    setMessage('해당 상품이 장바구니에 담겼습니다.');
-    setCustomOpen(true);
+      {
+        onSuccess: async () => {
+          setMessage('해당 상품이 장바구니에 담겼습니다.');
+          setCustomOpen(true);
+          await queryClient.invalidateQueries({ queryKey: ['cart'] });
+        },
+      }
+    );
   };
 
   const orderCart = async () => {
-    const res = await postCart({
-      req: {
+    postCart(
+      {
         itemId: Number(itemId),
         cartAdditionType: 'check',
       },
-    });
-
-    if (res.status !== 200) {
-      if (res.data.code === 'CT003' || res.data.code === 'CT005') {
-        setClearOpen(true);
-        setMessage(res.data.message);
-      } else if (res.data.code === 'CT007' || res.data.code === 'CT008') {
-        setDeleteOpen(true);
-        setMessage(res.data.message);
-      } else if (res.data.code === 'AUTH006') {
-        setCustomOpen(true);
-        setMessage('로그인이 필요합니다.');
-      } else {
-        setCustomOpen(true);
-        setMessage(res.data.message);
+      {
+        onSuccess: async res => {
+          if (res.status !== 200) {
+            if (res.data.code === 'CT003' || res.data.code === 'CT005') {
+              setClearOpen(true);
+              setMessage(res.data.message);
+            } else if (res.data.code === 'CT007' || res.data.code === 'CT008') {
+              setDeleteOpen(true);
+              setMessage(res.data.message);
+            } else if (res.data.code === 'AUTH006') {
+              setCustomOpen(true);
+              setMessage('로그인이 필요합니다.');
+            } else {
+              setCustomOpen(true);
+              setMessage(res.data.message);
+            }
+          } else {
+            await queryClient
+              .invalidateQueries({ queryKey: ['cart'] })
+              .then(() => {
+                router.push(
+                  providerId ? pageRoute.customer.cart(String(providerId)) : '/'
+                );
+              });
+          }
+        },
       }
-    } else {
-      router.push(
-        providerId ? pageRoute.customer.cart(String(providerId)) : '/'
-      );
-    }
+    );
   };
 
   return (
