@@ -93,5 +93,52 @@
 <h2>
   🎯 주요 기능
 </h2>
+<details>
+<summary> 고객 </summary>
+<div markdown="1">
 
-- 시연 영상 촬영 후 삽입
+|메인화면|회원가입|가게 검색|
+|--|--|--|
+|![고객-메인](https://github.com/Team-PalPalHae-Dealight/Team-PalPalHae-Dealight-BE/assets/49016275/3978aa3f-f8bb-4fc1-b4e8-71d3178ae770)|![고객-회원가입](https://github.com/Team-PalPalHae-Dealight/Team-PalPalHae-Dealight-BE/assets/49016275/6648d03c-7394-41f9-8fc2-34f3b6e6ffb2)|![업체 검색](https://github.com/Team-PalPalHae-Dealight/Team-PalPalHae-Dealight-BE/assets/49016275/75ec04f2-e029-4ef3-aa61-041c11fbf29a)|--|--|
+
+|장바구니|주문|리뷰 작성|
+|--|--|--|
+![장바구니](https://github.com/Team-PalPalHae-Dealight/Team-PalPalHae-Dealight-BE/assets/49016275/5b96fbaa-643b-4bb0-8559-6fee58f80cf8)|![주문](https://github.com/Team-PalPalHae-Dealight/Team-PalPalHae-Dealight-BE/assets/49016275/5b01824e-459c-444f-93ef-f13f6ef9afb0)|![고객-리뷰](https://github.com/Team-PalPalHae-Dealight/Team-PalPalHae-Dealight-BE/assets/49016275/2075cd64-6137-491c-a4a6-6aa1706e58d2)|
+
+
+</div>
+</details>
+
+
+<details>
+<summary> 업체 </summary>
+<div markdown="1">
+
+|업체 등록|상품 등록|마이페이지|업체 정보 수정|
+|--|--|--|--|
+|![업체등록](https://github.com/Team-PalPalHae-Dealight/Team-PalPalHae-Dealight-BE/assets/49016275/1a0ffd1d-2f47-43a5-8a1f-c68dbe507acc)|![상품등록](https://github.com/Team-PalPalHae-Dealight/Team-PalPalHae-Dealight-BE/assets/49016275/299601ac-c59c-4a9d-8ecc-bad2eb2419f8)|![업체 마이페이지](https://github.com/Team-PalPalHae-Dealight/Team-PalPalHae-Dealight-BE/assets/49016275/50caf2d1-7bc7-439a-972a-64543a99c68b)|![업체 마이페이지-업체관리](https://github.com/Team-PalPalHae-Dealight/Team-PalPalHae-Dealight-BE/assets/49016275/4fa9d3fd-a4b6-4ddd-a406-6e9e66ffe980)|
+
+</div>
+</details>
+
+
+
+<details>
+<summary> 업체 & 고객 - 주문 관련 </summary>
+<div markdown="1">
+
+|주문 승인|
+|--|
+|![주문 승인](https://github.com/Team-PalPalHae-Dealight/Team-PalPalHae-Dealight-BE/assets/49016275/f4c189c1-c368-41fd-9ad7-aecebbab43c2)|
+
+|주문 완료(상품 수령 후)|
+|--|
+|![주문 완료](https://github.com/Team-PalPalHae-Dealight/Team-PalPalHae-Dealight-BE/assets/49016275/3efc1782-0bca-4dc4-9fed-cabeaa65161c)|
+
+|주문 거절|
+|--|
+|![주문 거절](https://github.com/Team-PalPalHae-Dealight/Team-PalPalHae-Dealight-BE/assets/49016275/ef107a26-72ba-4960-b1f3-df427cf811fa)|
+
+</div>
+</details>
+
